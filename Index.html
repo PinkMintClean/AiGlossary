@@ -240,7 +240,6 @@ const keywordSynonyms = {
 };
 
 
-
         const selectedKeywords = new Set();
         let selectedBodyType = null;
         const promptOutput = document.getElementById('prompt-output');
@@ -287,12 +286,35 @@ const keywordSynonyms = {
                         subCategoryDiv.appendChild(descriptionP);
                     }
 
-                    // Add image placeholder for body types
                     if (isBodyTypeCategory) {
                         const img = document.createElement('img');
-                        // Use a simple placeholder image; you can replace this URL with your own
-                        img.src = `https://placehold.co/300x200/e5e7eb/4f46e5?text=${subCategory.name}`;
-                        img.alt = `Placeholder image for ${subCategory.name} body type`;
+                        let imageUrl = '';
+                        let imageAlt = '';
+
+                        // Use a switch statement to select a specific image for each body type
+                        switch (subCategory.name) {
+                            case 'Ectomorph':
+                                // PASTE YOUR CUSTOM IMAGE LINK HERE FOR ECTOMORPH
+                                imageUrl = 'https://placehold.co/300x200/e5e7eb/4f46e5?text=Ectomorph';
+                                imageAlt = 'Image representing the Ectomorph body type';
+                                break;
+                            case 'Mesomorph':
+                                // PASTE YOUR CUSTOM IMAGE LINK HERE FOR MESOMORPH
+                                imageUrl = 'https://placehold.co/300x200/e5e7eb/4f46e5?text=Mesomorph';
+                                imageAlt = 'Image representing the Mesomorph body type';
+                                break;
+                            case 'Endomorph':
+                                // PASTE YOUR CUSTOM IMAGE LINK HERE FOR ENDOMORPH
+                                imageUrl = 'https://placehold.co/300x200/e5e7eb/4f46e5?text=Endomorph';
+                                imageAlt = 'Image representing the Endomorph body type';
+                                break;
+                            default:
+                                imageUrl = 'https://placehold.co/300x200/e5e7eb/4f46e5?text=Body+Type';
+                                imageAlt = 'Placeholder image for a body type';
+                        }
+                        
+                        img.src = imageUrl;
+                        img.alt = imageAlt;
                         img.className = 'image-placeholder';
                         subCategoryDiv.appendChild(img);
                     }
