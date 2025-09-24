@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Universal Body-Positive Glossary & Prompt Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #111827;
+                color: #e5e7eb;
+            }
+        }
+        .glossary-item {
+            display: none;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .glossary-item.active {
+            display: block;
+        }
+        .glossary-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .highlight {
+            background-color: yellow;
+            color: black;
+            font-weight: bold;
+        }
+        @media (prefers-color-scheme: dark) {
+            .highlight {
+                background-color: #fca5a5;
+                color: black;
+            }
+        }
+        .keyword-list {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            line-height: 1.5;
+        }
+        .keyword-list li {
+            margin-bottom: 0.25rem;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="container mx-auto max-w-7xl bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 md:p-12 transition-colors duration-300">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">The Universal Body-Positive Glossary</h1>
+            <p class="text-md text-gray-600 dark:text-gray-400">A guide for creating beautiful and diverse human figures. Every body is valid and beautiful.</p>
+        </header>
+
+        <!-- Prompt Builder Section -->
+        <section class="mb-8 p-6 bg-blue-50 dark:bg-blue-950 rounded-xl border border-blue-200 dark:border-blue-800">
+            <h2 class="text-xl md:text-2xl font-bold text-blue-800 dark:text-blue-300 mb-4">Your Custom Prompt:</h2>
+            <textarea id="promptBuilder" class="w-full h-32 p-3 text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your prompt will appear here as you select keywords..."></textarea>
+            <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mt-4">
+                <button onclick="copyPrompt()" class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200">Copy Prompt</button>
+                <button onclick="clearPrompt()" class="px-6 py-2 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transition-colors duration-200">Clear</button>
+            </div>
+        </section>
+
+        <!-- Search & Filter Section -->
+        <div class="mb-8 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner">
+            <input type="text" id="searchInput" placeholder="Search for a descriptor..." class="w-full p-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors duration-300">
+        </div>
+
+        <!-- Glossary Content -->
+        <div id="glossary-container">
+            
+            <!-- Section: Human Physique & Ratios -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">Human Physique & Ratios</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Ectomorph Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[physique ectomorph]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Ectomorph</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Somatotype</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">A lean, slender build with a high metabolism. Often has narrow shoulders and hips and a long, graceful frame.</p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+<li>lean</li>
+<li>lanky</li>
+<li>slim</li>
+<li>slender</li>
+<li>slight</li>
+<li>svelte</li>
+<li>narrow-shouldered</li>
+<li>narrow-hipped</li>
+<li>long-limbed</li>
+<li>long-legged</li>
+<li>long-armed</li>
+<li>delicate frame</li>
+<li>fine-boned</li>
+<li>light frame</li>
+<li>low body fat</li>
+<li>flat chest</li>
+<li>small chest</li>
+<li>small bust</li>
+<li>linear silhouette</li>
+<li>fast metabolism</li>
+<li>difficulty gaining weight</li>
+<li>difficulty gaining muscle</li>
+<li>ectomorphic</li>
+<li>narrow waist</li>
+<li>low muscle mass</li>
+<li>low adiposity</li>
+<li>angular</li>
+<li>elongated torso</li>
+<li>narrow clavicles</li>
+<li>slender wrists</li>
+<li>slender ankles</li>
+<li>small wrists</li>
+<li>low fat deposits</li>
+<li>minimal curves</li>
+<li>gracile</li>
+<li>willowy</li>
+<li>twig-like</li>
+<li>rail-thin</li>
+<li>gaunt (use cautiously)</li>
+<li>spare</li>
+<li>lithe</li>
+<li>slim-hipped</li>
+<li>straight waist</li>
+<li>rectangular torso</li>
+<li>slim profile</li>
+<li>low subcutaneous fat</li>
+<li>lean muscle</li>
+<li>slim calves</li>
+<li>slim thighs</li>
+<li>low BMI tendency</li>
+<li>skinny-fat possibility</li>
+<li>narrow pelvis</li>
+<li>shallow chest cavity</li>
+<li>narrow ribcage</li>
+<li>underweight tendency (clinical)</li>
+<li>sprinter vs distance runner silhouette</li>
+<li>high metabolism</li>
+<li>ectomorphic-athletic</li>
+<li>delicate musculature</li>
+<li>minimal bulk</li>
+<li>elongated neck</li>
+<li>small posterior</li>
+<li>slim glutes</li>
+<li>low visceral fat (relative)</li>
+<li>low BMI</li>
+<li>clothes hang loosely</li>
+<li>needs caloric surplus</li>
+<li>ecto</li>
+<li>slenderized</li>
+<li>linear proportions</li>
+<li>compact joints</li>
+<li>small joints</li>
+<li>slight musculature</li>
+<li>thin skin appearance</li>
+<li>fine musculature detail</li>
+<li>narrow facial features</li>
+<li>thin face</li>
+<li>small jaw</li>
+<li>long neck</li>
+<li>elongated fingers</li>
+<li>narrow hands</li>
+<li>subtle musculature definition</li>
+<li>modeling frame</li>
+<li>runway frame</li>
+<li>high-shoulder-to-hip ratio (narrow)</li>
+<li>low mass distribution</li>
+<li>featherlike</li>
+<li>minimalist silhouette</li>
+<li>needle-like limbs</li>
+<li>fragile-looking</li>
+<li>slim silhouette</li>
+<li>slight curvature</li>
+<li>angular bone structure</li>
+<li>light bone density (perception)</li>
+<li>minimal soft tissue</li>
+<li>subtle posture changes</li>
+<li>endurance-friendly frame</li>
+<li>efficiency-of-metabolism</li>
+<li>ectomorph-lean</li>
+<li>narrow-footprint</li>
+<li>subtle musculature tone</li>
+<li>delicate joints</li>
+<li>linear contour</li>
+<li>thin-limbed</li>
+<li>elongated proportions</li>
+<li>underdeveloped bulk</li>
+<li>stringy-muscle (fitness slang)</li>
+<li>slim athlete</li>
+<li>racing physique.</li>
+                            </ul>
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">Example Ratios:</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[bust-waist-hip ratio 1:0.8:1]">1:0.8:1</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[lean physique]">Lean Physique</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                            [Placeholder for Ectomorph image]
+                        </div>
+                    </div>
+
+                    <!-- Mesomorph Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[physique mesomorph]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Mesomorph</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Somatotype</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">A naturally athletic and muscular build. Known for a strong, balanced frame and robust proportions.</p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+<li>athletic</li>
+<li>muscular</li>
+<li>broad-shouldered</li>
+<li>medium frame</li>
+<li>solid build</li>
+<li>naturally muscular</li>
+<li>strong</li>
+<li>balanced proportions</li>
+<li>even fat distribution</li>
+<li>easy muscle gain</li>
+<li>mesomorphic</li>
+<li>square-shaped physique</li>
+<li>defined chest</li>
+<li>defined shoulders</li>
+<li>V-shaped torso (male tendency)</li>
+<li>tapered waist</li>
+<li>prominent deltoids</li>
+<li>pronounced traps</li>
+<li>thick torso</li>
+<li>dense musculature</li>
+<li>muscular legs</li>
+<li>powerful quads</li>
+<li>defined hamstrings</li>
+<li>strong glutes</li>
+<li>pronounced calves</li>
+<li>toned</li>
+<li>ripped potential</li>
+<li>lean muscle mass</li>
+<li>moderate metabolism</li>
+<li>meso-athlete</li>
+<li>compact-powerful</li>
+<li>athletic posture</li>
+<li>medium bone structure</li>
+<li>efficient metabolism</li>
+<li>performance-ready</li>
+<li>sculpted</li>
+<li>well-proportioned</li>
+<li>chiseled</li>
+<li>sturdy</li>
+<li>robust</li>
+<li>powerbuilt</li>
+<li>meso</li>
+<li>thick wrists</li>
+<li>wrist-to-shoulder proportion</li>
+<li>strong jawline</li>
+<li>broad chest</li>
+<li>chest cavity present</li>
+<li>muscular back</li>
+<li>lat development</li>
+<li>visible muscle striations</li>
+<li>vascular potential</li>
+<li>low-to-moderate body fat</li>
+<li>athletic silhouette</li>
+<li>boxing-like frame</li>
+<li>weightlifting-friendly</li>
+<li>power athlete physique</li>
+<li>natural muscle tone</li>
+<li>balanced limb proportions</li>
+<li>square shoulders</li>
+<li>belt-friendly waist</li>
+<li>muscular midsection</li>
+<li>capacity for hypertrophy</li>
+<li>mesomorph-lean</li>
+<li>mesomorph-bulky (can go both ways)</li>
+<li>broad clavicles</li>
+<li>medium height normal</li>
+<li>athletic torso</li>
+<li>strength-endurance balance</li>
+<li>functional strength look</li>
+<li>bodybuilder-friendly</li>
+<li>sprinter build</li>
+<li>dynamic posture</li>
+<li>sporting build</li>
+<li>bulging biceps</li>
+<li>sculpted delts</li>
+<li>defined abs</li>
+<li>fit-and-toned</li>
+<li>muscular-density</li>
+<li>firm musculature</li>
+<li>robust core</li>
+<li>stable hip-to-shoulder ratio</li>
+<li>flexible mass distribution</li>
+<li>visually strong</li>
+<li>military-style frame</li>
+<li>compact power</li>
+<li>athletic mass</li>
+<li>frame-ready</li>
+<li>proportionate silhouette</li>
+<li>classic athletic</li>
+<li>gym-ready</li>
+<li>high strength-to-weight</li>
+<li>performance frame</li>
+<li>columnar muscle blocks</li>
+<li>crisp musculature definition</li>
+<li>natural leanness under training</li>
+<li>athletic aesthetic</li>
+<li>weightclass-friendly</li>
+<li>mesomorph-classic</li>
+<li>muscular-rectangular</li>
+<li>dense bones (perception)</li>
+<li>moderate limb length</li>
+<li>powerful shoulders</li>
+<li>well-developed traps</li>
+<li>pronounced pectorals.</li>
+                            </ul>
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">Example Ratios:</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[bust-waist-hip ratio 1:0.75:1]">1:0.75:1</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[athletic build]">Athletic Build</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                            [Placeholder for Mesomorph image]
+                        </div>
+                    </div>
+
+                    <!-- Endomorph Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[physique endomorph]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Endomorph</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Somatotype</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">A fuller, softer build with a higher body fat percentage. Often has a strong frame, rounder features, and can easily build muscle.</p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+<li>curvy</li>
+<li>full-figured</li>
+<li>robust</li>
+<li>statuesque</li>
+<li>ample</li>
+<li>voluptuous</li>
+<li>plush</li>
+<li>rounded</li>
+<li>round</li>
+<li>soft</li>
+<li>stocky</li>
+<li>broad</li>
+<li>wider-hipped</li>
+<li>wide-waist</li>
+<li>higher body fat tendency</li>
+<li>endomorphic</li>
+<li>fuller figure</li>
+<li>rounded torso</li>
+<li>chunky (colloquial)</li>
+<li>thickset</li>
+<li>dense</li>
+<li>wide-frame</li>
+<li>slower metabolism tendency</li>
+<li>stores fat easily</li>
+<li>pear-ish (if hips dominant)</li>
+<li>apple-ish (if midsection dominant)</li>
+<li>robust</li>
+<li>large-boned</li>
+<li>heavyset (use carefully)</li>
+<li>cushiony</li>
+<li>plush</li>
+<li>padded soft tissue</li>
+<li>soft musculature</li>
+<li>visible mass</li>
+<li>fuller limbs</li>
+<li>shorter limbs (often)</li>
+<li>shorter neck</li>
+<li>broad clavicles (sometimes)</li>
+<li>medium-to-large bone structure</li>
+<li>easy-to-gain weight</li>
+<li>difficulty losing weight</li>
+<li>soft abs</li>
+<li>rounded shoulders</li>
+<li>fuller back</li>
+<li>prominent hips</li>
+<li>fuller glutes</li>
+<li>wide pelvis</li>
+<li>plump</li>
+<li>curvaceous (when female-presenting)</li>
+<li>anthropometric larger waist circumference</li>
+<li>thick thighs</li>
+<li>broad thighs</li>
+<li>short torso (relative)</li>
+<li>soft contours</li>
+<li>smooth silhouette</li>
+<li>steady strength potential</li>
+<li>strong in static lifts</li>
+<li>natural mass</li>
+<li>belly fullness</li>
+<li>thick midsection</li>
+<li>steady gains</li>
+<li>higher BMI tendency</li>
+<li>adipose-prone</li>
+<li>substantial build</li>
+<li>rounded contours</li>
+<li>voluminous silhouette</li>
+<li>rounded cheeks</li>
+<li>soft facial fullness</li>
+<li>fuller jawline</li>
+<li>double-chin possibility (context sensitive)</li>
+<li>dense connective tissue</li>
+<li>short limbs-to-torso ratio</li>
+<li>powerful lower body</li>
+<li>squat-friendly frame</li>
+<li>sheer-mass</li>
+<li>gravitational fullness</li>
+<li>ample soft tissue</li>
+<li>fuller chest</li>
+<li>heavy-set-lean</li>
+<li>endo</li>
+<li>body-mass-retentive</li>
+<li>curvy-plus</li>
+<li>plush-muscle</li>
+<li>natural bulk</li>
+<li>mass-bearing frame</li>
+<li>wide hip-to-shoulder ratio (varies)</li>
+<li>broad pelvis</li>
+<li>hemicircular silhouette</li>
+<li>weight-holding physique</li>
+<li>warm-rounded lines</li>
+<li>cushion-like</li>
+<li>steady-power</li>
+<li>reinforced core</li>
+<li>thick torso</li>
+<li>broad midline</li>
+<li>soft-sculpted</li>
+<li>rounded hipline</li>
+<li>fuller posterior</li>
+<li>generous silhouette</li>
+<li>cozy-built (colloquial)</li>
+<li>sturdy</li>
+<li>heavy-lean</li>
+<li>robust-curve.</li>
+                            </ul>
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">Example Ratios:</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[bust-waist-hip ratio 1:0.9:1.2]">1:0.9:1.2</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[full-figured]">Full-Figured</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                            [Placeholder for Endomorph image]
+                        </div>
+                    </div>
+
+                    <!-- Pear / Triangle Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[shape pear]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Pear / Triangle</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Body Shape</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">Hips are wider than the shoulders. Weight tends to be carried in the buttocks and thighs, with a well-defined waist.</p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+<li>pear-shaped</li>
+<li>narrow shoulders</li>
+<li>wider hips</li>
+<li>hip-dominant</li>
+<li>defined waist</li>
+<li>smaller bust</li>
+<li>slim upper body</li>
+<li>fuller hips</li>
+<li>shapely hips</li>
+<li>pronounced hip curve</li>
+<li>lower-body focused mass</li>
+<li>A-line silhouette</li>
+<li>defined waistline</li>
+<li>narrow upper chest</li>
+<li>slim arms</li>
+<li>thigh prominence</li>
+<li>booty-forward</li>
+<li>glute-dominant</li>
+<li>hip flare</li>
+<li>curvy lower half</li>
+<li>proportionally larger hips</li>
+<li>hourglass-adjacent (but lower heavy)</li>
+<li>triangular silhouette</li>
+<li>rounded hips</li>
+<li>saddlebag tendency</li>
+<li>lower-body curves</li>
+<li>wider femoral region</li>
+<li>pelvic prominence</li>
+<li>lower-torso bulk</li>
+<li>proportionally small bust</li>
+<li>prominent hip bones (depending)</li>
+<li>graceful waist indentation</li>
+<li>longer torso illusion (with clothes)</li>
+<li>flare from waist</li>
+<li>narrow shoulder line</li>
+<li>hip-span greater than shoulder-span</li>
+<li>lean on top heavy on bottom</li>
+<li>balancing-top styling (fashion term)</li>
+<li>skirt-friendly hips</li>
+<li>full-seat</li>
+<li>lower-body contour</li>
+<li>defined waist-to-hip contrast</li>
+<li>hip dips (possible)</li>
+<li>concerto-hip</li>
+<li>anatomical pelvis prominence</li>
+<li>rounded posterior</li>
+<li>fuller thigh crease</li>
+<li>heavy hemline effect (fashion)</li>
+<li>high hip curve</li>
+<li>demi-curvy</li>
+<li>pear-figure</li>
+<li>bottom-heavy</li>
+<li>lower-limb prominence</li>
+<li>hip-laden</li>
+<li>feminine-lower-shape</li>
+<li>visually bottom-heavy</li>
+<li>pelvis-forward</li>
+<li>leg-emphasized</li>
+<li>narrow clavicle</li>
+<li>small bustline</li>
+<li>sloping shoulders</li>
+<li>waist cinch</li>
+<li>flared silhouette</li>
+<li>ballgown-fit</li>
+<li>hips-first silhouette</li>
+<li>gusset prominence (technical)</li>
+<li>hip circumference > bust circumference</li>
+<li>gentle torso taper</li>
+<li>hip-to-waist ratio emphasis</li>
+<li>rear fullness</li>
+<li>lower half emphasis</li>
+<li>compact upper half</li>
+<li>lower trunk dominance</li>
+<li>gluteal prominence</li>
+<li>thigh fullness</li>
+<li>hip silhouette</li>
+<li>modest upper chest</li>
+<li>streamlined arms</li>
+<li>narrow neckline.</li>
+                            </ul>
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">Example Ratios:</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[bust-waist-hip ratio 1:0.7:1.2]">1:0.7:1.2</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[curvy lower body]">Curvy Lower Body</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                            [Placeholder for Pear / Triangle image]
+                        </div>
+                    </div>
+
+                    <!-- Inverted Triangle Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[shape inverted triangle]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Inverted Triangle</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Body Shape</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">Shoulders are wider than the hips. Weight is typically carried in the upper body and chest, creating a V-shaped silhouette.</p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+<li>inverted-triangle</li>
+<li>broad-shouldered</li>
+<li>broad upper body</li>
+<li>narrow hips</li>
+<li>V-shaped torso</li>
+<li>athletic shoulders</li>
+<li>swimmer’s build</li>
+<li>strong deltoids</li>
+<li>wide clavicles</li>
+<li>chest-dominant</li>
+<li>powerful upper back</li>
+<li>tapered lower body</li>
+<li>straight hips</li>
+<li>slim hips</li>
+<li>top-heavy</li>
+<li>broad back</li>
+<li>trapezoid silhouette</li>
+<li>shoulder-span > hip-span</li>
+<li>dramatic shoulder line</li>
+<li>strong pectorals</li>
+<li>defined upper torso</li>
+<li>upper-body emphasis</li>
+<li>triangular-inverse</li>
+<li>broad chest cavity</li>
+<li>narrow pelvic region</li>
+<li>slim legs</li>
+<li>lean lower half</li>
+<li>boat-shoulder feel</li>
+<li>strong clavicles</li>
+<li>bra-friendly upper</li>
+<li>shoulder-dominant</li>
+<li>swimmer silhouette</li>
+<li>upper-mass concentration</li>
+<li>bold upper-line</li>
+<li>shoulder-grazing</li>
+<li>pronounced upper musculature</li>
+<li>thick shoulders</li>
+<li>firm upper torso</li>
+<li>compact waist</li>
+<li>narrow hips contrast</li>
+<li>collarbone prominence</li>
+<li>shoulder prominence</li>
+<li>izumi-shoulder (colloquial)</li>
+<li>strong-arm silhouette</li>
+<li>limited hip curve</li>
+<li>angular shoulders</li>
+<li>suit-shoulder silhouette</li>
+<li>torso tapering</li>
+<li>athletic V</li>
+<li>bulky-chest potential</li>
+<li>narrow pelvic base</li>
+<li>minimal hip curve</li>
+<li>masculine V</li>
+<li>top-heavy-athletic</li>
+<li>high-shoulder-to-hip ratio</li>
+<li>broad upper-line</li>
+<li>truncated lower curve</li>
+<li>slim thigh-line</li>
+<li>upper-body focus.</li>
+                            </ul>
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">Example Ratios:</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[bust-waist-hip ratio 1.2:0.8:1]">1.2:0.8:1</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[broad shoulders]">Broad Shoulders</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                            [Placeholder for Inverted Triangle image]
+                        </div>
+                    </div>
+
+                    <!-- Rectangle Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[shape rectangle]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Rectangle</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Body Shape</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">Hips and shoulders are of similar width, with little to no waist definition, creating a straight, athletic silhouette.</p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+<li>rectangle-shaped</li>
+<li>straight torso</li>
+<li>boxy</li>
+<li>straight-up-and-down</li>
+<li>athletic</li>
+<li>balanced shoulders and hips</li>
+<li>low waist definition</li>
+<li>rectangular silhouette</li>
+<li>columnar torso</li>
+<li>linear torso</li>
+<li>even proportions</li>
+<li>narrow waist (not defined)</li>
+<li>lean-muscular</li>
+<li>sporting frame</li>
+<li>swimmer build (if broad shoulders)</li>
+<li>meso-lean</li>
+<li>straight figure</li>
+<li>minimal waist indentation</li>
+<li>even distribution</li>
+<li>streamlined</li>
+<li>tubular shape</li>
+<li>rectangular-fit</li>
+<li>blocky shoulders</li>
+<li>symmetrical outline</li>
+<li>straight-lines</li>
+<li>fit-but-not-curvy</li>
+<li>androgynous silhouette</li>
+<li>balanced-limb proportions</li>
+<li>uniform width</li>
+<li>torso continuity</li>
+<li>slight curves only</li>
+<li>slim-column profile</li>
+<li>medium bone structure</li>
+<li>athletic baseline</li>
+<li>practical-fit</li>
+<li>straight-hip</li>
+<li>low-curve silhouette</li>
+<li>rectangular-chest</li>
+<li>uniform torso breadth</li>
+<li>narrow waist-to-hip contrast</li>
+<li>athletic stance</li>
+<li>neutral-curvature</li>
+<li>crisp lines</li>
+<li>lean-proportion</li>
+<li>minimal hip flare</li>
+<li>linear-proportion</li>
+<li>simple contour</li>
+<li>flat-hip</li>
+<li>even mass dispersion</li>
+<li>subtle waist</li>
+<li>neutral silhouette</li>
+<li>straight-limbed</li>
+<li>proportionate length</li>
+<li>long torso (sometimes)</li>
+<li>compact rectangle</li>
+<li>sporting-ready</li>
+<li>gear-friendly silhouette</li>
+<li>unaccented middle</li>
+<li>clean-line profile</li>
+<li>classic-fit-friendly</li>
+<li>fashion-straight</li>
+<li>utility-frame</li>
+<li>dress-for-straight</li>
+<li>square-ish</li>
+<li>firm-core</li>
+<li>athletic rectangle</li>
+<li>balanced-structure</li>
+<li>performance-oriented</li>
+<li>lean-sporty</li>
+<li>even-measure</li>
+<li>block silhouette.</li>
+                            </ul>
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">Example Ratios:</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[bust-waist-hip ratio 1:0.95:1]">1:0.95:1</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[straight build]">Straight Build</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                            [Placeholder for Rectangle image]
+                        </div>
+                    </div>
+
+                    <!-- Hourglass Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[shape hourglass]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Hourglass</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Body Shape</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">Hips and bust are of similar width, with a well-defined and narrow waist, creating a classic curvy shape.</p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+<li>hourglass</li>
+<li>balanced bust & hips</li>
+<li>defined waist</li>
+<li>curvaceous</li>
+<li>symmetrical upper-lower</li>
+<li>proportional bust-hip</li>
+<li>pronounced waist indentation</li>
+<li>classic feminine silhouette</li>
+<li>1:1 bust-to-hip proportion (approx)</li>
+<li>curvy waistline</li>
+<li>feminine hourglass</li>
+<li>balanced proportions</li>
+<li>voluptuous yet proportional</li>
+<li>narrow waist with full bust/hips</li>
+<li>well-defined midriff</li>
+<li>natural-waist emphasis</li>
+<li>structured silhouette</li>
+<li>cinched-waist look</li>
+<li>bra-friendly bust</li>
+<li>full bust</li>
+<li>round hips</li>
+<li>balanced body lines</li>
+<li>curvy silhouette</li>
+<li>sash-waist</li>
+<li>waist-to-hip contrast</li>
+<li>midriff definition</li>
+<li>body symmetry</li>
+<li>body curves</li>
+<li>figure-eight silhouette</li>
+<li>sculpted torso</li>
+<li>full bustline</li>
+<li>full posterior</li>
+<li>waist pinch</li>
+<li>bust prominence</li>
+<li>hip prominence</li>
+<li>hourglass-iconic</li>
+<li>waist-training-friendly (fashion term)</li>
+<li>classic figure</li>
+<li>tailored-fit</li>
+<li>corset-friendly</li>
+<li>proportionate curves</li>
+<li>feminine balance</li>
+<li>bust-hip equilibrium</li>
+<li>waist accentuation</li>
+<li>seamless curves</li>
+<li>balanced shoulder-hip width</li>
+<li>gentle taper at waist</li>
+<li>sculpted contour</li>
+<li>soft curvature</li>
+<li>hourglass-proportion</li>
+<li>contouring-friendly</li>
+<li>bicomponent symmetry</li>
+<li>stabilized center of mass (visual)</li>
+<li>curvaceous frame</li>
+<li>waist emphasis styling</li>
+<li>contour-friendly</li>
+<li>bust-and-hip synergy</li>
+<li>figure-focused</li>
+<li>balanced-lower-upper</li>
+<li>shapely curves</li>
+<li>voluptuous-chic</li>
+<li>midsection-narrowing</li>
+<li>hip-rounded</li>
+<li>bosom-present</li>
+<li>narrow-midriff</li>
+<li>elegant-curves</li>
+<li>idealized silhouette</li>
+<li>proportionate trunk</li>
+<li>symmetrical silhouette.</li>
+                            </ul>
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">Example Ratios:</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[bust-waist-hip ratio 1:0.7:1]">1:0.7:1</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[curvy figure]">Curvy Figure</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                            [Placeholder for Hourglass image]
+                        </div>
+                    </div>
+
+                    <!-- Oval / Apple Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[shape oval]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Oval / Apple</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Body Shape</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">Weight tends to be carried around the torso and abdomen, with slender legs and a broader midsection. </p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+<li>oval-shaped</li>
+<li>apple-shaped</li>
+<li>round torso</li>
+<li>broad midsection</li>
+<li>slender legs</li>
+<li>narrow hips</li>
+<li>fuller abdomen</li>
+<li>undefined waist</li>
+<li>midsection focus</li>
+<li>top-heavy</li>
+<li>round upper body</li>
+<li>full chest</li>
+<li>flat posterior</li>
+<li>slim hips</li>
+<li>fuller upper body</li>
+<li>centralized weight</li>
+<li>belly-prominent</li>
+<li>abdomen-forward</li>
+<li>slender lower body</li>
+<li>thinner legs and arms</li>
+<li>round silhouette</li>
+<li>torso-centric mass</li>
+<li>apple-figure</li>
+<li>central-mass</li>
+<li>wide waist</li>
+<li>uniform middle</li>
+<li>rounded silhouette</li>
+<li>low-waist-definition</li>
+<li>circular torso</li>
+<li>barrel-chest (male)</li>
+<li>wide ribcage</li>
+<li>upper-torso-focus</li>
+<li>waist-lacking</li>
+<li>gentle slope from shoulders</li>
+<li>no-hip-curve</li>
+<li>slim-legged</li>
+<li>top-heavy silhouette</li>
+<li>minimal hip flare</li>
+<li>fuller arms</li>
+<li>upper-body roundness</li>
+<li>torso-broadness</li>
+<li>circular form</li>
+<li>rounded-proportions</li>
+<li>stomach-prominent</li>
+<li>waist-wide</li>
+<li>midriff-full</li>
+<li>fuller back</li>
+<li>ample chest</li>
+<li>narrow-legged</li>
+<li>broad-ribcage</li>
+<li>apple-like profile</li>
+<li>oval-figure</li>
+<li>top-heavy-curvy</li>
+<li>round-core</li>
+<li>central-mass-concentration</li>
+<li>broad-torso</li>
+<li>stomach-centered</li>
+<li>full-midsection.</li>
+                            </ul>
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">Example Ratios:</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[bust-waist-hip ratio 1.1:1.2:1]">1.1:1.2:1</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[rounded figure]">Rounded Figure</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                            [Placeholder for Oval / Apple image]
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section: Bust -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">Bust</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Smaller Bust Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[bust smaller]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Smaller Bust Keywords</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Anatomical Descriptor</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">Terms to describe a smaller, more understated chest size and silhouette. These words are ideal for creating a lean, delicate, or athletic look.</p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+                                <li>petite chest</li>
+                                <li>flat chest</li>
+                                <li>modest bustline</li>
+                                <li>subtle bust</li>
+                                <li>streamlined bust</li>
+                                <li>minimal chest</li>
+                                <li>narrow bust</li>
+                                <li>delicate bustline</li>
+                                <li>understated chest</li>
+                                <li>refined chest</li>
+                                <li>trim chest</li>
+                                <li>lean bustline</li>
+                                <li>compact bust</li>
+                                <li>athletic chest</li>
+                                <li>subtle curves</li>
+                                <li>graceful bust</li>
+                                <li>modest proportions</li>
+                                <li>flat silhouette</li>
+                                <li>straight silhouette</li>
+                                <li>understated profile</li>
+                                <li>smooth bustline</li>
+                                <li>light chest</li>
+                                <li>slender chest</li>
+                                <li>petite bust</li>
+                                <li>balanced bustline</li>
+                                <li>demure chest</li>
+                                <li>restrained bust</li>
+                                <li>natural chest</li>
+                                <li>soft outline</li>
+                                <li>neat bust</li>
+                                <li>toned bustline</li>
+                                <li>gentle contour</li>
+                                <li>sleek bustline</li>
+                                <li>reduced profile</li>
+                                <li>small-scale bust</li>
+                                <li>tidy chest</li>
+                                <li>minimal volume</li>
+                                <li>featherlight chest</li>
+                                <li>contour-less torso</li>
+                                <li>simple chest line</li>
+                                <li>subdued bust</li>
+                                <li>fine bustline</li>
+                                <li>low-profile chest</li>
+                                <li>slender profile</li>
+                                <li>tapered bustline</li>
+                                <li>contained chest</li>
+                                <li>streamlined torso</li>
+                                <li>chest in proportion</li>
+                                <li>harmonized torso</li>
+                                <li>straight ribcage</li>
+                                <li>compact bustline</li>
+                                <li>uniform chest area</li>
+                                <li>trim bust profile</li>
+                                <li>abbreviated chest</li>
+                                <li>discreet bustline</li>
+                                <li>clean bustline</li>
+                                <li>subtle contour</li>
+                                <li>reduced projection</li>
+                                <li>even chest line</li>
+                                <li>chest minimized</li>
+                                <li>smooth bust area</li>
+                                <li>torso-defined chest</li>
+                                <li>petite torso curve</li>
+                                <li>small-chested figure</li>
+                                <li>controlled silhouette</li>
+                                <li>torso-slim</li>
+                                <li>bust-slim</li>
+                                <li>bust-flat</li>
+                                <li>bust-soft</li>
+                                <li>bust-minimal</li>
+                                <li>bust-neat</li>
+                                <li>bust-trim</li>
+                                <li>bust-straight</li>
+                                <li>bust-light</li>
+                                <li>bust-tapered</li>
+                                <li>bust-lean</li>
+                                <li>bust-contained</li>
+                                <li>bust-uniform</li>
+                                <li>bust-proportionate</li>
+                                <li>slim-fit top</li>
+                                <li>bandeau fit</li>
+                                <li>unlined fit</li>
+                                <li>crop-top chest fit</li>
+                                <li>halter silhouette</li>
+                                <li>racerback slim</li>
+                                <li>minimizer cut</li>
+                                <li>high-neck bust fit</li>
+                                <li>seamless bust fit</li>
+                                <li>triangle top fit</li>
+                                <li>strapless slim</li>
+                                <li>bandeau wrap</li>
+                                <li>soft cup fit</li>
+                                <li>relaxed chest fit</li>
+                                <li>slip-fit silhouette</li>
+                                <li>camisole bust fit</li>
+                                <li>bodysuit slim fit</li>
+                                <li>sleek blouse bust</li>
+                                <li>lightweight bust garment</li>
+                                <li>low-curve neckline</li>
+                                <li>boxy silhouette</li>
+                                <li>straight-fit bodice</li>
+                                <li>understated tailoring</li>
+                                <li>no-cup seam</li>
+                                <li>tank-style bust fit</li>
+                                <li>draped chest fabric</li>
+                                <li>unstructured chest silhouette</li>
+                                <li>flat-fit corset</li>
+                                <li>gentle drape blouse</li>
+                                <li>fitted tee bust</li>
+                                <li>simple bust contour fit</li>
+                                <li>relaxed shoulder fit</li>
+                                <li>streamlined garment bustline</li>
+                                <li>uniform-fit bust</li>
+                                <li>unaccentuated chest line</li>
+                                <li>basic crop-fit</li>
+                                <li>athletic top fit</li>
+                                <li>sports bra flattening</li>
+                                <li>racer cut bust</li>
+                                <li>scoop-minimizer neckline</li>
+                                <li>t-shirt bustline</li>
+                                <li>low-support cut</li>
+                                <li>bandeau strap style</li>
+                                <li>tank silhouette</li>
+                                <li>chest-hugging athletic fit</li>
+                                <li>compression top bust fit</li>
+                                <li>vest-line bust fit</li>
+                                <li>chest-slim tailoring</li>
+                                <li>pectoral-minimized</li>
+                                <li>thoracic-lean</li>
+                                <li>ribcage-defined</li>
+                                <li>sternum-forward</li>
+                                <li>deltoid-proportioned</li>
+                                <li>chest-flat</li>
+                                <li>pectoralis-light</li>
+                                <li>lean pectoral region</li>
+                                <li>compact pectoral area</li>
+                                <li>athletic torso balance</li>
+                                <li>scapular-straight</li>
+                                <li>trapezius-lead torso</li>
+                                <li>lean thoracic wall</li>
+                                <li>slender ribcage</li>
+                                <li>rectus chest flatten</li>
+                                <li>torso-balanced bustline</li>
+                                <li>sternum-centered chest</li>
+                                <li>clavicle-pronounced chest</li>
+                                <li>minimal mammary volume</li>
+                                <li>low-adipose chest</li>
+                                <li>chest alignment compact</li>
+                                <li>anterior thoracic slim</li>
+                                <li>chest streamline</li>
+                                <li>balanced thoracic</li>
+                                <li>proportioned sternum chest</li>
+                                <li>rib-defined bust area</li>
+                                <li>torso musculature lean</li>
+                                <li>chest cavity narrow</li>
+                                <li>petite thorax profile</li>
+                                <li>chest plane smooth</li>
+                                <li>torso-balance flat</li>
+                            </ul>
+                            <div class="flex items-center space-x-2 mt-4">
+                                <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">Example Ratios:</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[bust-waist-hip ratio 1:0.8:1]">1:0.8:1</span>
+                                <span class="text-sm font-mono bg-gray-200 dark:bg-gray-600 p-1 rounded-md cursor-pointer" data-keyword="[lean physique]">Lean Physique</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                            [Placeholder for Smaller Bust image]
+                        </div>
+                    </div>
+                
+                    <!-- Fuller Bust Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[bust fuller]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Fuller Bust Keywords</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Anatomical Descriptor</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">Terms to describe a fuller, more pronounced chest size and silhouette. These words are ideal for creating a shapely, lush, or voluptuous look.</p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+                                <li>full chest</li>
+                                <li>ample bust</li>
+                                <li>prominent bustline</li>
+                                <li>pronounced chest</li>
+                                <li>rounded bust</li>
+                                <li>generous chest</li>
+                                <li>broad bustline</li>
+                                <li>voluptuous bust</li>
+                                <li>curvy chest</li>
+                                <li>abundant bustline</li>
+                                <li>shapely bust</li>
+                                <li>lifted bust</li>
+                                <li>prominent profile</li>
+                                <li>well-developed chest</li>
+                                <li>fuller bustline</li>
+                                <li>enhanced chest</li>
+                                <li>sculpted bustline</li>
+                                <li>voluminous chest</li>
+                                <li>robust bustline</li>
+                                <li>rich bust</li>
+                                <li>deep bustline</li>
+                                <li>abundant proportions</li>
+                                <li>lush bust</li>
+                                <li>abundant volume</li>
+                                <li>plenteous chest</li>
+                                <li>expansive bustline</li>
+                                <li>bold chest</li>
+                                <li>overflowing bustline</li>
+                                <li>large bust</li>
+                                <li>heavy chest</li>
+                                <li>extended bustline</li>
+                                <li>thick bust</li>
+                                <li>well-rounded bust</li>
+                                <li>chest fullness</li>
+                                <li>bust-enhanced</li>
+                                <li>defined bustline</li>
+                                <li>chest abundant</li>
+                                <li>torso-full bust</li>
+                                <li>chest-voluminous</li>
+                                <li>torso-ample</li>
+                                <li>bust-plush</li>
+                                <li>chest-generous</li>
+                                <li>bust-abundant</li>
+                                <li>chest-rich</li>
+                                <li>bust-enhanced</li>
+                                <li>balconette fit</li>
+                                <li>sweetheart neckline</li>
+                                <li>push-up fit</li>
+                                <li>plunge neckline</li>
+                                <li>demi-cup fit</li>
+                                <li>corseted bust fit</li>
+                                <li>halter-lift bust fit</li>
+                                <li>padded fit</li>
+                                <li>underwired bust fit</li>
+                                <li>contour cup fit</li>
+                                <li>bustier silhouette</li>
+                                <li>sculpted bodice</li>
+                                <li>wrap-style bust fit</li>
+                                <li>full-coverage fit</li>
+                                <li>curve-enhancing neckline</li>
+                                <li>empire waist bust</li>
+                                <li>tailored bust darting</li>
+                                <li>form-fit blouse bust</li>
+                                <li>shapely cup cut</li>
+                                <li>curve-lift top</li>
+                                <li>low-cut bustline</li>
+                                <li>layered bust top</li>
+                                <li>surplice bustline</li>
+                                <li>sweetheart cut dress</li>
+                                <li>structured bust fit</li>
+                                <li>seamed bust cups</li>
+                                <li>uplifted bust bodice</li>
+                                <li>generous cut top</li>
+                                <li>draped bust detail</li>
+                                <li>fitted bustier top</li>
+                                <li>tailored chest garment</li>
+                                <li>contour seamed blouse</li>
+                                <li>molded bust cut</li>
+                                <li>cupped silhouette</li>
+                                <li>bodycon bust fit</li>
+                                <li>enhanced neckline</li>
+                                <li>padded contour cut</li>
+                                <li>bust-supported garment</li>
+                                <li>halter-supported bust</li>
+                                <li>push-up contour</li>
+                                <li>plunging neckline</li>
+                                <li>sweetheart molded</li>
+                                <li>corset bust detail</li>
+                                <li>curve-shaped bodice</li>
+                                <li>enhanced bust darts</li>
+                                <li>sculpted cut bust</li>
+                                <li>pectoral-prominent</li>
+                                <li>thoracic-full</li>
+                                <li>ribcage-expanded chest</li>
+                                <li>sternum-broad chest</li>
+                                <li>chest-volume enhanced</li>
+                                <li>anterior thorax full</li>
+                                <li>mammary prominence</li>
+                                <li>mammary fullness</li>
+                                <li>adipose-rich chest</li>
+                                <li>glandular fullness chest</li>
+                                <li>chest-expanded profile</li>
+                                <li>clavicle-deep chest</li>
+                                <li>sternum-recessed bust</li>
+                                <li>chest projection strong</li>
+                                <li>chest anterior prominence</li>
+                                <li>developed pectoral overlay</li>
+                                <li>torso-forward bustline</li>
+                                <li>ribcage-wide chest</li>
+                                <li>chest abundant tissue</li>
+                                <li>thoracic expanded bust</li>
+                                <li>pectoralis-full chest</li>
+                                <li>bust-adipose distribution</li>
+                                <li>torso volumetric bust</li>
+                                <li>rib-flared chest</li>
+                                <li>sternum-low chest</li>
+                                <li>scapular-supported bust</li>
+                                <li>full thoracic structure</li>
+                                <li>chest cavity broad</li>
+                                <li>mammary volume expanded</li>
+                                <li>breastplate coverage expanded (safe anatomical)</li>
+                                <li>chest anterior curve</li>
+                            </ul>
+                            <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                                [Placeholder for Fuller Bust image]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section: Gluteal Area -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">Gluteal Area</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Smaller Gluteal Area Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[gluteal area smaller]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Smaller Gluteal Area Keywords</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Anatomical Descriptor</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">Terms to describe a smaller, more understated gluteal area. These words are ideal for creating a lean, delicate, or athletic look.</p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+                                <li>flat seat</li>
+                                <li>slim hips</li>
+                                <li>narrow hips</li>
+                                <li>compact seat</li>
+                                <li>modest hips</li>
+                                <li>subtle hips</li>
+                                <li>lean hips</li>
+                                <li>petite hips</li>
+                                <li>understated seat</li>
+                                <li>straight hips</li>
+                                <li>minimal seat</li>
+                                <li>graceful hips</li>
+                                <li>narrow silhouette</li>
+                                <li>trim hips</li>
+                                <li>refined hips</li>
+                                <li>modest outline</li>
+                                <li>balanced hips</li>
+                                <li>restrained seat</li>
+                                <li>delicate hips</li>
+                                <li>slim silhouette</li>
+                                <li>proportionate hips</li>
+                                <li>small hips</li>
+                                <li>toned hips</li>
+                                <li>understated hips</li>
+                                <li>streamlined hips</li>
+                                <li>petite outline</li>
+                                <li>compact hips</li>
+                                <li>athletic hips</li>
+                                <li>refined outline</li>
+                                <li>natural hips</li>
+                                <li>straight silhouette</li>
+                                <li>flat hips</li>
+                                <li>petite silhouette</li>
+                                <li>demure hips</li>
+                                <li>neat hips</li>
+                                <li>lean outline</li>
+                                <li>restrained hips</li>
+                                <li>minimal hips</li>
+                                <li>chestnut hips</li>
+                                <li>delicate outline</li>
+                                <li>fine hip contour</li>
+                                <li>hip-flat</li>
+                                <li>butt-trim</li>
+                                <li>glute-light</li>
+                                <li>glute-slim</li>
+                                <li>glute-flat</li>
+                                <li>glute-lean</li>
+                                <li>skinny-fit jeans seat</li>
+                                <li>pencil skirt hip fit</li>
+                                <li>sheath skirt slim hips</li>
+                                <li>column dress narrow fit</li>
+                                <li>straight-leg pant fit</li>
+                                <li>slim-fit trousers</li>
+                                <li>tapered silhouette hipline</li>
+                                <li>flat seat trousers</li>
+                                <li>lean-fit skirt</li>
+                                <li>streamlined fit jeans</li>
+                                <li>boxy hip silhouette</li>
+                                <li>minimal hip outline garment</li>
+                                <li>low-profile jeans fit</li>
+                                <li>slim hip drape</li>
+                                <li>crop pant slim fit</li>
+                                <li>narrow-fit shorts</li>
+                                <li>clean-line skirt hips</li>
+                                <li>unshaped seat cut</li>
+                                <li>smooth hip tailoring</li>
+                                <li>trim hipline trousers</li>
+                                <li>straight seat garment</li>
+                                <li>form-minimizing skirt</li>
+                                <li>hip-slim silhouette dress</li>
+                                <li>flat-panel pant fit</li>
+                                <li>seat-smooth fit</li>
+                                <li>understated hip seam</li>
+                                <li>small dart trousers</li>
+                                <li>no-curve skirt fit</li>
+                                <li>plain hipline silhouette</li>
+                                <li>uniform seat cut</li>
+                                <li>subdued hip fit</li>
+                                <li>fitted straight skirt</li>
+                                <li>compressed hip cut</li>
+                                <li>gluteal-minimized</li>
+                                <li>gluteus-flat</li>
+                                <li>sacral-straight</li>
+                                <li>pelvis-narrow</li>
+                                <li>ilium-slim</li>
+                                <li>posterior chain lean</li>
+                                <li>gluteal-depressed</li>
+                                <li>hip breadth narrow</li>
+                                <li>hip joint compact</li>
+                                <li>sacroiliac narrow</li>
+                                <li>pelvis-lean</li>
+                                <li>lumbar straight</li>
+                                <li>gluteal streamline</li>
+                                <li>hip minimal breadth</li>
+                                <li>acetabular narrow</li>
+                                <li>femoral slim set</li>
+                                <li>pelvic girdle lean</li>
+                                <li>reduced glute mass</li>
+                                <li>glute-low profile</li>
+                                <li>pelvic plane slim</li>
+                                <li>hip lean silhouette</li>
+                                <li>pelvic arch narrow</li>
+                                <li>torso-pelvic streamline</li>
+                                <li>hip abductors minimized</li>
+                                <li>glute max reduced</li>
+                                <li>posterior lean musculature</li>
+                            </ul>
+                            <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                                [Placeholder for Smaller Gluteal Area image]
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fuller Gluteal Area Card -->
+                    <div class="glossary-item active bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col justify-between" data-keyword="[gluteal area fuller]">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800 dark:text-white">Fuller Gluteal Area Keywords</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 italic mb-2">Category: Anatomical Descriptor</p>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">Terms to describe a fuller, more pronounced gluteal area. These words are ideal for creating a shapely, lush, or voluptuous look.</p>
+                            <ul class="keyword-list text-gray-700 dark:text-gray-300 mb-4">
+                                <li>full hips</li>
+                                <li>rounded seat</li>
+                                <li>curvy hips</li>
+                                <li>broad hips</li>
+                                <li>ample hips</li>
+                                <li>prominent hips</li>
+                                <li>shapely hips</li>
+                                <li>generous hips</li>
+                                <li>abundant hips</li>
+                                <li>defined hips</li>
+                                <li>sculpted hips</li>
+                                <li>developed hips</li>
+                                <li>robust hips</li>
+                                <li>pronounced hips</li>
+                                <li>lifted hips</li>
+                                <li>accentuated hips</li>
+                                <li>voluptuous hips</li>
+                                <li>lush hips</li>
+                                <li>elegant hips</li>
+                                <li>enhanced hips</li>
+                                <li>proportionate hips</li>
+                                <li>natural hips</li>
+                                <li>rounded silhouette</li>
+                                <li>abundant silhouette</li>
+                                <li>curvy outline</li>
+                                <li>lush outline</li>
+                                <li>shapely outline</li>
+                                <li>sculpted outline</li>
+                                <li>prominent outline</li>
+                                <li>full outline</li>
+                                <li>proportionate outline</li>
+                                <li>graceful outline</li>
+                                <li>voluptuous silhouette</li>
+                                <li>accentuated silhouette</li>
+                                <li>lifted silhouette</li>
+                                <li>generous silhouette</li>
+                                <li>enhanced silhouette</li>
+                                <li>balanced silhouette</li>
+                                <li>rounded seat</li>
+                                <li>shapely seat</li>
+                                <li>generous seat</li>
+                                <li>lush seat</li>
+                                <li>sculpted seat</li>
+                                <li>robust seat</li>
+                                <li>accentuated seat</li>
+                                <li>proportionate seat</li>
+                                <li>enhanced seat</li>
+                                <li>natural seat</li>
+                                <li>curvy seat</li>
+                                <li>full seat</li>
+                                <li>abundant seat</li>
+                                <li>elegant seat</li>
+                                <li>developed seat</li>
+                                <li>prominent seat</li>
+                                <li>round butt</li>
+                                <li>lush buttocks</li>
+                                <li>strong hips</li>
+                                <li>thick hips</li>
+                                <li>bootcut jeans hips</li>
+                                <li>flare pant hip fit</li>
+                                <li>A-line skirt hip flare</li>
+                                <li>bodycon dress hip emphasis</li>
+                                <li>mermaid gown hip flare</li>
+                                <li>curve-hugging trousers</li>
+                                <li>shapely hip pencil skirt</li>
+                                <li>hip-draped fabric</li>
+                                <li>hip-enhancing jeans</li>
+                                <li>high-waist flare hips</li>
+                                <li>hip-sculpt fit leggings</li>
+                                <li>curve-fit bodysuit hips</li>
+                                <li>contoured pant cut</li>
+                                <li>tailored hip flare</li>
+                                <li>curve-hugging silhouette</li>
+                                <li>ruched hip dress</li>
+                                <li>gathered hipline</li>
+                                <li>layered hip drape</li>
+                                <li>hip-enhanced garment</li>
+                                <li>seat-enhanced skirt fit</li>
+                                <li>butt-lift jean cut</li>
+                                <li>hip-curved shorts</li>
+                                <li>hip-accent wrap skirt</li>
+                                <li>curve-enhance fit</li>
+                                <li>seat-pronounced pants</li>
+                                <li>cut-to-curve skirt</li>
+                                <li>hip-voluminous silhouette</li>
+                                <li>hip-swell fit trousers</li>
+                                <li>dramatic hip flare</li>
+                                <li>sculpted skirt hips</li>
+                                <li>fishtail gown hip contour</li>
+                                <li>gluteal-prominent</li>
+                                <li>glute max developed</li>
+                                <li>gluteus medius enhanced</li>
+                                <li>gluteus maximus hypertrophy</li>
+                                <li>pelvis-broad</li>
+                                <li>ilium-wide</li>
+                                <li>sacrum-flared</li>
+                                <li>lumbar curvature deep</li>
+                                <li>posterior chain robust</li>
+                                <li>gluteal rounded</li>
+                                <li>hip abductors strong</li>
+                                <li>pelvic expansion</li>
+                                <li>acetabular broad</li>
+                                <li>femoral wide set</li>
+                                <li>glute enhanced tissue</li>
+                                <li>posterior robust musculature</li>
+                                <li>glute hypertrophic</li>
+                                <li>pelvic breadth wide</li>
+                                <li>gluteal pronounced</li>
+                                <li>hip hinge strong</li>
+                                <li>glute recruitment high</li>
+                                <li>posterior curve strong</li>
+                                <li>sacral breadth extended</li>
+                                <li>pelvis developed</li>
+                                <li>glute-lift enhanced</li>
+                                <li>posterior sculpted</li>
+                                <li>hip expansive</li>
+                            </ul>
+                            <div class="w-full h-40 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm italic">
+                                [Placeholder for Fuller Gluteal Area image]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+<script>
+    const promptBuilder = document.getElementById('promptBuilder');
+    const searchInput = document.getElementById('searchInput');
+    const glossaryContainer = document.getElementById('glossary-container');
+    const glossaryItems = document.querySelectorAll('.glossary-item');
+
+    // Attach click listeners to all keyword spans
+    document.querySelectorAll('[data-keyword]').forEach(item => {
+        item.addEventListener('click', () => {
+            const keyword = item.getAttribute('data-keyword');
+            // Check if the keyword is already in the prompt, if not, append it
+            const currentPrompt = promptBuilder.value.trim();
+            if (!currentPrompt.includes(keyword)) {
+                promptBuilder.value = (currentPrompt ? currentPrompt + ', ' : '') + keyword;
+            }
+        });
+    });
+
+    // Copy to clipboard function
+    function copyPrompt() {
+        promptBuilder.select();
+        document.execCommand('copy');
+        alert('Prompt copied to clipboard!');
+    }
+
+    // Clear prompt function
+    function clearPrompt() {
+        promptBuilder.value = '';
+    }
+
+    // Search and filter functionality
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        glossaryItems.forEach(item => {
+            const itemText = item.textContent.toLowerCase();
+            const keywords = item.getAttribute('data-keyword');
+
+            if (itemText.includes(searchTerm) || (keywords && keywords.includes(searchTerm))) {
+                item.style.display = 'flex';
+                // Highlight the matching text
+                const textNodes = Array.from(item.querySelectorAll('p, h3, li, span'));
+                textNodes.forEach(node => {
+                    const originalText = node.textContent;
+                    const highlightedText = originalText.replace(new RegExp(searchTerm, 'gi'), match => `<span class="highlight">${match}</span>`);
+                    node.innerHTML = highlightedText;
+                });
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+
+    window.onload = function() {
+        // Initial state, show all cards
+        glossaryItems.forEach(item => {
+            item.style.display = 'flex';
+        });
+    }
+
+    // Expose functions to the global scope so they can be called from onclick attributes
+    window.copyPrompt = copyPrompt;
+    window.clearPrompt = clearPrompt;
+
+</script>
+</html>
