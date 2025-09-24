@@ -141,16 +141,103 @@
             }
         ];
         
-        // A map of "unsafe" search terms to their "safe" keyword alternatives.
-        const keywordSynonyms = {
-            "fat": ["thick", "stout", "full figure", "robust"],
-            "big": ["muscular", "ample", "voluminous", "bulky", "hulking", "broad"],
-            "small": ["petite", "slight", "minimal", "delicate", "fine-boned"],
-            "skinny": ["slender", "slim", "lean", "lanky", "wiry strength"],
-            "flabby": ["soft"],
-            "short": ["compact build"],
-            "tall": ["long-limbed", "long-legged", "elongated"]
-        };
+// Master Keyword Synonym Map for AI Prompt Glossary
+// Safe alternatives for unsafe or ambiguous human visual descriptors
+const keywordSynonyms = {
+    // =======================
+    // BODY TYPE & SHAPE
+    // =======================
+    "fat": ["thick", "stout", "full-figured", "robust", "plump", "ample", "curvy", "rounded", "soft build", "voluminous"],
+    "big": ["muscular", "ample", "voluminous", "bulky", "hulking", "broad", "strong-built", "sturdy", "solid frame", "powerful"],
+    "small": ["petite", "slight", "minimal", "delicate", "fine-boned", "compact", "short-statured", "narrow frame", "light-framed", "dainty"],
+    "skinny": ["slender", "slim", "lean", "lanky", "wiry", "light-framed", "narrow", "thin build", "long-limbed", "slight frame"],
+    "flabby": ["soft", "gentle curves", "relaxed build", "soft physique", "natural curves", "untoned"],
+    "short": ["compact build", "small-statured", "petite frame", "low height", "miniature build", "short-limbed"],
+    "tall": ["long-limbed", "long-legged", "elongated", "high-statured", "tall frame", "extended height", "towering", "lofty"],
+    "muscley": ["muscular", "defined", "toned", "strong build", "athletic", "ripped", "chiseled", "sculpted", "brawny", "powerful"],
+    "slim": ["slender", "lean", "light-framed", "thin build", "svelte", "slight", "graceful", "lithe"],
+
+    // =======================
+    // TORSO, CHEST & LIMBS
+    // =======================
+    "boobs": ["bust", "chest", "pectoral area", "upper torso", "curves"],
+    "flat": ["minimal curves", "slender chest", "leveled torso", "smooth torso", "subtle form"],
+    "chubby legs": ["full legs", "toned legs", "curvy legs", "robust legs", "strong legs", "sturdy legs"],
+    "thin arms": ["slender arms", "lean arms", "defined arms", "light-framed arms", "graceful arms"],
+
+    // =======================
+    // FACE & HEAD
+    // =======================
+    "ugly": ["distinctive", "unique", "characterful", "expressive", "individual", "striking", "unconventional"],
+    "plain": ["natural", "simple style", "minimalist look", "neutral features", "soft features"],
+    "old": ["aged", "mature", "experienced", "vintage look", "wise", "seasoned"],
+    "young": ["youthful", "adolescent", "fresh-faced", "teenage", "juvenile", "energetic"],
+    "weird": ["distinctive", "unusual", "quirky", "characterful", "eccentric", "unique"],
+    "gross": ["rugged", "rough texture", "textured skin", "natural imperfection", "weathered look"],
+
+    // =======================
+    // HAIR
+    // =======================
+    "bald": ["shaved head", "hairless", "clean scalp", "smooth scalp", "no hair"],
+    "messy": ["tousled", "disheveled", "wind-swept", "casual style", "relaxed hair"],
+    "curly": ["wavy", "coiled", "spiral-textured", "textured", "ringlets", "curled hair"],
+    "straight": ["smooth", "sleek", "flat hair", "straightened"],
+    "frizzy": ["textured", "tousled", "voluminous", "bouncy"],
+    "thin hair": ["fine hair", "sparse", "light hair", "soft strands"],
+    "thick hair": ["dense hair", "voluminous hair", "full-bodied hair", "strong strands"],
+
+    // =======================
+    // EYES
+    // =======================
+    "buggy eyes": ["prominent eyes", "large eyes", "wide-set eyes", "expressive eyes"],
+    "small eyes": ["narrow eyes", "delicate eyes", "almond-shaped eyes", "fine eyes"],
+    "dark circles": ["shadows under eyes", "subtle under-eye shading", "tired look", "natural contouring"],
+
+    // =======================
+    // SKIN & COMPLEXION
+    // =======================
+    "pale": ["fair", "light-toned", "porcelain", "ivory", "delicate skin"],
+    "dark": ["deep-toned", "tan", "olive", "rich brown", "ebony", "warm skin"],
+    "blemished": ["natural skin", "freckled", "spotted", "textured skin", "character marks"],
+    "rough": ["textured", "coarse", "weathered", "rugged skin"],
+    "soft": ["smooth", "silky", "gentle texture", "velvety"],
+
+    // =======================
+    // POSTURE & POSE
+    // =======================
+    "slouching": ["relaxed posture", "casual pose", "natural stance", "laid-back posture"],
+    "stiff": ["upright posture", "rigid stance", "formal posture", "alert stance"],
+    "leaning": ["tilted posture", "angled stance", "slanted posture"],
+
+    // =======================
+    // CLOTHING & ACCESSORIES
+    // =======================
+    "ugly clothes": ["plain clothing", "simple style", "basic attire", "neutral outfit"],
+    "old clothes": ["vintage clothing", "classic attire", "aged style", "retro look"],
+
+    // =======================
+    // GENERAL / MISC
+    // =======================
+    "thin": ["slim", "slender", "light-framed", "narrow", "slight frame", "lean"],
+    "chubby": ["soft", "rounded", "plump", "full-figured", "curvy", "robust"],
+    "average": ["proportional", "balanced", "natural build", "medium frame"],
+    "wide": ["broad", "expanded", "sturdy build", "strong frame", "generous width"],
+    "narrow": ["slender", "slim", "fine-framed", "compact", "tight frame"],
+
+    // =======================
+    // ADDITIONAL MICRO-DESCRIPTORS (sample expansion)
+    // =======================
+    "freckles": ["light freckles", "moderate freckles", "heavy freckles", "spotted skin", "natural dots"],
+    "wrinkles": ["fine lines", "expression lines", "age lines", "subtle creases", "character lines"],
+    "tattoos": ["small tattoos", "medium tattoos", "large tattoos", "colorful tattoos", "black and gray tattoos"],
+    "stretch marks": ["faint stretch marks", "visible stretch marks", "natural marks", "subtle lines"],
+    "moles": ["beauty marks", "skin moles", "distinct marks", "small skin spots"],
+    "dimples": ["cheek dimples", "subtle dimples", "prominent dimples", "smiling dimples"],
+    "glasses": ["eyewear", "spectacles", "frames", "optical accessory"],
+    "jewelry": ["necklace", "bracelet", "ring", "earrings", "adornments"],
+    "expression": ["smiling", "frowning", "neutral", "playful", "confident", "thoughtful", "mischievous"]
+};
+
 
 
         const selectedKeywords = new Set();
