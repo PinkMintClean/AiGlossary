@@ -1,409 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Glossary</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-            color: #1f2937;
-        }
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-        }
-        .keyword-button {
-            transition: all 0.2s ease-in-out;
-            position: relative; /* For tooltip positioning */
-        }
-        .keyword-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .keyword-button.selected {
-            background-color: #4f46e5;
-            color: #ffffff;
-            border-color: #4f46e5;
-        }
-        .body-type-button.selected {
-            background-color: #10b981;
-            color: #ffffff;
-            border-color: #10b981;
-        }
-        .copy-button, .clear-button {
-            transition: background-color 0.2s ease-in-out;
-        }
-        .copy-button:hover {
-            background-color: #3b82f6;
-        }
-        .clear-button:hover {
-            background-color: #ef4444;
-        }
-        .tooltip {
-            position: absolute;
-            bottom: calc(100% + 10px);
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(31, 41, 55, 0.95);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 8px;
-            white-space: nowrap;
-            font-size: 0.875rem;
-            z-index: 100;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .keyword-button:hover .tooltip {
-            opacity: 1;
-        }
-        .hidden-category {
-            display: none;
-        }
-        .image-placeholder {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            margin-top: 1rem;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universal Human Descriptor Glossary</title>
+<style>
+:root {
+--font-family: -apple-system, BlinkMacMacSystemFont, "Segoe UI", Roboto, Arial,
+sans-serif;
+--font-size: 1rem;
+--line-height: 1.6;
+--background-color: #f4f4f9;
+--text-color: #333;
+--accent-color: #0b486b;
+--card-background: #fff;
+--border-color: #ddd;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--background-color: #1a1a1f;
+--text-color: #f4f4f9;
+--accent-color: #6a9ac4;
+--card-background: #2a2a30;
+--border-color: #444;
+}
+}
+body {
+font-family: var(--font-family);
+font-size: var(--font-size);
+line-height: var(--line-height);
+color: var(--text-color);
+background-color: var(--background-color);
+margin: 0;
+padding: 20px;
+}
+.container {
+max-width: 960px;
+margin: auto;
+padding: 20px;
+background-color: var(--card-background);
+border-radius: 8px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+h1, h2, h3 {
+color: var(--accent-color);
+}
+h1 {
+border-bottom: 2px solid var(--accent-color);
+padding-bottom: 10px;
+}
+details {
+border: 1px solid var(--border-color);
+border-radius: 6px;
+margin-bottom: 10px;
+overflow: hidden;
+background: var(--background-color);
+transition: background-color 0.3s ease;
+}
+details[open] {
+background-color: var(--card-background);
+}
+summary {
+font-weight: bold;
+padding: 15px;
+cursor: pointer;
+background-color: var(--accent-color);
+color: white;
+position: relative;
+user-select: none;
+list-style: none;
+}
+summary::after {
+content: '+';
+position: absolute;
+right: 15px;
+transition: transform 0.3s ease;
+}
+details[open] summary::after {
+content: '−';
+transform: rotate(0deg);
+}
+.details-content {
+padding: 15px;
+}
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 15px;
+font-size: 0.9em;
+}
+th, td {
+border: 1px solid var(--border-color);
+padding: 10px;
+text-align: left;
+}
+th {
+background-color: var(--background-color);
+color: var(--text-color);
+}
+tr:nth-child(even) {
+background-color: var(--background-color);
+}
+@media screen and (max-width: 768px) {
+.container {
+padding: 10px;
+}
+body {
+padding: 10px;
+}
+table, thead, tbody, th, td, tr {
+display: block;
+}
+thead tr {
+position: absolute;
+top: -9999px;
+left: -9999px;
+}
+tr {
+border: 1px solid var(--border-color);
+margin-bottom: 10px;
+}
+td {
+border: none;
+border-bottom: 1px solid var(--border-color);
+position: relative;
+padding-left: 50%;
+text-align: right;
+}
+td:before {
+content: attr(data-label);
+position: absolute;
+left: 0;
+width: 45%;
+padding-left: 10px;
+white-space: nowrap;
+font-weight: bold;
+text-align: left;
+}
+}
+</style>
 </head>
-<body class="p-4 sm:p-8">
+<body>
 
-    <div class="container bg-white rounded-3xl shadow-xl p-6 sm:p-10">
-        
-        <header class="text-center mb-8">
-            <h1 class="text-3xl sm:text-4xl font-bold text-indigo-800">AI Prompt Glossary</h1>
-            <p class="mt-2 text-gray-600">Build your perfect prompt by selecting keywords from the categories below.</p>
-        </header>
+<div class="container">
+<h1>The Universal Human Descriptor Glossary</h1>
+<p>This lexicon serves as a foundational reference for prompt engineers seeking to create precise and ethically compliant prompts for generating human figures with artificial intelligence.</p>
 
-        <section class="mb-8 p-4 sm:p-6 bg-gray-100 rounded-2xl shadow-inner">
-            <h2 class="text-xl font-semibold mb-3">Your Generated Prompt:</h2>
-            <textarea id="prompt-output" class="w-full h-24 p-3 bg-white border border-gray-300 rounded-xl text-gray-800 resize-none font-mono" readonly></textarea>
-            <div class="mt-4 flex flex-col sm:flex-row justify-end gap-2">
-                <button id="copy-button" class="bg-indigo-600 text-white font-medium py-2 px-4 rounded-full shadow-md hover:bg-indigo-700">Copy Prompt</button>
-                <button id="clear-button" class="bg-gray-500 text-white font-medium py-2 px-4 rounded-full shadow-md hover:bg-gray-600">Clear</button>
-            </div>
-        </section>
+<details open>
+<summary>The Human Physique: Somatotypes and Body Shapes</summary>
+<div class="details-content">
+<p>This section outlines a two-part classification system for the human physique: Somatotypes and Body Shapes. This framework provides a comprehensive lexicon for describing a subject's form.</p>
+<table>
+<thead>
+<tr>
+<th>Descriptor</th>
+<th>Category</th>
+<th>Key Characteristics</th>
+<th>Example Use in Prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Descriptor">Ectomorph</td>
+<td data-label="Category">Somatotype</td>
+<td data-label="Key Characteristics">Lean, slender, high metabolism, narrow shoulders and hips, difficulty gaining weight.</td>
+<td data-label="Example Use in Prompt">a young woman with a lean ectomorph body type</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Endomorph</td>
+<td data-label="Category">Somatotype</td>
+<td data-label="Key Characteristics">More stored fat, lots of muscle, easily gains weight, not necessarily overweight.</td>
+<td data-label="Example Use in Prompt">an older man with a strong endomorph build</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Mesomorph</td>
+<td data-label="Category">Somatotype</td>
+<td data-label="Key Characteristics">Athletic, strong, naturally muscular, neither overweight nor underweight.</td>
+<td data-label="Example Use in Prompt">a swimmer with a mesomorph physique</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Pear / Triangle</td>
+<td data-label="Category">Body Shape</td>
+<td data-label="Key Characteristics">Narrower shoulders than hips, weight in buttocks and thighs, defined waist.</td>
+<td data-label="Example Use in Prompt">a pear-shaped dancer in a dynamic pose</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Inverted Triangle</td>
+<td data-label="Category">Body Shape</td>
+<td data-label="Key Characteristics">Shoulders wider than hips, lower body smaller than top, weight in upper body.</td>
+<td data-label="Example Use in Prompt">a character artist rendering an inverted triangle physique</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Rectangle</td>
+<td data-label="Category">Body Shape</td>
+<td data-label="Key Characteristics">Similar hip and shoulder width, little to no waist definition, equal proportions.</td>
+<td data-label="Example Use in Prompt">a sporty figure with a rectangular body shape</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Hourglass</td>
+<td data-label="Category">Body Shape</td>
+<td data-label="Key Characteristics">Equally broad chest and hips, smaller waistline.</td>
+<td data-label="Example Use in Prompt">a celebrity with a classic hourglass figure</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Oval / Apple</td>
+<td data-label="Category">Body Shape</td>
+<td data-label="Key Characteristics">Narrow top and bottom, weight carried in chest and stomach, slender legs.</td>
+<td data-label="Example Use in Prompt">an apple-shaped person wearing a fitted jacket</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
 
-        <div class="mb-8">
-            <label for="keyword-search" class="sr-only">Search Keywords</label>
-            <input type="text" id="keyword-search" placeholder="Search for keywords..." class="w-full p-3 pl-5 pr-12 rounded-full border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200">
-        </div>
+<details>
+<summary>Technical Glossary of Human Anatomy</summary>
+<div class="details-content">
+<p>This section provides objective, technical terms for bones and muscles to help remediate documented anatomical inaccuracies in AI models. The content is divided into two parts: Head & Facial Anatomy, and Torso & Limb Anatomy.</p>
 
-        <div id="glossary-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            </div>
+<h3>Head & Facial Anatomy Descriptors</h3>
+<table>
+<thead>
+<tr>
+<th>Descriptor</th>
+<th>Category</th>
+<th>Key Characteristics</th>
+<th>Example Use in Prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Descriptor">Zygomatic arch</td>
+<td data-label="Category">Bone</td>
+<td data-label="Key Characteristics">Prominent cheekbone structure.</td>
+<td data-label="Example Use in Prompt">a portrait with a high zygomatic arch</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Mandible</td>
+<td data-label="Category">Bone</td>
+<td data-label="Key Characteristics">Jawline structure.</td>
+<td data-label="Example Use in Prompt">a character with a wide, angular mandible</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Nasal bone</td>
+<td data-label="Category">Bone</td>
+<td data-label="Key Characteristics">Bony structure of the nose.</td>
+<td data-label="Example Use in Prompt">a close-up of a nose with a prominent nasal bone</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Orbicularis oculi</td>
+<td data-label="Category">Muscle</td>
+<td data-label="Key Characteristics">Closes eyelids, involved in tear drainage.</td>
+<td data-label="Example Use in Prompt">la smile that crinkles the orbicularis oculi</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Corrugator supercilii</td>
+<td data-label="Category">Muscle</td>
+<td data-label="Key Characteristics">Draws eyebrows together, creates vertical wrinkles on nose bridge.</td>
+<td data-label="Example Use in Prompt">a worried expression with a contracted corrugator supercilii</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Zygomaticus</td>
+<td data-label="Category">Muscle</td>
+<td data-label="Key Characteristics">Raises the corners of the mouth for smiling.</td>
+<td data-label="Example Use in Prompt">a character with a genuine smile from the zygomaticus muscle</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Nasalis</td>
+<td data-label="Category">Muscle</td>
+<td data-label="Key Characteristics">Compresses or widens the nasal opening.</td>
+<td data-label="Example Use in Prompt">a snarling expression with a flared nasalis</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Orbicularis oris</td>
+<td data-label="Category">Muscle</td>
+<td data-label="Key Characteristics">Main sphincter of the lips, closes the mouth.</td>
+<td data-label="Example Use in Prompt">a person with pursed lips from the orbicularis oris muscle</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Masseter</td>
+<td data-label="Category">Muscle</td>
+<td data-label="Key Characteristics">Mastication muscle, chewing.</td>
+<td data-label="Example Use in Prompt">a powerful jaw clenching from the masseter muscle</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Philtrum</td>
+<td data-label="Category">Anatomy</td>
+<td data-label="Key Characteristics">The vertical groove between the nose and upper lip.</td>
+<td data-label="Example Use in Prompt">Ja detailed face with a visible philtrum</td>
+</tr>
+</tbody>
+</table>
 
-    </div>
+<h3>Torso & Limb Anatomy Descriptors</h3>
+<table>
+<thead>
+<tr>
+<th>Descriptor</th>
+<th>Category</th>
+<th>Key Characteristics</th>
+<th>Example Use in Prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Descriptor">Core</td>
+<td data-label="Category">Anatomy</td>
+<td data-label="Key Characteristics">Muscles of the midsection, including abdominals and lower back.</td>
+<td data-label="Example Use in Prompt">a character with a strong, defined core</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Delts</td>
+<td data-label="Category">Anatomy</td>
+<td data-label="Key Characteristics">Shoulder muscles (Deltoids).</td>
+<td data-label="Example Use in Prompt">a bodybuilder with massive delts</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Striations</td>
+<td data-label="Category">Anatomy</td>
+<td data-label="Key Characteristics">Fine grooves of muscularity visible over muscle groups.</td>
+<td data-label="Example Use in Prompt">a highly defined physique with muscular striations</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Buff</td>
+<td data-label="Category">Anatomy</td>
+<td data-label="Key Characteristics">Muscular to the highest level.</td>
+<td data-label="Example Use in Prompt">a buff, athletic superhero</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Calves</td>
+<td data-label="Category">Muscle</td>
+<td data-label="Key Characteristics">Muscles at the back of the lower leg.</td>
+<td data-label="Example Use in Prompt">a runner with strong, prominent calves</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Atrophy</td>
+<td data-label="Category">Anatomy</td>
+<td data-label="Key Characteristics">Decrease in muscle size and function.</td>
+<td data-label="Example Use in Prompt">a post-apocalyptic survivor with muscular atrophy</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Carpal bones</td>
+<td data-label="Category">Bone</td>
+<td data-label="Key Characteristics">Group of eight small bones forming the wrist.</td>
+<td data-label="Example Use in Prompt">a detailed hand with a visible carpal arch</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Metacarpal bones</td>
+<td data-label="Category">Bone</td>
+<td data-label="Key Characteristics">Bones hidden beneath the skin in the palm.</td>
+<td data-label="Example Use in Prompt">a hand with a clearly defined metacarpal bone structure</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Phalanges</td>
+<td data-label="Category">Bone</td>
+<td data-label="Key Characteristics">Finger bones.</td>
+<td data-label="Example Use in Prompt">a hand with long, slender phalanges</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Gluteus maximus</td>
+<td data-label="Category">Muscle</td>
+<td data-label="Key Characteristics">Largest muscle of the buttock.</td>
+<td data-label="Example Use in Prompt">a figure with a well-developed gluteus maximus</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Pectoral muscles</td>
+<td data-label="Category">Muscle</td>
+<td data-label="Key Characteristics">Chest muscles.</td>
+<td data-label="Example Use in Prompt">a strong man with broad pectoral muscles</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Obliques</td>
+<td data-label="Category">Muscle</td>
+<td data-label="Key Characteristics">Abdominal muscles at the side of the core.</td>
+<td data-label="Example Use in Prompt">a physique with sculpted obliques</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Quadriceps</td>
+<td data-label="Category">Muscle</td>
+<td data-label="Key Characteristics">Large muscle group in the front of the thigh.</td>
+<td data-label="Example Use in Prompt">an athlete with powerful quadriceps</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
 
-    <script>
-        const glossaryData = [
-            {
-                category: "Primary Body Composition",
-                subcategories: [
-                    { name: "Ectomorph", type: "bodyType", description: "A lean, slender build with a high metabolism. Often has narrow shoulders and hips and a long, graceful frame.", keywords: ["ectomorph", "slender", "slim", "skinny", "slight", "narrow", "fragile-looking", "elongated", "lanky frame", "slim-fit", "boyish frame", "wiry strength", "lean", "linear silhouette", "long-limbed", "long-legged", "long-armed", "delicate frame", "fine-boned", "light frame", "low body fat", "flat chest", "small chest", "small bust", "fast metabolism", "difficulty gaining weight", "difficulty gaining muscle"], compatibleFeatures: ["Waist:Small Waist", "Legs & Thighs:Slender Thighs & Legs", "Universal:Hair", "Universal:Face & Head", "Universal:Skin & Complexion", "Universal:Posture & Pose", "Universal:Clothing & Accessories", "Universal:Age", "Universal:Ethnicity & Skin Tone", "Universal:Additional", "Gender-Specific:Male Muscular Variations", "Gender-Specific:Male Other Descriptors", "Gender-Specific:Torso & Chest", "Gender-Specific:Arms & Hands", "Gender-Specific:Legs & Lower Body", "Gender-Specific:Female Specific Features", "Gender-Specific:Breasts", "Gender-Specific:Hips & Thighs"] },
-                    { name: "Mesomorph", type: "bodyType", description: "A naturally athletic and muscular build. Known for a strong, balanced frame and robust proportions.", keywords: ["mesomorph", "athletic", "muscular", "broad-shouldered", "medium frame", "solid build", "naturally muscular", "strong", "balanced proportions", "even fat distribution", "easy muscle gain", "mesomorphic", "square-shaped physique", "defined chest", "defined shoulders", "V-shaped torso", "tapered waist", "prominent deltoids", "pronounced traps", "agile", "flexible"], compatibleFeatures: ["Waist:Average Waist", "Legs & Thighs:Curvy Thighs & Legs", "Universal:Hair", "Universal:Face & Head", "Universal:Skin & Complexion", "Universal:Posture & Pose", "Universal:Clothing & Accessories", "Universal:Age", "Universal:Ethnicity & Skin Tone", "Universal:Additional", "Gender-Specific:Male Muscular Variations", "Gender-Specific:Male Other Descriptors", "Gender-Specific:Torso & Chest", "Gender-Specific:Arms & Hands", "Gender-Specific:Legs & Lower Body", "Gender-Specific:Female Specific Features", "Gender-Specific:Breasts", "Gender-Specific:Hips & Thighs"] },
-                    { name: "Endomorph", type: "bodyType", description: "A stocky, heavy-set, or full-figured build. Typically has a slower metabolism and is prone to storing body fat.", keywords: ["endomorph", "stocky", "heavy-set", "curvy", "thick", "rounded", "soft", "high body fat", "difficulty losing weight", "slow metabolism", "robust", "full figure", "stout", "barrel-chested", "powerfully built", "compact build", "dense musculature", "muscular legs"], compatibleFeatures: ["Waist:Broad Waist", "Legs & Thighs:Curvy Thighs & Legs", "Universal:Hair", "Universal:Face & Head", "Universal:Skin & Complexion", "Universal:Posture & Pose", "Universal:Clothing & Accessories", "Universal:Age", "Universal:Ethnicity & Skin Tone", "Universal:Additional", "Gender-Specific:Male Muscular Variations", "Gender-Specific:Male Other Descriptors", "Gender-Specific:Torso & Chest", "Gender-Specific:Arms & Hands", "Gender-Specific:Legs & Lower Body", "Gender-Specific:Female Specific Features", "Gender-Specific:Breasts", "Gender-Specific:Hips & Thighs"] }
-                ]
-            },
-            {
-                category: "Gender-Specific",
-                subcategories: [
-                    // Female Anatomy
-                    { name: "Female Specific Features", keywords: ["hourglass figure", "pear-shaped", "apple-shaped", "inverted triangle", "rectangular body"] },
-                    { name: "Breasts", keywords: ["small-chested", "average bust", "busty", "full-chested", "ample bust", "perky breasts"] },
-                    { name: "Hips & Thighs", keywords: ["narrow hips", "wide hips", "curvy hips", "muscular thighs", "thick thighs", "slender thighs", "toned legs", "full thighs", "heavy-set behind", "ample buttocks", "flat buttocks"] },
-                    // Male Anatomy
-                    { name: "Male Muscular Variations", keywords: ["chiseled", "ripped", "shredded", "toned", "defined", "strong", "brawny", "powerfully built", "bulky", "hulking", "bodybuilder physique", "athletic frame", "sculpted"] },
-                    { name: "Male Other Descriptors", keywords: ["rugged", "outdoorsy build", "agile", "flexible", "wiry strength", "stout", "barrel-chested", "farmer's build", "runner's build", "swimmer's build", "gymnast build", "martial artist build", "lean muscular", "endurance athlete build", "heavyweight build", "lightweight build", "compact build"] },
-                    { name: "Torso & Chest", keywords: ["flat chest", "broad chest", "defined chest", "muscular chest", "toned chest", "strong chest", "pectorals", "abdominal muscles", "six-pack", "eight-pack", "obliques", "lean torso", "muscular back", "broad back", "narrow back", "V-shaped torso", "tapering torso", "chest hair", "smooth chest", "defined ribs", "collarbones", "prominent shoulders", "torso symmetry"] },
-                    { name: "Arms & Hands", keywords: ["muscular arms", "toned arms", "lean arms", "defined biceps", "strong biceps", "forearm strength", "veined arms", "smooth arms", "hairy arms", "long fingers", "short fingers", "proportionate hands", "strong hands", "large hands", "small hands", "calloused hands", "knuckles", "wrist size", "arm length", "arm symmetry"] },
-                    { name: "Legs & Lower Body", keywords: ["muscular legs", "toned legs", "defined thighs", "powerful thighs", "lean legs", "slender legs", "long legs", "short legs", "proportional legs", "athletic legs", "calves", "defined calves", "muscular calves", "smooth legs", "hairy legs", "robust legs", "flexible legs", "leg length proportion", "lower body strength"] }
-                ]
-            },
-            {
-                category: "Universal",
-                subcategories: [
-                    { name: "Hair", keywords: ["short hair", "long hair", "medium-length hair", "curly hair", "wavy hair", "straight hair", "spiky hair", "messy hair", "clean-cut hair", "bald", "shaved head", "receding hairline", "undercut", "fade haircut", "natural hair", "dyed hair", "beard", "stubble", "full beard", "short beard", "mustache", "sideburns", "clean-shaven", "chest hair", "back hair", "light body hair", "moderate body hair", "heavy body hair"] },
-                    { name: "Face & Head", keywords: ["square jaw", "chiseled jawline", "strong jaw", "rounded jaw", "prominent chin", "cleft chin", "angular features", "soft features", "high cheekbones", "defined nose", "prominent nose", "straight nose", "curved nose", "wide nose", "narrow nose", "full lips", "thin lips", "strong brow", "thick eyebrows", "thin eyebrows", "arched eyebrows", "straight eyebrows", "deep-set eyes", "round eyes", "almond-shaped eyes", "hooded eyes", "bright eyes", "youthful face", "aged face", "wrinkles", "laugh lines", "dimples", "rugged", "neat", "smiling", "neutral expression", "stern expression", "forehead size", "facial symmetry"] },
-                    { name: "Skin & Complexion", keywords: ["fair skin", "pale skin", "light skin", "medium skin", "tan skin", "olive skin", "dark skin", "deep skin", "smooth skin", "rough skin", "soft skin", "coarse skin", "freckles", "moles", "birthmarks", "scars", "tattoos", "stretch marks", "tanned", "natural skin tone", "warm tone", "cool tone", "neutral tone", "blemishes", "glowing skin", "matte skin", "oily skin", "dry skin"] },
-                    { name: "Posture & Pose", keywords: ["upright", "slouched", "relaxed", "confident", "rigid", "hunched", "leaning", "stretching", "bending", "dynamic pose", "athletic stance", "casual stance", "walking", "running", "jumping", "sitting", "kneeling", "crouching", "lying down", "folded arms", "hands in pockets", "crossed legs", "open stance", "wide stance", "natural posture", "strong posture", "active pose", "passive pose"] },
-                    { name: "Clothing & Accessories", keywords: ["shirtless", "T-shirt", "long-sleeve shirt", "short-sleeve shirt", "tank top", "hoodie", "jacket", "coat", "suit", "blazer", "vest", "casual wear", "formal wear", "jeans", "pants", "shorts", "sweatpants", "underwear", "boxer shorts", "briefs", "swim trunks", "athletic wear", "sneakers", "boots", "sandals", "shoes", "hat", "cap", "glasses", "sunglasses", "scarf", "tie", "belt", "gloves", "watch", "bracelet", "necklace", "casual shoes", "formal shoes", "fitted clothing", "loose clothing", "layered clothing"] },
-                    { name: "Age", keywords: ["young", "middle-aged", "elderly", "teenager", "child"] },
-                    { name: "Ethnicity & Skin Tone", keywords: ["pale", "brown", "dark skin", "fair", "tanned", "asian", "caucasian", "black", "hispanic"] },
-                    { name: "Additional", keywords: ["toned", "muscular", "soft", "flabby", "sculpted", "thin", "thick"] }
-                ]
-            }
-        ];
-        
-// Master Keyword Synonym Map for AI Prompt Glossary
-// Safe alternatives for unsafe or ambiguous human visual descriptors
-const keywordSynonyms = {
-    // =======================
-    // BODY TYPE & SHAPE
-    // =======================
-    "fat": ["thick", "stout", "full-figured", "robust", "plump", "ample", "curvy", "rounded", "soft build", "voluminous"],
-    "big": ["muscular", "ample", "voluminous", "bulky", "hulking", "broad", "strong-built", "sturdy", "solid frame", "powerful"],
-    "small": ["petite", "slight", "minimal", "delicate", "fine-boned", "compact", "short-statured", "narrow frame", "light-framed", "dainty"],
-    "skinny": ["slender", "slim", "lean", "lanky", "wiry", "light-framed", "narrow", "thin build", "long-limbed", "slight frame"],
-    "flabby": ["soft", "gentle curves", "relaxed build", "soft physique", "natural curves", "untoned"],
-    "short": ["compact build", "small-statured", "petite frame", "low height", "miniature build", "short-limbed"],
-    "tall": ["long-limbed", "long-legged", "elongated", "high-statured", "tall frame", "extended height", "towering", "lofty"],
-    "muscley": ["muscular", "defined", "toned", "strong build", "athletic", "ripped", "chiseled", "sculpted", "brawny", "powerful"],
-    "slim": ["slender", "lean", "light-framed", "thin build", "svelte", "slight", "graceful", "lithe"],
-    "Booty": ["bum", "cheeks", "rump", "tail", "seat", "fanny", "butt","buns", "buttocks", "backside", "posterior", "Tush", "caboose", "rear","derriere", "haunches", "tail end", "behind", "rear end", "heine", "bottom"],
+<details>
+<summary>The Language of Movement and Expression</summary>
+<div class="details-content">
+<p>This lexicon empowers the user to animate the human figure, going beyond static descriptions to convey dynamic poses and emotions with precision.</p>
+<table>
+<thead>
+<tr>
+<th>Descriptor</th>
+<th>Discipline</th>
+<th>Description</th>
+<th>Example Use in Prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Descriptor">Lotus Pose</td>
+<td data-label="Discipline">Yoga</td>
+<td data-label="Description">A seated, calming pose with crossed legs and feet on opposing thighs.</td>
+<td data-label="Example Use in Prompt">a figure in a peaceful Lotus Pose</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Warrior 3</td>
+<td data-label="Discipline">Yoga</td>
+<td data-label="Description">A standing, balancing, and energizing pose.</td>
+<td data-label="Example Use in Prompt">a character in an athletic Warrior 3 pose</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Downward Facing Dog</td>
+<td data-label="Discipline">Yoga</td>
+<td data-label="Description">An inversion pose where the body forms an inverted V-shape.</td>
+<td data-label="Example Use in Prompt">a person in a grounded Downward Facing Dog pose</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Plank Pose</td>
+<td data-label="Discipline">Yoga</td>
+<td data-label="Description">An arm-balance, balancing pose where the body is held in a straight line.</td>
+<td data-label="Example Use in Prompt">a figure holding a stable Plank Pose</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Ball Change</td>
+<td data-label="Discipline">Dance</td>
+<td data-label="Description">A quick transfer of body weight from one foot to another.</td>
+<td data-label="Example Use in Prompt">a dance move showing a quick ball change</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Isolation</td>
+<td data-label="Discipline">Dance</td>
+<td data-label="Description">Movement of a single part of the body.</td>
+<td data-label="Example Use in Prompt">a character performing a hip isolation</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Jazz Hands</td>
+<td data-label="Discipline">Dance</td>
+<td data-label="Description">Positioning both hands so that the fingers are splayed.</td>
+<td data-label="Example Use in Prompt">a performer with classic Jazz Hands</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Blocking</td>
+<td data-label="Discipline">Theatre</td>
+<td data-label="Description">Planned stage movement, including sitting, standing, and entering.</td>
+<td data-label="Example Use in Prompt">a play scene with blocking</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Cross</td>
+<td data-label="Discipline">Theatre</td>
+<td data-label="Description">An actor's movement from one part of the stage to another.</td>
+<td data-label="Example Use in Prompt">a dramatic scene where the actor executes a cross</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Contraction</td>
+<td data-label="Discipline">Dance</td>
+<td data-label="Description">A movement that involves curving the spine forward.</td>
+<td data-label="Example Use in Prompt">a figure with a spinal contraction</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Gesture</td>
+<td data-label="Discipline">Dance</td>
+<td data-label="Description">A movement that does not require a body weight shift.</td>
+<td data-label="Example Use in Prompt">a portrait with an expressive hand gesture</td>
+</tr>
+<tr>
+<td data-label="Descriptor">En Pointe</td>
+<td data-label="Discipline">Dance</td>
+<td data-label="Description">Dancing on the tips of the toes.</td>
+<td data-label="Example Use in Prompt">a ballet dancer in an elegant en pointe pose</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
 
-    // =======================
-    // TORSO, CHEST & LIMBS
-    // =======================
-    "boobs": ["bust", "chest", "pectoral area", "upper torso", "curves"],
-    "flat": ["minimal curves", "slender chest", "leveled torso", "smooth torso", "subtle form"],
-    "chubby legs": ["full legs", "toned legs", "curvy legs", "robust legs", "strong legs", "sturdy legs"],
-    "thin arms": ["slender arms", "lean arms", "defined arms", "light-framed arms", "graceful arms"],
+<details>
+<summary>Visual Reference and Context Index</summary>
+<div class="details-content">
+<p>This table synthesizes the descriptive lexicon with key visual references and contextual information about proportions and characteristics, providing a crucial link between abstract terms and tangible representations. This is a critical component for guiding AI models to generate specific and diverse figures.</p>
+<table>
+<thead>
+<tr>
+<th>Descriptor</th>
+<th>Category</th>
+<th>Key Visual Source</th>
+<th>Associated Ratios/Characteristics</th>
+<th>Source Citation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Descriptor">Ectomorph</td>
+<td data-label="Category">Somatotype</td>
+<td data-label="Key Visual Source">"Men body types diagram three somatotypes"</td>
+<td data-label="Associated Ratios/Characteristics">Characterized by a lean, slender body with high metabolism.</td>
+<td data-label="Source Citation">[9, 13]</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Mesomorph</td>
+<td data-label="Category">Somatotype</td>
+<td data-label="Key Visual Source">"Men body types diagram three somatotypes"</td>
+<td data-label="Associated Ratios/Characteristics">Muscular and strong, with a tendency to build muscle.</td>
+<td data-label="Source Citation">[9]</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Endomorph</td>
+<td data-label="Category">Somatotype</td>
+<td data-label="Key Visual Source">"Men body types diagram three somatotypes"</td>
+<td data-label="Associated Ratios/Characteristics">Tends to have more stored fat but can have significant muscle mass.</td>
+<td data-label="Source Citation">[10]</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Inverted Triangle</td>
+<td data-label="Category">Body Shape</td>
+<td data-label="Key Visual Source">"Sketches of male and female body types"</td>
+<td data-label="Associated Ratios/Characteristics">Broad shoulders and chest with a narrow waist. Associated with physical strength.</td>
+<td data-label="Source Citation">[10, 11, 12]</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Rectangle</td>
+<td data-label="Category">Body Shape</td>
+<td data-label="Key Visual Source">"Overview of Common Men's Body Types"</td>
+<td data-label="Associated Ratios/Characteristics">Shoulders, waist, and hips are roughly the same width.</td>
+<td data-label="Source Citation">[11]</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Pear / Triangle</td>
+<td data-label="Category">Body Shape</td>
+<td data-label="Key Visual Source">"Female body shapes five types"</td>
+<td data-label="Associated Ratios/Characteristics">Hips are wider than shoulders, with weight in the buttocks and thighs.</td>
+<td data-label="Source Citation">[10]</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Hourglass</td>
+<td data-label="Category">Body Shape</td>
+<td data-label="Key Visual Source">"Female body shapes five types"</td>
+<td data-label="Associated Ratios/Characteristics">Equally broad chest and hips with a smaller, well-defined waistline.</td>
+<td data-label="Source Citation">[10]</td>
+</tr>
+<tr>
+<td data-label="Descriptor">Apple / Oval</td>
+<td data-label="Category">Body Shape</td>
+<td data-label="Key Visual Source">"Female body shapes five types"</td>
+<td data-label="Associated Ratios/Characteristics">Weight is carried primarily in the chest and stomach.</td>
+<td data-label="Source Citation">[10]</td>
+</tr>
+<tr>
+<td data-label="Descriptor">General Figures</td>
+<td data-label="Category">Proportion</td>
+<td data-label="Key Visual Source">"Fashion figure of female body"</td>
+<td data-label="Associated Ratios/Characteristics">Proportional systems, such as the 9-head proportion for fashion figures.</td>
+<td data-label="Source Citation">[14]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
 
-    // =======================
-    // FACE & HEAD
-    // =======================
-    "ugly": ["distinctive", "unique", "characterful", "expressive", "individual", "striking", "unconventional"],
-    "plain": ["natural", "simple style", "minimalist look", "neutral features", "soft features"],
-    "old": ["aged", "mature", "experienced", "vintage look", "wise", "seasoned"],
-    "young": ["youthful", "adolescent", "fresh-faced", "teenage", "juvenile", "energetic"],
-    "weird": ["distinctive", "unusual", "quirky", "characterful", "eccentric", "unique"],
-    "gross": ["rugged", "rough texture", "textured skin", "natural imperfection", "weathered look"],
-
-    // =======================
-    // HAIR
-    // =======================
-    "bald": ["shaved head", "hairless", "clean scalp", "smooth scalp", "no hair"],
-    "messy": ["tousled", "disheveled", "wind-swept", "casual style", "relaxed hair"],
-    "curly": ["wavy", "coiled", "spiral-textured", "textured", "ringlets", "curled hair"],
-    "straight": ["smooth", "sleek", "flat hair", "straightened"],
-    "frizzy": ["textured", "tousled", "voluminous", "bouncy"],
-    "thin hair": ["fine hair", "sparse", "light hair", "soft strands"],
-    "thick hair": ["dense hair", "voluminous hair", "full-bodied hair", "strong strands"],
-
-    // =======================
-    // EYES
-    // =======================
-    "buggy eyes": ["prominent eyes", "large eyes", "wide-set eyes", "expressive eyes"],
-    "small eyes": ["narrow eyes", "delicate eyes", "almond-shaped eyes", "fine eyes"],
-    "dark circles": ["shadows under eyes", "subtle under-eye shading", "tired look", "natural contouring"],
-
-    // =======================
-    // SKIN & COMPLEXION
-    // =======================
-    "pale": ["fair", "light-toned", "porcelain", "ivory", "delicate skin"],
-    "dark": ["deep-toned", "tan", "olive", "rich brown", "ebony", "warm skin"],
-    "blemished": ["natural skin", "freckled", "spotted", "textured skin", "character marks"],
-    "rough": ["textured", "coarse", "weathered", "rugged skin"],
-    "soft": ["smooth", "silky", "gentle texture", "velvety"],
-
-    // =======================
-    // POSTURE & POSE
-    // =======================
-    "slouching": ["relaxed posture", "casual pose", "natural stance", "laid-back posture"],
-    "stiff": ["upright posture", "rigid stance", "formal posture", "alert stance"],
-    "leaning": ["tilted posture", "angled stance", "slanted posture"],
-
-    // =======================
-    // CLOTHING & ACCESSORIES
-    // =======================
-    "ugly clothes": ["plain clothing", "simple style", "basic attire", "neutral outfit"],
-    "old clothes": ["vintage clothing", "classic attire", "aged style", "retro look"],
-
-    // =======================
-    // GENERAL / MISC
-    // =======================
-    "thin": ["slim", "slender", "light-framed", "narrow", "slight frame", "lean"],
-    "chubby": ["soft", "rounded", "plump", "full-figured", "curvy", "robust"],
-    "average": ["proportional", "balanced", "natural build", "medium frame"],
-    "wide": ["broad", "expanded", "sturdy build", "strong frame", "generous width"],
-    "narrow": ["slender", "slim", "fine-framed", "compact", "tight frame"],
-
-    // =======================
-    // ADDITIONAL MICRO-DESCRIPTORS (sample expansion)
-    // =======================
-    "freckles": ["light freckles", "moderate freckles", "heavy freckles", "spotted skin", "natural dots"],
-    "wrinkles": ["fine lines", "expression lines", "age lines", "subtle creases", "character lines"],
-    "tattoos": ["small tattoos", "medium tattoos", "large tattoos", "colorful tattoos", "black and gray tattoos"],
-    "stretch marks": ["faint stretch marks", "visible stretch marks", "natural marks", "subtle lines"],
-    "moles": ["beauty marks", "skin moles", "distinct marks", "small skin spots"],
-    "dimples": ["cheek dimples", "subtle dimples", "prominent dimples", "smiling dimples"],
-    "glasses": ["eyewear", "spectacles", "frames", "optical accessory"],
-    "jewelry": ["necklace", "bracelet", "ring", "earrings", "adornments"],
-    "expression": ["smiling", "frowning", "neutral", "playful", "confident", "thoughtful", "mischievous"]
-};
-
-
-        const selectedKeywords = new Set();
-        let selectedBodyType = null;
-        const promptOutput = document.getElementById('prompt-output');
-        const glossaryContainer = document.getElementById('glossary-container');
-        const keywordSearch = document.getElementById('keyword-search');
-        const copyButton = document.getElementById('copy-button');
-        const clearButton = document.getElementById('clear-button');
-
-        // Function to render the glossary
-        function renderGlossary(filter = '') {
-            glossaryContainer.innerHTML = '';
-            
-            let searchTerms = [filter.toLowerCase()];
-            if (keywordSynonyms[filter.toLowerCase()]) {
-                searchTerms = keywordSynonyms[filter.toLowerCase()].map(term => term.toLowerCase());
-            }
-
-            glossaryData.forEach(mainCategory => {
-                const mainCategoryDiv = document.createElement('div');
-                mainCategoryDiv.className = 'col-span-1 sm:col-span-2 lg:col-span-3 bg-white p-5 rounded-2xl shadow-sm';
-                
-                const mainCategoryTitle = document.createElement('h2');
-                mainCategoryTitle.className = 'text-2xl font-bold mb-4 text-indigo-900';
-                mainCategoryTitle.textContent = mainCategory.category;
-                mainCategoryDiv.appendChild(mainCategoryTitle);
-
-                mainCategory.subcategories.forEach(subCategory => {
-                    const isBodyTypeCategory = mainCategory.category === "Primary Body Composition";
-                    const isGenderSpecificCategory = mainCategory.category === "Gender-Specific";
-                    const isCompatible = !selectedBodyType || isBodyTypeCategory || selectedBodyType.compatibleFeatures.includes(`${mainCategory.category}:${subCategory.name}`);
-                    
-                    const subCategoryDiv = document.createElement('div');
-                    subCategoryDiv.className = `bg-gray-50 p-5 rounded-2xl shadow-sm mb-4 ${!isCompatible ? 'hidden-category' : ''}`;
-                    
-                    const subCategoryTitle = document.createElement('h3');
-                    subCategoryTitle.className = 'text-lg font-semibold mb-1 text-indigo-700';
-                    subCategoryTitle.textContent = subCategory.name;
-                    subCategoryDiv.appendChild(subCategoryTitle);
-                    
-                    if (subCategory.description) {
-                        const descriptionP = document.createElement('p');
-                        descriptionP.className = 'text-gray-600 text-sm mb-3';
-                        descriptionP.textContent = subCategory.description;
-                        subCategoryDiv.appendChild(descriptionP);
-                    }
-
-                    if (isBodyTypeCategory) {
-                        const img = document.createElement('img');
-                        let imageUrl = '';
-                        let imageAlt = '';
-
-                        // Use a switch statement to select a specific image for each body type
-                        switch (subCategory.name) {
-                            case 'Ectomorph':
-                                // PASTE YOUR CUSTOM IMAGE LINK HERE FOR ECTOMORPH
-                                imageUrl = 'https://imgur.com/bsgYA8L';
-                                imageAlt = 'Image representing the Ectomorph body type';
-                                break;
-                            case 'Mesomorph':
-                                // PASTE YOUR CUSTOM IMAGE LINK HERE FOR MESOMORPH
-                                imageUrl = 'https://imgur.com/s43ZFiY';
-                                imageAlt = 'Image representing the Mesomorph body type';
-                                break;
-                            case 'Endomorph':
-                                // PASTE YOUR CUSTOM IMAGE LINK HERE FOR ENDOMORPH
-                                imageUrl = 'https://imgur.com/Mf501M0';
-                                imageAlt = 'Image representing the Endomorph body type';
-                                break;
-                            default:
-                                imageUrl = 'https://placehold.co/300x200/e5e7eb/4f46e5?text=Body+Type';
-                                imageAlt = 'Placeholder image for a body type';
-                        }
-                        
-                        img.src = imageUrl;
-                        img.alt = imageAlt;
-                        img.className = 'image-placeholder';
-                        subCategoryDiv.appendChild(img);
-                    }
-                    
-                    const keywordsDiv = document.createElement('div');
-                    keywordsDiv.className = 'flex flex-wrap gap-2 mt-4';
-                    
-                    subCategory.keywords.filter(keyword => 
-                        searchTerms.some(term => keyword.toLowerCase().includes(term))
-                    ).forEach(keyword => {
-                        const keywordButton = document.createElement('button');
-                        keywordButton.textContent = keyword;
-                        const isBodyTypeButton = subCategory.type === "bodyType";
-                        keywordButton.className = `keyword-button bg-gray-200 text-gray-800 text-sm font-medium py-2 px-4 rounded-full border-2 border-transparent transition-colors duration-200 ${selectedKeywords.has(keyword) ? 'selected' : ''} ${isBodyTypeButton ? 'body-type-button' : ''}`;
-                        keywordButton.addEventListener('click', () => toggleKeyword(keyword, isBodyTypeButton, subCategory.compatibleFeatures));
-                        
-                        keywordsDiv.appendChild(keywordButton);
-                    });
-                    
-                    if (keywordsDiv.childElementCount > 0) {
-                        subCategoryDiv.appendChild(keywordsDiv);
-                        mainCategoryDiv.appendChild(subCategoryDiv);
-                    }
-                });
-                
-                if (mainCategoryDiv.childElementCount > 1) { 
-                    glossaryContainer.appendChild(mainCategoryDiv);
-                }
-            });
-        }
-
-        function toggleKeyword(keyword, isBodyTypeButton, compatibleFeatures) {
-            if (isBodyTypeButton) {
-                if (selectedBodyType && selectedBodyType.keywords.includes(keyword)) {
-                    selectedKeywords.clear();
-                    selectedBodyType = null;
-                } else {
-                    selectedKeywords.clear();
-                    selectedKeywords.add(keyword);
-                    const bodyTypeObject = glossaryData.find(cat => cat.category === "Primary Body Composition").subcategories.find(sub => sub.keywords.includes(keyword));
-                    selectedBodyType = bodyTypeObject;
-                }
-            } else {
-                if (selectedKeywords.has(keyword)) {
-                    selectedKeywords.delete(keyword);
-                } else {
-                    selectedKeywords.add(keyword);
-                }
-            }
-            updatePrompt();
-            renderGlossary(keywordSearch.value);
-        }
-
-        function updatePrompt() {
-            const sortedKeywords = Array.from(selectedKeywords).sort((a, b) => {
-                const isBodyTypeA = glossaryData.find(cat => cat.category === "Primary Body Composition").subcategories.some(sub => sub.keywords.includes(a));
-                const isBodyTypeB = glossaryData.find(cat => cat.category === "Primary Body Composition").subcategories.some(sub => sub.keywords.includes(b));
-                if (isBodyTypeA && !isBodyTypeB) return -1;
-                if (!isBodyTypeA && isBodyTypeB) return 1;
-                return 0;
-            });
-            promptOutput.value = sortedKeywords.join(', ');
-        }
-
-        keywordSearch.addEventListener('input', (e) => {
-            renderGlossary(e.target.value);
-        });
-
-        copyButton.addEventListener('click', () => {
-            if (promptOutput.value.length > 0) {
-                promptOutput.select();
-                document.execCommand('copy');
-                copyButton.textContent = 'Copied!';
-                setTimeout(() => {
-                    copyButton.textContent = 'Copy Prompt';
-                }, 2000);
-            }
-        });
-
-        clearButton.addEventListener('click', () => {
-            selectedKeywords.clear();
-            selectedBodyType = null;
-            updatePrompt();
-            renderGlossary();
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderGlossary();
-        });
-    </script>
+<br>
+<p style="font-size: 0.8em; text-align: center;">This report is a technical deliverable. The visual sources cited above require a separate license or subscription for full use. The inclusion of these links is for reference and contextual purposes only.</p>
+</div>
 </body>
 </html>
