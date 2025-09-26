@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prompt Glossary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f8fafc; /* Light Blue/Gray Background */
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        .category-container {
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease-in-out;
+        }
+        .category-container:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 md:p-10">
+
+<div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl p-6 sm:p-10 md:p-12">
+
+    <!-- Header and Prompt Box Section -->
+    <header class="text-center mb-10 border-b-4 border-blue-600 pb-4">
+        <h1 class="text-5xl font-black text-gray-900 tracking-tight">AI Prompt Glossary</h1>
+        <p class="text-xl text-gray-500 font-medium mt-1">Build the Perfect Prompt</p>
+    </header>
+
+    <div class="mb-10 p-6 bg-blue-50 rounded-2xl border-2 border-blue-200">
+        <label for="prompt-output" class="block text-lg font-bold mb-3 text-blue-700">Generated Prompt:</label>
+        <textarea id="prompt-output" rows="5" readonly class="w-full p-4 rounded-lg border-2 border-blue-300 bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-shadow duration-300 font-mono text-sm shadow-inner"></textarea>
+        
+        <div class="mt-4 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+            <button id="copy-button" class="flex-1 px-6 py-3 rounded-full font-bold text-white bg-blue-600 hover:bg-blue-700 transition-transform duration-200 transform hover:scale-[1.01] shadow-lg">Copy Prompt</button>
+            <button id="clear-button" class="flex-1 px-6 py-3 rounded-full font-bold text-gray-700 bg-gray-200 hover:bg-gray-300 transition-colors duration-200 shadow-md">Clear Selection</button>
+        </div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="mb-10 p-5 bg-yellow-50 rounded-2xl border-2 border-yellow-200">
+        <label for="keyword-search" class="block text-lg font-bold mb-3 text-yellow-700">Search for Keywords:</label>
+        <input type="text" id="keyword-search" placeholder="Search a potentially explicit word to find a safe alternate, or search any descriptor..." class="w-full p-4 rounded-full border-2 border-yellow-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors duration-200 shadow-inner">
+    </div>
+
+    <!-- Glossary Categories Section -->
+    <div id="glossary-container" class="space-y-8">
+        <!-- Categories will be rendered here -->
+    </div>
+
+</div>
+
+<script>
+    // --- Data Structure: The Master Glossary ---
+    // Keywords are structured by Category > Subcategory > Keywords (array)
+    // The 'order' property on each category dictates the 'Smart Prompt Formula' order.
+    const glossaryData = [
+        {
+            category: "Somatotypes & General Build", order: 1,
+            description: "Defines the fundamental physique and body composition of the character.",
+            subcategories: [
+                { name: "Ectomorph Build (Lean, Slender)", keywords: ['ectomorph build', 'slender frame', 'long limbs', 'narrow shoulders', 'linear build', 'delicate frame', 'minimal muscle mass', 'light-boned', 'wirey strength', 'slim figure', 'fast metabolism physique', 'narrow hips', 'boyish frame', 'lanky physique', 'elongated body type'] },
+                { name: "Mesomorph Build (Athletic, Muscular)", keywords: ['mesomorph build', 'athletic build', 'V-taper torso', 'broad shoulders', 'defined musculature', 'balanced proportions', 'medium frame', 'naturally strong', 'sculpted body', 'proportional physique', 'toned definition', 'high muscle mass', 'strong build', 'powerfully built', 'rugged build'] },
+                { name: "Endomorph Build (Rounded, Sturdy)", keywords: ['endomorph build', 'rounded build', 'fuller body', 'thick-set', 'sturdy frame', 'compact physique', 'higher body fat percentage', 'soft musculature', 'wide frame', 'heavy-set', 'stocky build', 'thick build', 'soft curves', 'solid structure', 'barrel-chested'] },
+                { name: "Muscular Variations (Male)", keywords: ['chiseled abs', 'ripped physique', 'shredded definition', 'bulky muscle mass', 'vascular body', 'hypertrophy muscle', 'lean muscular', 'toned and defined', 'brawny', 'hulking physique', 'bodybuilder frame', 'athletic frame', 'crossfit build'] }
+            ]
+        },
+        {
+            category: "Gender Specific Body Shape", order: 2,
+            description: "Keywords for defining characteristics unique to female and male anatomy.",
+            subcategories: [
+                // Female Subcategories
+                { name: "Bust (Small)", keywords: ['petite bust', 'subtle curve', 'flat-chested', 'minimal projection', 'perky small bust', 'A-cup shape', 'small-chested', 'delicate bust'] },
+                { name: "Bust (Medium)", keywords: ['average bust', 'full curve', 'moderate cleavage', 'B/C-cup shape', 'proportional chest', 'medium fullness', 'rounded bust'] },
+                { name: "Bust (Big)", keywords: ['ample bust', 'full-chested', 'voluminous curve', 'heavy appearance', 'deep cleavage', 'D-cup shape or larger', 'generous bust', 'curvy chest'] },
+                { name: "Hips (Female)", keywords: ['narrow hips', 'wide hips', 'curvy hips', 'hip dips visible', 'hourglass curve', 'symmetrical hips', 'high hip bones', 'pear shape hips', 'defined waist to hip ratio'] },
+                // Male Subcategories
+                { name: "Torso & Chest (Male)", keywords: ['V-taper torso', 'barrel-chested', 'broad torso', 'narrow ribcage', 'slender waist (male)', 'thick waist (male)', 'athletic back', 'prominent collarbones (male)', 'defined pectorals', 'flat male chest', 'broad chest', 'muscular chest', 'toned chest', 'chest hair (light)', 'chest hair (heavy)'] },
+            ]
+        },
+        {
+            category: "Hair", order: 3,
+            description: "Descriptors for hair length, style, and texture.",
+            subcategories: [
+                { name: "Hair Styles (Head)", keywords: ['pixie cut', 'bob cut', 'lob (long bob)', 'body wave middle part', 'middle part bus down', 'twin ponytails', 'Afro style', 'cornrows', 'dreadlocks', 'slicked back hair', 'messy bun', 'goddess braids', 'ethereal braids', 'layered cut', 'shaved sides', 'curly texture', 'straight texture', 'wavy texture', 'kinky hair', 'coiled hair', 'ombre color', 'natural highlights'] }
+            ]
+        },
+        {
+            category: "Facial Hair (Male)", order: 4,
+            description: "Different styles of male facial hair.",
+            subcategories: [
+                { name: "Styles", keywords: ['goatee', 'mustache only', 'stubble', 'full beard', 'chin strap beard', 'soul patch', 'sideburns', 'clean-shaven', 'trimmed beard', 'long flowing beard', 'scruffy beard'] }
+            ]
+        },
+        {
+            category: "Face & Head", order: 5,
+            description: "Micro-descriptors for detailed facial features and symmetry.",
+            subcategories: [
+                { name: "Jawline & Chin", keywords: ['sharp jawline', 'soft jawline', 'rounded jaw', 'chiseled jaw', 'prominent chin', 'cleft chin', 'angular features', 'defined mandible'] },
+                { name: "Eyes & Brow", keywords: ['almond eyes (small)', 'round eyes (large)', 'deep-set eyes', 'hooded eyes', 'narrow eyes', 'wide-set eyes', 'thin eyebrows', 'thick eyebrows', 'arched brow', 'straight brow', 'youthful gaze', 'aged eyes'] },
+                { name: "Nose & Nostrils", keywords: ['small bridge nose', 'button nose top', 'aquiline nose', 'roman nose', 'wide nostrils', 'narrow nostrils', 'slender bridge', 'hooked nose', 'defined nose tip'] },
+                { name: "Symmetry & Look", keywords: ['high symmetry face', 'youthful symmetry', 'aged symmetry', 'rugged features', 'soft features', 'puffy face', 'gaunt face', 'prominent cheekbones'] }
+            ]
+        },
+        {
+            category: "Skin & Complexion", order: 6,
+            description: "Descriptors for skin texture, condition, and tone.",
+            subcategories: [
+                { name: "Texture & Condition", keywords: ['smooth skin', 'rough skin', 'oily skin', 'dry skin', 'eczema patches', 'psoriasis condition', 'stretch marks texture', 'acne scars', 'freckled skin', 'blemished skin', 'glowing skin', 'matte complexion', 'soft skin', 'coarse skin'] },
+                { name: "Tone & Undertone", keywords: ['deep skin tone', 'brown skin tone', 'pale complexion', 'olive skin tone', 'neutral undertone', 'warm undertone', 'cool undertone', 'sunkissed tone', 'fair skin', 'tan skin', 'dark skin', 'medium skin'] }
+            ]
+        },
+        {
+            category: "Arms & Hands", order: 7,
+            description: "Detailed descriptors for the upper limbs and hands.",
+            subcategories: [
+                { name: "Arms (Musculature)", keywords: ['muscular arms', 'toned arms', 'lean arms', 'vascular forearms', 'defined biceps', 'slender arms', 'heavy upper arms', 'athletic arms', 'thin forearms', 'long arm length', 'short arm length'] },
+                { name: "Hands", keywords: ['proportionate hands', 'hairy hands', 'smooth hands', 'oily hands', 'calloused hands', 'hands with visible folds', 'delicate hands', 'strong grip hands', 'large hands', 'small hands', 'long fingers', 'manicured nails'] }
+            ]
+        },
+        {
+            category: "Legs & Lower Body", order: 8,
+            description: "Descriptors for the legs, thighs, and calves.",
+            subcategories: [
+                { name: "Thighs (Definition)", keywords: ['thick thighs', 'slender thighs', 'toned thighs', 'thunder thighs', 'cellulite texture on thighs', 'lean quads', 'muscular hammies', 'long femoral length', 'athletic legs', 'smooth legs', 'hairy legs'] },
+                { name: "Calves", keywords: ['small calves', 'large calves', 'defined calves', 'muscular calves', 'slender lower leg', 'toned calves'] }
+            ]
+        },
+        {
+            category: "Glutes", order: 9,
+            description: "Descriptors for the size and shape of the gluteal region.",
+            subcategories: [
+                { name: "Small Glutes", keywords: ['flat buttocks', 'minimal projection', 'narrow rear', 'tight glutes'] },
+                { name: "Medium Glutes", keywords: ['average projection glutes', 'rounded shape glutes', 'proportional glutes'] },
+                { name: "Big Glutes", keywords: ['ample buttocks', 'full projection glutes', 'voluminous glutes', 'heavy-set behind'] }
+            ]
+        },
+        {
+            category: "Posture & Pose", order: 10,
+            description: "Describes the character's stance or action.",
+            subcategories: [
+                { name: "Stance & Action", keywords: ['upright posture', 'slouched pose', 'relaxed stance', 'confident pose', 'dynamic action pose', 'running stance', 'sitting casually', 'leaning against wall', 'stretching posture', 'bending over', 'folded arms', 'hands in pockets', 'crossed legs'] }
+            ]
+        },
+        {
+            category: "Clothing & Accessories", order: 11,
+            description: "Items worn by the character.",
+            subcategories: [
+                { name: "Shirts & Tops", keywords: ['t-shirt', 'button-down shirt', 'hoodie', 'tank top', 'blouse', 'sweater', 'formal shirt', 'crop top'] },
+                { name: "Bottoms", keywords: ['pants', 'jeans', 'skirt', 'shorts', 'skort', 'leggings', 'slacks', 'swim trunks'] },
+                { name: "Shoes", keywords: ['sandals', 'tennis shoes', 'formal shoes', 'high heels', 'pumps', 'red bottoms shoes', 'boots', 'flats', 'sneakers'] },
+                { name: "Accessories", keywords: ['earrings', 'watch', 'necklace', 'bracelet', 'glasses', 'hat', 'scarf', 'tie', 'gloves', 'belt', 'layered clothing', 'ring'] }
+            ]
+        },
+        {
+            category: "Age & Ethnicity", order: 12,
+            description: "Descriptors for age stage and cultural background.",
+            subcategories: [
+                { name: "Age Stage", keywords: ['young adult', 'middle-aged', 'elderly', 'teenager', 'child', 'infant', 'late 20s', '40s age', '80s age'] },
+                { name: "Ethnicity", keywords: ['African heritage', 'East Asian heritage', 'South Asian heritage', 'European heritage', 'Latin American heritage', 'Middle Eastern heritage', 'Indigenous American heritage', 'Pacific Islander heritage', 'mixed ethnicity'] }
+            ]
+        },
+        {
+            category: "Additional/Alternate Keywords", order: 13,
+            description: "Safe alternatives for potentially sensitive or contextual terms.",
+            subcategories: [
+                { name: "Alternates", keywords: ['undergarments', 'swimwear coverage', 'unclothed area (artistic)', 'sensual pose', 'artistic nude', 'full coverage clothing', 'minimal clothing', 'photorealistic', 'cinematic lighting', 'digital painting', 'concept art', 'maximalist detail'] }
+            ]
+        },
+    ];
+
+    // --- Core Logic ---
+
+    const glossaryContainer = document.getElementById('glossary-container');
+    const keywordSearch = document.getElementById('keyword-search');
+    const promptOutput = document.getElementById('prompt-output');
+    const copyButton = document.getElementById('copy-button');
+    const clearButton = document.getElementById('clear-button');
+
+    let selectedKeywords = new Set();
+    
+    // Create a flat map for easy keyword lookup and ordering reference
+    const keywordOrderMap = new Map();
+    glossaryData.sort((a, b) => a.order - b.order).forEach(category => {
+        category.subcategories.forEach(sub => {
+            sub.keywords.forEach(keyword => {
+                // Key is the keyword, value is the category order number
+                keywordOrderMap.set(keyword, category.order);
+            });
+        });
+    });
+
+
+    // Smart Prompt Formula Implementation
+    function formatPrompt() {
+        // 1. Convert Set to Array
+        const keywordsArray = Array.from(selectedKeywords);
+
+        // 2. Sort the array based on the predefined category order
+        const sortedKeywords = keywordsArray.sort((a, b) => {
+            const orderA = keywordOrderMap.get(a) || Infinity;
+            const orderB = keywordOrderMap.get(b) || Infinity;
+
+            if (orderA !== orderB) {
+                return orderA - orderB; // Sort by category order
+            }
+            return a.localeCompare(b); // Alphabetically if in the same category
+        });
+
+        // 3. Join them into the final prompt string
+        promptOutput.value = sortedKeywords.join(', ');
+    }
+
+    // Function to create a keyword button
+    function createKeywordButton(keyword) {
+        const button = document.createElement('button');
+        button.textContent = keyword;
+        button.className = `p-3 rounded-lg border-2 text-sm font-medium transition-all duration-150 transform hover:scale-[1.03] shadow-sm truncate text-center w-full`;
+        
+        // Update button style based on selection status
+        if (selectedKeywords.has(keyword)) {
+            button.classList.add('bg-blue-600', 'text-white', 'border-blue-700', 'hover:bg-blue-700');
+        } else {
+            button.classList.add('bg-gray-100', 'text-gray-800', 'border-gray-300', 'hover:bg-gray-200');
+        }
+
+        button.addEventListener('click', () => {
+            if (selectedKeywords.has(keyword)) {
+                selectedKeywords.delete(keyword);
+            } else {
+                selectedKeywords.add(keyword);
+            }
+            formatPrompt();
+            renderGlossary(keywordSearch.value); // Re-render to update button styles
+        });
+        return button;
+    }
+
+    // Function to render the entire glossary or just search results
+    function renderGlossary(filter = '') {
+        glossaryContainer.innerHTML = '';
+        const filterText = filter.trim().toLowerCase();
+        
+        if (filterText !== '') {
+            // --- Search Results View ---
+            const allKeywords = Array.from(keywordOrderMap.keys());
+            const filteredKeywords = allKeywords.filter(kw => kw.toLowerCase().includes(filterText));
+
+            const resultsSection = document.createElement('div');
+            resultsSection.className = 'bg-yellow-100 rounded-xl p-6 shadow-md category-container';
+            resultsSection.innerHTML = `<h2 class="text-2xl font-bold mb-4 text-yellow-800">Search Results for "${filter}" (${filteredKeywords.length})</h2>`;
+            
+            if (filteredKeywords.length > 0) {
+                const keywordsList = document.createElement('div');
+                keywordsList.className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3';
+                resultsSection.appendChild(keywordsList);
+                filteredKeywords.forEach(keyword => {
+                    keywordsList.appendChild(createKeywordButton(keyword));
+                });
+            } else {
+                resultsSection.innerHTML += `<p class="text-gray-600">No keywords match your search. Try different terminology.</p>`;
+            }
+            glossaryContainer.appendChild(resultsSection);
+
+        } else {
+            // --- Full Glossary View ---
+            glossaryData.sort((a, b) => a.order - b.order).forEach(category => {
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'bg-white rounded-xl p-6 shadow-md category-container';
+                categoryElement.innerHTML = `
+                    <h2 class="text-3xl font-bold mb-2 text-gray-800">${category.category}</h2>
+                    <p class="text-gray-500 mb-6 text-sm">${category.description}</p>
+                `;
+
+                const subcategoryWrapper = document.createElement('div');
+                subcategoryWrapper.className = 'space-y-6';
+
+                category.subcategories.forEach(sub => {
+                    const subElement = document.createElement('div');
+                    subElement.className = 'p-4 bg-gray-50 rounded-lg border border-gray-200';
+                    subElement.innerHTML = `<h3 class="text-lg font-semibold mb-3 text-blue-700">${sub.name}</h3>`;
+                    
+                    const keywordsList = document.createElement('div');
+                    keywordsList.className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3';
+                    
+                    sub.keywords.forEach(keyword => {
+                        keywordsList.appendChild(createKeywordButton(keyword));
+                    });
+                    
+                    subElement.appendChild(keywordsList);
+                    subcategoryWrapper.appendChild(subElement);
+                });
+
+                categoryElement.appendChild(subcategoryWrapper);
+                glossaryContainer.appendChild(categoryElement);
+            });
+        }
+    }
+
+    // --- Event Listeners ---
+    keywordSearch.addEventListener('input', (e) => {
+        renderGlossary(e.target.value);
+    });
+
+    copyButton.addEventListener('click', () => {
+        if (promptOutput.value.length > 0) {
+            promptOutput.select();
+            document.execCommand('copy');
+            copyButton.textContent = 'Copied!';
+            setTimeout(() => {
+                copyButton.textContent = 'Copy Prompt';
+            }, 2000);
+        }
+    });
+
+    clearButton.addEventListener('click', () => {
+        selectedKeywords.clear();
+        formatPrompt();
+        renderGlossary(keywordSearch.value);
+    });
+
+    // Initial render
+    document.addEventListener('DOMContentLoaded', () => {
+        renderGlossary();
+    });
+</script>
+
+</body>
+</html>
