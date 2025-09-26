@@ -69,12 +69,30 @@
     const glossaryData = [
         {
             category: "Somatotypes & General Build", order: 1,
-            description: "Defines the fundamental physique and body composition of the character.",
+            description: "Defines the fundamental physique and body composition of the character. Use one term from Ectomorph/Mesomorph/Endomorph to set the base, then add variations.",
             subcategories: [
-                { name: "Ectomorph Build (Lean, Slender)", keywords: ['ectomorph build', 'slender frame', 'long limbs', 'narrow shoulders', 'linear build', 'delicate frame', 'minimal muscle mass', 'light-boned', 'wirey strength', 'slim figure', 'fast metabolism physique', 'narrow hips', 'boyish frame', 'lanky physique', 'elongated body type'] },
-                { name: "Mesomorph Build (Athletic, Muscular)", keywords: ['mesomorph build', 'athletic build', 'V-taper torso', 'broad shoulders', 'defined musculature', 'balanced proportions', 'medium frame', 'naturally strong', 'sculpted body', 'proportional physique', 'toned definition', 'high muscle mass', 'strong build', 'powerfully built', 'rugged build'] },
-                { name: "Endomorph Build (Rounded, Sturdy)", keywords: ['endomorph build', 'rounded build', 'fuller body', 'thick-set', 'sturdy frame', 'compact physique', 'higher body fat percentage', 'soft musculature', 'wide frame', 'heavy-set', 'stocky build', 'thick build', 'soft curves', 'solid structure', 'barrel-chested'] },
-                { name: "Muscular Variations (Male)", keywords: ['chiseled abs', 'ripped physique', 'shredded definition', 'bulky muscle mass', 'vascular body', 'hypertrophy muscle', 'lean muscular', 'toned and defined', 'brawny', 'hulking physique', 'bodybuilder frame', 'athletic frame', 'crossfit build'] }
+                { name: "Ectomorph Build (Lean, Slender) - Thin, Delicate Frame", keywords: [
+                    'ectomorph build', 'slender frame', 'long limbs', 'narrow shoulders', 'linear build', 'delicate frame', 'minimal muscle mass', 'light-boned', 'wirey strength', 'slim figure', 'fast metabolism physique', 'narrow hips (male)', 'boyish frame (male)', 'lanky physique', 'elongated body type',
+                    'frail looking', 'slight build', 'thin structure', 'runner build', 'endurance athlete build', 'minimal body fat', 'sharp angles', 'visible bone structure', 'lean and agile', 'tall and thin', 'narrow waist (male)', 'stringy muscle definition', 'willowy figure', 'lightweight build', 'unimposing figure',
+                    'graceful build', 'thin wrists and ankles', 'subtle musculature', 'hollow chest (male)', 'high metabolism build', 'sleek physique', 'skinny-fit build', 'aerobic build', 'delicate neck', 'youthful build (male)', 'non-muscular', 'slender neck', 'minimalist frame'
+                ] },
+                { name: "Mesomorph Build (Athletic, Muscular) - Balanced, V-Taper, Strong", keywords: [
+                    'mesomorph build', 'athletic build', 'V-taper torso', 'broad shoulders', 'defined musculature', 'balanced proportions', 'medium frame', 'naturally strong', 'sculpted body', 'proportional physique', 'toned definition', 'high muscle mass', 'strong build', 'powerfully built', 'rugged build',
+                    'symmetrical build', 'muscular frame', 'hard body', 'dense muscle mass', 'medium body fat', 'ideal build (male)', 'chiseled frame', 'square chest', 'thick bone structure', 'explosive power build', 'speed and agility build', 'boxer build', 'swimmer build', 'wrestler build',
+                    'compact muscularity', 'athletic vigor', 'well-defined body', 'solid frame', 'tapered waist', 'developed lats', 'thick core', 'medium height and build', 'natural athlete', 'ready stance build', 'imposing frame', 'powerful shoulder caps', 'lean and solid'
+                ] },
+                { name: "Endomorph Build (Rounded, Sturdy) - Soft, Wide Frame", keywords: [
+                    'endomorph build', 'rounded build', 'fuller body', 'thick-set', 'sturdy frame', 'compact physique', 'higher body fat percentage', 'soft musculature', 'wide frame', 'heavy-set', 'stocky build', 'thick build', 'soft curves (male)', 'solid structure', 'barrel-chested',
+                    'broad-waisted (male)', 'curvier male body', 'large bone structure', 'thick wrists and ankles', 'round shoulders', 'gentle slopes body', 'football lineman build', 'powerlifter build (soft)', 'low metabolism build', 'heavy upper body', 'wide hips (male)',
+                    'strong but soft', 'squat frame', 'massively built (endomorph)', 'smooth body contours', 'thick neck', 'boulder-like build', 'husky frame', 'lumberjack build', 'farmer build', 'protective build', 'untoned appearance', 'dense and broad'
+                ] },
+                { name: "Muscular Variations - Definition & Hypertrophy", keywords: [
+                    'ripped physique', 'shredded definition', 'hyper-muscular', 'bulky muscle mass', 'vascular body', 'low body fat', 'extreme definition', 'bodybuilder physique', 'mass monster', 'aesthetic physique', 'classic physique', 'mens open physique', 'fitness model physique',
+                    'powerfully muscular', 'brawny', 'hulking physique', 'thick muscle bellies', 'dense and hard muscle', 'crossfit build', 'calisthenics build', 'toned and defined', 'lean muscularity', 'high vascularity', 'granite-like muscles', 'striated muscle tissue',
+                    'thick biceps', 'bouldering shoulders', 'deep cut abdominal lines', 'six-pack defined', 'eight-pack defined', 'oblique muscle lines', 'serpentine veins', 'pumped muscles', 'swole', 'massive traps', 'developed glutes', 'defined quads', 'muscular separation',
+                    'strong athletic body', 'functional fitness build', 'gained mass', 'bulked up', 'cut and lean', 'maintenance physique', 'strongman build', 'olympic lifter build', 'pro wrestler build', 'martial arts build (muscular)', 'defined calves', 'thick thighs',
+                    'highly developed muscles', 'peak condition body', 'lean and ripped', 'sheer muscle mass', 'muscle hypertrophy', 'maximum definition'
+                ] }
             ]
         },
         {
@@ -82,12 +100,131 @@
             description: "Keywords for defining characteristics unique to female and male anatomy.",
             subcategories: [
                 // Female Subcategories
-                { name: "Bust (Small)", keywords: ['petite bust', 'subtle curve', 'flat-chested', 'minimal projection', 'perky small bust', 'A-cup shape', 'small-chested', 'delicate bust'] },
-                { name: "Bust (Medium)", keywords: ['average bust', 'full curve', 'moderate cleavage', 'B/C-cup shape', 'proportional chest', 'medium fullness', 'rounded bust'] },
-                { name: "Bust (Big)", keywords: ['ample bust', 'full-chested', 'voluminous curve', 'heavy appearance', 'deep cleavage', 'D-cup shape or larger', 'generous bust', 'curvy chest'] },
-                { name: "Hips (Female)", keywords: ['narrow hips', 'wide hips', 'curvy hips', 'hip dips visible', 'hourglass curve', 'symmetrical hips', 'high hip bones', 'pear shape hips', 'defined waist to hip ratio'] },
+                { name: "Bust (Small)", keywords: [
+                    "petite bust","petite chest","petite contour","petite silhouette","petite figure","petite torso","petite shape","petite frame","petite outline","petite form",
+                    "delicate bust","delicate chest","delicate contour","delicate silhouette","delicate figure","delicate torso","delicate shape","delicate frame","delicate outline","delicate form",
+                    "subtle bust","subtle chest","subtle contour","subtle silhouette","subtle figure","subtle torso","subtle shape","subtle frame","subtle outline","subtle form",
+                    "slight bust","slight chest","slight contour","slight silhouette","slight figure","slight torso","slight shape","slight frame","slight outline","slight form",
+                    "modest bust","modest chest","modest contour","modest silhouette","modest figure","modest torso","modest shape","modest frame","modest outline","modest form",
+                    "flat bust","flat chest","flat contour","flat silhouette","flat figure","flat torso","flat shape","flat frame","flat outline","flat form",
+                    "compact bust","compact chest","compact contour","compact silhouette","compact figure","compact torso","compact shape","compact frame","compact outline","compact form",
+                    "dainty bust","dainty chest","dainty contour","dainty silhouette","dainty figure","dainty torso","dainty shape","dainty frame","dainty outline","dainty form",
+                    "narrow bust","narrow chest","narrow contour","narrow silhouette","narrow figure","narrow torso","narrow shape","narrow frame","narrow outline","narrow form",
+                    "graceful bust","graceful chest","graceful contour","graceful silhouette","graceful figure","graceful torso","graceful shape","graceful frame","graceful outline","graceful form",
+                    "fine bust","fine chest","fine contour","fine silhouette","fine figure","fine torso","fine shape","fine frame","fine outline","fine form",
+                    "light bust","light chest","light contour","light silhouette","light figure","light torso","light shape","light frame","light outline","light form",
+                    "minimal bust","minimal chest","minimal contour","minimal silhouette","minimal figure","minimal torso","minimal shape","minimal frame","minimal outline","minimal form",
+                    "slender bust","slender chest","slender contour","slender silhouette","slender figure","slender torso","slender shape","slender frame","slender outline","slender form",
+                ] },
+                { name: "Bust (Medium)", keywords: [
+                    "balanced bust","balanced chest","balanced contour","balanced silhouette","balanced figure","balanced torso","balanced shape","balanced frame","balanced outline","balanced form",
+                    "moderate bust","moderate chest","moderate contour","moderate silhouette","moderate figure","moderate torso","moderate shape","moderate frame","moderate outline","moderate form",
+                    "average bust","average chest","average contour","average silhouette","average figure","average torso","average shape","average frame","average outline","average form",
+                    "normal bust","normal chest","normal contour","normal silhouette","normal figure","normal torso","normal shape","normal frame","normal outline","normal form",
+                    "proportional bust","proportional chest","proportional contour","proportional silhouette","proportional figure","proportional torso","proportional shape","proportional frame","proportional outline","proportional form",
+                    "natural bust","natural chest","natural contour","natural silhouette","natural figure","natural torso","natural shape","natural frame","natural outline","natural form",
+                    "rounded bust","rounded chest","rounded contour","rounded silhouette","rounded figure","rounded torso","rounded shape","rounded frame","rounded outline","rounded form",
+                    "classic bust","classic chest","classic contour","classic silhouette","classic figure","classic torso","classic shape","classic frame","classic outline","classic form",
+                    "centered bust","centered chest","centered contour","centered silhouette","centered figure","centered torso","centered shape","centered frame","centered outline","centered form",
+                    "steady bust","steady chest","steady contour","steady silhouette","steady figure","steady torso","steady shape","steady frame","steady outline","steady form",
+                    "harmonious bust","harmonious chest","harmonious contour","harmonious silhouette","harmonious figure","harmonious torso","harmonious shape","harmonious frame","harmonious outline","harmonious form",
+                    "tasteful bust","tasteful chest","tasteful contour","tasteful silhouette","tasteful figure","tasteful torso","tasteful shape","tasteful frame","tasteful outline","tasteful form",
+                    "symmetrical bust","symmetrical chest","symmetrical contour","symmetrical silhouette","symmetrical figure","symmetrical torso","symmetrical shape","symmetrical frame","symmetrical outline","symmetrical form",
+                    "refined bust","refined chest","refined contour","refined silhouette","refined figure","refined torso","refined shape","refined frame","refined outline","refined form",
+                    "aesthetic bust","aesthetic chest","aesthetic contour","aesthetic silhouette","aesthetic figure","aesthetic torso","aesthetic shape","aesthetic frame","aesthetic outline","aesthetic form",
+                    "elegant bust","elegant chest","elegant contour","elegant silhouette","elegant figure","elegant torso","elegant shape","elegant frame","elegant outline","elegant form",
+                ] },
+                { name: "Bust (Big)", keywords: [
+                    "full bust","full chest","full contour","full silhouette","full figure","full torso","full shape","full frame","full outline","full form",
+                    "ample bust","ample chest","ample contour","ample silhouette","ample figure","ample torso","ample shape","ample frame","ample outline","ample form",
+                    "prominent bust","prominent chest","prominent contour","prominent silhouette","prominent figure","prominent torso","prominent shape","prominent frame","prominent outline","prominent form",
+                    "generous bust","generous chest","generous contour","generous silhouette","generous figure","generous torso","generous shape","generous frame","generous outline","generous form",
+                    "curvy bust","curvy chest","curvy contour","curvy silhouette","curvy figure","curvy torso","curvy shape","curvy frame","curvy outline","curvy form",
+                    "voluminous bust","voluminous chest","voluminous contour","voluminous silhouette","voluminous figure","voluminous torso","voluminous shape","voluminous frame","voluminous outline","voluminous form",
+                    "substantial bust","substantial chest","substantial contour","substantial silhouette","substantial figure","substantial torso","substantial shape","substantial frame","substantial outline","substantial form",
+                    "developed bust","developed chest","developed contour","developed silhouette","developed figure","developed torso","developed shape","developed frame","developed outline","developed form",
+                    "pronounced bust","pronounced chest","pronounced contour","pronounced silhouette","pronounced figure","pronounced torso","pronounced shape","pronounced frame","pronounced outline","pronounced form",
+                    "robust bust","robust chest","robust contour","robust silhouette","robust figure","robust torso","robust shape","robust frame","robust outline","robust form",
+                    "abundant bust","abundant chest","abundant contour","abundant silhouette","abundant figure","abundant torso","abundant shape","abundant frame","abundant outline","abundant form",
+                    "commanding bust","commanding chest","commanding contour","commanding silhouette","commanding figure","commanding torso","commanding shape","commanding frame","commanding outline","commanding form",
+                    "dominant bust","dominant chest","dominant contour","dominant silhouette","dominant figure","dominant torso","dominant shape","dominant frame","dominant outline","dominant form",
+                    "expansive bust","expansive chest","expansive contour","expansive silhouette","expansive figure","expansive torso","expansive shape","expansive frame","expansive outline","expansive form",
+                    "bold bust","bold chest","bold contour","bold silhouette","bold figure","bold torso","bold shape","bold frame","bold outline","bold form",
+                ] },
+                { name: "Hips (Female)", keywords: [
+                    "narrow hips","slim hips","petite hips","compact hips","delicate hips","slight hips","fine hips","trim hips",
+                    "broad hips","wide hips","generous hips","full hips","ample hips","expansive hips","voluminous hips","substantial hips",
+                    "balanced hips","moderate hips","average hips","natural hips","even hips","normal hips",
+                    "rounded hips","curved hips","circular hips","oval hips","arched hips","heart-shaped hips","pear-shaped hips","diamond-shaped hips",
+                    "boxy hips","square hips","rectangular hips","linear hips","angular hips","geometric hips","triangular hips","tapered hips",
+                    "hourglass hips","bell-shaped hips","sculpted hips","flowing hips","streamlined hips","symmetric hips","asymmetric hips",
+                    "soft curve hips","gentle curve hips","smooth curve hips","subtle curve hips","graceful curve hips","harmonious curve hips",
+                    "deep curve hips","dramatic curve hips","accentuated curve hips","pronounced curve hips","defined curve hips","shallow curve hips",
+                    "hip dips","slight hip dips","deep hip dips","gentle hip dips","smooth hip line","flowing hip line","sweeping hip line",
+                    "pelvic curve","pelvic line","side contour","outer contour","flank curve","waist-to-hip curve",
+                    "athletic hips","toned hips","sculpted hips","firm hips","muscular hips","strong hips",
+                    "soft hips","gentle hips","feminine hips","elegant hips","refined hips","youthful hips","mature hips",
+                    "petite BBL hips","BBL hips","surgical hips","enhanced hips","natural BBL hips","rounded BBL hips","subtle BBL hips","dramatic BBL hips",
+                    "triangle hips","inverted triangle hips","straight hips","balanced-frame hips","curvy hips","slim-frame hips","broad-frame hips",
+                    "graceful hips","harmonious hips","polished hips","aesthetic hips","symmetrical hips",
+                    "dramatic hips","dynamic hips","accentuated hips","highlighted hips","defined hips","carved hips","modeled hips",
+                    "stylized hips","classic hips","modern hips","iconic hips","fashion hips","model hips",
+                    "smooth hips","soft-line hips","gentle-line hips","firm-line hips","flat-line hips","even-line hips","shaped hips","toned-line hips",
+                    "jean-friendly hips","dress-friendly hips","form-fitting hips","high-waist hips","low-waist hips","skirt-curve hips","runway hips","silhouette hips",
+                    "corset-shaped hips","shapewear hips","legging hips","tailored hips","model-silhouette hips",
+                    "low waist-to-hip ratio","high waist-to-hip ratio","balanced waist-to-hip ratio","classic waist-to-hip ratio",
+                    "wide waist-to-hip ratio","slim waist-to-hip ratio","gentle waist-to-hip ratio","dramatic waist-to-hip ratio",
+                    "soft hip slope","gentle hip slope","steep hip slope","smooth hip slope","gradual hip slope","shallow hip slope",
+                    "outer hip line","inner hip line","side hip line","pelvic outline","flank outline","waistline connection",
+                    "hip transition","hip contour","hip proportion","hip silhouette","hip symmetry","hip harmony","hip structure","hip balance",
+                    "slim rounded hips","broad rounded hips","compact rounded hips","wide rounded hips","slender oval hips","broad oval hips","slight angular hips","wide angular hips",
+                    "delicate pear-shaped hips","broad pear-shaped hips","petite square hips","wide square hips","subtle diamond hips","pronounced diamond hips",
+                    "sculpted heart-shaped hips","soft heart-shaped hips","dramatic hourglass hips","gentle hourglass hips","slight boxy hips","broad boxy hips",
+                    "athletic narrow hips","athletic broad hips","slender curvy hips","toned angular hips","soft pear hips","sculpted oval hips",
+                    "fashionable hips","runway hips","artistic hips","classic hips","refined frame hips","iconic silhouette hips"
+                ] },
                 // Male Subcategories
-                { name: "Torso & Chest (Male)", keywords: ['V-taper torso', 'barrel-chested', 'broad torso', 'narrow ribcage', 'slender waist (male)', 'thick waist (male)', 'athletic back', 'prominent collarbones (male)', 'defined pectorals', 'flat male chest', 'broad chest', 'muscular chest', 'toned chest', 'chest hair (light)', 'chest hair (heavy)'] },
+                { name: "Torso & Chest (Male)", keywords: [
+                    "broad chest","wide chest","expansive chest","full chest","generous chest","ample chest","barrel chest","robust chest",
+                    "narrow chest","slim chest","compact chest","petite chest","slight chest","delicate chest","lean chest","trim chest",
+                    "balanced chest","moderate chest","average chest","natural chest","even chest","normal chest",
+                    "rectangular torso","square torso","straight torso","linear torso","elongated torso","slender torso","compact torso",
+                    "V-shaped torso","V-taper torso","inverted triangle torso","classic triangle torso","hourglass torso (male build)",
+                    "barrel torso","rounded torso","broad-shouldered torso","narrow-shouldered torso",
+                    "deep chest","shallow chest","tapered chest","flat chest","arched chest","lifted chest","angular chest","curved chest",
+                    "athletic chest","sculpted chest","toned chest","defined chest","muscular chest","broad muscular chest","slim muscular chest",
+                    "firm chest","strong chest","powerful chest","solid chest","lean chest","lithe chest","tight chest","hard chest",
+                    "fitness chest","model chest","bodybuilder chest","runner’s chest","swimmer’s chest","martial chest","heroic chest",
+                    "athletic torso","sculpted torso","toned torso","defined torso","muscular torso","lean torso","slim torso",
+                    "strong torso","firm torso","fit torso","hero torso","runner’s torso","swimmer’s torso","warrior torso",
+                    "upright chest","lifted chest","proud chest","expanded chest","relaxed chest","open chest","square chest","confident chest",
+                    "broad stance torso","noble torso","regal torso","heroic torso","upright torso","straight torso","elevated torso","tall torso",
+                    "relaxed torso","casual torso","flowing torso","natural torso","poised torso","balanced torso","symmetrical torso",
+                    "shoulder-to-chest balance","broad shoulder-to-chest ratio","narrow shoulder-to-chest ratio","proportional chest",
+                    "waist-to-chest taper","strong taper","gentle taper","dramatic taper","classic male taper","subtle torso taper",
+                    "balanced torso proportions","long torso","short torso","compact torso","elongated torso","even torso proportions",
+                    "smooth chest line","flat chest line","even chest line","defined chest line","sculpted chest line","broad chest line",
+                    "toned chest line","subtle chest line","strong chest outline","angular chest outline","soft chest outline","firm chest outline",
+                    "smooth torso surface","even torso surface","toned torso surface","defined torso surface","sculpted torso surface","refined torso surface",
+                    "heroic chest","classic chest","statuesque chest","model chest","runway chest","tailored chest","fitted chest",
+                    "dynamic chest","dramatic chest","elegant chest","refined chest","powerful chest","iconic chest","stylized chest",
+                    "classic torso","modern torso","aesthetic torso","refined torso","balanced torso","polished torso","artistic torso",
+                    "suit-ready chest","tailored chest","shirt-fitted chest","t-shirt chest","runway torso","fashion torso","model torso",
+                    "broad jacket chest","slim jacket chest","uniform chest","armor chest","classic tailored torso","fitted torso silhouette",
+                    "smooth torso flow","gentle torso flow","firm torso flow","athletic torso flow","broad torso flow","subtle torso flow",
+                    "defined torso lines","broad torso lines","slender torso lines","tapered torso lines","balanced torso lines","classic torso lines",
+                    "sculpted broad chest","slim defined chest","athletic toned chest","broad sculpted chest","narrow athletic chest","compact firm chest",
+                    "heroic muscular torso","slim sculpted torso","broad athletic torso","slender toned torso","defined angular torso","elegant sculpted torso",
+                    "balanced V-shaped torso","dramatic V-shaped torso","gentle taper torso","classic taper torso","strong taper torso",
+                    "slender chest frame","broad chest frame","narrow chest frame","compact chest frame","athletic chest frame","sculpted chest frame",
+                    "heroic chest form","classic chest form","modern chest form","refined chest form","toned chest form","broad chest form","slim chest form",
+                    "slender torso frame","broad torso frame","narrow torso frame","compact torso frame","athletic torso frame","sculpted torso frame",
+                    "heroic torso form","classic torso form","modern torso form","refined torso form","toned torso form","balanced torso form",
+                    "symmetrical chest","harmonious chest","dramatic chest","dynamic chest","accentuated chest","highlighted chest",
+                    "symmetrical torso","harmonious torso","balanced torso","sculpted torso","iconic torso","artistic torso",
+                    "broad upper torso","narrow upper torso","elongated upper torso","compact upper torso","proportional upper torso",
+                    "broad lower torso","slender lower torso","defined lower torso","smooth lower torso","balanced lower torso"
+                ] },
             ]
         },
         {
@@ -268,6 +405,13 @@
                 resultsSection.appendChild(keywordsList);
                 filteredKeywords.forEach(keyword => {
                     keywordsList.appendChild(createKeywordButton(keyword));
+                    // Update keywordOrderMap for newly added keywords during search (for robustness)
+                    if (!keywordOrderMap.has(keyword)) {
+                        const category = glossaryData.find(cat => cat.subcategories.some(sub => sub.keywords.includes(keyword)));
+                        if (category) {
+                            keywordOrderMap.set(keyword, category.order);
+                        }
+                    }
                 });
             } else {
                 resultsSection.innerHTML += `<p class="text-gray-600">No keywords match your search. Try different terminology.</p>`;
@@ -321,7 +465,7 @@
             copyButton.textContent = 'Copied!';
             setTimeout(() => {
                 copyButton.textContent = 'Copy Prompt';
-            }, 2000);
+            } , 2000);
         }
     });
 
