@@ -227,6 +227,69 @@
                 ] },
             ]
         },
+        // --- NEW CATEGORY INSERTED HERE ---
+        {
+            category: "Male Anatomy (Limbs & Back)", order: 2.5,
+            description: "Detailed descriptors for the male back, shoulders, arms, and legs, adding complexity to the physique beyond the torso.",
+            subcategories: [
+                {
+                    name: "Male Arms",
+                    keywords: [
+                        "slim arms","narrow arms","lean arms","slender arms","delicate arms","trim arms",
+                        "broad arms","thick arms","strong arms","robust arms","hefty arms","sturdy arms","bulky arms",
+                        "average arms","balanced arms","moderate arms","proportional arms",
+                        "long arms","short arms","compact arms","extended arms","tapered arms","rectangular arms","angular arms",
+                        "V-taper arms","flowing arms","arched arms","straight arms","sculpted arms","rounded arms",
+                        "toned arms","defined arms","sculpted arms","muscular arms","strong arms","athletic arms","fit arms",
+                        "powerful arms","firm arms","brawny arms","hardened arms","trained arms","runner’s arms","boxer’s arms",
+                        "bodybuilder arms","martial artist arms","swimmer’s arms","model arms",
+                        "heroic arms","classic arms","elegant arms","refined arms","statuesque arms","tailored arms","fashion arms","runway arms",
+                        "arm frame","arm silhouette","arm proportion","arm outline",
+                        "smooth arms","even arms","toned surface arms","defined surface arms","refined arms","angular arms","soft-line arms"
+                    ]
+                },
+                {
+                    name: "Male Legs",
+                    keywords: [
+                        "slim legs","slender legs","lean legs","narrow legs","long legs","short legs","compact legs","balanced legs",
+                        "broad legs","thick legs","sturdy legs","muscular legs","athletic legs","powerful legs","robust legs","firm legs",
+                        "straight legs","arched legs","tapered legs","rectangular legs","rounded legs","angular legs","elongated legs",
+                        "curved legs","runner’s legs","sprinter’s legs","swimmer’s legs","soccer legs","martial legs","sculpted legs",
+                        "toned legs","defined legs","strong legs","powerful legs","solid legs","brawny legs","trained legs","athletic legs",
+                        "heroic legs","firm legs","model legs","runner’s legs","bodybuilder legs","lean muscular legs","dynamic legs",
+                        "runway legs","tailored legs","fitted legs","heroic legs","statuesque legs","aesthetic legs","proportional legs","fashion legs",
+                        "smooth legs","even legs","toned legs","angular legs","symmetrical legs","refined legs","classic legs"
+                    ]
+                },
+                {
+                    name: "Male Shoulders",
+                    keywords: [
+                        "broad shoulders","wide shoulders","expansive shoulders","generous shoulders","square shoulders",
+                        "narrow shoulders","slim shoulders","compact shoulders","delicate shoulders","balanced shoulders","average shoulders",
+                        "square shoulders","angular shoulders","rounded shoulders","sloped shoulders","straight shoulders",
+                        "classic V-shape shoulders","inverted triangle shoulders","athletic shoulders","heroic shoulders","regal shoulders",
+                        "sculpted shoulders","toned shoulders","defined shoulders","strong shoulders","muscular shoulders",
+                        "firm shoulders","solid shoulders","powerful shoulders","fit shoulders","athletic shoulders","statuesque shoulders",
+                        "tailored shoulders","suit shoulders","armor shoulders","heroic shoulders","model shoulders","runway shoulders","fashion shoulders",
+                        "symmetrical shoulders","balanced shoulders","proportional shoulders","refined shoulders","aesthetic shoulders"
+                    ]
+                },
+                {
+                    name: "Male Back",
+                    keywords: [
+                        "broad back","wide back","expansive back","generous back","robust back",
+                        "narrow back","slim back","lean back","compact back","balanced back","average back",
+                        "V-shaped back","tapered back","rectangular back","elongated back","straight back","arched back","rounded back","angular back",
+                        "classic taper back","dramatic taper back","subtle taper back","balanced back structure",
+                        "sculpted back","toned back","defined back","muscular back","athletic back","firm back","strong back","heroic back","powerful back",
+                        "statuesque back","model back","runner’s back","swimmer’s back","warrior’s back",
+                        "tailored back","suit back","fitted back","runway back","fashion back","armor back","classic back","modern back","aesthetic back",
+                        "smooth back","symmetrical back","refined back","polished back","structured back","harmonious back"
+                    ]
+                }
+            ]
+        },
+        // --- REST OF ORIGINAL CATEGORIES FOLLOW WITH THEIR ORIGINAL ORDER ---
         {
             category: "Hair", order: 3,
             description: "Descriptors for hair length, style, and texture.",
@@ -263,6 +326,7 @@
             category: "Arms & Hands", order: 7,
             description: "Detailed descriptors for the upper limbs and hands.",
             subcategories: [
+                // Note: General terms remain here, Male specific terms are now in order 2.5
                 { name: "Arms (Musculature)", keywords: ['muscular arms', 'toned arms', 'lean arms', 'vascular forearms', 'defined biceps', 'slender arms', 'heavy upper arms', 'athletic arms', 'thin forearms', 'long arm length', 'short arm length'] },
                 { name: "Hands", keywords: ['proportionate hands', 'hairy hands', 'smooth hands', 'oily hands', 'calloused hands', 'hands with visible folds', 'delicate hands', 'strong grip hands', 'large hands', 'small hands', 'long fingers', 'manicured nails'] }
             ]
@@ -271,6 +335,7 @@
             category: "Legs & Lower Body", order: 8,
             description: "Descriptors for the legs, thighs, and calves.",
             subcategories: [
+                // Note: General terms remain here, Male specific terms are now in order 2.5
                 { name: "Thighs (Definition)", keywords: ['thick thighs', 'slender thighs', 'toned thighs', 'thunder thighs', 'cellulite texture on thighs', 'lean quads', 'muscular hammies', 'long femoral length', 'athletic legs', 'smooth legs', 'hairy legs'] },
                 { name: "Calves", keywords: ['small calves', 'large calves', 'defined calves', 'muscular calves', 'slender lower leg', 'toned calves'] }
             ]
@@ -330,6 +395,7 @@
     
     // Create a flat map for easy keyword lookup and ordering reference
     const keywordOrderMap = new Map();
+    // Pre-sort the glossaryData array based on the 'order' property before mapping
     glossaryData.sort((a, b) => a.order - b.order).forEach(category => {
         category.subcategories.forEach(sub => {
             sub.keywords.forEach(keyword => {
@@ -347,6 +413,7 @@
 
         // 2. Sort the array based on the predefined category order
         const sortedKeywords = keywordsArray.sort((a, b) => {
+            // Use the map to get the correct order number (1, 2, 2.5, 3, etc.)
             const orderA = keywordOrderMap.get(a) || Infinity;
             const orderB = keywordOrderMap.get(b) || Infinity;
 
@@ -390,6 +457,9 @@
         glossaryContainer.innerHTML = '';
         const filterText = filter.trim().toLowerCase();
         
+        // Sort the data here to ensure new categories (like order 2.5) are correctly placed
+        const sortedGlossaryData = [...glossaryData].sort((a, b) => a.order - b.order);
+
         if (filterText !== '') {
             // --- Search Results View ---
             const allKeywords = Array.from(keywordOrderMap.keys());
@@ -405,13 +475,6 @@
                 resultsSection.appendChild(keywordsList);
                 filteredKeywords.forEach(keyword => {
                     keywordsList.appendChild(createKeywordButton(keyword));
-                    // Update keywordOrderMap for newly added keywords during search (for robustness)
-                    if (!keywordOrderMap.has(keyword)) {
-                        const category = glossaryData.find(cat => cat.subcategories.some(sub => sub.keywords.includes(keyword)));
-                        if (category) {
-                            keywordOrderMap.set(keyword, category.order);
-                        }
-                    }
                 });
             } else {
                 resultsSection.innerHTML += `<p class="text-gray-600">No keywords match your search. Try different terminology.</p>`;
@@ -420,7 +483,7 @@
 
         } else {
             // --- Full Glossary View ---
-            glossaryData.sort((a, b) => a.order - b.order).forEach(category => {
+            sortedGlossaryData.forEach(category => {
                 const categoryElement = document.createElement('div');
                 categoryElement.className = 'bg-white rounded-xl p-6 shadow-md category-container';
                 categoryElement.innerHTML = `
