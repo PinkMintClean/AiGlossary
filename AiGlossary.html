@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate AI Character Glossary | Final Master Build</title>
+    <title>Ultimate AI Character Glossary | Final Build</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +34,6 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            /* Added animation on hover as requested */
             transform: scale(1);
         }
         .keyword-button:hover {
@@ -61,7 +60,7 @@
             padding: 8px 12px;
             position: absolute;
             z-index: 50;
-            bottom: 125%; /* Position above the button */
+            bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
             opacity: 0;
@@ -75,22 +74,22 @@
 
         /* Dark Mode Overrides */
         .dark body {
-            background-color: #111827; /* Gray-900 */
+            background-color: #111827;
             color: #f3f4f6;
         }
-        .dark .bg-white { background-color: #1f2937 !important; } /* Gray-800 */
+        .dark .bg-white { background-color: #1f2937 !important; }
         .dark .text-gray-800 { color: #f3f4f6 !important; }
         .dark .text-gray-600 { color: #d1d5db !important; }
-        .dark .bg-gray-100 { background-color: #374151 !important; } /* Gray-700 */
+        .dark .bg-gray-100 { background-color: #374151 !important; }
         .dark .border-gray-300 { border-color: #4b5563 !important; }
         .dark .category-card { background-color: #1f2937 !important; }
     </style>
 </head>
 <body class="bg-gray-50 transition-colors duration-500">
 
-    <div id="floating-index" class="floating-index hidden lg:block bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xl space-y-2 border border-gray-200 dark:border-gray-700">
+    <div id="floating-index" class="floating-index hidden lg:block bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xl space-y-2 border border-gray-200 dark:border-gray-700" role="navigation" aria-label="Glossary Navigation Index">
         <h3 class="text-xl font-bold mb-3 border-b pb-2 text-gray-800 dark:text-gray-200">Glossary Index</h3>
-        <button id="darkModeToggle" class="w-full py-2 px-3 text-sm rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+        <button id="darkModeToggle" class="w-full py-2 px-3 text-sm rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" aria-label="Toggle Dark and Light Mode" tabindex="0">
             Toggle Dark Mode
         </button>
         </div>
@@ -101,9 +100,9 @@
             <p class="mt-2 text-blue-200">Head-to-Toe Character Building & Smart Prompting</p>
         </header>
 
-        <section class="mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-            <h2 class="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-200">Your Custom Prompt (Real-Time Builder)</h2>
-            <textarea id="prompt-output" rows="4" class="w-full p-4 mb-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none" placeholder="Select keywords below to build your prompt, or type custom ones..."></textarea>
+        <section class="mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg" aria-labelledby="prompt-builder-heading">
+            <h2 id="prompt-builder-heading" class="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-200">Your Custom Prompt (Real-Time Builder)</h2>
+            <textarea id="prompt-output" rows="4" class="w-full p-4 mb-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none" placeholder="Select keywords below to build your prompt, or type custom ones..." aria-live="polite" aria-atomic="true"></textarea>
             
             <div class="flex justify-between items-center text-sm font-medium text-gray-600 dark:text-gray-400 mb-4">
                 <span id="char-counter">Characters: 0</span>
@@ -111,10 +110,10 @@
             </div>
 
             <div class="flex flex-wrap gap-4">
-                <button id="copy-button" class="flex-1 min-w-[150px] py-3 px-6 rounded-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+                <button id="copy-button" class="flex-1 min-w-[150px] py-3 px-6 rounded-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors" aria-label="Copy Generated Prompt to Clipboard" tabindex="0">
                     Copy Prompt
                 </button>
-                <button id="clear-button" class="flex-1 min-w-[150px] py-3 px-6 rounded-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition-colors">
+                <button id="clear-button" class="flex-1 min-w-[150px] py-3 px-6 rounded-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition-colors" aria-label="Clear All Selected Keywords and Ratios" tabindex="0">
                     Clear Prompt
                 </button>
             </div>
@@ -122,11 +121,11 @@
 
         <section class="mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
             <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Synonym Translator Box (Smart Search)</h2>
-            <input type="text" id="keyword-search" class="w-full p-4 border border-gray-300 rounded-lg text-lg focus:ring-yellow-500 focus:border-yellow-500 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Search a flagged word to find safe alternatives (Fuzzy Matching enabled)..."/>
+            <input type="text" id="keyword-search" class="w-full p-4 border border-gray-300 rounded-lg text-lg focus:ring-yellow-500 focus:border-yellow-500 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Search a flagged word to find safe alternatives (Fuzzy Matching enabled)..." aria-label="Keyword Search and Synonym Finder"/>
         </section>
 
-        <section id="utility-panel" class="mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg space-y-8">
-            <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-200 border-b pb-2">Utility Panels</h2>
+        <section id="utility-panel" class="mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg space-y-8" aria-labelledby="utility-panel-heading">
+            <h2 id="utility-panel-heading" class="text-3xl font-bold text-gray-800 dark:text-gray-200 border-b pb-2">Utility Panels</h2>
 
             <div>
                 <h3 class="text-2xl font-semibold mb-3 text-blue-600 dark:text-blue-400">Persona Presets</h3>
@@ -146,35 +145,36 @@
                 <h3 class="text-2xl font-semibold mb-3 text-blue-600 dark:text-blue-400">Body Type Selector (Somatotype)</h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Select the foundational body shape (Mutually Exclusive).</p>
                 <div id="somatotype-panel" class="grid grid-cols-3 gap-4">
-                    <button data-keyword="ectomorph" class="body-type-button py-3 px-4 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors">Ectomorph</button>
-                    <button data-keyword="mesomorph" class="body-type-button py-3 px-4 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors">Mesomorph</button>
-                    <button data-keyword="endomorph" class="body-type-button py-3 px-4 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors">Endomorph</button>
+                    <button data-keyword="ectomorph" class="body-type-button py-3 px-4 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors" aria-pressed="false" tabindex="0">Ectomorph</button>
+                    <button data-keyword="mesomorph" class="body-type-button py-3 px-4 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors" aria-pressed="false" tabindex="0">Mesomorph</button>
+                    <button data-keyword="endomorph" class="body-type-button py-3 px-4 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors" aria-pressed="false" tabindex="0">Endomorph</button>
                 </div>
             </div>
             
             <div class="border-t pt-8">
                 <h3 class="text-2xl font-semibold mb-3 text-blue-600 dark:text-blue-400">Visual Body Mapper (Interactive SVG Concept)</h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Clicking the silhouette sections will jump to the corresponding area in the glossary below. (Currently: Prototype SVG)</p>
-                <div id="svg-mapper-placeholder" class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg border-2 border-dashed border-gray-400 dark:border-gray-600 flex justify-center items-center h-64">
+                <div id="svg-mapper-placeholder" class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg border-2 border-dashed border-gray-400 dark:border-gray-600 flex justify-center items-center h-64" aria-label="Interactive Body Map">
                     <svg width="100" height="180" viewBox="0 0 100 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="40" y="0" width="20" height="20" rx="10" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Hair-Styling')"/>
-                        <rect x="30" y="25" width="40" height="15" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Facial-Features')"/>
-                        <rect x="35" y="45" width="30" height="40" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Female-Anatomy')"/>
-                        <rect x="35" y="90" width="30" height="15" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Upper-Body')"/>
-                        <rect x="35" y="110" width="30" height="70" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Lower-Body')"/>
+                        <rect x="40" y="0" width="20" height="20" rx="10" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Hair-Styling')" aria-label="Hair and Styling Section"/>
+                        <rect x="30" y="25" width="40" height="15" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Facial-Features')" aria-label="Facial Features Section"/>
+                        <rect x="35" y="45" width="30" height="40" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Female-Anatomy')" aria-label="Female Anatomy Section"/>
+                        <rect x="35" y="90" width="30" height="15" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Upper-Body')" aria-label="Upper Body Section"/>
+                        <rect x="35" y="110" width="30" height="70" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Lower-Body')" aria-label="Lower Body Section"/>
                     </svg>
                 </div>
             </div>
 
         </section>
 
-        <section id="glossary-container" class="space-y-10">
+        <section id="glossary-container" class="space-y-10" aria-labelledby="glossary-content-heading">
             </section>
     </div>
 
 <script>
-    // --- Data: FULLY CONSOLIDATED MASTER DATA (All past chats integrated) ---
-
+    // --- CONSTANTS AND DATA (MAINTAINABILITY) ---
+    // The glossaryData array is assumed to be the large, consolidated structure from the previous response.
+    // It is kept outside the visible code block for brevity but is fully functional here.
     const glossaryData = [
         // 1. Hair & Styling (Order 1.0)
         { 
@@ -537,8 +537,9 @@
         "full body shot": "Prompt Tip: Ensures the AI renders the character head-to-toe and applies all body descriptors.",
     };
 
-    // --- Core Logic ---
+    // --- CORE JAVASCRIPT LOGIC (CODE MAINTAINABILITY) ---
 
+    // 1. DOM Element Constants
     const glossaryContainer = document.getElementById('glossary-container');
     const keywordSearch = document.getElementById('keyword-search');
     const promptOutput = document.getElementById('prompt-output');
@@ -552,32 +553,33 @@
     const charCounter = document.getElementById('char-counter');
     const tokenEstimator = document.getElementById('token-estimator');
 
+
+    // 2. State Variables
     let selectedKeywords = new Set();
     let selectedSomatotype = '';
 
-    // Create a flat map for easy keyword lookup and ordering reference
+
+    // 3. Initialization: Map keywords to their sorting order (Performance)
     const keywordOrderMap = new Map();
-    // Pre-sort the glossaryData array based on the 'order' property before mapping
-    glossaryData.sort((a, b) => a.order - b.order).forEach(category => {
-        category.subcategories.forEach(sub => {
-            const groups = sub.groups || [{ keywords: sub.keywords }];
-            
-            groups.forEach(group => { 
-                group.keywords.forEach(keyword => {
-                    // Key is the keyword, value is the category order number
-                    keywordOrderMap.set(keyword, category.order);
+    // Use a function for clean initialization
+    function initializeKeywordMap() {
+        glossaryData.sort((a, b) => a.order - b.order).forEach(category => {
+            category.subcategories.forEach(sub => {
+                const groups = sub.groups || [{ keywords: sub.keywords }];
+                groups.forEach(group => { 
+                    group.keywords.forEach(keyword => {
+                        keywordOrderMap.set(keyword, category.order);
+                    });
                 });
             });
         });
-    });
+    }
 
-    // --- Feature Implementations ---
-
-    // Feature: Smart Prompt Formatter with Ratio Integration (Updated for Character/Token Count)
+    // 4. Core Prompt Formatting Logic
     function formatPrompt() {
         const keywordsArray = Array.from(selectedKeywords);
         
-        // 1. Sort keywords by the predefined category order
+        // Sorting logic (Smart Prompt Formula)
         const sortedKeywords = keywordsArray.sort((a, b) => {
             const orderA = keywordOrderMap.get(a) || Infinity;
             const orderB = keywordOrderMap.get(b) || Infinity;
@@ -587,11 +589,10 @@
             return a.localeCompare(b);
         });
 
-        // 2. Apply Ratios and Emphasis Syntax
+        // Apply Ratios and Emphasis Syntax (Output Generation)
         const finalParts = [];
         const ratioKeywords = Object.keys(ratioKeywordsData).map(key => ratioKeywordsData[key]);
 
-        // Prepend the selected somatotype
         if (selectedSomatotype) {
             finalParts.push(selectedSomatotype);
         }
@@ -599,8 +600,6 @@
         sortedKeywords.forEach(keyword => {
             let term = keyword;
             let ratioValue = 1.0;
-
-            // Simple check for Ratio Application (Matching keyword to ratioPart key)
             const baseKeyword = keyword.toLowerCase().replace(/\s/g, '');
             const match = ratioKeywords.find(key => baseKeyword.includes(key));
             
@@ -608,11 +607,9 @@
                 ratioValue = ratioParts[match];
                 term = `(${keyword}:${ratioValue.toFixed(1)})`;
             } else if (keywordOrderMap.get(keyword) >= 14.0) {
-                // Apply optional square brackets for Technical/Aesthetic keywords
                 term = `[${keyword}]`;
             }
 
-            // Exclude somatotype keywords if they are already prepended
             if (keyword !== selectedSomatotype) {
                 finalParts.push(term);
             }
@@ -621,13 +618,12 @@
         const finalPrompt = finalParts.join(', ');
         promptOutput.value = finalPrompt;
 
-        // 3. Update Character/Token Counters
+        // Update Character/Token Counters
         charCounter.textContent = `Characters: ${finalPrompt.length}`;
-        // Basic Token Estimation: Roughly 4 characters per token
-        tokenEstimator.textContent = `Estimated Tokens: ${Math.ceil(finalPrompt.length / 4)}`;
+        tokenEstimator.textContent = `Estimated Tokens: ${Math.ceil(finalPrompt.length / 4)}`; // Rough estimate
     }
 
-    // Feature: Ratio Scaling Panel and Logic
+    // 5. Utility Functions (Ratio Panel)
     function renderRatioPanel() {
         ratioPanel.innerHTML = '';
         const ratioKeys = Object.keys(ratioKeywordsData);
@@ -643,8 +639,8 @@
                     <span id="${part}Ratio">${ratioParts[part].toFixed(1)}</span>
                 </div>
                 <div class="flex justify-center space-x-1">
-                    <button onclick="adjustRatio('${part}', 0.1)" class="py-1 px-2 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600 transition-colors">+</button>
-                    <button onclick="adjustRatio('${part}', -0.1)" class="py-1 px-2 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 transition-colors">-</button>
+                    <button onclick="adjustRatio('${part}', 0.1)" class="py-1 px-2 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600 transition-colors" aria-label="Increase ${name} ratio by 0.1" tabindex="0">+</button>
+                    <button onclick="adjustRatio('${part}', -0.1)" class="py-1 px-2 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 transition-colors" aria-label="Decrease ${name} ratio by 0.1" tabindex="0">-</button>
                 </div>
             `;
             ratioPanel.appendChild(ratioBox);
@@ -656,31 +652,28 @@
         document.getElementById(part + 'Ratio').innerText = ratioParts[part].toFixed(1);
         formatPrompt();
     }
-    
     window.adjustRatio = adjustRatio;
 
-    // Feature: Body Type Selector Logic
+    // 6. UI Interaction Handlers
     somatotypeButtons.forEach(button => {
         button.addEventListener('click', () => {
             const keyword = button.dataset.keyword;
-            
             somatotypeButtons.forEach(btn => {
                 selectedKeywords.delete(btn.dataset.keyword);
                 btn.classList.remove('selected', 'bg-blue-600', 'text-white', 'hover:bg-blue-700');
                 btn.classList.add('bg-gray-100', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-gray-200');
+                btn.setAttribute('aria-pressed', 'false');
             });
-
             selectedSomatotype = keyword;
             selectedKeywords.add(keyword);
             button.classList.add('selected', 'bg-blue-600', 'text-white', 'hover:bg-blue-700');
             button.classList.remove('bg-gray-100', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-gray-200');
-            
+            button.setAttribute('aria-pressed', 'true');
             formatPrompt();
             renderGlossary(keywordSearch.value);
         });
     });
 
-    // Feature: Persona Presets Panel Logic
     function renderPresetsPanel() {
         presetsPanel.innerHTML = '';
         presetsData.forEach(preset => {
@@ -693,20 +686,22 @@
                 });
                 formatPrompt();
                 renderGlossary(keywordSearch.value);
-                alert(`Preset "${preset.name}" applied! Keywords added to your prompt.`);
+                // Feature: User Feedback (Success Message)
+                const originalText = button.textContent;
+                button.textContent = `Applied ${preset.name}!`;
+                setTimeout(() => { button.textContent = originalText; }, 1500);
             });
             presetsPanel.appendChild(button);
         });
     }
 
-    // Feature: Dark Mode Toggle
     darkModeToggle.addEventListener('click', () => {
         document.documentElement.classList.toggle('dark');
         const isDark = document.documentElement.classList.contains('dark');
         darkModeToggle.textContent = isDark ? 'Toggle Light Mode' : 'Toggle Dark Mode';
     });
 
-    // Feature: Floating Glossary Index (Updated for Smooth Scrolling)
+    // Feature: Smooth Scrolling Index (A11y/UX)
     function renderIndex() {
         const indexLinks = document.createElement('div');
         glossaryData.forEach(category => {
@@ -717,7 +712,6 @@
             link.textContent = category.category;
             link.className = 'block py-1 px-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-gray-700 rounded transition-colors truncate cursor-pointer';
             
-            // New smooth scroll logic
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetElement = document.getElementById(categoryId);
@@ -731,7 +725,6 @@
         indexList.appendChild(indexLinks);
     }
     
-    // For SVG Mapper to work
     window.smoothScrollTo = function(id) {
         const targetElement = document.getElementById(id);
         if (targetElement) {
@@ -740,13 +733,13 @@
     }
 
 
-    // Function to create a keyword button (Includes Smart Tooltips Logic)
     function createKeywordButton(keyword) {
         const button = document.createElement('button');
         button.textContent = keyword;
         button.className = `keyword-button p-3 rounded-lg border-2 text-sm font-medium shadow-sm truncate w-full text-center tooltip-container`;
+        button.setAttribute('role', 'checkbox');
+        button.setAttribute('aria-checked', selectedKeywords.has(keyword) ? 'true' : 'false');
         
-        // Feature: Smart Hover Tooltips
         const tooltipText = smartTooltips[keyword] || `Keyword: ${keyword}. Click to add to prompt.`;
         button.innerHTML = `${keyword}<span class="tooltip-text">${tooltipText}</span>`;
 
@@ -770,12 +763,12 @@
         return button;
     }
 
-    // Function to render the entire glossary or search results
+    // 7. Main Rendering Function
     function renderGlossary(filter = '') {
         glossaryContainer.innerHTML = '';
         const filterText = filter.trim().toLowerCase();
 
-        // Feature: Explicit Term Check (Synonym Translator Box)
+        // Explicit Term Check (Synonym Translator Box)
         const explicitMatch = Object.keys(explicitTermSynonyms).find(term => filterText !== '' && filterText.includes(term.toLowerCase()));
         if (explicitMatch) {
             const safeWords = explicitTermSynonyms[explicitMatch];
@@ -865,7 +858,8 @@
         }
     }
 
-    // --- Event Listeners and Initializers ---
+    // 8. Event Listeners and Initialization
+    keywordSearch.addEventListener('input', formatPrompt); // Call formatPrompt to update counters live
     keywordSearch.addEventListener('input', (e) => {
         renderGlossary(e.target.value);
     });
@@ -874,10 +868,16 @@
         if (promptOutput.value.length > 0) {
             promptOutput.select();
             document.execCommand('copy');
-            copyButton.textContent = 'Copied!';
+            // Feature: User Feedback (Success Message)
+            const originalText = copyButton.textContent;
+            copyButton.textContent = 'Prompt Copied!';
+            copyButton.classList.add('bg-green-600', 'hover:bg-green-700');
+            copyButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
             setTimeout(() => {
-                copyButton.textContent = 'Copy Prompt';
-            } , 2000);
+                copyButton.textContent = originalText;
+                copyButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+                copyButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            } , 1500);
         }
     });
 
@@ -887,21 +887,28 @@
         somatotypeButtons.forEach(btn => {
             btn.classList.remove('selected', 'bg-blue-600', 'text-white', 'hover:bg-blue-700');
             btn.classList.add('bg-gray-100', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-gray-200');
+            btn.setAttribute('aria-pressed', 'false');
         });
-        // Reset Ratios to 1.0
         Object.keys(ratioParts).forEach(key => ratioParts[key] = 1.0);
         renderRatioPanel();
         
         formatPrompt();
         renderGlossary(keywordSearch.value);
+
+        // Feature: User Feedback (Success Message)
+        const originalText = clearButton.textContent;
+        clearButton.textContent = 'Cleared!';
+        setTimeout(() => { clearButton.textContent = originalText; }, 1000);
     });
 
     // Initial renders on page load
     document.addEventListener('DOMContentLoaded', () => {
+        initializeKeywordMap(); // Initialize map once
         renderRatioPanel();
         renderPresetsPanel();
         renderGlossary();
         renderIndex();
+        formatPrompt(); // Initial counter update
     });
 </script>
 
