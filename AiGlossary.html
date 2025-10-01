@@ -1,608 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Glossary</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            background-color: #f8fafc; /* Light Blue/Gray Background */
-        }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #e2e8f0; }
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
-        .category-container {
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease-in-out;
-        }
-        .category-container:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Prompt Glossary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+    .category-container { border: 1px solid #e2e8f0; transition: all 0.3s ease-in-out; }
+    .category-container:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);}
+  </style>
 </head>
 <body class="p-4 sm:p-8 md:p-10">
 
 <div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl p-6 sm:p-10 md:p-12">
 
-    <!-- Header and Prompt Box Section -->
-    <header class="text-center mb-10 border-b-4 border-blue-600 pb-4">
-        <h1 class="text-5xl font-black text-gray-900 tracking-tight">AI Prompt Glossary</h1>
-        <p class="text-xl text-gray-500 font-medium mt-1">Build the Perfect Prompt</p>
-    </header>
+  <!-- Header -->
+  <header class="text-center mb-10 border-b-4 border-blue-600 pb-4">
+    <h1 class="text-5xl font-black text-gray-900">AI Prompt Glossary</h1>
+    <p class="text-xl text-gray-500 mt-1">Build the Perfect Prompt</p>
+  </header>
 
-    <div class="mb-10 p-6 bg-blue-50 rounded-2xl border-2 border-blue-200">
-        <label for="prompt-output" class="block text-lg font-bold mb-3 text-blue-700">Generated Prompt:</label>
-        <textarea id="prompt-output" rows="5" readonly class="w-full p-4 rounded-lg border-2 border-blue-300 bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-shadow duration-300 font-mono text-sm shadow-inner"></textarea>
-        
-        <div class="mt-4 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-            <button id="copy-button" class="flex-1 px-6 py-3 rounded-full font-bold text-white bg-blue-600 hover:bg-blue-700 transition-transform duration-200 transform hover:scale-[1.01] shadow-lg">Copy Prompt</button>
-            <button id="clear-button" class="flex-1 px-6 py-3 rounded-full font-bold text-gray-700 bg-gray-200 hover:bg-gray-300 transition-colors duration-200 shadow-md">Clear Selection</button>
-        </div>
+  <!-- Prompt Box -->
+  <div class="mb-10 p-6 bg-blue-50 rounded-2xl border-2 border-blue-200">
+    <label for="prompt-output" class="block text-lg font-bold mb-3 text-blue-700">Generated Prompt:</label>
+    <textarea id="prompt-output" rows="5" readonly class="w-full p-4 rounded-lg border-2 border-blue-300 bg-white text-gray-800 font-mono text-sm shadow-inner"></textarea>
+    <div class="mt-4 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+      <button id="copy-button" class="flex-1 px-6 py-3 rounded-full font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg">Copy Prompt</button>
+      <button id="clear-button" class="flex-1 px-6 py-3 rounded-full font-bold text-gray-700 bg-gray-200 hover:bg-gray-300">Clear Selection</button>
     </div>
+  </div>
 
-    <!-- Search Section -->
-    <div class="mb-10 p-5 bg-yellow-50 rounded-2xl border-2 border-yellow-200">
-        <label for="keyword-search" class="block text-lg font-bold mb-3 text-yellow-700">Search for Keywords:</label>
-        <input type="text" id="keyword-search" placeholder="Search a potentially explicit word to find a safe alternate, or search any descriptor..." class="w-full p-4 rounded-full border-2 border-yellow-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors duration-200 shadow-inner">
-    </div>
+  <!-- Search -->
+  <div class="mb-10 p-5 bg-yellow-50 rounded-2xl border-2 border-yellow-200">
+    <label for="keyword-search" class="block text-lg font-bold mb-3 text-yellow-700">Search for Keywords:</label>
+    <input id="keyword-search" type="text" placeholder="Search..." class="w-full p-4 rounded-full border-2 border-yellow-300 bg-white text-gray-800 shadow-inner">
+  </div>
 
-    <!-- Glossary Categories Section -->
-    <div id="glossary-container" class="space-y-8">
-        <!-- Categories will be rendered here -->
-
-
+  <!-- Glossary -->
+  <div id="glossary-container" class="space-y-8"></div>
 </div>
 
 <script>
-    // --- Data Structure: The Master Glossary ---
-    // Keywords are structured by Category > Subcategory > Keywords (array)
-    // The 'order' property on each category dictates the 'Smart Prompt Formula' order.
-    var glossaryData = [
+  // --- Glossary Data ---
+  var glossaryData = [
+    {
+      category: "Female Anatomy",
+      order: 1,
+      description: "Keywords for female anatomy",
+      subcategories: [
+        { name: "Bust (Small)", keywords: ["petite bust", "flat chest", "delicate frame"] },
+        { name: "Bust (Medium)", keywords: ["balanced bust", "moderate chest", "natural contour"] },
+        { name: "Bust (Large)", keywords: ["full bust", "ample chest", "curvy figure"] }
+      ]
+    },
+    {
+      category: "Male Anatomy",
+      order: 2,
+      description: "Keywords for male anatomy",
+      subcategories: [
+        { name: "Chest", keywords: ["broad chest", "toned torso", "muscular build"] }
+      ]
+    },
+    {
+      category: "Somatotypes & General Build",
+      order: 3,
+      description: "Defines the fundamental physique and body composition.",
+      subcategories: [
+        { name: "Ectomorph Build", keywords: ["slender frame", "long limbs", "minimal muscle mass"] },
+        { name: "Mesomorph Build", keywords: ["athletic build", "broad shoulders", "sculpted body"] },
+        { name: "Endomorph Build", keywords: ["rounded build", "fuller body", "sturdy frame"] }
+      ]
+    }
+    // ✅ You can continue adding all the rest of your categories here,
+    // just keep them INSIDE this array with proper commas and braces
+  ];
 
-        
+  // --- Core Logic ---
+  const glossaryContainer = document.getElementById('glossary-container');
+  const keywordSearch = document.getElementById('keyword-search');
+  const promptOutput = document.getElementById('prompt-output');
+  const copyButton = document.getElementById('copy-button');
+  const clearButton = document.getElementById('clear-button');
+  let selectedKeywords = new Set();
 
+  // Build map for sorting
+  const keywordOrderMap = new Map();
+  glossaryData.sort((a,b) => a.order - b.order).forEach(cat => {
+    cat.subcategories.forEach(sub => {
+      sub.keywords.forEach(kw => keywordOrderMap.set(kw, cat.order));
+    });
+  });
 
-        var glossaryData = [
-        
-      
-         
-             
-
-        
-        category: "Female Anatomy",
-    order: 1,
-    description: "Keywords for female anatomy",
-    subcategories: [
-      { 
-        name: "Bust (Small)", 
-        keywords: ["petite bust", "flat chest", "delicate frame"] 
-      },
-      { 
-        name: "Bust (Medium)", 
-        keywords: ["balanced bust", "moderate chest", "natural contour"] 
-      },
-      { 
-        name: "Bust (Large)", 
-        keywords: ["full bust", "ample chest", "curvy figure"] 
-      }
-    ]
-  },
-  {
-    category: "Male Anatomy",
-    order: 2,
-    description: "Keywords for male anatomy",
-    subcategories: [
-      { 
-        name: "Chest", 
-        keywords: ["broad chest", "toned torso", "muscular build"] 
-      }
-    ]
+  function formatPrompt() {
+    const sorted = Array.from(selectedKeywords).sort((a,b)=>{
+      const orderA = keywordOrderMap.get(a)||Infinity;
+      const orderB = keywordOrderMap.get(b)||Infinity;
+      return orderA===orderB ? a.localeCompare(b) : orderA-orderB;
+    });
+    promptOutput.value = sorted.join(", ");
   }
-];
 
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        {
-            category: "Somatotypes & General Build", order: 1,
-            description: "Defines the fundamental physique and body composition of the character. Use one term from Ectomorph/Mesomorph/Endomorph to set the base, then add variations.",
-            subcategories: [
-                { name: "Ectomorph Build (Lean, Slender) - Thin, Delicate Frame", keywords: [
-                    'ectomorph build', 'slender frame', 'long limbs', 'narrow shoulders', 'linear build', 'delicate frame', 'minimal muscle mass', 'light-boned', 'wirey strength', 'slim figure', 'fast metabolism physique', 'narrow hips (male)', 'boyish frame (male)', 'lanky physique', 'elongated body type',
-                    'frail looking', 'slight build', 'thin structure', 'runner build', 'endurance athlete build', 'minimal body fat', 'sharp angles', 'visible bone structure', 'lean and agile', 'tall and thin', 'narrow waist (male)', 'stringy muscle definition', 'willowy figure', 'lightweight build', 'unimposing figure',
-                    'graceful build', 'thin wrists and ankles', 'subtle musculature', 'hollow chest (male)', 'high metabolism build', 'sleek physique', 'skinny-fit build', 'aerobic build', 'delicate neck', 'youthful build (male)', 'non-muscular', 'slender neck', 'minimalist frame'
-                ] },
-                { name: "Mesomorph Build (Athletic, Muscular) - Balanced, V-Taper, Strong", keywords: [
-                    'mesomorph build', 'athletic build', 'V-taper torso', 'broad shoulders', 'defined musculature', 'balanced proportions', 'medium frame', 'naturally strong', 'sculpted body', 'proportional physique', 'toned definition', 'high muscle mass', 'strong build', 'powerfully built', 'rugged build',
-                    'symmetrical build', 'muscular frame', 'hard body', 'dense muscle mass', 'medium body fat', 'ideal build (male)', 'chiseled frame', 'square chest', 'thick bone structure', 'explosive power build', 'speed and agility build', 'boxer build', 'swimmer build', 'wrestler build',
-                    'compact muscularity', 'athletic vigor', 'well-defined body', 'solid frame', 'tapered waist', 'developed lats', 'thick core', 'medium height and build', 'natural athlete', 'ready stance build', 'imposing frame', 'powerful shoulder caps', 'lean and solid'
-                ] },
-                { name: "Endomorph Build (Rounded, Sturdy) - Soft, Wide Frame", keywords: [
-                    'endomorph build', 'rounded build', 'fuller body', 'thick-set', 'sturdy frame', 'compact physique', 'higher body fat percentage', 'soft musculature', 'wide frame', 'heavy-set', 'stocky build', 'thick build', 'soft curves (male)', 'solid structure', 'barrel-chested',
-                    'broad-waisted (male)', 'curvier male body', 'large bone structure', 'thick wrists and ankles', 'round shoulders', 'gentle slopes body', 'football lineman build', 'powerlifter build (soft)', 'low metabolism build', 'heavy upper body', 'wide hips (male)',
-                    'strong but soft', 'squat frame', 'massively built (endomorph)', 'smooth body contours', 'thick neck', 'boulder-like build', 'husky frame', 'lumberjack build', 'farmer build', 'protective build', 'untoned appearance', 'dense and broad'
-                ] },
-                { name: "Muscular Variations - Definition & Hypertrophy", keywords: [
-                    'ripped physique', 'shredded definition', 'hyper-muscular', 'bulky muscle mass', 'vascular body', 'low body fat', 'extreme definition', 'bodybuilder physique', 'mass monster', 'aesthetic physique', 'classic physique', 'mens open physique', 'fitness model physique',
-                    'powerfully muscular', 'brawny', 'hulking physique', 'thick muscle bellies', 'dense and hard muscle', 'crossfit build', 'calisthenics build', 'toned and defined', 'lean muscularity', 'high vascularity', 'granite-like muscles', 'striated muscle tissue',
-                    'thick biceps', 'bouldering shoulders', 'deep cut abdominal lines', 'six-pack defined', 'eight-pack defined', 'oblique muscle lines', 'serpentine veins', 'pumped muscles', 'swole', 'massive traps', 'developed glutes', 'defined quads', 'muscular separation',
-                    'strong athletic body', 'functional fitness build', 'gained mass', 'bulked up', 'cut and lean', 'maintenance physique', 'strongman build', 'olympic lifter build', 'pro wrestler build', 'martial arts build (muscular)', 'defined calves', 'thick thighs',
-                    'highly developed muscles', 'peak condition body', 'lean and ripped', 'sheer muscle mass', 'muscle hypertrophy', 'maximum definition'
-                ] }
-            ]
-        },
-        {
-
-
-
-
-            
-            
-            {
-  category: "Gender Specific Body Shape (Female Anatomy)", 
-  order: 2,
-  description: "Comprehensive keywords for defining characteristics unique to female anatomy, organized by body section and subcategory.",
-  subcategories: [
-
-    // --- BREASTS ---
-    { name: "Bust (Small)", keywords: [
-      "petite bust","delicate bust","subtle bust","slight bust","modest bust","flat bust","compact bust","dainty bust","narrow bust","graceful bust",
-      "fine bust","light bust","minimal bust","slender bust","petite chest","delicate chest","subtle chest","flat chest","compact chest","dainty chest",
-      "narrow chest","graceful chest","fine chest","light chest","minimal chest","slender chest","petite figure","slight figure","modest figure",
-      "flat figure","compact figure","slender figure","petite frame","delicate frame","narrow frame","slender frame","light frame"
-    ]},
-
-    { name: "Bust (Medium)", keywords: [
-      "balanced bust","moderate bust","average bust","normal bust","proportional bust","natural bust","rounded bust","classic bust","centered bust","steady bust",
-      "harmonious bust","tasteful bust","symmetrical bust","refined bust","aesthetic bust","elegant bust",
-      "balanced chest","moderate chest","average chest","normal chest","proportional chest","rounded chest","classic chest","centered chest","symmetrical chest",
-      "natural silhouette","refined silhouette","harmonious figure","balanced figure","rounded figure","classic figure","centered figure","natural figure"
-    ]},
-
-    { name: "Bust (Large)", keywords: [
-      "full bust","ample bust","prominent bust","generous bust","curvy bust","voluminous bust","substantial bust","developed bust","pronounced bust","robust bust",
-      "abundant bust","commanding bust","dominant bust","expansive bust","bold bust",
-      "full chest","ample chest","prominent chest","generous chest","curvy chest","voluminous chest","substantial chest","developed chest","pronounced chest",
-      "dramatic bust","busty silhouette","heavy bust","enhanced bust","surgical bust","natural bust (large)"
-    ]},
-
-    // --- WAIST & TORSO ---
-    { name: "Waist & Torso", keywords: [
-      "slim waist","narrow waist","tiny waist","cinched waist","hourglass waist","athletic waist","broad waist","straight waist","proportional waist","long waist",
-      "short waist","toned torso","soft torso","sculpted torso","delicate torso","slender torso","firm torso","supple torso","curvy torso","compact torso",
-      "flat stomach","soft stomach","toned stomach","sculpted abs","defined abs","subtle abs","smooth stomach","petite torso","elongated torso","compact torso",
-      "waistline curve","waist taper","natural torso","refined torso","shadowed waist","highlighted waist"
-    ]},
-
-    // --- HIPS ---
-    { name: "Hips (Female)", keywords: [
-      "narrow hips","slim hips","petite hips","compact hips","broad hips","wide hips","generous hips","full hips","ample hips","expansive hips","voluminous hips",
-      "balanced hips","average hips","natural hips","rounded hips","curved hips","heart-shaped hips","pear-shaped hips","diamond-shaped hips","square hips","boxy hips",
-      "sculpted hips","streamlined hips","symmetric hips","hip dips","slight hip dips","deep hip dips","smooth hip line","pelvic curve","waist-to-hip curve",
-      "athletic hips","toned hips","sculpted hips","soft hips","gentle hips","feminine hips","elegant hips","youthful hips","mature hips",
-      "BBL hips","enhanced hips","natural BBL hips","dramatic BBL hips","graceful hips","harmonious hips","dramatic hips","highlighted hips","defined hips","stylized hips"
-    ]},
-
-    // --- BUTTOCKS ---
-    { name: "Buttocks", keywords: [
-      "small buttocks","petite buttocks","compact buttocks","firm buttocks","soft buttocks","rounded buttocks","lifted buttocks","drooping buttocks","sculpted buttocks","toned buttocks",
-      "supple buttocks","taut buttocks","muscular buttocks","athletic buttocks","curvy buttocks","bubble buttocks","heart-shaped buttocks","square buttocks","pear-shaped buttocks",
-      "natural buttocks","enhanced buttocks","BBL buttocks","subtle projection","dramatic projection","highlighted curve","shadowed curve","smooth buttocks","textured buttocks"
-    ]},
-
-    // --- LEGS & THIGHS ---
-    { name: "Legs & Thighs", keywords: [
-      "slim legs","long legs","short legs","athletic legs","toned legs","sculpted legs","supple legs","muscular legs","delicate legs","petite legs","proportionate legs",
-      "slim thighs","thick thighs","toned thighs","muscular thighs","soft thighs","curvaceous thighs","athletic thighs","slender thighs","powerful thighs","feminine thighs",
-      "highlighted thighs","shadowed thighs","smooth legs","hairy legs","cellulite texture","freckled legs","scarred legs","glowing legs","elegant thighs","dramatic thighs"
-    ]},
-
-    // --- ARMS & SHOULDERS ---
-    { name: "Arms & Shoulders", keywords: [
-      "slim arms","toned arms","sculpted arms","muscular arms","soft arms","delicate arms","graceful arms","athletic arms","feminine arms","slender arms",
-      "slim forearms","toned forearms","sculpted forearms","delicate forearms","supple forearms","long arms","short arms","compact arms","highlighted arms","shadowed arms",
-      "narrow shoulders","broad shoulders","rounded shoulders","sculpted shoulders","sloped shoulders","delicate shoulders","feminine shoulders","athletic shoulders","highlighted shoulders"
-    ]},
-
-    // --- BACK ---
-    { name: "Back", keywords: [
-      "slim back","toned back","sculpted back","muscular back","soft back","supple back","delicate back","narrow back","broad back","proportionate back",
-      "upper back defined","mid-back sculpted","lower back toned","lower back with dimples","highlighted spine line","subtle spine line","arched back","dramatic arch","elegant arch"
-    ]},
-
-    // --- NECK & COLLARBONE ---
-    { name: "Neck & Collarbone", keywords: [
-      "slim neck","long neck","short neck","graceful neck","delicate neck","slender neck","sculpted neck","toned neck","supple neck","soft neck","highlighted neck","shadowed neck",
-      "elegant collarbone","prominent collarbone","subtle collarbone","sculpted collarbone","delicate collarbone","glowing collarbone","highlighted collarbone","shadowed collarbone",
-      "refined neckline","tapered neckline","dramatic neckline","natural neckline"
-    ]},
-
-    // --- SKIN & SURFACE DETAILS ---
-    { name: "Skin & Surface", keywords: [
-      "smooth skin","glowing skin","matte skin","textured skin","dewy skin","radiant skin","polished skin","supple skin","soft skin","velvety skin",
-      "porcelain skin","golden skin","tanned skin","fair skin","olive skin","brown skin","deep skin","ebony skin",
-      "freckled skin","blemished skin","scarred skin","birthmarked skin","stretch-marked skin","dimpled skin","moles on skin","beauty marks",
-      "even complexion","uneven complexion","flushed skin","blushed skin","bronzed skin","sun-kissed skin","youthful skin","mature skin"
-},
-
-        
-                // Male Subcategories
-                { name: "Torso & Chest (Male)", keywords: [
-                    "broad chest","wide chest","expansive chest","full chest","generous chest","ample chest","barrel chest","robust chest",
-                    "narrow chest","slim chest","compact chest","petite chest","slight chest","delicate chest","lean chest","trim chest",
-                    "balanced chest","moderate chest","average chest","natural chest","even chest","normal chest",
-                    "rectangular torso","square torso","straight torso","linear torso","elongated torso","slender torso","compact torso",
-                    "V-shaped torso","V-taper torso","inverted triangle torso","classic triangle torso","hourglass torso (male build)",
-                    "barrel torso","rounded torso","broad-shouldered torso","narrow-shouldered torso",
-                    "deep chest","shallow chest","tapered chest","flat chest","arched chest","lifted chest","angular chest","curved chest",
-                    "athletic chest","sculpted chest","toned chest","defined chest","muscular chest","broad muscular chest","slim muscular chest",
-                    "firm chest","strong chest","powerful chest","solid chest","lean chest","lithe chest","tight chest","hard chest",
-                    "fitness chest","model chest","bodybuilder chest","runner’s chest","swimmer’s chest","martial chest","heroic chest",
-                    "athletic torso","sculpted torso","toned torso","defined torso","muscular torso","lean torso","slim torso",
-                    "strong torso","firm torso","fit torso","hero torso","runner’s torso","swimmer’s torso","warrior torso",
-                    "upright chest","lifted chest","proud chest","expanded chest","relaxed chest","open chest","square chest","confident chest",
-                    "broad stance torso","noble torso","regal torso","heroic torso","upright torso","straight torso","elevated torso","tall torso",
-                    "relaxed torso","casual torso","flowing torso","natural torso","poised torso","balanced torso","symmetrical torso",
-                    "shoulder-to-chest balance","broad shoulder-to-chest ratio","narrow shoulder-to-chest ratio","proportional chest",
-                    "waist-to-chest taper","strong taper","gentle taper","dramatic taper","classic male taper","subtle torso taper",
-                    "balanced torso proportions","long torso","short torso","compact torso","elongated torso","even torso proportions",
-                    "smooth chest line","flat chest line","even chest line","defined chest line","sculpted chest line","broad chest line",
-                    "toned chest line","subtle chest line","strong chest outline","angular chest outline","soft chest outline","firm chest outline",
-                    "smooth torso surface","even torso surface","toned torso surface","defined torso surface","sculpted torso surface","refined torso surface",
-                    "heroic chest","classic chest","statuesque chest","model chest","runway chest","tailored chest","fitted chest",
-                    "dynamic chest","dramatic chest","elegant chest","refined chest","powerful chest","iconic chest","stylized chest",
-                    "classic torso","modern torso","aesthetic torso","refined torso","balanced torso","polished torso","artistic torso",
-                    "suit-ready chest","tailored chest","shirt-fitted chest","t-shirt chest","runway torso","fashion torso","model torso",
-                    "broad jacket chest","slim jacket chest","uniform chest","armor chest","classic tailored torso","fitted torso silhouette",
-                    "smooth torso flow","gentle torso flow","firm torso flow","athletic torso flow","broad torso flow","subtle torso flow",
-                    "defined torso lines","broad torso lines","slender torso lines","tapered torso lines","balanced torso lines","classic torso lines",
-                    "sculpted broad chest","slim defined chest","athletic toned chest","broad sculpted chest","narrow athletic chest","compact firm chest",
-                    "heroic muscular torso","slim sculpted torso","broad athletic torso","slender toned torso","defined angular torso","elegant sculpted torso",
-                    "balanced V-shaped torso","dramatic V-shaped torso","gentle taper torso","classic taper torso","strong taper torso",
-                    "slender chest frame","broad chest frame","narrow chest frame","compact chest frame","athletic chest frame","sculpted chest frame",
-                    "heroic chest form","classic chest form","modern chest form","refined chest form","toned chest form","broad chest form","slim chest form",
-                    "slender torso frame","broad torso frame","narrow torso frame","compact torso frame","athletic torso frame","sculpted torso frame",
-                    "heroic torso form","classic torso form","modern torso form","refined torso form","toned torso form","balanced torso form",
-                    "symmetrical chest","harmonious chest","dramatic chest","dynamic chest","accentuated chest","highlighted chest",
-                    "symmetrical torso","harmonious torso","balanced torso","sculpted torso","iconic torso","artistic torso",
-                    "broad upper torso","narrow upper torso","elongated upper torso","compact upper torso","proportional upper torso",
-                    "broad lower torso","slender lower torso","defined lower torso","smooth lower torso","balanced lower torso"
-                ] },
-            ]
-        },
-        // --- NEW CATEGORY INSERTED HERE ---
-        {
-            category: "Male Anatomy (Limbs & Back)", order: 2.5,
-            description: "Detailed descriptors for the male back, shoulders, arms, and legs, adding complexity to the physique beyond the torso.",
-            subcategories: [
-                {
-                    name: "Male Arms",
-                    keywords: [
-                        "slim arms","narrow arms","lean arms","slender arms","delicate arms","trim arms",
-                        "broad arms","thick arms","strong arms","robust arms","hefty arms","sturdy arms","bulky arms",
-                        "average arms","balanced arms","moderate arms","proportional arms",
-                        "long arms","short arms","compact arms","extended arms","tapered arms","rectangular arms","angular arms",
-                        "V-taper arms","flowing arms","arched arms","straight arms","sculpted arms","rounded arms",
-                        "toned arms","defined arms","sculpted arms","muscular arms","strong arms","athletic arms","fit arms",
-                        "powerful arms","firm arms","brawny arms","hardened arms","trained arms","runner’s arms","boxer’s arms",
-                        "bodybuilder arms","martial artist arms","swimmer’s arms","model arms",
-                        "heroic arms","classic arms","elegant arms","refined arms","statuesque arms","tailored arms","fashion arms","runway arms",
-                        "arm frame","arm silhouette","arm proportion","arm outline",
-                        "smooth arms","even arms","toned surface arms","defined surface arms","refined arms","angular arms","soft-line arms"
-                    ]
-                },
-                {
-                    name: "Male Legs",
-                    keywords: [
-                        "slim legs","slender legs","lean legs","narrow legs","long legs","short legs","compact legs","balanced legs",
-                        "broad legs","thick legs","sturdy legs","muscular legs","athletic legs","powerful legs","robust legs","firm legs",
-                        "straight legs","arched legs","tapered legs","rectangular legs","rounded legs","angular legs","elongated legs",
-                        "curved legs","runner’s legs","sprinter’s legs","swimmer’s legs","soccer legs","martial legs","sculpted legs",
-                        "toned legs","defined legs","strong legs","powerful legs","solid legs","brawny legs","trained legs","athletic legs",
-                        "heroic legs","firm legs","model legs","runner’s legs","bodybuilder legs","lean muscular legs","dynamic legs",
-                        "runway legs","tailored legs","fitted legs","heroic legs","statuesque legs","aesthetic legs","proportional legs","fashion legs",
-                        "smooth legs","even legs","toned legs","angular legs","symmetrical legs","refined legs","classic legs"
-                    ]
-                },
-                {
-                    name: "Male Shoulders",
-                    keywords: [
-                        "broad shoulders","wide shoulders","expansive shoulders","generous shoulders","square shoulders",
-                        "narrow shoulders","slim shoulders","compact shoulders","delicate shoulders","balanced shoulders","average shoulders",
-                        "square shoulders","angular shoulders","rounded shoulders","sloped shoulders","straight shoulders",
-                        "classic V-shape shoulders","inverted triangle shoulders","athletic shoulders","heroic shoulders","regal shoulders",
-                        "sculpted shoulders","toned shoulders","defined shoulders","strong shoulders","muscular shoulders",
-                        "firm shoulders","solid shoulders","powerful shoulders","fit shoulders","athletic shoulders","statuesque shoulders",
-                        "tailored shoulders","suit shoulders","armor shoulders","heroic shoulders","model shoulders","runway shoulders","fashion shoulders",
-                        "symmetrical shoulders","balanced shoulders","proportional shoulders","refined shoulders","aesthetic shoulders"
-                    ]
-                },
-                {
-                    name: "Male Back",
-                    keywords: [
-                        "broad back","wide back","expansive back","generous back","robust back",
-                        "narrow back","slim back","lean back","compact back","balanced back","average back",
-                        "V-shaped back","tapered back","rectangular back","elongated back","straight back","arched back","rounded back","angular back",
-                        "classic taper back","dramatic taper back","subtle taper back","balanced back structure",
-                        "sculpted back","toned back","defined back","muscular back","athletic back","firm back","strong back","heroic back","powerful back",
-                        "statuesque back","model back","runner’s back","swimmer’s back","warrior’s back",
-                        "tailored back","suit back","fitted back","runway back","fashion back","armor back","classic back","modern back","aesthetic back",
-                        "smooth back","symmetrical back","refined back","polished back","structured back","harmonious back"
-                    ]
-                }
-            ]
-        },
-        // --- REST OF ORIGINAL CATEGORIES FOLLOW WITH THEIR ORIGINAL ORDER ---
-        {
-            category: "Hair", order: 3,
-            description: "Descriptors for hair length, style, and texture.",
-            subcategories: [
-                { name: "Hair Styles (Head)", keywords: ['pixie cut', 'bob cut', 'lob (long bob)', 'body wave middle part', 'middle part bus down', 'twin ponytails', 'Afro style', 'cornrows', 'dreadlocks', 'slicked back hair', 'messy bun', 'goddess braids', 'ethereal braids', 'layered cut', 'shaved sides', 'curly texture', 'straight texture', 'wavy texture', 'kinky hair', 'coiled hair', 'ombre color', 'natural highlights'] }
-            ]
-        },
-        {
-            category: "Facial Hair (Male)", order: 4,
-            description: "Different styles of male facial hair.",
-            subcategories: [
-                { name: "Styles", keywords: ['goatee', 'mustache only', 'stubble', 'full beard', 'chin strap beard', 'soul patch', 'sideburns', 'clean-shaven', 'trimmed beard', 'long flowing beard', 'scruffy beard'] }
-            ]
-        },
-        {
-            category: "Face & Head", order: 5,
-            description: "Micro-descriptors for detailed facial features and symmetry.",
-            subcategories: [
-                { name: "Jawline & Chin", keywords: ['sharp jawline', 'soft jawline', 'rounded jaw', 'chiseled jaw', 'prominent chin', 'cleft chin', 'angular features', 'defined mandible'] },
-                { name: "Eyes & Brow", keywords: ['almond eyes (small)', 'round eyes (large)', 'deep-set eyes', 'hooded eyes', 'narrow eyes', 'wide-set eyes', 'thin eyebrows', 'thick eyebrows', 'arched brow', 'straight brow', 'youthful gaze', 'aged eyes'] },
-                { name: "Nose & Nostrils", keywords: ['small bridge nose', 'button nose top', 'aquiline nose', 'roman nose', 'wide nostrils', 'narrow nostrils', 'slender bridge', 'hooked nose', 'defined nose tip'] },
-                { name: "Symmetry & Look", keywords: ['high symmetry face', 'youthful symmetry', 'aged symmetry', 'rugged features', 'soft features', 'puffy face', 'gaunt face', 'prominent cheekbones'] }
-            ]
-        },
-        {
-            category: "Skin & Complexion", order: 6,
-            description: "Descriptors for skin texture, condition, and tone.",
-            subcategories: [
-                { name: "Texture & Condition", keywords: ['smooth skin', 'rough skin', 'oily skin', 'dry skin', 'eczema patches', 'psoriasis condition', 'stretch marks texture', 'acne scars', 'freckled skin', 'blemished skin', 'glowing skin', 'matte complexion', 'soft skin', 'coarse skin'] },
-                { name: "Tone & Undertone", keywords: ['deep skin tone', 'brown skin tone', 'pale complexion', 'olive skin tone', 'neutral undertone', 'warm undertone', 'cool undertone', 'sunkissed tone', 'fair skin', 'tan skin', 'dark skin', 'medium skin'] }
-            ]
-        },
-        {
-            category: "Arms & Hands", order: 7,
-            description: "Detailed descriptors for the upper limbs and hands.",
-            subcategories: [
-                // Note: General terms remain here, Male specific terms are now in order 2.5
-                { name: "Arms (Musculature)", keywords: ['muscular arms', 'toned arms', 'lean arms', 'vascular forearms', 'defined biceps', 'slender arms', 'heavy upper arms', 'athletic arms', 'thin forearms', 'long arm length', 'short arm length'] },
-                { name: "Hands", keywords: ['proportionate hands', 'hairy hands', 'smooth hands', 'oily hands', 'calloused hands', 'hands with visible folds', 'delicate hands', 'strong grip hands', 'large hands', 'small hands', 'long fingers', 'manicured nails'] }
-            ]
-        },
-        {
-            category: "Legs & Lower Body", order: 8,
-            description: "Descriptors for the legs, thighs, and calves.",
-            subcategories: [
-                // Note: General terms remain here, Male specific terms are now in order 2.5
-                { name: "Thighs (Definition)", keywords: ['thick thighs', 'slender thighs', 'toned thighs', 'thunder thighs', 'cellulite texture on thighs', 'lean quads', 'muscular hammies', 'long femoral length', 'athletic legs', 'smooth legs', 'hairy legs'] },
-                { name: "Calves", keywords: ['small calves', 'large calves', 'defined calves', 'muscular calves', 'slender lower leg', 'toned calves'] }
-            ]
-        },
-        {
-            category: "Glutes", order: 9,
-            description: "Descriptors for the size and shape of the gluteal region.",
-            subcategories: [
-                { name: "Small Glutes", keywords: ['flat buttocks', 'minimal projection', 'narrow rear', 'tight glutes'] },
-                { name: "Medium Glutes", keywords: ['average projection glutes', 'rounded shape glutes', 'proportional glutes'] },
-                { name: "Big Glutes", keywords: ['ample buttocks', 'full projection glutes', 'voluminous glutes', 'heavy-set behind'] }
-            ]
-        },
-        {
-            category: "Posture & Pose", order: 10,
-            description: "Describes the character's stance or action.",
-            subcategories: [
-                { name: "Stance & Action", keywords: ['upright posture', 'slouched pose', 'relaxed stance', 'confident pose', 'dynamic action pose', 'running stance', 'sitting casually', 'leaning against wall', 'stretching posture', 'bending over', 'folded arms', 'hands in pockets', 'crossed legs'] }
-            ]
-        },
-        {
-            category: "Clothing & Accessories", order: 11,
-            description: "Items worn by the character.",
-            subcategories: [
-                { name: "Shirts & Tops", keywords: ['t-shirt', 'button-down shirt', 'hoodie', 'tank top', 'blouse', 'sweater', 'formal shirt', 'crop top'] },
-                { name: "Bottoms", keywords: ['pants', 'jeans', 'skirt', 'shorts', 'skort', 'leggings', 'slacks', 'swim trunks'] },
-                { name: "Shoes", keywords: ['sandals', 'tennis shoes', 'formal shoes', 'high heels', 'pumps', 'red bottoms shoes', 'boots', 'flats', 'sneakers'] },
-                { name: "Accessories", keywords: ['earrings', 'watch', 'necklace', 'bracelet', 'glasses', 'hat', 'scarf', 'tie', 'gloves', 'belt', 'layered clothing', 'ring'] }
-            ]
-        },
-        {
-            category: "Age & Ethnicity", order: 12,
-            description: "Descriptors for age stage and cultural background.",
-            subcategories: [
-                { name: "Age Stage", keywords: ['young adult', 'middle-aged', 'elderly', 'teenager', 'child', 'infant', 'late 20s', '40s age', '80s age'] },
-                { name: "Ethnicity", keywords: ['African heritage', 'East Asian heritage', 'South Asian heritage', 'European heritage', 'Latin American heritage', 'Middle Eastern heritage', 'Indigenous American heritage', 'Pacific Islander heritage', 'mixed ethnicity'] }
-            ]
-        },
-        {
-            category: "Additional/Alternate Keywords", order: 13,
-            description: "Safe alternatives for potentially sensitive or contextual terms.",
-            subcategories: [
-                { name: "Alternates", keywords: ['undergarments', 'swimwear coverage', 'unclothed area (artistic)', 'sensual pose', 'artistic nude', 'full coverage clothing', 'minimal clothing', 'photorealistic', 'cinematic lighting', 'digital painting', 'concept art', 'maximalist detail'] }
-            ]
-        },
-    ];
-
-    // --- Core Logic ---
-
-    const glossaryContainer = document.getElementById('glossary-container');
-    const keywordSearch = document.getElementById('keyword-search');
-    const promptOutput = document.getElementById('prompt-output');
-    const copyButton = document.getElementById('copy-button');
-    const clearButton = document.getElementById('clear-button');
-
-    let selectedKeywords = new Set();
-    
-    // Create a flat map for easy keyword lookup and ordering reference
-    const keywordOrderMap = new Map();
-    // Pre-sort the glossaryData array based on the 'order' property before mapping
-    glossaryData.sort((a, b) => a.order - b.order).forEach(category => {
-        category.subcategories.forEach(sub => {
-            sub.keywords.forEach(keyword => {
-                // Key is the keyword, value is the category order number
-                keywordOrderMap.set(keyword, category.order);
-            });
-        });
-    });
-
-
-    // Smart Prompt Formula Implementation
-    function formatPrompt() {
-        // 1. Convert Set to Array
-        const keywordsArray = Array.from(selectedKeywords);
-
-        // 2. Sort the array based on the predefined category order
-        const sortedKeywords = keywordsArray.sort((a, b) => {
-            // Use the map to get the correct order number (1, 2, 2.5, 3, etc.)
-            const orderA = keywordOrderMap.get(a) || Infinity;
-            const orderB = keywordOrderMap.get(b) || Infinity;
-
-            if (orderA !== orderB) {
-                return orderA - orderB; // Sort by category order
-            }
-            return a.localeCompare(b); // Alphabetically if in the same category
-        });
-
-        // 3. Join them into the final prompt string
-        promptOutput.value = sortedKeywords.join(', ');
+  function createKeywordButton(keyword) {
+    const btn = document.createElement("button");
+    btn.textContent = keyword;
+    btn.className = "p-2 rounded-lg border text-sm truncate";
+    if (selectedKeywords.has(keyword)) {
+      btn.classList.add("bg-blue-600","text-white");
+    } else {
+      btn.classList.add("bg-gray-100","text-gray-800");
     }
+    btn.onclick = () => {
+      if (selectedKeywords.has(keyword)) selectedKeywords.delete(keyword);
+      else selectedKeywords.add(keyword);
+      formatPrompt();
+      renderGlossary(keywordSearch.value);
+    };
+    return btn;
+  }
 
-    // Function to create a keyword button
-    function createKeywordButton(keyword) {
-        const button = document.createElement('button');
-        button.textContent = keyword;
-        button.className = `p-3 rounded-lg border-2 text-sm font-medium transition-all duration-150 transform hover:scale-[1.03] shadow-sm truncate text-center w-full`;
-        
-        // Update button style based on selection status
-        if (selectedKeywords.has(keyword)) {
-            button.classList.add('bg-blue-600', 'text-white', 'border-blue-700', 'hover:bg-blue-700');
-        } else {
-            button.classList.add('bg-gray-100', 'text-gray-800', 'border-gray-300', 'hover:bg-gray-200');
-        }
+  function renderGlossary(filter="") {
+    glossaryContainer.innerHTML = "";
+    const f = filter.toLowerCase();
+    const sortedCats = [...glossaryData].sort((a,b)=>a.order-b.order);
 
-        button.addEventListener('click', () => {
-            if (selectedKeywords.has(keyword)) {
-                selectedKeywords.delete(keyword);
-            } else {
-                selectedKeywords.add(keyword);
-            }
-            formatPrompt();
-            renderGlossary(keywordSearch.value); // Re-render to update button styles
+    if (f) {
+      const results = Array.from(keywordOrderMap.keys()).filter(k=>k.toLowerCase().includes(f));
+      const section = document.createElement("div");
+      section.className = "bg-yellow-100 p-4 rounded";
+      section.innerHTML = `<h2 class="font-bold mb-2">Results for "${filter}" (${results.length})</h2>`;
+      const list = document.createElement("div");
+      list.className = "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2";
+      results.forEach(k=>list.appendChild(createKeywordButton(k)));
+      section.appendChild(list);
+      glossaryContainer.appendChild(section);
+    } else {
+      sortedCats.forEach(cat=>{
+        const catEl = document.createElement("div");
+        catEl.className = "bg-white p-4 rounded-xl shadow category-container";
+        catEl.innerHTML = `<h2 class="text-2xl font-bold">${cat.category}</h2><p class="text-gray-500 mb-4">${cat.description}</p>`;
+        cat.subcategories.forEach(sub=>{
+          const subEl = document.createElement("div");
+          subEl.innerHTML = `<h3 class="text-lg font-semibold mb-2">${sub.name}</h3>`;
+          const list = document.createElement("div");
+          list.className = "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2";
+          sub.keywords.forEach(k=>list.appendChild(createKeywordButton(k)));
+          subEl.appendChild(list);
+          catEl.appendChild(subEl);
         });
-        return button;
+        glossaryContainer.appendChild(catEl);
+      });
     }
+  }
 
-    // Function to render the entire glossary or just search results
-    function renderGlossary(filter = '') {
-        glossaryContainer.innerHTML = '';
-        const filterText = filter.trim().toLowerCase();
-        
-        // Sort the data here to ensure new categories (like order 2.5) are correctly placed
-        const sortedGlossaryData = [...glossaryData].sort((a, b) => a.order - b.order);
-
-        if (filterText !== '') {
-            // --- Search Results View ---
-            const allKeywords = Array.from(keywordOrderMap.keys());
-            const filteredKeywords = allKeywords.filter(kw => kw.toLowerCase().includes(filterText));
-
-            const resultsSection = document.createElement('div');
-            resultsSection.className = 'bg-yellow-100 rounded-xl p-6 shadow-md category-container';
-            resultsSection.innerHTML = `<h2 class="text-2xl font-bold mb-4 text-yellow-800">Search Results for "${filter}" (${filteredKeywords.length})</h2>`;
-            
-            if (filteredKeywords.length > 0) {
-                const keywordsList = document.createElement('div');
-                keywordsList.className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3';
-                resultsSection.appendChild(keywordsList);
-                filteredKeywords.forEach(keyword => {
-                    keywordsList.appendChild(createKeywordButton(keyword));
-                });
-            } else {
-                resultsSection.innerHTML += `<p class="text-gray-600">No keywords match your search. Try different terminology.</p>`;
-            }
-            glossaryContainer.appendChild(resultsSection);
-
-        } else {
-            // --- Full Glossary View ---
-            sortedGlossaryData.forEach(category => {
-                const categoryElement = document.createElement('div');
-                categoryElement.className = 'bg-white rounded-xl p-6 shadow-md category-container';
-                categoryElement.innerHTML = `
-                    <h2 class="text-3xl font-bold mb-2 text-gray-800">${category.category}</h2>
-                    <p class="text-gray-500 mb-6 text-sm">${category.description}</p>
-                `;
-
-                const subcategoryWrapper = document.createElement('div');
-                subcategoryWrapper.className = 'space-y-6';
-
-                category.subcategories.forEach(sub => {
-                    const subElement = document.createElement('div');
-                    subElement.className = 'p-4 bg-gray-50 rounded-lg border border-gray-200';
-                    subElement.innerHTML = `<h3 class="text-lg font-semibold mb-3 text-blue-700">${sub.name}</h3>`;
-                    
-                    const keywordsList = document.createElement('div');
-                    keywordsList.className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3';
-                    
-                    sub.keywords.forEach(keyword => {
-                        keywordsList.appendChild(createKeywordButton(keyword));
-                    });
-                    
-                    subElement.appendChild(keywordsList);
-                    subcategoryWrapper.appendChild(subElement);
-                });
-
-                categoryElement.appendChild(subcategoryWrapper);
-                glossaryContainer.appendChild(categoryElement);
-            });
-        }
-    }
-
-    // --- Event Listeners ---
-    keywordSearch.addEventListener('input', (e) => {
-        renderGlossary(e.target.value);
-    });
-
-    copyButton.addEventListener('click', () => {
-        if (promptOutput.value.length > 0) {
-            promptOutput.select();
-            document.execCommand('copy');
-            copyButton.textContent = 'Copied!';
-            setTimeout(() => {
-                copyButton.textContent = 'Copy Prompt';
-            } , 2000);
-        }
-    });
-
-    clearButton.addEventListener('click', () => {
-        selectedKeywords.clear();
-        formatPrompt();
-        renderGlossary(keywordSearch.value);
-    });
-
-    // Initial render
-    document.addEventListener('DOMContentLoaded', () => {
-        renderGlossary();
-    });
+  keywordSearch.oninput = e=>renderGlossary(e.target.value);
+  copyButton.onclick = ()=>{navigator.clipboard.writeText(promptOutput.value); copyButton.textContent="Copied!"; setTimeout(()=>copyButton.textContent="Copy Prompt",2000)};
+  clearButton.onclick = ()=>{selectedKeywords.clear(); formatPrompt(); renderGlossary(keywordSearch.value)};
+  document.addEventListener("DOMContentLoaded", ()=>renderGlossary());
 </script>
-
 </body>
 </html>
