@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate AI Character Glossary | Final Build</title>
+    <title>Ultimate AI Character Glossary | Final Master Build</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,6 +83,32 @@
         .dark .bg-gray-100 { background-color: #374151 !important; }
         .dark .border-gray-300 { border-color: #4b5563 !important; }
         .dark .category-card { background-color: #1f2937 !important; }
+        
+        /* SVG Custom Styling */
+        .body-path {
+            fill: #60a5fa; /* Blue-400 */
+            transition: fill 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .body-path:hover {
+            fill: #ef4444; /* Red-500 */
+            transform: scale(1.02);
+            filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5));
+        }
+        .dark .body-path {
+            fill: #3b82f6; /* Blue-500 in dark mode */
+        }
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .collapsible-title[aria-expanded="true"] + .collapsible-content {
+            max-height: 500px;
+            transition: max-height 0.3s ease-in;
+        }
+
+
     </style>
 </head>
 <body class="bg-gray-50 transition-colors duration-500">
@@ -123,6 +149,53 @@
             <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Synonym Translator Box (Smart Search)</h2>
             <input type="text" id="keyword-search" class="w-full p-4 border border-gray-300 rounded-lg text-lg focus:ring-yellow-500 focus:border-yellow-500 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Search a flagged word to find safe alternatives (Fuzzy Matching enabled)..." aria-label="Keyword Search and Synonym Finder"/>
         </section>
+        
+        <section class="mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+            <h2 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">Filter & Sort Options</h2>
+            <div class="flex flex-wrap gap-4">
+                <div class="flex-1 min-w-[200px]">
+                    <label for="sort-dropdown" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sort By:</label>
+                    <select id="sort-dropdown" onchange="sortGlossary(this.value)" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100" aria-label="Sort options for glossary">
+                        <option value="order">Anatomical Flow (Default)</option>
+                        <option value="alpha">Alphabetical (A-Z)</option>
+                    </select>
+                </div>
+                <div class="flex-1 min-w-[200px]">
+                    <button id="random-button" class="w-full py-3 px-6 rounded-lg font-semibold bg-indigo-500 text-white hover:bg-indigo-600 transition-colors mt-6" aria-label="Generate a Random Character Prompt">
+                        Random Character Generator
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <section class="mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg" aria-labelledby="learning-heading">
+            <h2 id="learning-heading" class="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-200 border-b pb-2">Learning & Engagement Zone</h2>
+            
+            <div class="mb-6 border-b pb-4">
+                <button onclick="toggleCollapsible('example-content', this)" class="collapsible-title w-full text-left py-2 px-4 rounded-lg bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-semibold text-xl transition-colors hover:bg-blue-200 dark:hover:bg-blue-800" aria-expanded="false" aria-controls="example-content">
+                    <span class="flex justify-between items-center">Interactive Example Prompts <span class="text-2xl" id="example-icon">+</span></span>
+                </button>
+                <div id="example-content" class="collapsible-content space-y-4 p-4 border border-blue-100 dark:border-blue-700 rounded-b-lg">
+                    <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300">Example 1: The Johnny Bravo Look</h3>
+                    <p class="font-mono text-sm bg-gray-100 dark:bg-gray-700 p-3 rounded-md">mesomorph, broad shoulders, massive traps, (bulky arms:1.5), (slim legs:0.5), pompadour, blue eyes, [dynamic pose], [photorealistic]</p>
+                    <button class="text-sm text-blue-500 hover:text-blue-700 underline" onclick="applyExamplePrompt(['mesomorph', 'broad shoulders', 'massive traps', 'bulky arms', 'slim legs', 'pompadour', 'blue eyes', 'dynamic pose', 'photorealistic'])" aria-label="Load Johnny Bravo example prompt">Click to load this prompt</button>
+                    
+                    <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300 pt-4">Example 2: Diverse Character (Dialysis Patient)</h3>
+                    <p class="font-mono text-sm bg-gray-100 dark:bg-gray-700 p-3 rounded-md">endomorph, full figure, dialysis access site (fistula/graft), slim neck, soft skin, African heritage, deep skin tone, [natural light], [close-up]</p>
+                    <button class="text-sm text-blue-500 hover:text-blue-700 underline" onclick="applyExamplePrompt(['endomorph', 'full figure', 'dialysis access site (fistula/graft)', 'slim neck', 'soft skin', 'African heritage', 'deep skin tone', 'natural light', 'close-up'])" aria-label="Load Diverse Character example prompt">Click to load this prompt</button>
+
+                </div>
+            </div>
+
+            
+            <div class="pt-8 border-t border-gray-200 dark:border-gray-700">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200">Feedback & Contributions (Future Features)</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                    **User Contribution (Feature Concept):** To implement **User Contributions** (Feature 7), **Feedback Mechanism** (Feature 9), or **Accurate Token Estimation**, a secure **Backend API** and database (which we will start next week in Firebase) are required. The integrity of our vast glossary depends on this security layer!
+                </p>
+            </div>
+            
+        </section>
 
         <section id="utility-panel" class="mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg space-y-8" aria-labelledby="utility-panel-heading">
             <h2 id="utility-panel-heading" class="text-3xl font-bold text-gray-800 dark:text-gray-200 border-b pb-2">Utility Panels</h2>
@@ -152,15 +225,34 @@
             </div>
             
             <div class="border-t pt-8">
-                <h3 class="text-2xl font-semibold mb-3 text-blue-600 dark:text-blue-400">Visual Body Mapper (Interactive SVG Concept)</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Clicking the silhouette sections will jump to the corresponding area in the glossary below. (Currently: Prototype SVG)</p>
-                <div id="svg-mapper-placeholder" class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg border-2 border-dashed border-gray-400 dark:border-gray-600 flex justify-center items-center h-64" aria-label="Interactive Body Map">
-                    <svg width="100" height="180" viewBox="0 0 100 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="40" y="0" width="20" height="20" rx="10" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Hair-Styling')" aria-label="Hair and Styling Section"/>
-                        <rect x="30" y="25" width="40" height="15" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Facial-Features')" aria-label="Facial Features Section"/>
-                        <rect x="35" y="45" width="30" height="40" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Female-Anatomy')" aria-label="Female Anatomy Section"/>
-                        <rect x="35" y="90" width="30" height="15" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Upper-Body')" aria-label="Upper Body Section"/>
-                        <rect x="35" y="110" width="30" height="70" fill="#3B82F6" class="hover:fill-red-500 cursor-pointer" onclick="smoothScrollTo('Lower-Body')" aria-label="Lower Body Section"/>
+                <h3 class="text-2xl font-semibold mb-3 text-blue-600 dark:text-blue-400">Visual Body Mapper (High-Tech Silhouette)</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Click a region to jump to the relevant category in the glossary below.</p>
+                <div id="svg-mapper-container" class="flex justify-center items-center h-96 relative" aria-label="Interactive Body Map">
+                    <svg width="200" height="360" viewBox="0 0 200 360" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: scale(0.9);">
+                        
+                        <path class="body-path transform origin-center transition-transform" d="M100 10C115 10 120 25 120 40C120 55 100 65 100 65C100 65 80 55 80 40C80 25 85 10 100 10Z" 
+                            onclick="smoothScrollTo('Hair-Styling')" aria-label="Hair and Styling"/>
+                        
+                        <path class="body-path transform origin-center transition-transform" d="M95 65L105 65L110 75C115 80 115 90 100 90C85 90 85 80 90 75L95 65Z" 
+                            onclick="smoothScrollTo('Facial-Features')" aria-label="Facial Features"/>
+                        
+                        <path class="body-path transform origin-center transition-transform" d="M80 95C70 95 60 110 60 140C60 170 70 200 100 200C130 200 140 170 140 140C140 110 130 95 120 95L80 95Z" 
+                            onclick="smoothScrollTo('Female-Anatomy')" aria-label="Torso, Chest, and Female Anatomy"/>
+
+                        <path class="body-path transform origin-center transition-transform" d="M90 200C85 200 70 215 70 230L130 230C130 215 115 200 110 200L90 200Z" 
+                            onclick="smoothScrollTo('Male-Anatomy')" aria-label="Waist and Male Abdomen Definition"/>
+                        
+                        <path class="body-path transform origin-center transition-transform" d="M70 230C55 240 50 260 55 280L145 280C150 260 145 240 130 230L70 230Z" 
+                            onclick="smoothScrollTo('Lower-Body')" aria-label="Lower Body and Hips"/>
+
+                        <path class="body-path transform origin-center transition-transform" d="M60 110L40 160L40 200L55 190L60 110Z" 
+                            onclick="smoothScrollTo('Upper-Body')" aria-label="Arms and Upper Body"/>
+
+                        <path class="body-path transform origin-center transition-transform" d="M60 280L50 350L150 350L140 280L60 280Z" 
+                            onclick="smoothScrollTo('Lower-Body')" aria-label="Legs and Feet"/>
+
+                        <text x="100" y="180" text-anchor="middle" font-size="12" fill="#1e40af">BODY MAP</text>
+
                     </svg>
                 </div>
             </div>
@@ -172,9 +264,8 @@
     </div>
 
 <script>
-    // --- CONSTANTS AND DATA (MAINTAINABILITY) ---
-    // The glossaryData array is assumed to be the large, consolidated structure from the previous response.
-    // It is kept outside the visible code block for brevity but is fully functional here.
+    // --- Data: FULLY CONSOLIDATED MASTER DATA (All past chats integrated) ---
+
     const glossaryData = [
         // 1. Hair & Styling (Order 1.0)
         { 
@@ -182,16 +273,16 @@
             description: "Detailed characteristics for hair and head aesthetics.", 
             order: 1.0, 
             subcategories: [
-                { name: "Hair Texture", groups: [{ group: "Texture", keywords: ["fine straight", "medium straight", "coarse straight", "silky straight", "soft waves", "loose waves", "beach waves", "tousled waves", "textured waves", "ringlets", "spiral curls", "bouncy curls", "soft curls", "kinky curls", "voluminous curls", "perm curls", "twist-out curls", "braid-out curls", "TWA coils", "afro coils", "mini coils", "dense coils", "springy coils", "coily twists", "natural shrinkage coils", "defined curls", "loose curls"] }]},
+                { name: "Hair Texture", groups: [{ group: "Texture", keywords: ["fine straight", "medium straight", "coarse straight", "silky smooth straight", "frizzy straight", "afro straight", "wavy straight", "soft waves", "loose waves", "beach waves", "tousled waves", "textured waves", "ringlets", "spiral curls", "bouncy curls", "soft curls", "kinky curls", "voluminous curls", "perm curls", "twist-out curls", "braid-out curls", "TWA coils", "afro coils", "mini coils", "dense coils", "springy coils", "coily twists", "natural shrinkage coils", "defined curls", "loose curls"] }]},
                 { name: "Hair Length", groups: [{ group: "Length", keywords: ["pixie", "ear-length", "chin-length", "jaw-length", "short bob", "bob", "lob", "shoulder-length", "collarbone-length", "mid-back", "waist-length", "hip-length", "thigh-length", "floor-length"] }]},
                 { name: "Hair Thickness", groups: [{ group: "Thickness", keywords: ["micro", "thin", "fine", "medium", "thick", "dense", "full", "heavy", "jumbo", "chunky", "layered", "multi-layered"] }]},
                 { name: "Hair Color", groups: [{ group: "Color", keywords: ["black", "natural black", "dark brown", "medium brown", "light brown", "chestnut", "auburn", "mahogany", "red", "golden brown", "blonde", "platinum blonde", "ash blonde", "honey blonde", "strawberry blonde", "balayage brown-blonde", "ombré", "dip-dye", "highlights", "lowlights", "peekaboo highlights", "two-tone", "bronde", "pastel pink", "lavender", "baby blue", "mint green", "neon streaks", "rainbow", "silver", "grey highlights", "ombre pastel", "bronze highlights"] }]},
                 { name: "Hair Parting", groups: [{ group: "Parting", keywords: ["center part", "deep center part", "side part left", "side part right", "deep side part", "middle part", "zig-zag part", "C-part", "invisible part", "curved part", "hard part", "soft part", "boxed part", "triangle parts", "diamond parts", "star part", "peekaboo part"] }]},
                 { name: "Bangs & Hairline", groups: [{ group: "Bangs/Hairline", keywords: ["no bangs", "straight fringe", "curtain bangs", "swooped bangs", "asymmetrical bangs", "feathered bangs", "micro bangs", "side-swept bangs", "pre-plucked hairline", "natural hairline", "baby hairs laid", "subtle baby hairs", "dramatic baby hairs", "swooped edges", "laid edges"] }]},
-                { name: "Hair Accessories", groups: [{ group: "Accessories", keywords: ["hair clips", "barrettes", "pins", "ribbons", "scrunchies", "elastic bands", "beads", "threads", "hair cuffs", "hair rings", "decorative pins", "flowers", "headbands", "scarves", "wraps", "decorative combs", "hair jewelry", "tinsel strands", "feathers"] }]},
+                { name: "Hair Accessories", groups: [{ group: "Accessories", keywords: ["hair clips", "barrettes", "pins", "ribbons", "scrunchies", "elastic bands", "beads", "threads", "hair cuffs", "hair rings", "decorative pins", "flowers", "headbands", "scarves", "wraps", "decorative combs", "hair jewelry", "tinsel strands", "feathers", "oversized barrettes (colorful)", "African hair beads", "crochet braid style", "hair charms", "ribbon bow (oversized)", "diamond-encrusted barrettes", "silk head wrap", "hairpins", "bandanas", "hair ties", "flower crowns", "hair cuffs", "claw clips", "hair nets", "tiaras", "bobby pins", "hairbands"] }]},
                 { name: "Hair Patterns & Finishes", groups: [{ group: "Patterns/Finishes", keywords: ["curl ends", "feathered tips", "soft waves", "sleek finish", "tousled finish", "spiral curls", "highlighted tips", "ombre tips", "spray stencil pattern", "painted streaks", "dip-dye tips", "dipped ends", "crimped texture", "pressed sleek", "matte finish", "glossy finish"] }]},
                 { name: "Hair Movement", groups: [{ group: "Movement", keywords: ["flowing hair", "windblown", "messy", "perfectly styled"] }]},
-                { name: "Hairline Types", groups: [{ group: "Hairline Types", keywords: ["low hairline", "high hairline", "widow's peak", "straight hairline"] }]}
+                { name: "Hairline Types", groups: [{ group: "Hairline Types", keywords: ["low hairline", "high hairline", "widow's peak", "straight hairline", "M-shaped hairline", "receding temples", "high forehead line", "low forehead line", "straight block hairline", "soft rounded hairline", "v-shaped hairline", "temple recession", "natural widow's peak", "defined edges", "laid baby hairs", "wispy hairline", "full frontal hairline", "natural curl hairline", "crisp shape-up"] }]}
             ]
         },
         // 2. Facial Features (Order 2.0)
@@ -200,7 +291,7 @@
             description: "Keywords for detailing the face and neck.", 
             order: 2.0, 
             subcategories: [
-                { name: "Eyes", groups: [{ group: "Shape & Color", keywords: ["blue eyes", "green eyes", "almond shaped eyes", "piercing gaze", "hooded eyes", "doe eyes", "monolid", "double eyelid", 'deep-set eyes', 'round eyes (large)', 'narrow eyes', 'wide-set eyes', 'youthful gaze', 'aged eyes', 'Eye spacing', 'Iris size', 'Pupil dilation', 'Eyelid shape (monolid)', 'Eyelid shape (double lid)', 'Eyelid shape (hooded)'] }]},
+                { name: "Eyes", groups: [{ group: "Shape & Color", keywords: ["blue eyes", "green eyes", "almond shaped eyes", "piercing gaze", "hooded eyes", "doe eyes", "monolid", "double eyelid", 'deep-set eyes', 'round eyes (large)', 'narrow eyes', 'wide-set eyes', 'youthful gaze', 'aged eyes', 'Eye spacing', 'Iris size', 'Pupil dilation', 'Eyelid shape (monolid)', 'Eyelid shape (double lid)', 'Eyelid shape (hooded)', 'almond eyes (Asian)', 'large round eyes (West African)', 'slanted eyes', 'epicanthic fold', 'prominent orbital bone', 'fox eyes', 'thin delicate eyelashes', 'thick mascara lashes'] }]},
                 { name: "Nose", groups: [{ group: "Nose Shape", keywords: ["small nose", "roman nose", "button nose", "aquiline nose", "wide nose", 'small bridge nose', 'slender bridge', 'hooked nose', 'defined nose tip', 'Nose bridge height', 'Nostril flare'] }]},
                 { name: "Lips", groups: [{ group: "Mouth/Lips", keywords: ["full lips", "thin lips", "pouty", "sharp smile", "smirking", "cupid's bow", 'Lip cupid\'s bow definition', 'Lip corner position (upturned)', 'Lip corner position (neutral)', 'Lip corner position (downturned)'] }]},
                 { name: "Ears", groups: [{ group: "Ear Shape", keywords: ["small ears", "large ears", "piercings", "pointy ears (fantasy)", "tapered ears"] }]},
@@ -210,7 +301,7 @@
                 { name: "Cheeks", groups: [{ group: "Cheeks", keywords: ["high cheekbones", "rosy cheeks", "sunken cheeks", "full cheeks", "chubby cheeks", 'prominent cheekbones', 'soft features', 'puffy face', 'gaunt face'] }]},
                 { name: "Neck", groups: [{ group: "Neck", keywords: ["long neck", "thick neck", "slender neck", "adam's apple (male)", "defined collarbones", 'slim neck', 'graceful neck', 'delicate neck', 'toned neck'] }]},
                 { name: "Micro-Features & Symmetry", groups: [
-                    { group: "Forehead & Brow Ridge", keywords: ["prominent brow ridge", "sloping forehead", "flat forehead", "smooth temples"] },
+                    { group: "Forehead & Brow Ridge", keywords: ["prominent brow ridge", "sloping forehead", "flat forehead", "smooth temples", 'thin eyebrows (plucked)', 'thick brows (natural)', 'unibrow', 'Eyebrow arch position', 'heavy brow furling', 'single furling line', 'fine eyelid creases', 'deep-set eye orbital'] },
                     { group: "Facial Symmetry", keywords: ["high symmetry face", "youthful symmetry", "aged symmetry", "asymmetrical face", "facial thirds defined", "Philtrum defined", "Facial Symmetry Modifiers"] }
                 ]}
             ]
@@ -232,8 +323,9 @@
                     { group: "Natural Shapes", keywords: ["asymmetrical bust", "natural sag", "gentle slope", "full lower pole", "rounded natural contour", "soft bust shape", "mature bust silhouette", "youthful perkiness", "natural bust taper", "slightly uneven bustline", "organic bust form", "subtle natural projection"] }
                 ]},
                 { name: "Waist & Torso", groups: [
-                    { group: "Waist Types", keywords: ["slim waist", "tapered torso", "hourglass waist", "athletic midsection", "soft curve", "defined waistline", "natural taper", "compact torso", "elongated torso", "balanced midsection", "narrow waist", "tiny waist", "cinched waist", "broad waist", "straight waist", "proportional waist", "long waist", "short waist"] },
-                    { group: "Torso Build", keywords: ["slender torso", "broad torso", "curvy torso", "petite torso", "muscular torso", "streamlined torso", "full torso", "lean torso", "rounded torso", "sculpted torso", "toned torso", "soft torso", "firm torso", "supple torso", "compact torso"] }
+                    { group: "Small/Cinched Waist", keywords: ["slim waist", "tapered torso", "hourglass waist", "narrow waist", "tiny waist", "cinched waist"] },
+                    { group: "Medium/Balanced Waist", keywords: ["athletic midsection", "soft curve", "defined waistline", "natural taper", "proportional waist"] },
+                    { group: "Large/Broad Waist", keywords: ["broad waist", "straight waist", "long waist", "short waist"] }
                 ]},
                 { name: "Hips", groups: [
                     { group: "Hip Descriptors", keywords: ["narrow hips", "slim hips", "petite hips", "compact hips", "broad hips", "wide hips", "generous hips", "full hips", "ample hips", "expansive hips", "voluminous hips", "balanced hips", "average hips", "natural hips", "rounded hips", "curved hips", "heart-shaped hips", "pear-shaped hips", "diamond-shaped hips", "square hips", "boxy hips", "sculpted hips", "streamlined hips", "symmetric hips", "hip dips", "slight hip dips", "deep hip dips", "smooth hip line", "pelvic curve", "waist-to-hip curve", "athletic hips", "toned hips", "sculpted hips", "soft hips", "gentle hips", "feminine hips", "elegant hips", "youthful hips", "mature hips", "BBL hips", "enhanced hips", "natural BBL hips", "dramatic BBL hips", "graceful hips", "harmonious hips", "dramatic hips", "highlighted hips", "defined hips", "stylized hips"] }
@@ -259,11 +351,15 @@
                 { name: "Abdomen Definition", groups: [
                     { group: "Core Definition", keywords: ["flat stomach", "toned stomach", "soft abdomen", "defined abs", "subtle abs", "sculpted core", "six-pack defined", "washboard abs", "smooth stomach", "rounded gut"] }
                 ]},
-                { name: "Male Arms", groups: [
-                    { group: "Arm Descriptors", keywords: ["slim arms", "narrow arms", "lean arms", "slender arms", "delicate arms", "trim arms", "broad arms", "thick arms", "strong arms", "robust arms", "hefty arms", "sturdy arms", "bulky arms", "average arms", "balanced arms", "moderate arms", "proportional arms", "long arms", "short arms", "compact arms", "extended arms", "tapered arms", "rectangular arms", "angular arms", "V-taper arms", "flowing arms", "arched arms", "straight arms", "sculpted arms", "rounded arms", "toned arms", "defined arms", "muscular arms", "athletic arms", "fit arms", "powerful arms", "firm arms", "brawny arms", "hardened arms", "trained arms", "runner’s arms", "boxer’s arms", "bodybuilder arms", "martial artist arms", "swimmer’s arms", "model arms", "heroic arms", "classic arms", "elegant arms", "refined arms", "statuesque arms", "tailored arms", "fashion arms", "runway arms", "arm frame", "arm silhouette", "arm proportion", "arm outline", "smooth arms", "even arms", "toned surface arms", "defined surface arms", "refined arms", "angular arms", "soft-line arms"] }
+                { name: "Male Arms (Size)", groups: [
+                    { group: "Small/Slender Arms", keywords: ["slim arms", "narrow arms", "lean arms", "slender arms", "delicate arms", "trim arms", "thin forearms", "light arms"] },
+                    { group: "Medium/Balanced Arms", keywords: ["average arms", "balanced arms", "moderate arms", "proportional arms", "toned arms", "fit arms", "runner’s arms"] },
+                    { group: "Large/Bulky Arms", keywords: ["broad arms", "thick arms", "strong arms", "robust arms", "hefty arms", "sturdy arms", "bulky arms", "defined biceps", "muscular arms", "bodybuilder arms", "powerful arms"] }
                 ]},
-                { name: "Male Legs", groups: [
-                    { group: "Leg Descriptors", keywords: ["slim legs", "slender legs", "lean legs", "narrow legs", "long legs", "short legs", "compact legs", "balanced legs", "broad legs", "thick legs", "sturdy legs", "muscular legs", "athletic legs", "powerful legs", "robust legs", "firm legs", "straight legs", "arched legs", "tapered legs", "rectangular legs", "rounded legs", "angular legs", "elongated legs", "curved legs", "runner’s legs", "sprinter’s legs", "swimmer’s legs", "soccer legs", "martial legs", "sculpted legs", "toned legs", "defined legs", "strong legs", "powerful legs", "solid legs", "brawny legs", "trained legs", "heroic legs", "firm legs", "model legs", "bodybuilder legs", "lean muscular legs", "dynamic legs", "runway legs", "tailored legs", "fitted legs", "statuesque legs", "aesthetic legs", "proportional legs", "fashion legs", "smooth legs", "even legs", "toned legs", "angular legs", "symmetrical legs", "refined legs", "classic legs"] }
+                { name: "Male Legs (Size)", groups: [
+                    { group: "Small/Slim Legs", keywords: ["slim legs", "slender legs", "lean legs", "narrow legs", "long legs (thin)", "short legs (compact)", "compact legs", "trim calves"] },
+                    { group: "Medium/Athletic Legs", keywords: ["balanced legs", "toned legs", "athletic legs", "runner’s legs", "soccer legs", "defined calves", "slim calves"] },
+                    { group: "Large/Muscular Legs", keywords: ["broad legs", "thick legs", "sturdy legs", "muscular legs", "powerful legs", "robust legs", "bodybuilder legs", "muscular calves", "thick thighs"] }
                 ]},
                 { name: "Male Back & Shoulders", groups: [
                     { group: "Back & Shoulder Descriptors", keywords: ["broad shoulders", "wide shoulders", "expansive shoulders", "generous shoulders", "square shoulders", "narrow shoulders", "slim shoulders", "compact shoulders", "delicate shoulders", "balanced shoulders", "average shoulders", "angular shoulders", "rounded shoulders", "sloped shoulders", "straight shoulders", "classic V-shape shoulders", "inverted triangle shoulders", "athletic shoulders", "heroic shoulders", "regal shoulders", "sculpted shoulders", "toned shoulders", "defined shoulders", "strong shoulders", "muscular shoulders", "firm shoulders", "solid shoulders", "powerful shoulders", "fit shoulders", "statuesque shoulders", "tailored shoulders", "suit shoulders", "armor shoulders", "model shoulders", "runway shoulders", "fashion shoulders", "symmetrical shoulders", "proportional shoulders", "refined shoulders", "aesthetic shoulders", "broad back", "wide back", "expansive back", "generous back", "robust back", "narrow back", "slim back", "lean back", "compact back", "balanced back", "average back", "V-shaped back", "tapered back", "rectangular back", "elongated back", "straight back", "arched back", "rounded back", "angular back", "classic taper back", "dramatic taper back", "subtle taper back", "sculpted back", "toned back", "defined back", "muscular back", "athletic back", "firm back", "strong back", "heroic back", "powerful back", "statuesque back", "model back", "runner’s back", "swimmer’s back", "warrior’s back", "tailored back", "suit back", "fitted back", "runway back", "fashion back", "armor back", "classic back", "modern back", "aesthetic back", "smooth back", "symmetrical back", "refined back", "polished back", "structured back", "harmonious back"] }
@@ -280,7 +376,10 @@
                 { name: "Arms", groups: [{ group: "Arm Shape", keywords: ["muscular arms", "toned arms", "slim arms", "strong arms", "veiny arms", "bicep definition", 'slender arms', 'delicate arms', 'graceful arms', 'athletic arms', 'feminine arms', 'slim forearms', 'toned forearms', 'sculpted forearms', 'delicate forearms', 'supple forearms', 'long arms', 'short arms', 'compact arms', 'highlighted arms', 'shadowed arms', 'Forearm Musculature', 'Wrist Structure', 'Elbow Definition'] }]},
                 { name: "Hands", groups: [{ group: "Hand Detail", keywords: ["delicate hands", "large hands", "veiny hands", "manicured nails", "knuckles", "holding object", 'proportionate hands', 'hairy hands', 'smooth hands', 'oily hands', 'calloused hands', 'hands with visible folds', 'strong grip hands', 'large hands', 'small hands', 'long fingers'] }]},
                 { name: "Chest", groups: [{ group: "General Chest", keywords: ["toned chest", "deep cleavage (female)", "flat chest (male)", "defined pecs (male)", 'Collarbone/Clavicle Prominence', 'Deltoid Definition'] }]},
-                { name: "Back", groups: [{ group: "Back Detail", keywords: ["toned back", "muscular back", "defined lats", "shoulder blades", "spinal groove", 'slim back', 'soft back', 'supple back', 'delicate back', 'narrow back', 'broad back', 'proportionate back', 'upper back defined', 'mid-back sculpted', 'lower back toned', 'lower back with dimples', 'highlighted spine line', 'subtle spine line', 'arched back', 'dramatic arch', 'elegant arch'] }]}
+                { name: "Back", groups: [{ group: "Back Detail", keywords: ["toned back", "muscular back", "defined lats", "shoulder blades", "spinal groove", 'slim back', 'soft back', 'supple back', 'delicate back', 'narrow back', 'broad back', 'proportionate back', 'upper back defined', 'mid-back sculpted', 'lower back toned', 'lower back with dimples', 'highlighted spine line', 'subtle spine line', 'arched back', 'dramatic arch', 'elegant arch'] }]},
+                { name: "Functional & Medical Modifiers", groups: [
+                    { group: "Asymmetry & Medical Detail", keywords: ["dialysis access site (fistula/graft)", "port catheter area", "asymmetrical muscle mass", "prosthetic arm", "limb atrophy", "scar tissue (functional)"] }
+                ]}
             ]
         },
         // 6. Lower Body (Order 6.0)
@@ -323,7 +422,7 @@
         // 8. Clothing Fit & Style (Order 8.0)
         { 
             category: "Clothing Fit & Style", 
-            description: "Keywords to control how the clothing drapes and interacts with the body.", 
+            description: "Keywords to control how the clothing drapes and interacts with the body, including accessories.", 
             order: 8.0, 
             subcategories: [
                 { name: "Silhouette Fit", groups: [{ group: "Fit", keywords: ["form-fitting", "skin-tight", "oversized", "baggy clothes", "tailored suit", "flowing robe"] }]},
@@ -331,10 +430,28 @@
                 { name: "Fashion Context", groups: [{ group: "Context", keywords: ["haute couture", "streetwear", "casual clothes", "formal wear", "sports attire"] }]},
                 { name: "Pose & Movement", groups: [{ group: "Movement", keywords: ["wind-swept clothes", "dynamic folds", "fabric motion", "billowing cape"] }]},
                 { name: "Era-Based Fashion", groups: [{ group: "Era/Style", keywords: ["victorian dress", "1950s fashion", "cyberpunk aesthetic", "steampunk gear"] }]},
-                { name: "Function-Based Fit", groups: [{ group: "Function", keywords: ["military uniform", "plate armor", "wet clothes", "damaged uniform"] }]},
+                { name: "Function-Based Fit", groups: [{ group: "Function", keywords: ["military uniform", "plate armor", "wet clothes", "damaged uniform", "doctor scrubs", "chef coat and hat", "flight attendant uniform", "police officer uniform", "schoolgirl uniform (Japanese style)", "high school jacket", "military dress uniform"] }]},
                 { name: "Cinematic Silhouettes", groups: [{ group: "Cinematic", keywords: ["defined silhouette", "shadowed figure", "backlit silhouette"] }]},
+                { name: "Tech & Carry Accessories", groups: [
+                    { group: "Tech Gear", keywords: ["AirPods in ear", "oversize sunshades", "cat-eye sunglasses", "Bluetooth headset", "smartwatch (digital)", "smartwatch (analog)", "high heel crocs", "smartphone", "tablet", "laptop", "earbuds", "Bluetooth speaker", "camera", "power bank", "fitness tracker", "VR headset", "smart glasses", "stylus pen", "flash drive", "cables", "phone case", "camera bag", "wireless charger", "gaming console", "smart speaker", "digital notebook", "removable storage"] },
+                    { group: "Carry Items", keywords: ["phone charm", "leather clutch", "designer handbag", "luxury briefcase", "suede satchel", "tote bag", "crossbody bag", "messenger bag", "briefcase", "duffel bag", "luggage", "weekender bag", "packing cubes", "notebooks", "water bottles", "tech organizers"] }
+                ]},
+                { name: "Jewelry & Luxury", groups: [
+                    { group: "Fine Jewelry", keywords: ["24k gold chain (heavy)", "10k tennis bracelet", "VVS diamond watch", "Cartier Tank watch", "Rolex Submariner", "Bulgari Serpenti bracelet", "pearl drop earrings", "layered necklaces", "heavy silver cuffs", "sapphire ring", "ruby encrusted", "platinum band", "pave set diamonds"] },
+                    { group: "Belts & Wallets", keywords: ["leather belt", "fabric belt", "woven belt", "decorative buckle belt", "wide cinch belt", "credit card holder", "bi-fold wallet", "zippered wallet", "coin purse", "clutch wallet"] }
+                ]},
                 { name: "Texture Layering", groups: [
                     { group: "Material Interaction", keywords: ["smooth texture on rough fabric", "skin to fabric transition", "multiple surface qualities", "texture transition zones"] }
+                ]},
+                { name: "Outfits & Footwear", groups: [
+                    { group: "Shirts & Tops", keywords: ["t-shirt", "button-down shirt", "hoodie", "tank top", "blouse", "sweater", "formal shirt", "crop top", "graphic tee", "chambray shirt", "flannel shirt"] },
+                    { group: "Bottoms", keywords: ["pants", "jeans", "skirt", "shorts", "skort", "leggings", "slacks", "swim trunks", "cargo pants", "skinny jeans", "overalls"] },
+                    { group: "Shoes & Boots", keywords: ["sandals", "tennis shoes", "formal shoes", "high heels", "pumps", "red bottoms shoes", "boots", "flats", "sneakers", "hiking boots", "rain boots", "flip-flops", "ballet flats", "military boots", "platform shoes"] },
+                    { group: "Outerwear", keywords: ["maxi dress", "bodycon dress", "puffer jacket", "sundress", "tailored suit", "athleisure wear", "winter coats", "light jackets"] }
+                ]},
+                { name: "Style, Makeup, & Seasonal", groups: [
+                    { group: "Makeup", keywords: ["natural look (makeup)", "minimal makeup", "nude tones", "dewy finish", "glam look (makeup)", "bold lipstick", "dramatic eyes", "contouring", "artistic makeup", "face painting", "avant-garde styles", "colorful eyeliner", "vibrant eyeliner shades"] },
+                    { group: "Seasonal/Functional", keywords: ["summer wear", "winter clothing", "fall fashion", "spring attire", "winter hats", "summer sunglasses", "functional accessories", "fashion accessories", "statement jewelry", "designer items", "scarves", "hats", "gloves", "umbrellas", "watches", "sunglasses", "bandanas"] }
                 ]}
             ]
         },
@@ -357,11 +474,11 @@
             description: "Tags to influence mood, facial expression, and body language.", 
             order: 10.0, 
             subcategories: [
-                { name: "Mood Tags", groups: [{ group: "Mood", keywords: ["melancholy", "joyful", "pensive", "dramatic lighting", "gloomy atmosphere", "intense"] }]},
-                { name: "Facial Emotion", groups: [{ group: "Expression", keywords: ["smiling", "frowning", "fierce expression", "subtle smirk", "crying", "staring intently"] }]},
-                { name: "Body Language", groups: [{ group: "Body Language", keywords: ["confident posture", "crouching", "relaxed pose", "hands on hips", "crossed arms", "dynamic pose"] }]},
+                { name: "Mood Tags", groups: [{ group: "Mood", keywords: ["melancholy", "joyful", "pensive", "dramatic lighting", "gloomy atmosphere", "intense", "Introverted (reserved)", "Extroverted (outgoing)", "Creative (artistic)", "Analytical (logical)", "Empathetic (compassionate)"] }]},
+                { name: "Facial Emotion", groups: [{ group: "Expression", keywords: ["smiling", "frowning", "fierce expression", "subtle smirk", "crying", "staring intently", "Joyful (beaming smile)", "Sad (downturned mouth, teary eyes)", "Angry (clenched jaw, narrowed eyes)", "Surprised (raised eyebrows)", "Confused (tilted head)", "Flirty (playful smile, winking)"] }]},
+                { name: "Body Language", groups: [{ group: "Body Language", keywords: ["confident posture", "crouching", "relaxed pose", "hands on hips", "crossed arms", "dynamic pose", "Athletic (toned muscles)", "Curvy (fuller figure)", "Petite (small stature)", "Stocky (broader frame)", "Lean (slim figure)", "Plus-size (curvier body)", "Muscular (strong build)"] }]},
                 { name: "Gesture & Hand Positions", groups: [
-                    { group: "Hand Poses", keywords: ["open palm", "fist", "pointing", "delicate hold", "finger articulation spread", "finger articulation curled", "finger articulation interlaced"] },
+                    { group: "Hand Poses", keywords: ["open palm", "fist", "pointing", "delicate hold", "finger articulation spread", "finger articulation curled", "finger articulation interlaced", "hands on hips (confident)", "hand tucked in pocket", "finger gun gesture", "delicate hand gesture", "hip cocked (side stance)", "foot tapping (impatient)", "shoulders hunched (anxious)", "crossed arms (defensive)", "leaning forward (interested)", "pointing finger (directive)", "head tilt (curious)", "smiling with hands clasped", "fingers running through hair", "thumbs up (approval)", "peace sign (friendly)", "open hands (welcoming)"] },
                     { group: "Body Positioning", keywords: ["Wrist Angles", "Arm Positioning Relative to Body"] }
                 ]},
                 { name: "Dynamic States & Conditions", groups: [
@@ -378,7 +495,8 @@
             subcategories: [
                 { name: "Cultural Body Ideals", groups: [{ group: "Ideals", keywords: ["renaissance figure", "geisha proportions", "nordic warrior", "ancient greek statue"] }]},
                 { name: "Historical Silhouettes", groups: [{ group: "Silhouettes", keywords: ["18th century corset", "medieval tunic", "flapper dress", "art deco style"] }]},
-                { name: "Regional Traits", groups: [{ group: "Regional", keywords: ["east asian features", "mediterranean features", "celtic features", "african features"] }]}
+                { name: "Regional Traits", groups: [{ group: "Regional", keywords: ["east asian features", "mediterranean features", "celtic features", "african features"] }]},
+                { name: "Cultural Attire", groups: [{ group: "Traditional Clothing", keywords: ["kimono", "sari", "dashiki", "modern cultural blends", "urban streetwear", "carnival costumes", "cultural festival attire"] }]}
             ]
         },
         // 12. Age & Hormonal Modifiers (Order 12.0)
@@ -433,6 +551,56 @@
                 { name: "Emphasis Weighting", groups: [{ group: "Emphasis", keywords: ["double parentheses", "triple parentheses", "negative prompt tag", "square brackets"] }]},
                 { name: "Safe Prompting Tips", groups: [{ group: "Safety", keywords: ["use synonym translator", "focus on body positive terms", "avoid explicit terms"] }]},
                 { name: "AI Readability", groups: [{ group: "Readability", keywords: ["concise prompt", "keyword clustering", "ordered flow (head-to-toe)"] }]}
+            ]
+        },
+        // 16. Composition & Aesthetics (NEW ART DIRECTION CATEGORY)
+        {
+            category: "Composition & Aesthetics",
+            description: "High-level artistic controls for framing, color, lighting, and style.",
+            order: 16.0,
+            subcategories: [
+                {
+                    name: "Composition Techniques",
+                    groups: [
+                        { group: "Framing & Layout", keywords: ["close-up", "wide shot", "asymmetrical", "rule of thirds", "golden ratio composition", "negative space emphasis"] },
+                        { group: "Guidance", keywords: ["Specify the composition style to influence the layout of your image.", "Example Prompt: Create a close-up of a flower with dew drops."] }
+                    ]
+                },
+                {
+                    name: "Color Schemes",
+                    groups: [
+                        { group: "Palette Control", keywords: ["pastel colors", "monochrome", "contrasting colors", "analogous palette", "complementary scheme", "muted colors"] },
+                        { group: "Guidance", keywords: ["Indicate a color palette to set the tone of your image.", "Example Prompt: Illustrate a tranquil landscape in pastel colors."] }
+                    ]
+                },
+                {
+                    name: "Lighting Techniques",
+                    groups: [
+                        { group: "Lighting Style", keywords: ["natural light", "soft lighting", "backlit", "rim lighting", "studio lighting (hard)", "cinematic lighting"] },
+                        { group: "Guidance", keywords: ["Specify the type of lighting to enhance the atmosphere.", "Example Prompt: Generate an image of a cozy room with soft lighting."] }
+                    ]
+                },
+                {
+                    name: "Perspective and Viewpoint",
+                    groups: [
+                        { group: "Camera Angle", keywords: ["bird's-eye view", "eye-level", "worm's-eye view", "low angle", "high angle", "Dutch angle"] },
+                        { group: "Guidance", keywords: ["Indicate the perspective to influence how the scene is perceived.", "Example Prompt: Create a bird's-eye view of a busy market."] }
+                    ]
+                },
+                {
+                    name: "Stylistic Choices",
+                    groups: [
+                        { group: "Art Style", keywords: ["impressionist", "surrealist", "pop art", "photorealism", "watercolor sketch", "cyberpunk aesthetic"] },
+                        { group: "Guidance", keywords: ["Specify an art style to guide the visual interpretation.", "Example Prompt: Illustrate a dream-like landscape in a surrealist style."] }
+                    ]
+                },
+                {
+                    name: "Contextual Elements",
+                    groups: [
+                        { group: "Setting & Narrative", keywords: ["bustling city", "tranquil forest", "joyful moment", "dramatic storm", "urban street view", "historical palace interior"] },
+                        { group: "Guidance", keywords: ["Include contextual details to enrich the narrative.", "Example Prompt: Generate a moment of joy between a child and a dog in a park."] }
+                    ]
+                },
             ]
         },
         // 20. Proportional Relationships & Mathematical Ratios
@@ -492,9 +660,9 @@
         "vagina": ["female form", "pelvis area", "lower body"],
         "penis": ["male anatomy", "waist area", "midsection"],
         "genitalia": ["private areas", "pelvis area", "lower body"],
-        "cunt": ["female form", "waist area", "lower body"],
+        "cunt": ["female genitalia", "vulva", "pelvic region", "lower body"],
         "pussy": ["female form", "pelvis area", "lower body"],
-        "dick": ["male anatomy", "waist area", "midsection"],
+        "dick": ["male anatomy", "phallus", "male member", "waist area", "midsection"],
         "cock": ["male anatomy", "waist area", "midsection"],
         "boob": ["bust", "cleavage", "chest", "top half"],
         "fat": ["thick", "full-figured", "robust", "rounded", "ample", "plump"], 
@@ -510,75 +678,11 @@
         "tall": ["long-limbed", "elongated", "high-statured"], 
         "chubby": ["soft", "rounded", "plump"], 
         "thin": ["slim", "svelte", "lean"], 
-        "average": ["proportional", "balanced", "natural build"]
-        // Add this block directly into your explicitTermSynonyms object:
-    "bitch": ["challenging woman", "fierce individual", "assertive character", "strong-willed personality"],
-    "hoe": ["provocatively dressed", "suggestive attire", "casual encounter", "free-spirited"],
-    "slut": ["sensually posed", "revealing wardrobe", "provocative figure", "immodest apparel"],
-    "whore": ["commercial sex worker", "street character", "suggestive profession", "transactional relationship"],
-    "dick": ["male genitalia", "phallus", "male member", "waist area", "midsection"],
-
-    "arse": ["backside", "rear end", "buttocks", "posterior"],
-    "fag": ["cigarette", "smoking product", "tobacco stick"],
-    "horny": ["eager", "passionate", "enthusiastic", "desiring"],
-    "lesbian": ["same-sex attracted woman", "female same-gender attraction", "woman loving woman"],
-    "gay": ["same-sex attracted person", "homosexual individual"],
-    "bisexual": ["attracted to multiple genders", "multigender attraction"],
-    "fetish": ["specific interest", "particular attraction", "unique preference"],
-    "kinky": ["adventurous", "creative", "explorative"],
-    "orgasm": ["peak pleasure", "climactic moment", "sexual release"],
-    "foreplay": ["intimate preparation", "prelude to intimacy", "sensual buildup"]
-
-
-    
-    "violence": ["aggression", "physical conflict", "hostility", "forceful behavior"],
-    "kill": ["terminate", "eliminate", "end life", "take down"],
-    "murder": ["unlawful killing", "premeditated act", "homicide"],
-    "assault": ["attack", "physical confrontation", "violent encounter"],
-    "fight": ["altercation", "brawl", "physical struggle"],
-    "blood": ["fluid", "vital fluid", "life source"],
-    "injure": ["harm", "cause injury", "inflict pain"],
-    "hurt": ["wound", "afflict", "cause distress"],
-    "torture": ["inflict suffering", "prolonged pain", "severe mistreatment"],
-    "war": ["armed conflict", "military engagement", "hostile encounter"],
-    "weapon": ["tool of conflict", "defensive object", "armament"],
-    "slaughter": ["mass killing", "widespread elimination", "systematic extermination"],
-    "execution": ["capital punishment", "legal killing", "judicial termination"],
-    "rape": ["sexual assault", "non-consensual act", "forced intimacy"],
-    "bully": ["intimidate", "harass", "coerce"],
-    "tension": ["conflict", "strain", "hostility"],
-    "revenge": ["retribution", "payback", "retaliation"],
-    "domestic violence": ["intimate partner conflict", "home aggression", "family abuse"],
-    "gang violence": ["group conflict", "organized aggression", "criminal group altercation"]
-
-    "hate speech": ["derogatory language", "discriminatory remarks", "bigoted expressions"],
-    "slurs": ["offensive terms", "insulting labels", "derogatory identifiers"],
-    "profanity": ["foul language", "curse words", "vulgar expressions"],
-    "discriminatory language": ["biased terminology", "prejudiced expressions", "inequitable language"],
-    "self-harm": ["self-injury", "self-destructive behavior", "harm to oneself"],
-    "suicidal tendencies": ["thoughts of self-harm", "desires to end life", "suicidal ideation"],
-    "substance abuse": ["drug misuse", "alcohol dependency", "addictive behavior"],
-    "extremism": ["radical beliefs", "violent ideologies", "fanatical views"],
-    "sexual violence": ["non-consensual acts", "assaultive behavior", "forced encounters"],
-    "gang activity": ["organized crime involvement", "group-related violence", "criminal associations"],
-    "bullying": ["targeting individuals", "harassment behavior", "intimidation tactics"],
-    "exploitation": ["taking advantage", "manipulative behavior", "unfair treatment"],
-    "dehumanization": ["denying personhood", "reducing to an object", "removing individuality"],
-    "marginalization": ["pushing to the edges", "social exclusion", "disregarding voices"],
-    "intimidation": ["threatening behavior", "creating fear", "coercive tactics"],
-    "misogyny": ["hatred towards women", "sexist attitudes", "anti-female sentiments"],
-    "racism": ["discrimination based on race", "racial prejudice", "ethnic bias"],
-    "xenophobia": ["fear of outsiders", "anti-immigrant sentiment", "hostility towards foreigners"],
-    "ableism": ["discrimination against disabled individuals", "bias towards able-bodied people", "devaluation of disability"]
-}
-
-
-
-        
-
-    
-}
-    
+        "average": ["proportional", "balanced", "natural build"],
+        "bitch": ["challenging woman", "fierce individual", "assertive character", "strong-willed personality"],
+        "hoe": ["provocatively dressed", "suggestive attire", "casual encounter", "free-spirited"],
+        "slut": ["sensually posed", "revealing wardrobe", "provocative figure", "immodest apparel"],
+        "whore": ["commercial sex worker", "street character", "suggestive profession", "transactional relationship"]
     };
 
     const ratioKeywordsData = {
@@ -629,7 +733,6 @@
 
     // 3. Initialization: Map keywords to their sorting order (Performance)
     const keywordOrderMap = new Map();
-    // Use a function for clean initialization
     function initializeKeywordMap() {
         glossaryData.sort((a, b) => a.order - b.order).forEach(category => {
             category.subcategories.forEach(sub => {
@@ -668,6 +771,8 @@
         sortedKeywords.forEach(keyword => {
             let term = keyword;
             let ratioValue = 1.0;
+
+            // Simple check for Ratio Application (Matching keyword to ratioPart key)
             const baseKeyword = keyword.toLowerCase().replace(/\s/g, '');
             const match = ratioKeywords.find(key => baseKeyword.includes(key));
             
@@ -742,6 +847,31 @@
         });
     });
 
+    // Function to apply keywords from an example prompt
+    window.applyExamplePrompt = function(keywordsArray) {
+        selectedKeywords.clear(); // Clear existing selections first
+        keywordsArray.forEach(kw => {
+            selectedKeywords.add(kw);
+        });
+        formatPrompt();
+        renderGlossary(keywordSearch.value);
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to prompt area
+    }
+
+
+    function toggleCollapsible(id, button) {
+        const content = document.getElementById(id);
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', !isExpanded);
+        document.getElementById(id).style.maxHeight = isExpanded ? '0' : '500px';
+        document.getElementById(id).style.padding = isExpanded ? '0 4px' : '1rem';
+        document.getElementById(id).style.border = isExpanded ? 'none' : '1px solid #d1d5db';
+        document.getElementById(id).style.borderTop = 'none';
+
+        document.getElementById(id.replace('-content', '-icon')).textContent = isExpanded ? '+' : '−';
+    }
+
+
     function renderPresetsPanel() {
         presetsPanel.innerHTML = '';
         presetsData.forEach(preset => {
@@ -793,6 +923,7 @@
         indexList.appendChild(indexLinks);
     }
     
+    // For SVG Mapper to work
     window.smoothScrollTo = function(id) {
         const targetElement = document.getElementById(id);
         if (targetElement) {
@@ -927,7 +1058,7 @@
     }
 
     // 8. Event Listeners and Initialization
-    keywordSearch.addEventListener('input', formatPrompt); // Call formatPrompt to update counters live
+    keywordSearch.addEventListener('input', formatPrompt);
     keywordSearch.addEventListener('input', (e) => {
         renderGlossary(e.target.value);
     });
