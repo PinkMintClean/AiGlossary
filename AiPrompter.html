@@ -89,6 +89,17 @@
 <div id="smart-reminder" class="px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-2xl font-semibold text-sm"></div>
 
 <script>
+
+
+    
+
+
+
+
+
+
+    
+
     // --- Data Structure: The Master Glossary ---
     const RAW_GLOSSARY_DATA = [
         // ----------------------------------------------------
@@ -267,6 +278,14 @@
         }
     ];
 
+
+
+
+
+
+
+
+    
     const SOMATOTYPE_KEYWORDS = {
         'ectomorph': { keyword: 'ectomorph build', bias: 'slender/Ectomorph' },
         'mesomorph': { keyword: 'mesomorph build', bias: 'athletic/Mesomorph' },
@@ -364,8 +383,7 @@
                     return `(${baseKeyword}:${ratio.toFixed(1)})`;
                 }
             }
-            
-            // Smart sorting/tagging for all other keywords
+            // 2. Handle smart sorting/tagging for all other keywords
             if (categoryTag) {
                 return `(${categoryTag}: ${baseKeyword})`;
             }
@@ -987,4 +1005,1396 @@ lg shadow-2xl font-semibold text-sm';
 </script>
 </body>
 </html>
-          
+
+
+
+
+
+
+
+
+// Render the Level 3 item as a new collapsible unit
+                        sectionContent.appendChild(renderCollapsibleSubSection(filteredSub, cat.id, globalSubSectionIndex, defaultExpandedSub));
+                        
+                        keywordsInSubSections = true;
+                        resultsFound = true;
+                        globalSubSectionIndex++;
+                    }
+                });
+
+                if (keywordsInSubSections) {
+                    sectionContainer.appendChild(secHeader);
+                    sectionContainer.appendChild(sectionContent);
+                    hasVisibleSections = true;
+                }
+            });
+
+            if (f && !resultsFound) {
+                glossaryContainer.innerHTML = `<div class="p-6 text-center text-xl text-gray-500 dark:text-gray-400">No matching keywords found for "${filter}".</div>`;
+            }
+            
+            if (hasVisibleSections) {
+                catEl.appendChild(sectionContainer);
+                glossaryContainer.appendChild(catEl);
+            }
+        });
+
+        if (f && !resultsFound) {
+            glossaryContainer.innerHTML = `<div class="p-6 text-center text-xl text-gray-500 dark:text-gray-400">No matching keywords found for "${filter}".</div>`;
+        }
+    }
+
+    function showRatioReminder(part, ratio) {
+        const reminderEl = document.getElementById('smart-reminder');
+        const isHigh = ratio > 1.2;
+        const isLow = ratio < 1.0;
+        let suggestion = "";
+
+        // HWR has unique reminder logic
+        if (part === 'hwr') {
+             const key = isHigh ? 'high' : (isLow ? 'low' : 'balanced');
+             const bias = RATIO_REMINDERS[part][key];
+             suggestion = `Adjusting HWR to ${ratio.toFixed(1)}x applies <strong class="text-white">${bias}</strong> bias to Hips/Waist.`;
+        } else if (isHigh || isLow) {
+            const key = isHigh ? 'high' : 'low';
+            const bias = RATIO_REMINDERS[part][key];
+            const biasType = part === 'waist' ? (isHigh ? 'slender' : 'fuller') : bias.split('/')[0];
+
+            suggestion = `Adjusting ${part} to ${ratio.toFixed(1)}x suggests a <strong class="text-white">${biasType}</strong> bias.`;
+            
+            // Adjust color based on implied bias for visual feedback
+            if (bias.includes('fuller') || bias.includes('broad')) {
+                reminderEl.className = 'show px-4 py-2 bg-rose-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+            } else if (bias.includes('slender') || bias.includes('petite')) {
+                reminderEl.className = 'show px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+            } else {
+                reminderEl.className = 'show px-4 py-2 bg-green-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+            }
+
+        } else {
+            // Default/average tone
+            suggestion = `Adjusting ${part} to ${ratio.toFixed(1)}x suggests a <strong class="text-white">balanced</strong> proportion.`;
+            reminderEl.className = 'show px-4 py-2 bg-green-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+        }
+        
+        reminderEl.innerHTML = suggestion;
+        clearTimeout(window.reminderTimer);
+        window.reminderTimer = setTimeout(() => {
+            reminderEl.classList.remove('show');
+        }, 3000);
+    }
+    
+    // Toggle function for Ratio Syntax Button
+    function setupRatioToggle() {
+        const toggleButton = document.getElementById('ratio-toggle');
+        
+        toggleButton.addEventListener('click', () => {
+            const isActive = toggleButton.getAttribute('data-active') === 'true';
+            
+            if (isActive) {
+                toggleButton.setAttribute('data-active', 'false');
+                toggleButton.textContent = 'Ratio Syntax: OFF';
+                toggleButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+                toggleButton.classList.add('bg-gray-500', 'hover:bg-gray-600');
+            } else {
+                toggleButton.setAttribute('data-active', 'true');
+                toggleButton.textContent = 'Ratio Syntax: ON';
+                toggleButton.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                toggleButton.classList.add('bg-green-600', 'hover:bg-green-700');
+            }
+            localStorage.setItem('ratioToggleActive', toggleButton.getAttribute('data-active'));
+            formatPrompt(); // Re-format prompt when toggle changes
+        });
+        
+        // Initial state setup (Load from LocalStorage)
+        const savedRatioState = localStorage.getItem('ratioToggleActive');
+        if (savedRatioState === 'false') {
+            toggleButton.setAttribute('data-active', 'false');
+            toggleButton.textContent = 'Ratio Syntax: OFF';
+            toggleButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+            toggleButton.classList.add('bg-gray-500', 'hover:bg-gray-600');
+        } else {
+            toggleButton.setAttribute('data-active', 'true');
+            toggleButton.textContent = 'Ratio Syntax: ON';
+            toggleButton.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+            toggleButton.classList.add('bg-green-600', 'hover:bg-green-700');
+        }
+    }
+    
+    // Setup Randomize Button
+    function setupRandomizeButton() {
+        document.getElementById('randomize-button').addEventListener('click', randomizePrompt);
+    }
+    
+    // Function to load state from LocalStorage (Feature 11)
+    function loadStateFromLocalStorage() {
+        const lastKeywords = localStorage.getItem('lastKeywords');
+        const lastBodyType = localStorage.getItem('lastBodyType');
+        const lastRatios = localStorage.getItem('lastRatios');
+
+        if (lastKeywords) {
+            try {
+                const keywordsArray = JSON.parse(lastKeywords);
+                keywordsArray.forEach(kw => selectedKeywords.add(kw));
+            } catch (e) {
+                console.error("Could not parse saved keywords:", e);
+            }
+        }
+        
+        if (lastBodyType) {
+            selectedBodyType = lastBodyType;
+        }
+
+        if (lastRatios) {
+            try {
+                const ratiosObj = JSON.parse(lastRatios);
+                ratiosByPart = { ...ratiosByPart, ...ratiosObj };
+            } catch (e) {
+                 console.error("Could not parse saved ratios:", e);
+            }
+        }
+        // Dark Mode state is handled in initializeGlossary
+    }
+
+
+    // --- Initialization Wrapper ---
+    function initializeGlossary() {
+        // --- Core State Variables (Declared once) ---
+        selectedKeywords = new Set();
+        selectedBodyType = null;
+        currentRatio = 1.0;
+        // Stores ratios for fine-grained parts: { 'hips': 1.2, 'nose': 0.8, 'hwr': 1.0 }
+        ratiosByPart = {
+            'hips': 1.0, 'glutes': 1.0, 'thighs': 1.0, 'waist': 1.0,
+            'eyes': 1.0, 'nose': 1.0, 'lips': 1.0, 'cheeks': 1.0,
+            'hwr': 1.0 // Initialize Hip-to-Waist Ratio slider value
+        };
+        keywordOrderMap = buildKeywordOrderMap(RAW_GLOSSARY_DATA);
+
+        const promptOutput = document.getElementById('prompt-output');
+        const copyButton = document.getElementById('copy-button');
+        const clearButton = document.getElementById('clear-button');
+        const keywordSearch = document.getElementById('keyword-search');
+        const somatotypePanel = document.getElementById('somatotype-panel');
+        const ratioPanel = document.getElementById('ratio-panel');
+        const fineRatioSliders = document.getElementById('fine-ratio-sliders');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        // Load Dark Mode state
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        
+        // Load state from local storage (Feature 11)
+        loadStateFromLocalStorage();
+
+        // --- Event Handlers Setup ---
+
+        // 1. Somatotype Buttons
+        function setupSomatotypePanel() {
+            const bodyTypes = Object.entries(SOMATOTYPE_KEYWORDS);
+            somatotypePanel.innerHTML = bodyTypes.map(([key, value]) => `
+                <button data-keyword="${key}" class="body-type-button py-3 px-4 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-indigo-100 dark:hover:bg-indigo-800 transition-colors shadow-md" aria-pressed="false">
+                    ${key.charAt(0).toUpperCase() + key.slice(1)}
+                </button>
+            `).join('');
+
+            somatotypePanel.querySelectorAll('.body-type-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const keyword = button.getAttribute('data-keyword');
+                    const isActive = button.classList.contains('selected-keyword');
+
+                    // Clear previous selection visually and logically
+                    somatotypePanel.querySelectorAll('.body-type-button').forEach(b => b.classList.remove('selected-keyword'));
+
+                    if (!isActive) {
+                        button.classList.add('selected-keyword');
+                        selectedBodyType = keyword;
+                    } else {
+                        selectedBodyType = null; // Deselect
+                    }
+                    localStorage.setItem('lastBodyType', selectedBodyType);
+                    formatPrompt();
+                    renderGlossary(keywordSearch.value); // Re-render to update dynamic status
+                });
+            });
+            
+            // Apply loaded state visually
+            somatotypePanel.querySelectorAll('.body-type-button').forEach(b => {
+                if (b.getAttribute('data-keyword') === selectedBodyType) {
+                    b.classList.add('selected-keyword');
+                }
+            });
+        }
+
+        // 2. Global Ratio Buttons
+        function setupRatioPanel() {
+            const ratios = [0.5, 0.8, 1.0, 1.2, 1.5, 1.8, 2.0, 2.5];
+            ratioPanel.innerHTML = ratios.map(r => `
+                <button data-ratio="${r}" class="ratio-button py-2 px-3 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors font-mono shadow-sm">
+                    ${r.toFixed(1)}x
+                </button>
+            `).join('');
+
+            ratioPanel.querySelectorAll('.ratio-button').forEach(button => {
+                const ratioValue = parseFloat(button.getAttribute('data-ratio'));
+                
+                // Set click handler
+                button.addEventListener('click', () => {
+                    ratioPanel.querySelectorAll('.ratio-button').forEach(b => b.classList.remove('bg-accent', 'text-white', 'dark:bg-rose-400'));
+                    currentRatio = ratioValue;
+
+                    if (currentRatio !== 1.0) {
+                        button.classList.add('bg-accent', 'text-white', 'dark:bg-rose-400');
+                    }
+                });
+                
+                // Apply 1.0x selection by default immediately
+                if (ratioValue === 1.0) {
+                    button.classList.add('bg-accent', 'text-white', 'dark:bg-rose-400');
+                }
+            });
+        }
+
+        // 3. Fine-Grained Ratio Sliders
+        function setupFineRatioSliders() {
+            const parts = {
+                'hwr': 'Hip-to-Waist Ratio (HWR)', // New integrated slider
+                'hips': 'Hips', 'glutes': 'Glutes', 'thighs': 'Thighs', 'waist': 'Waist (Inverse)',
+                'eyes': 'Eyes', 'nose': 'Nose', 'lips': 'Lips', 'cheeks': 'Cheeks'
+            };
+
+            fineRatioSliders.innerHTML = Object.entries(parts).map(([key, label]) => {
+                const isHwr = key === 'hwr';
+                const currentRatio = ratiosByPart[key] || 1.0;
+                
+                return `
+                <div class="space-y-1 ${isHwr ? 'border-t pt-4 border-rose-300 dark:border-rose-700' : ''}">
+                    <label for="${key}-slider" class="block text-sm font-medium ${isHwr ? 'text-rose-700 dark:text-rose-400 font-bold' : 'text-gray-700 dark:text-gray-300'}">${label} (Current: <span id="${key}-value">${currentRatio.toFixed(1)}</span>x)</label>
+                    <input type="range" id="${key}-slider" data-keyword="${key}" min="0.5" max="2.5" step="0.1" value="${currentRatio}" class="w-full h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer dark:bg-indigo-700">
+                </div>
+            `}).join('');
+
+            fineRatioSliders.querySelectorAll('input[type="range"]').forEach(slider => {
+                const keyword = slider.getAttribute('data-keyword');
+                document.getElementById(`${keyword}-value`).textContent = slider.value;
+                ratiosByPart[keyword] = parseFloat(slider.value); // Initialize state
+
+                slider.addEventListener('input', (e) => {
+                    const newRatio = parseFloat(e.target.value);
+                    document.getElementById(`${keyword}-value`).textContent = newRatio.toFixed(1);
+                    changeRatioInPrompt(keyword, newRatio);
+                    showRatioReminder(keyword, newRatio);
+                });
+
+                // Add slider value to selectedKeywords set if not present and ratio changes
+                slider.addEventListener('change', (e) => {
+                    const newRatio = parseFloat(e.target.value);
+                    const baseKeyword = e.target.getAttribute('data-keyword');
+                    
+                    if (newRatio !== 1.0) {
+                        selectedKeywords.add(baseKeyword);
+                    } else if (newRatio === 1.0 && selectedKeywords.has(baseKeyword)) {
+                        // If ratio is 1.0, and the keyword was only selected for ratio purposes, deselect it.
+                    }
+                    formatPrompt();
+                    // Save ratios to local storage
+                    localStorage.setItem('lastRatios', JSON.stringify(ratiosByPart));
+                    renderGlossary(keywordSearch.value);
+                });
+            });
+        }
+
+        // 4. Global Event Listeners
+        copyButton.onclick = () => {
+            const text = promptOutput.value;
+            // Use execCommand('copy') for better iFrame compatibility
+            if (document.execCommand('copy')) {
+                copyButton.textContent = "Copied!";
+            } else {
+                copyButton.textContent = "Copy Failed";
+            }
+            setTimeout(() => copyButton.textContent = "Copy Prompt", 2000);
+        };
+
+        clearButton.onclick = () => {
+            selectedKeywords.clear();
+            selectedBodyType = null;
+            currentRatio = 1.0;
+            // Reset all ratios to 1.0
+            Object.keys(ratiosByPart).forEach(key => ratiosByPart[key] = 1.0);
+            
+            // Visually reset fine-grained sliders
+            fineRatioSliders.querySelectorAll('input[type="range"]').forEach(slider => {
+                slider.value = 1.0;
+                document.getElementById(`${slider.getAttribute('data-keyword')}-value`).textContent = '1.0';
+            });
+
+            // Visually reset somatotype and global ratio buttons
+            somatotypePanel.querySelectorAll('.body-type-button').forEach(b => b.classList.remove('selected-keyword'));
+            ratioPanel.querySelectorAll('.ratio-button').forEach(b => b.classList.remove('bg-accent', 'text-white', 'dark:bg-rose-400'));
+            // Apply 1.0x selection by default after clearing
+            ratioPanel.querySelectorAll('[data-ratio]').forEach(b => {
+    1. Body Augmentation & Procedures
+Description: Safe, descriptive terms for aesthetic enhancements and surgical alteration appearances.
+Subcategories:Breast Procedures:
+Augmentation Terms: Augmented, Implant-like appearance, High-profile contour, Natural-looking enhancement, Dramatic volume, Round shaped enhancement, Teardrop shaped enhancement, Silicone enhanced bust, Saline enhanced bust, Reconstructed, Post-surgical scarring, Periareolar scarring
+Shape/Size Descriptors: High-set augmentation, Low-set augmentation, Wide-set augmentation, Close-set augmentation, Lifted appearance, Surgical alteration appearance, Smooth contour augmentation, Projecting augmentation, Full upper pole, Round lower pole
+Body Contouring (BBL & Lipo):
+Gluteal/Hip Augmentation: BBL-enhanced appearance, Gluteal implants, Hip augmentation, Curvy profile enhancement, Dramatic hip volume, Sculpted glutes, Enhanced buttocks, Voluminous lower body, Subtle gluteal lift, Projecting buttocks
+Waist/Midsection: Liposuction contour, Tummy tuck results, Cinched waist contour, Defined waistline, Sculpted midsection, Slight waist indent, Hourglass silhouette enhancement, Abdominoplasty contour, Smooth abdominal wall
+Facial Procedures:
+Rhinoplasty/Nose: Rhinoplasty contoured nose, Surgical nose refinement, Narrow bridge appearance, Straight bridge appearance, Tapered nose tip, Subtle nostril reduction, Refined nasal shape
+Cheeks/Jaw: Chin implant contour, Jawline augmentation, Defined jawline contour, Cheekbone implants, High cheekbone contour, Facial filler enhancement, Surgical facial symmetry
+2. Base Character Anatomy
+Description: Establish the foundational build, frame, and primary anatomical features (Size/Volume first).
+Subcategories:Somatotype & Global Frame:
+Frame & Proportions: hourglass figure, pear-shaped, apple-shaped, rectangular shape, inverted triangle, slender, lean, muscular, stocky, tall, short, broad-shouldered, narrow-hipped, wide-hipped, petite, average build, heavyset, toned, defined, chiseled, sculpted, full-figured, curvy, athletic, robust, frail, delicate
+Female Anatomical Features:
+Bust Size/Volume: petite bust, flat chest, delicate frame, subtle bust, modest bust, compact bust, minimal bust, balanced bust, moderate chest, proportional bust, rounded bust, classic bust, full bust, ample chest, generous bust, voluminous bust, developed chest, dramatic bust, heavy bust, enhanced bust
+Bust Shape/Detail: round shape, teardrop shape, bell shape, athletic shape, natural shape, firm shape, soft shape, lifted, pendulous, projecting, wide-set, close-set, defined chest detail
+Waist Size/Volume: Small waist, Narrow waist, Slim waist, Petite waist, Tiny waist, Medium waist, Moderate waist, Average waist, Balanced waist, Large waist, Wide waist, Broad waist, Full waist, Thick waist, Voluminous waist
+Waist Shape/Contour: cinched waist, delicate waist, slender waist, proportional waist, toned waist, natural waistline, broad waist, blocky midsection, hourglass taper, straight torso, curvy torso, defined waistline taper
+Hips Size/Volume: narrow hips, slim hips, petite hips, proportional hips, average hips, balanced hips, broad hips, wide hips, generous hips, full hips, expansive hips
+Hip Shape/Detail: slender hip bone structure, straight hip line, subtle curve hips, curved hips, heart-shaped hips, pear-shaped hips, diamond-shaped hips, square hips, hip dips, deep hip dips, waist-to-hip curve
+Buttocks Size/Volume: small buttocks, petite buttocks, compact buttocks, muscular glutes (small), firm buttocks, rounded buttocks, toned buttocks, large buttocks, voluminous buttocks, curvy buttocks, bubble buttocks, enhanced buttocks, ample glutes
+Buttocks Shape/Contour: subtle projection, soft buttocks (small), flat buttocks, developed gluteus maximus, proportional projection, heart-shaped glutes, dramatic projection
+Shoulders Size/Volume: narrow shoulders, slender shoulders, delicate shoulders, petite shoulders, proportional shoulders, average shoulders, rounded shoulders, balanced shoulders, broad shoulders, squared shoulders, massive traps, wide shoulders
+Shoulders Shape/Detail: sloped shoulders, fine-boned shoulders, athletic shoulders (medium), strong deltoids (large), muscular shoulders (large), toned shoulders, defined shoulders, sculpted delts, massive deltoids
+Legs Size/Volume: thin legs, slim legs, slender legs, petite legs, delicate legs, proportional legs, average legs, toned legs (medium), balanced legs, large legs, wide legs, muscular legs (large), voluminous legs, full legs, thick thighs
+Legs Shape/Contour: fine-boned legs, light legs, fragile legs, medium build legs, healthy legs, sturdy legs, heavy legs, defined legs, sculpted legs, soft legs, athletic legs, ripped definition legs, lean muscle legs, bulky muscle legs, vascular legs, veiny legs
+Face/Head Structure: oval face, heart-shaped face, square jawline, chiseled jaw, v-line jaw, strong chin, receding chin, defined nose bridge, button nose, full lips, thin lips, defined cupid's bow
+Male Anatomical Features:
+Chest Size/Volume: broad chest, muscular chest, sculpted pecs, chiseled chest, v-shaped torso, barrel-chested, large pectorals, toned torso, ripped chest, slender chest, lean chest
+Chest Shape/Detail: defined pectorals, defined chest detail, subtle chest detail, flat chest detail, body hair chest, hairless chest, small chest detail
+Waist Size/Volume: slim waist (male), narrow waist (male), v-taper waist (small), slender waist (male), proportional waist (male), average waist (male), balanced waist (male), broad waist (male), thick waist (male), wide midsection (male), full waist (male), sturdy waist
+Waist Shape/Contour: defined waistline (male), toned midsection (male), natural waistline (male), blocky midsection, flat stomach, sculpted abs, six-pack defined, eight-pack defined, oblique muscle lines, firm core
+Hips Size/Volume: narrow hips (male), slender hips (male), lean hips (male), athletic hips (small), proportional hips (male), average hips (male), balanced hips (male), wide hips (male), broad hips (male), square hips (male), blocky hips (male), thick hip bone structure
+Hip Shape/Detail: straight hip line (male), toned hips (male), athletic hips (medium), developed gluteus maximus (male), muscular glutes (large), large glutes (male), prominent projection (male), ample glutes (male)
+Shoulders Size/Volume: narrow shoulders (male), slender shoulders (male), delicate shoulders (male), sloped shoulders (male), petite shoulders (male), proportional shoulders (male), average shoulders (male), rounded shoulders (male), broad shoulders (male), squared shoulders, massive traps, wide shoulders (male), strong deltoids (large), muscular shoulders (large)
+Shoulders Shape/Detail: athletic shoulders (medium), toned shoulders, defined shoulders, sculpted delts, godly delts, massive deltoids
+Arms Size/Volume: small biceps, large biceps, slender biceps, toned biceps, muscular biceps, defined biceps, small triceps, large triceps, slender triceps, toned triceps, muscular triceps, defined triceps, small forearms, large forearms, slender forearms, toned forearms, muscular forearms, thick forearms, defined forearms, strong forearms
+Arms Shape/Detail: soft biceps, baby biceps, godly biceps, rounded biceps, soft triceps, baby triceps, godly triceps, rounded triceps, delicate forearms
+Face/Head Structure: oval face, square jawline, chiseled features, defined mandible, strong chin, rugged face, adam's apple
+3. Secondary Characteristics
+Description: Add skin tone, texture, hair style, and universal micro-features.
+Subcategories:Skin & Complexion:
+Skin Tone/Undertone: porcelain skin, fair skin, ivory skin, light skin, medium skin, olive skin, tan skin, golden skin, brown skin, deep skin tone, ebony skin, warm undertone, cool undertone, neutral undertone, rosy undertone
+Shade & Affect: sun-kissed, pale skin, ruddy complexion, ashen skin, bronzed shade, sallow shade, flushed skin, tanned shade, vibrant shade, subtle shade
+Texture: smooth skin, soft skin, velvety skin, silky skin, creamy skin, supple skin, firm skin, oily skin, dry skin, rough skin, bumpy skin, textured skin, glossy skin, matte skin, hydrated skin
+Surface Details: freckled, veined, vascular, blemished, scarred, stretch marks, dimples (body), moles, birthmarks, pores, fine lines, wrinkles, youthful skin, aged texture, clear skin, glowing skin
+Hair & Facial Hair:
+Length: pixie cut, buzz cut, crew cut, short hair, cropped hair, shaved head, bob, shoulder-length hair, medium-length hair, lob cut, collarbone length, shaggy cut, long hair, extra long hair, waist length hair, hip length hair, cascading hair, mermaid length
+Texture: curly hair, straight hair, wavy hair, kinky hair, coiled hair, afro texture, fine texture, thick texture, coarse texture, silky hair, frizzy hair
+Women's Styles: layered hair, bangs, ponytail, braid, updo, messy bun, fishtail braid, French braid, Dutch braid, top knot, beehive, victory rolls, finger waves, pin curls, chignon, halo braid
+Men's Styles: slicked-back, undercut, comb-over, tousled hair, spiked hair, faded sides, military cut, pompadour, quiff, man bun, side part, caesar cut, mullet, high top fade
+Facial Hair: clean-shaven, stubble, goatee, full beard, mustache, soul patch, sideburns, defined beard line, bushy beard, trimmed mustache, light peach fuzz, subtle sideburns, upper lip hair (fine), chin hair (fine), hairless face
+Universal Micro-Features:
+Head/Face: high cheekbones, defined cheekbones, subtle cheekbones, full cheeks, hollow cheeks, rosy cheeks, sunken cheeks, chubby cheeks, soft cheeks, angular cheeks, prominent brow ridge, thick eyebrows, thin eyebrows, arched eyebrows, straight eyebrows, frowning brow, relaxed brow, furrowed brow, brown eyes, blue eyes, green eyes, gray eyes, hazel eyes, amber eyes, black eyes, violet eyes, almond-shaped eyes, round eyes, hooded eyes, monolid eyes, deep-set eyes, long lashes, short lashes, thick lashes, thin lashes, full eyelids, heavy eyelids, defined crease
+Limbs/Extremities: small hands, petite hands, delicate hands, narrow palms, fine-boned hands, dainty hands, large hands, wide palms, muscular hands (large), strong hands, slender hands, bony knuckles, athletic hands, soft hands, callused hands, jointed hands, long palms, short palms, masculine hands, feminine hands, slender wrists, delicate wrists, bony wrists, thin wrists, thick wrists, strong wrists, muscular wrists, wide wrists, small feet, petite feet, delicate feet, large feet, wide feet, long toes, short toes, slender toes, plump toes, well-aligned toes, slender ankles, thick ankles, strong ankles, muscular ankles
+4. Styling & Context
+Description: Apply makeup, select jewelry/fashion, define the scene, and refine technical parameters.
+Subcategories:Makeup & Eyelash Details:
+Full Look Styles: Glamorous Full Face, Natural Minimal Makeup, Bridal/Wedding Makeup, Red Carpet Makeup, Editorial Makeup, Drag Queen Makeup, Costume/Themed Makeup, Festival Makeup, Stage Makeup, Soft Romantic Makeup, Bold Statement Makeup, Smokey Eye Focus, Matte Focus, Dewy Glow Focus, High Fashion Editorial, Avant-Garde Makeup, Fantasy Makeup, Anime-Inspired Makeup, Gothic Makeup, Y2K Makeup, Classic Hollywood Glam
+Lash Styles/Types: Natural Lash, Everyday Lash, Subtle Enhancement, One-to-One Lash, Hybrid Set, Russian Volume, Mega Volume, Siren Volume, Cat Eye Lash, Dolly Lash, Kim K Lash, Open Eye Lash, Doll Eye Lash, Wispy Lash, Flutter Lash, Mega Wispy, C Curl, D Curl, L Curl, Short Lash (6-9mm), Long Lash (13-15mm), Extra Long Lash (16mm+), Colored Lashes, Glitter Lashes, Ombre Lashes, Metallic Tips, Holographic Tips, Neon Tips, Rainbow Lashes, Feathered Flutter Curl
+Eyelash Tools/Kits: Black Lash Glue, Clear Lash Glue, Sensitive Eye Glue, Latex-Free Lash Adhesive, Fast Drying Glue, Strong Hold Lash Glue, Mega Volume Lash Glue, Hydrogel Eye Pads, Silicone Under-Eye Pads, Lash Mapping Tape, Tweezers (Curved Tip), Lash Brushes (Spoolies), Lash Magnifying Lamp, Adhesive Ring Holder, Complete Lash Kit, Professional Artist Lash Kit
+Full Face Details:
+Foundation & Finish: Full-Coverage Foundation, Medium Coverage Foundation, Liquid Foundation, Cream Foundation, Powder Foundation, Matte Finish, Dewy Finish, Satin Finish, Natural Finish, Airbrush Finish, HD Foundation, Pore-Smoothing Finish, Blurred Finish, Layered Foundation, Multi-Layered Base, Tinted Moisturizer, Color-Correcting Base, Light Reflecting Foundation
+Brows & Sculpting: Full Drawn-In Eyebrows, Ombre Fade Eyebrows, Feathered Hair Stroke Eyebrows, Microbladed Eyebrows, Bold Thick Brows, Arched Brows, Laminated Brow Look, Highlighted Brow Arch, Concealer Defined Brows, Light Contour, Medium Contour, Heavy Contour, Sculpted Cheek Contour, Nose Contour, Jawline Contour, Forehead Contour, Bronzed Glow, Golden Bronzer, Warm-Tone Bronzer, Cool-Tone Bronzer, Matte Bronzer, Shimmer Bronzer, Subtle Highlight, Intense Highlight, Metallic Highlight, Golden Highlight, Champagne Highlight, Icy Highlight, Cheekbone Highlight, Nose Tip Highlight, Cupid’s Bow Highlight
+Eye & Lip Detailing:
+Eyeshadow & Liner: Neutral Eyeshadow, Smokey Eye, Soft Smokey Eye, Dramatic Smokey Eye, Cut Crease, Halo Eye, Gradient Eyeshadow, Ombre Eyeshadow, Bold Colored Eyeshadow, Glitter Eyeshadow, Graphic Liner, Winged Eyeliner, Cat Eye Eyeliner, Floating Crease, Inner Corner Highlight, Under-Eye Pop Shadow, Multi-Layered Eyeshadow, Airbrush Eyeshadow, Neon Eyeliner, Holographic Liner, Two-Tone Liner, Rhinestone Eye Accent
+Blush & Lips: Powder Blush, Cream Blush, Gel Blush, Matte Blush, Shimmer Blush, Nude Lips, Soft Pink Lips, Red Lips, True Red Lips, Blue-Red Lips, Wine Lips, Burgundy Lips, Plum Lips, Metallic Red Lips, Holographic Lips, Gradient Lips, Ombre Lips, Reverse Ombre Lips, Dual-Tone Lips, Matte Finish Lips, Glossy Lips, Lip Stain Look, Highlighted Cupid’s Bow, Lip Contour, Layered Lip Colors, Artistic Fantasy Cheek
+Jewelry & Accessories:
+Neck & Ear: chokers, collars, layered chains, minimalist delicate chains, heavy statement chains, translucent resin necklaces, lockets (heart-shaped), gemstone cluster necklaces, pearl strand necklaces, studs (metallic), studs (gemstone), pearl studs, diamond studs, dangling earrings, chandelier earrings, tassel earrings, ear cuffs (single), ear cuffs (double), minimalist ear cuffs, tribal ear cuffs
+Rings & Bodywear: engagement rings, wedding bands, promise rings, fashion rings, statement rings, stackable rings, midi rings, signet rings, bangles (thin), bangles (thick), layered bangles, cuff bracelets (wide), cuff bracelets (narrow), charm bracelets, chain anklets (delicate), chain anklets (chunky), charm anklets, navel rings, nose rings, septum rings, eyebrow rings, dermal anchors, temporary tattoos (metallic), body jewels, face gems
+Headwear/Hair Acc.: Classic Headband, Padded Headband, Oversized Headband, Velvet Headband, Rhinestone Headband, Snap Hair Clip, Alligator Hair Clip, Pearl Hair Clip, Floral Hair Clip, Bobby Pin (Decorative), Crystal Hairpin, Hair Comb, Velvet Scrunchie, Satin Scrunchie, Floral crowns, tiaras (regal), fascinators, beaded hair chains, hair vines
+Scene & Technical Modifiers:
+Scene & Environment: urban cityscape, forest clearing, space nebula, underwater coral reef, photography studio, baroque interior, desert canyon, beach sunset, rainy street, mountain vista, Medieval Castle Interior, Fantasy Tavern, Alchemy Lab, Wizard Tower, Magical Forest, Futuristic City, Cyberpunk Street, Neon Alleyway, Space Station Interior, Post-Apocalyptic Wasteland, Dystopian Alley, Steampunk Workshop
+Camera & Light: bird-eye view, low-angle, high-angle, close-up, medium shot, wide shot, dutch angle, full body shot, cinematic lighting, natural light, neon glow, backlit silhouette, rim lighting, softbox lighting, harsh shadow, ambient light, spotlight, studio lighting, low light, volumetric light
+Technical Modifiers: (keyword:1.5), (keyword:0.8), (subject AND object), ::separator::, blend::mode, quality:2, 'style_weight:0.5', version:4, ugly, deformed, malformed, low quality, bad anatomy, blurry, cropped, duplicate, extra limbs, missing limbs, poorly drawn face, disfigured, mutated, out of frame, low resolution, watermark, text
+
+            // Render the Level 3 item as a new collapsible unit
+                        sectionContent.appendChild(renderCollapsibleSubSection(filteredSub, cat.id, globalSubSectionIndex, defaultExpandedSub));
+                        
+                        keywordsInSubSections = true;
+                        resultsFound = true;
+                        globalSubSectionIndex++;
+                    }
+                });
+
+                if (keywordsInSubSections) {
+                    sectionContainer.appendChild(secHeader);
+                    sectionContainer.appendChild(sectionContent);
+                    hasVisibleSections = true;
+                }
+            });
+
+            if (f && !resultsFound) {
+                glossaryContainer.innerHTML = `<div class="p-6 text-center text-xl text-gray-500 dark:text-gray-400">No matching keywords found for "${filter}".</div>`;
+            }
+            
+            if (hasVisibleSections) {
+                catEl.appendChild(sectionContainer);
+                glossaryContainer.appendChild(catEl);
+            }
+        });
+
+        if (f && !resultsFound) {
+            glossaryContainer.innerHTML = `<div class="p-6 text-center text-xl text-gray-500 dark:text-gray-400">No matching keywords found for "${filter}".</div>`;
+        }
+    }
+
+    function showRatioReminder(part, ratio) {
+        const reminderEl = document.getElementById('smart-reminder');
+        const isHigh = ratio > 1.2;
+        const isLow = ratio < 1.0;
+        let suggestion = "";
+
+        // HWR has unique reminder logic
+        if (part === 'hwr') {
+             const key = isHigh ? 'high' : (isLow ? 'low' : 'balanced');
+             const bias = RATIO_REMINDERS[part][key];
+             suggestion = `Adjusting HWR to ${ratio.toFixed(1)}x applies <strong class="text-white">${bias}</strong> bias to Hips/Waist.`;
+        } else if (isHigh || isLow) {
+            const key = isHigh ? 'high' : 'low';
+            const bias = RATIO_REMINDERS[part][key];
+            const biasType = part === 'waist' ? (isHigh ? 'slender' : 'fuller') : bias.split('/')[0];
+
+            suggestion = `Adjusting ${part} to ${ratio.toFixed(1)}x suggests a <strong class="text-white">${biasType}</strong> bias.`;
+            
+            // Adjust color based on implied bias for visual feedback
+            if (bias.includes('fuller') || bias.includes('broad')) {
+                reminderEl.className = 'show px-4 py-2 bg-rose-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+            } else if (bias.includes('slender') || bias.includes('petite')) {
+                reminderEl.className = 'show px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+            } else {
+                reminderEl.className = 'show px-4 py-2 bg-green-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+            }
+
+        } else {
+            // Default/average tone
+            suggestion = `Adjusting ${part} to ${ratio.toFixed(1)}x suggests a <strong class="text-white">balanced</strong> proportion.`;
+            reminderEl.className = 'show px-4 py-2 bg-green-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+        }
+        
+        reminderEl.innerHTML = suggestion;
+        clearTimeout(window.reminderTimer);
+        window.reminderTimer = setTimeout(() => {
+            reminderEl.classList.remove('show');
+        }, 3000);
+    }
+    
+    // Toggle function for Ratio Syntax Button
+    function setupRatioToggle() {
+        const toggleButton = document.getElementById('ratio-toggle');
+        
+        toggleButton.addEventListener('click', () => {
+            const isActive = toggleButton.getAttribute('data-active') === 'true';
+            
+            if (isActive) {
+                toggleButton.setAttribute('data-active', 'false');
+                toggleButton.textContent = 'Ratio Syntax: OFF';
+                toggleButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+                toggleButton.classList.add('bg-gray-500', 'hover:bg-gray-600');
+            } else {
+                toggleButton.setAttribute('data-active', 'true');
+                toggleButton.textContent = 'Ratio Syntax: ON';
+                toggleButton.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                toggleButton.classList.add('bg-green-600', 'hover:bg-green-700');
+            }
+            localStorage.setItem('ratioToggleActive', toggleButton.getAttribute('data-active'));
+            formatPrompt(); // Re-format prompt when toggle changes
+        });
+        
+        // Initial state setup (Load from LocalStorage)
+        const savedRatioState = localStorage.getItem('ratioToggleActive');
+        if (savedRatioState === 'false') {
+            toggleButton.setAttribute('data-active', 'false');
+            toggleButton.textContent = 'Ratio Syntax: OFF';
+            toggleButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+            toggleButton.classList.add('bg-gray-500', 'hover:bg-gray-600');
+        } else {
+            toggleButton.setAttribute('data-active', 'true');
+            toggleButton.textContent = 'Ratio Syntax: ON';
+            toggleButton.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+            toggleButton.classList.add('bg-green-600', 'hover:bg-green-700');
+        }
+    }
+    
+    // Setup Randomize Button
+    function setupRandomizeButton() {
+        document.getElementById('randomize-button').addEventListener('click', randomizePrompt);
+    }
+    
+    // Function to load state from LocalStorage (Feature 11)
+    function loadStateFromLocalStorage() {
+        const lastKeywords = localStorage.getItem('lastKeywords');
+        const lastBodyType = localStorage.getItem('lastBodyType');
+        const lastRatios = localStorage.getItem('lastRatios');
+
+        if (lastKeywords) {
+            try {
+                const keywordsArray = JSON.parse(lastKeywords);
+                keywordsArray.forEach(kw => selectedKeywords.add(kw));
+            } catch (e) {
+                console.error("Could not parse saved keywords:", e);
+            }
+        }
+        
+        if (lastBodyType) {
+            selectedBodyType = lastBodyType;
+        }
+
+        if (lastRatios) {
+            try {
+                const ratiosObj = JSON.parse(lastRatios);
+                ratiosByPart = { ...ratiosByPart, ...ratiosObj };
+            } catch (e) {
+                 console.error("Could not parse saved ratios:", e);
+            }
+        }
+        // Dark Mode state is handled in initializeGlossary
+    }
+
+
+    // --- Initialization Wrapper ---
+    function initializeGlossary() {
+        // --- Core State Variables (Declared once) ---
+        selectedKeywords = new Set();
+        selectedBodyType = null;
+        currentRatio = 1.0;
+        // Stores ratios for fine-grained parts: { 'hips': 1.2, 'nose': 0.8, 'hwr': 1.0 }
+        ratiosByPart = {
+            'hips': 1.0, 'glutes': 1.0, 'thighs': 1.0, 'waist': 1.0,
+            'eyes': 1.0, 'nose': 1.0, 'lips': 1.0, 'cheeks': 1.0,
+            'hwr': 1.0 // Initialize Hip-to-Waist Ratio slider value
+        };
+        keywordOrderMap = buildKeywordOrderMap(RAW_GLOSSARY_DATA);
+
+        const promptOutput = document.getElementById('prompt-output');
+        const copyButton = document.getElementById('copy-button');
+        const clearButton = document.getElementById('clear-button');
+        const keywordSearch = document.getElementById('keyword-search');
+        const somatotypePanel = document.getElementById('somatotype-panel');
+        const ratioPanel = document.getElementById('ratio-panel');
+        const fineRatioSliders = document.getElementById('fine-ratio-sliders');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        // Load Dark Mode state
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        
+        // Load state from local storage (Feature 11)
+        loadStateFromLocalStorage();
+
+        // --- Event Handlers Setup ---
+
+        // 1. Somatotype Buttons
+        function setupSomatotypePanel() {
+            const bodyTypes = Object.entries(SOMATOTYPE_KEYWORDS);
+            somatotypePanel.innerHTML = bodyTypes.map(([key, value]) => `
+                <button data-keyword="${key}" class="body-type-button py-3 px-4 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-indigo-100 dark:hover:bg-indigo-800 transition-colors shadow-md" aria-pressed="false">
+                    ${key.charAt(0).toUpperCase() + key.slice(1)}
+                </button>
+            `).join('');
+
+            somatotypePanel.querySelectorAll('.body-type-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const keyword = button.getAttribute('data-keyword');
+                    const isActive = button.classList.contains('selected-keyword');
+
+                    // Clear previous selection visually and logically
+                    somatotypePanel.querySelectorAll('.body-type-button').forEach(b => b.classList.remove('selected-keyword'));
+
+                    if (!isActive) {
+                        button.classList.add('selected-keyword');
+                        selectedBodyType = keyword;
+                    } else {
+                        selectedBodyType = null; // Deselect
+                    }
+                    localStorage.setItem('lastBodyType', selectedBodyType);
+                    formatPrompt();
+                    renderGlossary(keywordSearch.value); // Re-render to update dynamic status
+                });
+            });
+            
+            // Apply loaded state visually
+            somatotypePanel.querySelectorAll('.body-type-button').forEach(b => {
+                if (b.getAttribute('data-keyword') === selectedBodyType) {
+                    b.classList.add('selected-keyword');
+                }
+            });
+        }
+
+        // 2. Global Ratio Buttons
+        function setupRatioPanel() {
+            const ratios = [0.5, 0.8, 1.0, 1.2, 1.5, 1.8, 2.0, 2.5];
+            ratioPanel.innerHTML = ratios.map(r => `
+                <button data-ratio="${r}" class="ratio-button py-2 px-3 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors font-mono shadow-sm">
+                    ${r.toFixed(1)}x
+                </button>
+            `).join('');
+
+            ratioPanel.querySelectorAll('.ratio-button').forEach(button => {
+                const ratioValue = parseFloat(button.getAttribute('data-ratio'));
+                
+                // Set click handler
+                button.addEventListener('click', () => {
+                    ratioPanel.querySelectorAll('.ratio-button').forEach(b => b.classList.remove('bg-accent', 'text-white', 'dark:bg-rose-400'));
+                    currentRatio = ratioValue;
+
+                    if (currentRatio !== 1.0) {
+                        button.classList.add('bg-accent', 'text-white', 'dark:bg-rose-400');
+                    }
+                });
+                
+                // Apply 1.0x selection by default immediately
+                if (ratioValue === 1.0) {
+                    button.classList.add('bg-accent', 'text-white', 'dark:bg-rose-400');
+                }
+            });
+        }
+
+        // 3. Fine-Grained Ratio Sliders
+        function setupFineRatioSliders() {
+            const parts = {
+                'hwr': 'Hip-to-Waist Ratio (HWR)', // New integrated slider
+                'hips': 'Hips', 'glutes': 'Glutes', 'thighs': 'Thighs', 'waist': 'Waist (Inverse)',
+                'eyes': 'Eyes', 'nose': 'Nose', 'lips': 'Lips', 'cheeks': 'Cheeks'
+            };
+
+            fineRatioSliders.innerHTML = Object.entries(parts).map(([key, label]) => {
+                const isHwr = key === 'hwr';
+                const currentRatio = ratiosByPart[key] || 1.0;
+                
+                return `
+                <div class="space-y-1 ${isHwr ? 'border-t pt-4 border-rose-300 dark:border-rose-700' : ''}">
+                    <label for="${key}-slider" class="block text-sm font-medium ${isHwr ? 'text-rose-700 dark:text-rose-400 font-bold' : 'text-gray-700 dark:text-gray-300'}">${label} (Current: <span id="${key}-value">${currentRatio.toFixed(1)}</span>x)</label>
+                    <input type="range" id="${key}-slider" data-keyword="${key}" min="0.5" max="2.5" step="0.1" value="${currentRatio}" class="w-full h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer dark:bg-indigo-700">
+                </div>
+            `}).join('');
+
+            fineRatioSliders.querySelectorAll('input[type="range"]').forEach(slider => {
+                const keyword = slider.getAttribute('data-keyword');
+                document.getElementById(`${keyword}-value`).textContent = slider.value;
+                ratiosByPart[keyword] = parseFloat(slider.value); // Initialize state
+
+                slider.addEventListener('input', (e) => {
+                    const newRatio = parseFloat(e.target.value);
+                    document.getElementById(`${keyword}-value`).textContent = newRatio.toFixed(1);
+                    changeRatioInPrompt(keyword, newRatio);
+                    showRatioReminder(keyword, newRatio);
+                });
+
+                // Add slider value to selectedKeywords set if not present and ratio changes
+                slider.addEventListener('change', (e) => {
+                    const newRatio = parseFloat(e.target.value);
+                    const baseKeyword = e.target.getAttribute('data-keyword');
+                    
+                    if (newRatio !== 1.0) {
+                        selectedKeywords.add(baseKeyword);
+                    } else if (newRatio === 1.0 && selectedKeywords.has(baseKeyword)) {
+                        // If ratio is 1.0, and the keyword was only selected for ratio purposes, deselect it.
+                    }
+                    formatPrompt();
+                    // Save ratios to local storage
+                    localStorage.setItem('lastRatios', JSON.stringify(ratiosByPart));
+                    renderGlossary(keywordSearch.value);
+                });
+            });
+        }
+
+        // 4. Global Event Listeners
+        copyButton.onclick = () => {
+            const text = promptOutput.value;
+            // Use execCommand('copy') for better iFrame compatibility
+            if (document.execCommand('copy')) {
+                copyButton.textContent = "Copied!";
+            } else {
+                copyButton.textContent = "Copy Failed";
+            }
+            setTimeout(() => copyButton.textContent = "Copy Prompt", 2000);
+        };
+
+        clearButton.onclick = () => {
+            selectedKeywords.clear();
+            selectedBodyType = null;
+            currentRatio = 1.0;
+            // Reset all ratios to 1.0
+            Object.keys(ratiosByPart).forEach(key => ratiosByPart[key] = 1.0);
+            
+            // Visually reset fine-grained sliders
+            fineRatioSliders.querySelectorAll('input[type="range"]').forEach(slider => {
+                slider.value = 1.0;
+                document.getElementById(`${slider.getAttribute('data-keyword')}-value`).textContent = '1.0';
+            });
+
+            // Visually reset somatotype and global ratio buttons
+            somatotypePanel.querySelectorAll('.body-type-button').forEach(b => b.classList.remove('selected-keyword'));
+            ratioPanel.querySelectorAll('.ratio-button').forEach(b => b.classList.remove('bg-accent', 'text-white', 'dark:bg-rose-400'));
+            // Apply 1.0x selection by default after clearing
+            ratioPanel.querySelectorAll('[data-ratio]').forEach(b => {
+    1. Body Augmentation & Procedures
+Description: Safe, descriptive terms for aesthetic enhancements and surgical alteration appearances.
+Subcategories:Breast Procedures:
+Augmentation Terms: Augmented, Implant-like appearance, High-profile contour, Natural-looking enhancement, Dramatic volume, Round shaped enhancement, Teardrop shaped enhancement, Silicone enhanced bust, Saline enhanced bust, Reconstructed, Post-surgical scarring, Periareolar scarring
+Shape/Size Descriptors: High-set augmentation, Low-set augmentation, Wide-set augmentation, Close-set augmentation, Lifted appearance, Surgical alteration appearance, Smooth contour augmentation, Projecting augmentation, Full upper pole, Round lower pole
+Body Contouring (BBL & Lipo):
+Gluteal/Hip Augmentation: BBL-enhanced appearance, Gluteal implants, Hip augmentation, Curvy profile enhancement, Dramatic hip volume, Sculpted glutes, Enhanced buttocks, Voluminous lower body, Subtle gluteal lift, Projecting buttocks
+Waist/Midsection: Liposuction contour, Tummy tuck results, Cinched waist contour, Defined waistline, Sculpted midsection, Slight waist indent, Hourglass silhouette enhancement, Abdominoplasty contour, Smooth abdominal wall
+Facial Procedures:
+Rhinoplasty/Nose: Rhinoplasty contoured nose, Surgical nose refinement, Narrow bridge appearance, Straight bridge appearance, Tapered nose tip, Subtle nostril reduction, Refined nasal shape
+Cheeks/Jaw: Chin implant contour, Jawline augmentation, Defined jawline contour, Cheekbone implants, High cheekbone contour, Facial filler enhancement, Surgical facial symmetry
+2. Base Character Anatomy
+Description: Establish the foundational build, frame, and primary anatomical features (Size/Volume first).
+Subcategories:Somatotype & Global Frame:
+Frame & Proportions: hourglass figure, pear-shaped, apple-shaped, rectangular shape, inverted triangle, slender, lean, muscular, stocky, tall, short, broad-shouldered, narrow-hipped, wide-hipped, petite, average build, heavyset, toned, defined, chiseled, sculpted, full-figured, curvy, athletic, robust, frail, delicate
+Female Anatomical Features:
+Bust Size/Volume: petite bust, flat chest, delicate frame, subtle bust, modest bust, compact bust, minimal bust, balanced bust, moderate chest, proportional bust, rounded bust, classic bust, full bust, ample chest, generous bust, voluminous bust, developed chest, dramatic bust, heavy bust, enhanced bust
+Bust Shape/Detail: round shape, teardrop shape, bell shape, athletic shape, natural shape, firm shape, soft shape, lifted, pendulous, projecting, wide-set, close-set, defined chest detail
+Waist Size/Volume: Small waist, Narrow waist, Slim waist, Petite waist, Tiny waist, Medium waist, Moderate waist, Average waist, Balanced waist, Large waist, Wide waist, Broad waist, Full waist, Thick waist, Voluminous waist
+Waist Shape/Contour: cinched waist, delicate waist, slender waist, proportional waist, toned waist, natural waistline, broad waist, blocky midsection, hourglass taper, straight torso, curvy torso, defined waistline taper
+Hips Size/Volume: narrow hips, slim hips, petite hips, proportional hips, average hips, balanced hips, broad hips, wide hips, generous hips, full hips, expansive hips
+Hip Shape/Detail: slender hip bone structure, straight hip line, subtle curve hips, curved hips, heart-shaped hips, pear-shaped hips, diamond-shaped hips, square hips, hip dips, deep hip dips, waist-to-hip curve
+Buttocks Size/Volume: small buttocks, petite buttocks, compact buttocks, muscular glutes (small), firm buttocks, rounded buttocks, toned buttocks, large buttocks, voluminous buttocks, curvy buttocks, bubble buttocks, enhanced buttocks, ample glutes
+Buttocks Shape/Contour: subtle projection, soft buttocks (small), flat buttocks, developed gluteus maximus, proportional projection, heart-shaped glutes, dramatic projection
+Shoulders Size/Volume: narrow shoulders, slender shoulders, delicate shoulders, petite shoulders, proportional shoulders, average shoulders, rounded shoulders, balanced shoulders, broad shoulders, squared shoulders, massive traps, wide shoulders
+Shoulders Shape/Detail: sloped shoulders, fine-boned shoulders, athletic shoulders (medium), strong deltoids (large), muscular shoulders (large), toned shoulders, defined shoulders, sculpted delts, massive deltoids
+Legs Size/Volume: thin legs, slim legs, slender legs, petite legs, delicate legs, proportional legs, average legs, toned legs (medium), balanced legs, large legs, wide legs, muscular legs (large), voluminous legs, full legs, thick thighs
+Legs Shape/Contour: fine-boned legs, light legs, fragile legs, medium build legs, healthy legs, sturdy legs, heavy legs, defined legs, sculpted legs, soft legs, athletic legs, ripped definition legs, lean muscle legs, bulky muscle legs, vascular legs, veiny legs
+Face/Head Structure: oval face, heart-shaped face, square jawline, chiseled jaw, v-line jaw, strong chin, receding chin, defined nose bridge, button nose, full lips, thin lips, defined cupid's bow
+Male Anatomical Features:
+Chest Size/Volume: broad chest, muscular chest, sculpted pecs, chiseled chest, v-shaped torso, barrel-chested, large pectorals, toned torso, ripped chest, slender chest, lean chest
+Chest Shape/Detail: defined pectorals, defined chest detail, subtle chest detail, flat chest detail, body hair chest, hairless chest, small chest detail
+Waist Size/Volume: slim waist (male), narrow waist (male), v-taper waist (small), slender waist (male), proportional waist (male), average waist (male), balanced waist (male), broad waist (male), thick waist (male), wide midsection (male), full waist (male), sturdy waist
+Waist Shape/Contour: defined waistline (male), toned midsection (male), natural waistline (male), blocky midsection, flat stomach, sculpted abs, six-pack defined, eight-pack defined, oblique muscle lines, firm core
+Hips Size/Volume: narrow hips (male), slender hips (male), lean hips (male), athletic hips (small), proportional hips (male), average hips (male), balanced hips (male), wide hips (male), broad hips (male), square hips (male), blocky hips (male), thick hip bone structure
+Hip Shape/Detail: straight hip line (male), toned hips (male), athletic hips (medium), developed gluteus maximus (male), muscular glutes (large), large glutes (male), prominent projection (male), ample glutes (male)
+Shoulders Size/Volume: narrow shoulders (male), slender shoulders (male), delicate shoulders (male), sloped shoulders (male), petite shoulders (male), proportional shoulders (male), average shoulders (male), rounded shoulders (male), broad shoulders (male), squared shoulders, massive traps, wide shoulders (male), strong deltoids (large), muscular shoulders (large)
+Shoulders Shape/Detail: athletic shoulders (medium), toned shoulders, defined shoulders, sculpted delts, godly delts, massive deltoids
+Arms Size/Volume: small biceps, large biceps, slender biceps, toned biceps, muscular biceps, defined biceps, small triceps, large triceps, slender triceps, toned triceps, muscular triceps, defined triceps, small forearms, large forearms, slender forearms, toned forearms, muscular forearms, thick forearms, defined forearms, strong forearms
+Arms Shape/Detail: soft biceps, baby biceps, godly biceps, rounded biceps, soft triceps, baby triceps, godly triceps, rounded triceps, delicate forearms
+Face/Head Structure: oval face, square jawline, chiseled features, defined mandible, strong chin, rugged face, adam's apple
+3. Secondary Characteristics
+Description: Add skin tone, texture, hair style, and universal micro-features.
+Subcategories:Skin & Complexion:
+Skin Tone/Undertone: porcelain skin, fair skin, ivory skin, light skin, medium skin, olive skin, tan skin, golden skin, brown skin, deep skin tone, ebony skin, warm undertone, cool undertone, neutral undertone, rosy undertone
+Shade & Affect: sun-kissed, pale skin, ruddy complexion, ashen skin, bronzed shade, sallow shade, flushed skin, tanned shade, vibrant shade, subtle shade
+Texture: smooth skin, soft skin, velvety skin, silky skin, creamy skin, supple skin, firm skin, oily skin, dry skin, rough skin, bumpy skin, textured skin, glossy skin, matte skin, hydrated skin
+Surface Details: freckled, veined, vascular, blemished, scarred, stretch marks, dimples (body), moles, birthmarks, pores, fine lines, wrinkles, youthful skin, aged texture, clear skin, glowing skin
+Hair & Facial Hair:
+Length: pixie cut, buzz cut, crew cut, short hair, cropped hair, shaved head, bob, shoulder-length hair, medium-length hair, lob cut, collarbone length, shaggy cut, long hair, extra long hair, waist length hair, hip length hair, cascading hair, mermaid length
+Texture: curly hair, straight hair, wavy hair, kinky hair, coiled hair, afro texture, fine texture, thick texture, coarse texture, silky hair, frizzy hair
+Women's Styles: layered hair, bangs, ponytail, braid, updo, messy bun, fishtail braid, French braid, Dutch braid, top knot, beehive, victory rolls, finger waves, pin curls, chignon, halo braid
+Men's Styles: slicked-back, undercut, comb-over, tousled hair, spiked hair, faded sides, military cut, pompadour, quiff, man bun, side part, caesar cut, mullet, high top fade
+Facial Hair: clean-shaven, stubble, goatee, full beard, mustache, soul patch, sideburns, defined beard line, bushy beard, trimmed mustache, light peach fuzz, subtle sideburns, upper lip hair (fine), chin hair (fine), hairless face
+Universal Micro-Features:
+Head/Face: high cheekbones, defined cheekbones, subtle cheekbones, full cheeks, hollow cheeks, rosy cheeks, sunken cheeks, chubby cheeks, soft cheeks, angular cheeks, prominent brow ridge, thick eyebrows, thin eyebrows, arched eyebrows, straight eyebrows, frowning brow, relaxed brow, furrowed brow, brown eyes, blue eyes, green eyes, gray eyes, hazel eyes, amber eyes, black eyes, violet eyes, almond-shaped eyes, round eyes, hooded eyes, monolid eyes, deep-set eyes, long lashes, short lashes, thick lashes, thin lashes, full eyelids, heavy eyelids, defined crease
+Limbs/Extremities: small hands, petite hands, delicate hands, narrow palms, fine-boned hands, dainty hands, large hands, wide palms, muscular hands (large), strong hands, slender hands, bony knuckles, athletic hands, soft hands, callused hands, jointed hands, long palms, short palms, masculine hands, feminine hands, slender wrists, delicate wrists, bony wrists, thin wrists, thick wrists, strong wrists, muscular wrists, wide wrists, small feet, petite feet, delicate feet, large feet, wide feet, long toes, short toes, slender toes, plump toes, well-aligned toes, slender ankles, thick ankles, strong ankles, muscular ankles
+4. Styling & Context
+Description: Apply makeup, select jewelry/fashion, define the scene, and refine technical parameters.
+Subcategories:Makeup & Eyelash Details:
+Full Look Styles: Glamorous Full Face, Natural Minimal Makeup, Bridal/Wedding Makeup, Red Carpet Makeup, Editorial Makeup, Drag Queen Makeup, Costume/Themed Makeup, Festival Makeup, Stage Makeup, Soft Romantic Makeup, Bold Statement Makeup, Smokey Eye Focus, Matte Focus, Dewy Glow Focus, High Fashion Editorial, Avant-Garde Makeup, Fantasy Makeup, Anime-Inspired Makeup, Gothic Makeup, Y2K Makeup, Classic Hollywood Glam
+Lash Styles/Types: Natural Lash, Everyday Lash, Subtle Enhancement, One-to-One Lash, Hybrid Set, Russian Volume, Mega Volume, Siren Volume, Cat Eye Lash, Dolly Lash, Kim K Lash, Open Eye Lash, Doll Eye Lash, Wispy Lash, Flutter Lash, Mega Wispy, C Curl, D Curl, L Curl, Short Lash (6-9mm), Long Lash (13-15mm), Extra Long Lash (16mm+), Colored Lashes, Glitter Lashes, Ombre Lashes, Metallic Tips, Holographic Tips, Neon Tips, Rainbow Lashes, Feathered Flutter Curl
+Eyelash Tools/Kits: Black Lash Glue, Clear Lash Glue, Sensitive Eye Glue, Latex-Free Lash Adhesive, Fast Drying Glue, Strong Hold Lash Glue, Mega Volume Lash Glue, Hydrogel Eye Pads, Silicone Under-Eye Pads, Lash Mapping Tape, Tweezers (Curved Tip), Lash Brushes (Spoolies), Lash Magnifying Lamp, Adhesive Ring Holder, Complete Lash Kit, Professional Artist Lash Kit
+Full Face Details:
+Foundation & Finish: Full-Coverage Foundation, Medium Coverage Foundation, Liquid Foundation, Cream Foundation, Powder Foundation, Matte Finish, Dewy Finish, Satin Finish, Natural Finish, Airbrush Finish, HD Foundation, Pore-Smoothing Finish, Blurred Finish, Layered Foundation, Multi-Layered Base, Tinted Moisturizer, Color-Correcting Base, Light Reflecting Foundation
+Brows & Sculpting: Full Drawn-In Eyebrows, Ombre Fade Eyebrows, Feathered Hair Stroke Eyebrows, Microbladed Eyebrows, Bold Thick Brows, Arched Brows, Laminated Brow Look, Highlighted Brow Arch, Concealer Defined Brows, Light Contour, Medium Contour, Heavy Contour, Sculpted Cheek Contour, Nose Contour, Jawline Contour, Forehead Contour, Bronzed Glow, Golden Bronzer, Warm-Tone Bronzer, Cool-Tone Bronzer, Matte Bronzer, Shimmer Bronzer, Subtle Highlight, Intense Highlight, Metallic Highlight, Golden Highlight, Champagne Highlight, Icy Highlight, Cheekbone Highlight, Nose Tip Highlight, Cupid’s Bow Highlight
+Eye & Lip Detailing:
+Eyeshadow & Liner: Neutral Eyeshadow, Smokey Eye, Soft Smokey Eye, Dramatic Smokey Eye, Cut Crease, Halo Eye, Gradient Eyeshadow, Ombre Eyeshadow, Bold Colored Eyeshadow, Glitter Eyeshadow, Graphic Liner, Winged Eyeliner, Cat Eye Eyeliner, Floating Crease, Inner Corner Highlight, Under-Eye Pop Shadow, Multi-Layered Eyeshadow, Airbrush Eyeshadow, Neon Eyeliner, Holographic Liner, Two-Tone Liner, Rhinestone Eye Accent
+Blush & Lips: Powder Blush, Cream Blush, Gel Blush, Matte Blush, Shimmer Blush, Nude Lips, Soft Pink Lips, Red Lips, True Red Lips, Blue-Red Lips, Wine Lips, Burgundy Lips, Plum Lips, Metallic Red Lips, Holographic Lips, Gradient Lips, Ombre Lips, Reverse Ombre Lips, Dual-Tone Lips, Matte Finish Lips, Glossy Lips, Lip Stain Look, Highlighted Cupid’s Bow, Lip Contour, Layered Lip Colors, Artistic Fantasy Cheek
+Jewelry & Accessories:
+Neck & Ear: chokers, collars, layered chains, minimalist delicate chains, heavy statement chains, translucent resin necklaces, lockets (heart-shaped), gemstone cluster necklaces, pearl strand necklaces, studs (metallic), studs (gemstone), pearl studs, diamond studs, dangling earrings, chandelier earrings, tassel earrings, ear cuffs (single), ear cuffs (double), minimalist ear cuffs, tribal ear cuffs
+Rings & Bodywear: engagement rings, wedding bands, promise rings, fashion rings, statement rings, stackable rings, midi rings, signet rings, bangles (thin), bangles (thick), layered bangles, cuff bracelets (wide), cuff bracelets (narrow), charm bracelets, chain anklets (delicate), chain anklets (chunky), charm anklets, navel rings, nose rings, septum rings, eyebrow rings, dermal anchors, temporary tattoos (metallic), body jewels, face gems
+Headwear/Hair Acc.: Classic Headband, Padded Headband, Oversized Headband, Velvet Headband, Rhinestone Headband, Snap Hair Clip, Alligator Hair Clip, Pearl Hair Clip, Floral Hair Clip, Bobby Pin (Decorative), Crystal Hairpin, Hair Comb, Velvet Scrunchie, Satin Scrunchie, Floral crowns, tiaras (regal), fascinators, beaded hair chains, hair vines
+Scene & Technical Modifiers:
+Scene & Environment: urban cityscape, forest clearing, space nebula, underwater coral reef, photography studio, baroque interior, desert canyon, beach sunset, rainy street, mountain vista, Medieval Castle Interior, Fantasy Tavern, Alchemy Lab, Wizard Tower, Magical Forest, Futuristic City, Cyberpunk Street, Neon Alleyway, Space Station Interior, Post-Apocalyptic Wasteland, Dystopian Alley, Steampunk Workshop
+Camera & Light: bird-eye view, low-angle, high-angle, close-up, medium shot, wide shot, dutch angle, full body shot, cinematic lighting, natural light, neon glow, backlit silhouette, rim lighting, softbox lighting, harsh shadow, ambient light, spotlight, studio lighting, low light, volumetric light
+Technical Modifiers: (keyword:1.5), (keyword:0.8), (subject AND object), ::separator::, blend::mode, quality:2, 'style_weight:0.5', version:4, ugly, deformed, malformed, low quality, bad anatomy, blurry, cropped, duplicate, extra limbs, missing limbs, poorly drawn face, disfigured, mutated, out of frame, low resolution, watermark, text, {
+            category: "4. Styling & Context",
+            id: 'styling-context',
+            order: 900,
+            description: "Apply makeup, select jewelry/fashion, define the scene, and refine technical parameters.",
+            subcategories: [
+                // MAKEUP & EYELASHES
+                {
+                    name: "Makeup & Eyelash Details",
+                    subsections: [
+                        { name: "Full Look Styles", keywords: ['Glamorous Full Face', 'Natural Minimal Makeup', 'Bridal/Wedding Makeup', 'Red Carpet Makeup', 'Editorial Makeup', 'Drag Queen Makeup', 'Costume/Themed Makeup', 'Festival Makeup', 'Stage Makeup', 'Soft Romantic Makeup', 'Bold Statement Makeup', 'Smokey Eye Focus', 'Matte Focus', 'Dewy Glow Focus', 'High Fashion Editorial', 'Avant-Garde Makeup', 'Fantasy Makeup', 'Anime-Inspired Makeup', 'Gothic Makeup', 'Y2K Makeup', 'Classic Hollywood Glam'] },
+                        { name: "Lash Styles/Types", keywords: ['Natural Lash', 'Everyday Lash', 'Subtle Enhancement', 'One-to-One Lash', 'Hybrid Set', 'Russian Volume', 'Mega Volume', 'Siren Volume', 'Cat Eye Lash', 'Dolly Lash', 'Kim K Lash', 'Open Eye Lash', 'Doll Eye Lash', 'Wispy Lash', 'Flutter Lash', 'Mega Wispy', 'C Curl', 'D Curl', 'L Curl', 'Short Lash (6-9mm)', 'Long Lash (13-15mm)', 'Extra Long Lash (16mm+)', 'Colored Lashes', 'Glitter Lashes', 'Ombre Lashes', 'Metallic Tips', 'Holographic Tips', 'Neon Tips', 'Rainbow Lashes', 'Feathered Flutter Curl'] },
+                        { name: "Eyelash Tools/Kits", keywords: ['Black Lash Glue', 'Clear Lash Glue', 'Sensitive Eye Glue', 'Latex-Free Lash Adhesive', 'Fast Drying Glue', 'Strong Hold Lash Glue', 'Mega Volume Lash Glue', 'Hydrogel Eye Pads', 'Silicone Under-Eye Pads', 'Lash Mapping Tape', 'Tweezers (Curved Tip)', 'Lash Brushes (Spoolies)', 'Lash Magnifying Lamp', 'Adhesive Ring Holder', 'Complete Lash Kit', 'Professional Artist Lash Kit'] },
+                    ]
+                },
+                // MANICURES (NAILS)
+                {
+                    name: "Manicures & Nail Art",
+                    subsections: [
+                        { name: "Types & Shapes", keywords: ['Gel Manicure', 'Acrylic Manicure', 'Dip Powder Manicure', 'Sculpted Nails', 'Gel Extensions', 'Stiletto Nails', 'Coffin Nails', 'Ballerina Nails', 'Square Nails', 'Almond Nails', 'Lipstick Nails', 'Mountain Peak Nails', 'Short Length Nails', 'Medium Length Nails', 'Long Length Nails', 'Extra-Long Nails'] },
+                        { name: "Finishes & Embellishments", keywords: ['Glossy Finish', 'Matte Finish', 'Satin Finish', 'Sugar Effect Nails', 'Velvet Nails', 'Chrome Finish Nails', 'Holographic Finish Nails', 'Mirror Finish Nails', 'Rhinestone Clusters', 'Swarovski Crystal Nails', 'Gemstone Nails', 'Pearls on Nails', 'Studs on Nails', 'Chain Nails', 'Tassel Nails', 'Dangle Nails', 'Foil Nails', 'Metallic Foil Nails', 'Glitter Foil Nails', 'Encapsulated Glitter', 'Encapsulated Flowers', '3D Flowers', '3D Bows', '3D Hearts'] },
+                        { name: "Art & Technique", keywords: ['French Manicure', 'Ombré Nails', 'Marble Manicure', 'Water Marble Nails', 'Tie-Dye Nails', 'Gradient Nails', 'Abstract Line Art', 'Geometric Pattern Nails', 'Brush Stroke Nails', 'Fluid Art Nails', 'Galaxy Nails', 'Nebula Nails', 'Starry Night Nails', 'Zodiac Nails', 'Horoscope Art Nails', 'Anime Inspired Nails', 'Cartoon Character Nails', 'Pop Art Nails', 'Tattoo Inspired Nail Art'] }
+                    ]
+                },
+                // JEWELRY & FASHION
+                {
+                    name: "Jewelry & Accessories",
+                    subsections: [
+                        { name: "Neck & Ear", keywords: ['chokers', 'collars', 'layered chains', 'minimalist delicate chains', 'heavy statement chains', 'translucent resin necklaces', 'lockets (heart-shaped)', 'gemstone cluster necklaces', 'pearl strand necklaces', 'studs (metallic)', 'studs (gemstone)', 'pearl studs', 'diamond studs', 'dangling earrings', 'chandelier earrings', 'tassel earrings', 'ear cuffs (single)', 'ear cuffs (double)', 'minimalist ear cuffs', 'tribal ear cuffs'] },
+                        { name: "Rings & Bodywear", keywords: ['engagement rings', 'wedding bands', 'promise rings', 'fashion rings', 'statement rings', 'stackable rings', 'midi rings', 'signet rings', 'bangles (thin)', 'bangles (thick)', 'layered bangles', 'cuff bracelets (wide)', 'cuff bracelets (narrow)', 'charm bracelets', 'chain anklets (delicate)', 'chain anklets (chunky)', 'charm anklets', 'navel rings', 'nose rings', 'septum rings', 'eyebrow rings', 'dermal anchors', 'temporary tattoos (metallic)', 'body jewels', 'face gems'] },
+                        { name: "Headwear/Hair Acc.", keywords: ['Classic Headband', 'Padded Headband', 'Oversized Headband', 'Velvet Headband', 'Rhinestone Headband', 'Snap Hair Clip', 'Alligator Hair Clip', 'Pearl Hair Clip', 'Floral Hair Clip', 'Bobby Pin (Decorative)', 'Crystal Hairpin', 'Hair Comb', 'Velvet Scrunchie', 'Satin Scrunchie', 'Floral crowns', 'tiaras (regal)', 'fascinators', 'beaded hair chains', 'hair vines'] }
+                    ]
+                },
+                // SCENE & TECHNICAL
+                {
+                    name: "Scene & Technical Modifiers",
+                    subsections: [
+                        { name: "Scene & Environment", keywords: ['urban cityscape', 'forest clearing', 'space nebula', 'underwater coral reef', 'photography studio', 'baroque interior', 'desert canyon', 'beach sunset', 'rainy street', 'mountain vista', 'Medieval Castle Interior', 'Fantasy Tavern', 'Alchemy Lab', 'Wizard Tower', 'Magical Forest', 'Futuristic City', 'Cyberpunk Street', 'Neon Alleyway', 'Space Station Interior', 'Post-Apocalyptic Wasteland', 'Dystopian Alley', 'Steampunk Workshop'] },
+                        { name: "Camera & Light", keywords: ['bird-eye view', 'low-angle', 'high-angle', 'close-up', 'medium shot', 'wide shot', 'dutch angle', 'full body shot', 'cinematic lighting', 'natural light', 'neon glow', 'backlit silhouette', 'rim lighting', 'softbox lighting', 'harsh shadow', 'ambient light', 'spotlight', 'studio lighting', 'low light', 'volumetric light'] },
+                        { name: "Technical Modifiers", keywords: ['(keyword:1.5)', '(keyword:0.8)', '(subject AND object)', '::separator::', 'blend::mode', 'quality:2', 'style_weight:0.5', 'version:4', 'ugly', 'deformed', 'malformed', 'low quality', 'bad anatomy', 'blurry', 'cropped', 'duplicate', 'extra limbs', 'missing limbs', 'poorly drawn face', 'disfigured', 'mutated', 'out of frame', 'low resolution', 'watermark', 'text'] }
+                    ]
+                }
+]]; // END OF RAW_GLOSSARY_DATA ARRAY
+
+    const SOMATOTYPE_KEYWORDS = {
+        'ectomorph': { keyword: 'ectomorph build', bias: 'slender/Ectomorph' },
+        'mesomorph': { keyword: 'mesomorph build', bias: 'athletic/Mesomorph' },
+        'endomorph': { keyword: 'endomorph build', bias: 'fuller/Endomorph' }
+    };
+
+    const RATIO_REMINDERS = {
+        'hips': { low: 'slender/Ectomorph', high: 'fuller/Endomorph' },
+        'glutes': { low: 'slender/Ectomorph', high: 'fuller/Endomorph' },
+        'thighs': { low: 'slender/Ectomorph', high: 'fuller/Endomorph' },
+        'waist': { low: 'fuller/Endomorph', high: 'slender/Endomorph' }, // Inverse relation
+        'eyes': { low: 'subtle/narrow', high: 'dramatic/wide' },
+        'nose': { low: 'petite/slender', high: 'broad/prominent' },
+        'lips': { low: 'thin/subtle', high: 'full/voluptuous' },
+        'cheeks': { low: 'hollow/defined', high: 'soft/chubby' },
+        'hwr': { low: 'Rectangular/Athletic', high: 'Extreme Hourglass' } // New HWR reminder
+    };
+
+    const REMEDIATION_DICTIONARY = {
+        "genitalia": "intimate area",
+        "penis": "male organ",
+        "vagina": "female organ",
+        "breasts": "chest/bust",
+        "buttocks": "glutes/hips",
+        "nipples": "areola/nipple area"
+    };
+
+    // Global variables (now scoped within the function)
+    let selectedKeywords;
+    let selectedBodyType;
+    let currentRatio;
+    let ratiosByPart;
+    let keywordOrderMap;
+    const keywordCategoryMap = new Map();
+
+    // Store keyword list for randomization (Feature 11)
+    let allPromptKeywords = [];
+
+    // Utility function to generate the keyword order map immediately on load
+    function buildKeywordOrderMap(data) {
+        const map = new Map();
+        [...data].sort((a, b) => a.order - b.order).forEach(cat => {
+            const isNailCategory = cat.id === 'nail-mega';
+            // Determine the tag prefix (e.g., 'Augmentation', 'Female', 'Makeup', 'Scene')
+            const tagPrefix = cat.category.split('.')[1] ? cat.category.split('.')[1].trim().split(' ')[0] : cat.category.split(' ')[0];
+            
+            if (cat.subcategories) {
+                cat.subcategories.forEach(sec => {
+                    if (sec.subsections) {
+                        sec.subsections.forEach(sub => {
+                            if (sub.keywords) {
+                                sub.keywords.forEach(kw => {
+                                    map.set(kw, cat.order);
+                                    keywordCategoryMap.set(kw, isNailCategory ? 'Nail' : tagPrefix); // Use a cleaner tag for Nails
+                                    allPromptKeywords.push(kw); // Populate the array for randomization
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        return map;
+    }
+
+    // --- Core Logic Functions ---
+
+    // Sorts selected keywords based on category order, then alphabetizes within category
+    function formatPrompt() {
+        const sorted = Array.from(selectedKeywords).sort((a, b) => {
+            const orderA = keywordOrderMap.get(a) || 9999;
+            const orderB = keywordOrderMap.get(b) || 9999;
+
+            if (orderA !== orderB) {
+                return orderA - orderB;
+            }
+            return a.localeCompare(b);
+        });
+
+        // Apply ratio formatting and smart tagging
+        let output = sorted.map(kw => {
+            const baseKeyword = kw.replace(/\(([^:]+):[0-9.]+\)/, '$1');
+            const ratio = ratiosByPart[baseKeyword];
+            const categoryTag = keywordCategoryMap.get(baseKeyword);
+
+            // 1. Handle explicit ratio syntax (if feature is a slider AND toggle is ON)
+            if (ratio !== undefined && ratio !== 1.0) {
+                // HWR is a meta-ratio, don't output it directly
+                if (baseKeyword !== 'hwr' && document.getElementById('ratio-toggle').getAttribute('data-active') === 'true') { 
+                    return `(${baseKeyword}:${ratio.toFixed(1)})`;
+                }
+            }
+            
+            // 2. Handle smart sorting/tagging for all other keywords
+            if (categoryTag) {
+                // Return tag in format (Category: Keyword)
+                return `(${categoryTag}: ${baseKeyword})`;
+            }
+            // Fallback for non-mapped keywords (shouldn't happen with full integration)
+            return baseKeyword; 
+        }).join(", ");
+
+        // Add selected Somatotype keyword (which is not in selectedKeywords set)
+        if (selectedBodyType && SOMATOTYPE_KEYWORDS[selectedBodyType]) {
+            const type = SOMATOTYPE_KEYWORDS[selectedBodyType].keyword;
+            if (!output.includes(type)) {
+                output = type + (output.length > 0 ? ", " : "") + output;
+            }
+        }
+
+        document.getElementById('prompt-output').value = output;
+        document.getElementById('char-counter').textContent = `Characters: ${output.length}`;
+        // Store prompt in LocalStorage (Feature 11)
+        localStorage.setItem('lastPrompt', output);
+        localStorage.setItem('lastBodyType', selectedBodyType);
+        localStorage.setItem('lastKeywords', JSON.stringify(Array.from(selectedKeywords)));
+        localStorage.setItem('lastRatios', JSON.stringify(ratiosByPart));
+    }
+    
+    // Randomize function (Feature: Randomize Button)
+    function randomizePrompt() {
+        // Clear current state
+        selectedKeywords.clear();
+        selectedBodyType = null;
+        
+        const keywordsToSelect = 15 + Math.floor(Math.random() * 10); // Select 15-24 keywords
+        let randomKeywords = [];
+        
+        // Add a random somatotype
+        const somatotypeKeys = Object.keys(SOMATOTYPE_KEYWORDS);
+        selectedBodyType = somatotypeKeys[Math.floor(Math.random() * somatotypeKeys.length)];
+
+        // Select random unique keywords from the master list
+        const keywordPool = [...allPromptKeywords];
+
+        for (let i = 0; i < keywordsToSelect && keywordPool.length > 0; i++) {
+            const index = Math.floor(Math.random() * keywordPool.length);
+            randomKeywords.push(keywordPool[index]);
+            keywordPool.splice(index, 1); // Remove to ensure uniqueness
+        }
+        
+        randomKeywords.forEach(kw => selectedKeywords.add(kw));
+        
+        // Visually update state
+        document.querySelectorAll('.keyword-button').forEach(btn => btn.classList.remove('selected-keyword'));
+        document.querySelectorAll('.body-type-button').forEach(btn => {
+            btn.classList.remove('selected-keyword');
+            if (btn.getAttribute('data-keyword') === selectedBodyType) {
+                btn.classList.add('selected-keyword');
+            }
+        });
+        
+        // Re-run format to update UI and prompt
+        formatPrompt();
+        renderGlossary();
+    }
+
+    function changeRatioInPrompt(keyword, newRatio) {
+        ratiosByPart[keyword] = newRatio;
+        
+        // --- HWR SYNC LOGIC ---
+        if (keyword === 'hwr') {
+            const hwr_val = newRatio;
+            let new_hips = 1.0;
+            let new_waist = 1.0;
+
+            if (hwr_val > 1.0) {
+                // Extreme Hourglass bias: increase hips, decrease waist (complementary)
+                new_hips = 1.0 + (hwr_val - 1.0) * 0.6; // Max 1.9
+            } else if (hwr_val < 1.0) {
+                // Rectangular/Athletic bias: decrease hips slightly, increase waist slightly
+                new_hips = 1.0 - (1.0 - hwr_val) * 0.2; // Min 0.9
+                new_waist = 1.0 + (1.0 - hwr_val) * 0.4; // Max 1.2
+            }
+            
+            // Update base ratios and sliders
+            ratiosByPart['hips'] = parseFloat(new_hips.toFixed(1));
+            ratiosByPart['waist'] = parseFloat(new_waist.toFixed(1));
+            
+            // Visual sync for Hips and Waist sliders/values
+            document.getElementById(`hips-slider`).value = ratiosByPart['hips'];
+            document.getElementById(`hips-value`).textContent = ratiosByPart['hips'].toFixed(1);
+            document.getElementById(`waist-slider`).value = ratiosByPart['waist'];
+            document.getElementById(`waist-value`).textContent = ratiosByPart['waist'].toFixed(1);
+
+            // Ensure hips/waist keywords are 'selected' when HWR is moved off 1.0
+            if (newRatio !== 1.0) {
+                selectedKeywords.add('hips');
+                selectedKeywords.add('waist');
+            }
+        } else if (keyword !== 'hwr' && ratiosByPart['hwr'] !== 1.0) {
+            // If the user manually moves HIPs or WAIST, reset HWR to neutral
+            ratiosByPart['hwr'] = 1.0;
+            document.getElementById('hwr-slider').value = 1.0;
+            document.getElementById('hwr-value').textContent = '1.0';
+        }
+
+        formatPrompt();
+    }
+
+    function toggleKeyword(keyword, button) {
+        // Remove ratio if present for comparison
+        const baseKeyword = keyword.replace(/\(([^:]+):[0-9.]+\)/, '$1');
+        
+        // Check if keyword is already selected (may have a ratio applied)
+        let isSelected = false;
+        let existingKey = null;
+
+        for (const key of selectedKeywords) {
+            // Check against the original keyword, ignoring category tags during comparison
+            const keyBase = key.replace(/(\(|\:).*/, '').trim();
+            if (keyBase.includes(baseKeyword)) {
+                isSelected = true;
+                existingKey = key;
+                break;
+            }
+        }
+
+        if (isSelected) {
+            selectedKeywords.delete(existingKey);
+            delete ratiosByPart[baseKeyword];
+            button.classList.remove("selected-keyword");
+        } else {
+            let finalKeyword = baseKeyword;
+            // The toggle controls whether to apply the ratio syntax.
+            // If the ratio toggle is ON AND the keyword is a slider feature, add it to ratiosByPart so formatPrompt can handle it later.
+            if (ratiosByPart.hasOwnProperty(baseKeyword) && document.getElementById('ratio-toggle').getAttribute('data-active') === 'true') {
+                ratiosByPart[baseKeyword] = currentRatio; // Set the current global ratio
+            }
+            
+            selectedKeywords.add(finalKeyword);
+
+            // Reset global ratio selector visually after use
+            if (currentRatio !== 1.0) {
+                currentRatio = 1.0;
+                document.querySelectorAll('#ratio-panel button').forEach(b => b.classList.remove('bg-accent', 'text-white', 'dark:bg-rose-400'));
+                // Apply 1.0x selection by default after clearing
+                document.querySelectorAll('#ratio-panel button[data-ratio="1"]').forEach(b => b.classList.add('bg-accent', 'text-white', 'dark:bg-rose-400'));
+            }
+            button.classList.add("selected-keyword");
+        }
+        formatPrompt();
+        renderGlossary(document.getElementById('keyword-search').value);
+    }
+
+    // New render function for the Level 3 collapsible unit (e.g., "Small Bust")
+    function renderCollapsibleSubSection(sub, categoryId, index, defaultExpanded) {
+        const subSecEl = document.createElement("div");
+        subSecEl.className = "mb-4 bg-white dark:bg-gray-700/50 rounded-xl shadow-md border border-gray-200 dark:border-gray-700";
+
+        // Get all keywords for the preview
+        const allKeywords = sub.keywords || [];
+        // Show up to 30 keywords for the required "at least two rows" view
+        const previewText = allKeywords.slice(0, 30).join(', '); 
+        
+        const header = document.createElement("div");
+        header.className = "collapsible-header flex flex-col sm:flex-row justify-between items-start sm:items-center py-3 px-4 bg-indigo-50 dark:bg-indigo-900 rounded-t-xl";
+        header.innerHTML = `
+            <div class="w-full sm:w-1/3 mb-2 sm:mb-0">
+                <h4 class="text-lg font-bold text-indigo-700 dark:text-indigo-300">${sub.name}</h4>
+            </div>
+            <div class="w-full sm:w-2/3 flex justify-between items-center">
+                <p class="text-sm text-gray-500 italic dark:text-gray-400 keyword-preview-scroll">${previewText}...</p>
+                <svg class="collapsible-icon w-5 h-5 ml-4 flex-shrink-0 text-indigo-700 dark:text-indigo-300 transform transition-transform ${defaultExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+        `;
+        subSecEl.appendChild(header);
+
+        const content = document.createElement("div");
+        content.className = `collapsible-content space-y-3 p-4 ${defaultExpanded ? 'expanded' : ''}`;
+        content.id = `${categoryId}-${sub.name.replace(/\s/g, '-')}-content`;
+        
+        const list = document.createElement("div");
+        list.className = "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 mb-4";
+        if (sub.keywords) {
+            sub.keywords.forEach(k => list.appendChild(createKeywordButton(k)));
+        }
+        
+        content.appendChild(list); // ** CRITICAL FIX: Append keyword list to content **
+        
+        subSecEl.appendChild(content);
+
+        header.onclick = () => {
+            content.classList.toggle('expanded');
+            header.querySelector('.collapsible-icon').classList.toggle('rotate-180');
+        };
+
+        return subSecEl;
+    }
+
+    function renderGlossary(filter = "") {
+        const glossaryContainer = document.getElementById('glossary-container');
+        glossaryContainer.innerHTML = "";
+        const f = filter.toLowerCase();
+        const sortedCats = [...RAW_GLOSSARY_DATA].sort((a, b) => a.order - b.order);
+        let resultsFound = false;
+
+        sortedCats.forEach(cat => {
+            let catEl = document.createElement("div");
+            catEl.className = "category-container p-5 rounded-3xl shadow-lg dark:bg-gray-900";
+            // Streamlined Category Header
+            catEl.innerHTML = `<h2 class="text-3xl font-bold text-accent dark:text-rose-400 mb-2">${cat.category}</h2>`;
+
+            let hasVisibleSections = false;
+            let sectionContainer = document.createElement('div');
+            sectionContainer.className = "space-y-6";
+
+            const isGenderedCategory = cat.id === 'female-anatomy' || cat.id === 'male-anatomy';
+            let globalSubSectionIndex = 0; // Tracks the index for auto-expansion
+
+            cat.subcategories.forEach((sec, index) => {
+                // Handle dynamic Somatotype status message
+                if (sec.isDynamic) {
+                    const statusEl = document.createElement('div');
+                    statusEl.className = 'p-4 rounded-xl border-2 mb-6 transition-all duration-300';
+                    if (selectedBodyType) {
+                        const type = SOMATOTYPE_KEYWORDS[selectedBodyType].keyword;
+                        statusEl.className += ' bg-indigo-100 border-indigo-400 dark:bg-indigo-900/50 dark:border-indigo-600';
+                        statusEl.innerHTML = `<p class="font-semibold text-indigo-700 dark:text-indigo-300">✅ Primary Body Type Selected: <strong class="text-accent">${type}</strong>.</p>`;
+                    } else {
+                        statusEl.className += ' bg-yellow-100 border-yellow-400 dark:bg-yellow-900/50 dark:border-yellow-600';
+                        statusEl.innerHTML = `<p class="font-semibold text-yellow-700 dark:text-yellow-300">💡 Foundation Missing: Select a Body Type (Ectomorph, Mesomorph, or Endomorph) in the Utility Panel above to guide your prompt's base.</p>`;
+                    }
+                    sectionContainer.appendChild(statusEl);
+                    hasVisibleSections = true;
+                    // Render General Figure Keywords statically here
+                    sec.subsections.forEach(sub => {
+                        const titleEl = document.createElement('h4');
+                        titleEl.className = "text-lg font-semibold mt-4 mb-2 text-gray-900 dark:text-gray-100 border-b border-gray-300 dark:border-gray-600 pb-1";
+                        titleEl.textContent = sub.name;
+
+                        const list = document.createElement("div");
+                        list.className = "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 mb-4";
+                        (sub.keywords || []).forEach(k => list.appendChild(createKeywordButton(k)));
+                        sectionContainer.appendChild(list);
+                    });
+                    return; 
+                }
+
+                // STATIC SECTION HEADER (Level 2: e.g., Bust Size & Shape)
+                const secHeader = document.createElement('h3');
+                secHeader.className = 'text-2xl font-bold text-indigo-600 dark:text-indigo-400 mt-6 mb-3 border-b-2 border-indigo-200 dark:border-indigo-700 pb-1';
+                secHeader.textContent = sec.name;
+                
+                let sectionContent = document.createElement('div');
+                sectionContent.className = 'space-y-4';
+                let keywordsInSubSections = false;
+
+                // Iterate through Level 3 subsections (e.g., Small Bust, Medium Bust)
+                (sec.subsections || []).forEach((sub, subIndex) => {
+                    let filteredSub = JSON.parse(JSON.stringify(sub));
+                    filteredSub.keywords = filteredSub.keywords || [];
+                    
+                    if (f) {
+                        filteredSub.keywords = filteredSub.keywords.filter(k => k.toLowerCase().includes(f));
+                    }
+                    
+                    if (filteredSub.keywords.length > 0) {
+                        // The default expansion only applies if this is the very first collapsible section in the entire flow (Face Shape).
+                        const defaultExpandedSub = isGenderedCategory && globalSubSectionIndex === 0 && !f;
+                        
+                        // Render the Level 3 item as a new collapsible unit
+                        sectionContent.appendChild(renderCollapsibleSubSection(filteredSub, cat.id, globalSubSectionIndex, defaultExpandedSub));
+                        
+                        keywordsInSubSections = true;
+                        resultsFound = true;
+                        globalSubSectionIndex++;
+                    }
+                });
+
+                if (keywordsInSubSections) {
+                    sectionContainer.appendChild(secHeader);
+                    sectionContainer.appendChild(sectionContent);
+                    hasVisibleSections = true;
+                }
+            });
+
+            if (f && !resultsFound) {
+                glossaryContainer.innerHTML = `<div class="p-6 text-center text-xl text-gray-500 dark:text-gray-400">No matching keywords found for "${filter}".</div>`;
+            }
+            
+            if (hasVisibleSections) {
+                catEl.appendChild(sectionContainer);
+                glossaryContainer.appendChild(catEl);
+            }
+        });
+
+        if (f && !resultsFound) {
+            glossaryContainer.innerHTML = `<div class="p-6 text-center text-xl text-gray-500 dark:text-gray-400">No matching keywords found for "${filter}".</div>`;
+        }
+    }
+
+    function showRatioReminder(part, ratio) {
+        const reminderEl = document.getElementById('smart-reminder');
+        const isHigh = ratio > 1.2;
+        const isLow = ratio < 1.0;
+        let suggestion = "";
+
+        // HWR has unique reminder logic
+        if (part === 'hwr') {
+             const key = isHigh ? 'high' : (isLow ? 'low' : 'balanced');
+             const bias = RATIO_REMINDERS[part][key];
+             suggestion = `Adjusting HWR to ${ratio.toFixed(1)}x applies <strong class="text-white">${bias}</strong> bias to Hips/Waist.`;
+        } else if (isHigh || isLow) {
+            const key = isHigh ? 'high' : 'low';
+            const bias = RATIO_REMINDERS[part][key];
+            const biasType = part === 'waist' ? (isHigh ? 'slender' : 'fuller') : bias.split('/')[0];
+
+            suggestion = `Adjusting ${part} to ${ratio.toFixed(1)}x suggests a <strong class="text-white">${biasType}</strong> bias.`;
+            
+            // Adjust color based on implied bias for visual feedback
+            if (bias.includes('fuller') || bias.includes('broad')) {
+                reminderEl.className = 'show px-4 py-2 bg-rose-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+            } else if (bias.includes('slender') || bias.includes('petite')) {
+                reminderEl.className = 'show px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+            } else {
+                reminderEl.className = 'show px-4 py-2 bg-green-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+            }
+
+        } else {
+            // Default/average tone
+            suggestion = `Adjusting ${part} to ${ratio.toFixed(1)}x suggests a <strong class="text-white">balanced</strong> proportion.`;
+            reminderEl.className = 'show px-4 py-2 bg-green-600 text-white rounded-lg shadow-2xl font-semibold text-sm';
+        }
+        
+        reminderEl.innerHTML = suggestion;
+        clearTimeout(window.reminderTimer);
+        window.reminderTimer = setTimeout(() => {
+            reminderEl.classList.remove('show');
+        }, 3000);
+    }
+    
+    // Toggle function for Ratio Syntax Button
+    function setupRatioToggle() {
+        const toggleButton = document.getElementById('ratio-toggle');
+        
+        toggleButton.addEventListener('click', () => {
+            const isActive = toggleButton.getAttribute('data-active') === 'true';
+            
+            if (isActive) {
+                toggleButton.setAttribute('data-active', 'false');
+                toggleButton.textContent = 'Ratio Syntax: OFF';
+                toggleButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+                toggleButton.classList.add('bg-gray-500', 'hover:bg-gray-600');
+            } else {
+                toggleButton.setAttribute('data-active', 'true');
+                toggleButton.textContent = 'Ratio Syntax: ON';
+                toggleButton.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                toggleButton.classList.add('bg-green-600', 'hover:bg-green-700');
+            }
+            localStorage.setItem('ratioToggleActive', toggleButton.getAttribute('data-active'));
+            formatPrompt(); // Re-format prompt when toggle changes
+        });
+        
+        // Initial state setup (Load from LocalStorage)
+        const savedRatioState = localStorage.getItem('ratioToggleActive');
+        if (savedRatioState === 'false') {
+            toggleButton.setAttribute('data-active', 'false');
+            toggleButton.textContent = 'Ratio Syntax: OFF';
+            toggleButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+            toggleButton.classList.add('bg-gray-500', 'hover:bg-gray-600');
+        } else {
+    1. Body Augmentation & Procedures
+Description: Safe, descriptive terms for aesthetic enhancements and surgical alteration appearances.
+Subcategories:Breast Procedures:
+Augmentation Terms: Augmented, Implant-like appearance, High-profile contour, Natural-looking enhancement, Dramatic volume, Round shaped enhancement, Teardrop shaped enhancement, Silicone enhanced bust, Saline enhanced bust, Reconstructed, Post-surgical scarring, Periareolar scarring
+Shape/Size Descriptors: High-set augmentation, Low-set augmentation, Wide-set augmentation, Close-set augmentation, Lifted appearance, Surgical alteration appearance, Smooth contour augmentation, Projecting augmentation, Full upper pole, Round lower pole
+Body Contouring (BBL & Lipo):
+Gluteal/Hip Augmentation: BBL-enhanced appearance, Gluteal implants, Hip augmentation, Curvy profile enhancement, Dramatic hip volume, Sculpted glutes, Enhanced buttocks, Voluminous lower body, Subtle gluteal lift, Projecting buttocks
+Waist/Midsection: Liposuction contour, Tummy tuck results, Cinched waist contour, Defined waistline, Sculpted midsection, Slight waist indent, Hourglass silhouette enhancement, Abdominoplasty contour, Smooth abdominal wall
+Facial Procedures:
+Rhinoplasty/Nose: Rhinoplasty contoured nose, Surgical nose refinement, Narrow bridge appearance, Straight bridge appearance, Tapered nose tip, Subtle nostril reduction, Refined nasal shape
+Cheeks/Jaw: Chin implant contour, Jawline augmentation, Defined jawline contour, Cheekbone implants, High cheekbone contour, Facial filler enhancement, Surgical facial symmetry
+2. Base Character Anatomy
+Description: Establish the foundational build, frame, and primary anatomical features (Size/Volume first).
+Subcategories:Somatotype & Global Frame:
+Frame & Proportions: hourglass figure, pear-shaped, apple-shaped, rectangular shape, inverted triangle, slender, lean, muscular, stocky, tall, short, broad-shouldered, narrow-hipped, wide-hipped, petite, average build, heavyset, toned, defined, chiseled, sculpted, full-figured, curvy, athletic, robust, frail, delicate
+Female Anatomical Features:
+Bust Size/Volume: petite bust, flat chest, delicate frame, subtle bust, modest bust, compact bust, minimal bust, balanced bust, moderate chest, proportional bust, rounded bust, classic bust, full bust, ample chest, generous bust, voluminous bust, developed chest, dramatic bust, heavy bust, enhanced bust
+Bust Shape/Detail: round shape, teardrop shape, bell shape, athletic shape, natural shape, firm shape, soft shape, lifted, pendulous, projecting, wide-set, close-set, defined chest detail
+Waist Size/Volume: Small waist, Narrow waist, Slim waist, Petite waist, Tiny waist, Medium waist, Moderate waist, Average waist, Balanced waist, Large waist, Wide waist, Broad waist, Full waist, Thick waist, Voluminous waist
+Waist Shape/Contour: cinched waist, delicate waist, slender waist, proportional waist, toned waist, natural waistline, broad waist, blocky midsection, hourglass taper, straight torso, curvy torso, defined waistline taper
+Hips Size/Volume: narrow hips, slim hips, petite hips, proportional hips, average hips, balanced hips, broad hips, wide hips, generous hips, full hips, expansive hips
+Hip Shape/Detail: slender hip bone structure, straight hip line, subtle curve hips, curved hips, heart-shaped hips, pear-shaped hips, diamond-shaped hips, square hips, hip dips, deep hip dips, waist-to-hip curve
+Buttocks Size/Volume: small buttocks, petite buttocks, compact buttocks, muscular glutes (small), firm buttocks, rounded buttocks, toned buttocks, large buttocks, voluminous buttocks, curvy buttocks, bubble buttocks, enhanced buttocks, ample glutes
+Buttocks Shape/Contour: subtle projection, soft buttocks (small), flat buttocks, developed gluteus maximus, proportional projection, heart-shaped glutes, dramatic projection
+Shoulders Size/Volume: narrow shoulders, slender shoulders, delicate shoulders, petite shoulders, proportional shoulders, average shoulders, rounded shoulders, balanced shoulders, broad shoulders, squared shoulders, massive traps, wide shoulders
+Shoulders Shape/Detail: sloped shoulders, fine-boned shoulders, athletic shoulders (medium), strong deltoids (large), muscular shoulders (large), toned shoulders, defined shoulders, sculpted delts, massive deltoids
+Legs Size/Volume: thin legs, slim legs, slender legs, petite legs, delicate legs, proportional legs, average legs, toned legs (medium), balanced legs, large legs, wide legs, muscular legs (large), voluminous legs, full legs, thick thighs
+Legs Shape/Contour: fine-boned legs, light legs, fragile legs, medium build legs, healthy legs, sturdy legs, heavy legs, defined legs, sculpted legs, soft legs, athletic legs, ripped definition legs, lean muscle legs, bulky muscle legs, vascular legs, veiny legs
+Face/Head Structure: oval face, heart-shaped face, square jawline, chiseled jaw, v-line jaw, strong chin, receding chin, defined nose bridge, button nose, full lips, thin lips, defined cupid's bow
+Male Anatomical Features:
+Chest Size/Volume: broad chest, muscular chest, sculpted pecs, chiseled chest, v-shaped torso, barrel-chested, large pectorals, toned torso, ripped chest, slender chest, lean chest
+Chest Shape/Detail: defined pectorals, defined chest detail, subtle chest detail, flat chest detail, body hair chest, hairless chest, small chest detail
+Waist Size/Volume: slim waist (male), narrow waist (male), v-taper waist (small), slender waist (male), proportional waist (male), average waist (male), balanced waist (male), broad waist (male), thick waist (male), wide midsection (male), full waist (male), sturdy waist
+Waist Shape/Contour: defined waistline (male), toned midsection (male), natural waistline (male), blocky midsection, flat stomach, sculpted abs, six-pack defined, eight-pack defined, oblique muscle lines, firm core
+Hips Size/Volume: narrow hips (male), slender hips (male), lean hips (male), athletic hips (small), proportional hips (male), average hips (male), balanced hips (male), wide hips (male), broad hips (male), square hips (male), blocky hips (male), thick hip bone structure
+Hip Shape/Detail: straight hip line (male), toned hips (male), athletic hips (medium), developed gluteus maximus (male), muscular glutes (large), large glutes (male), prominent projection (male), ample glutes (male)
+Shoulders Size/Volume: narrow shoulders (male), slender shoulders (male), delicate shoulders (male), sloped shoulders (male), petite shoulders (male), proportional shoulders (male), average shoulders (male), rounded shoulders (male), broad shoulders (male), squared shoulders, massive traps, wide shoulders (male), strong deltoids (large), muscular shoulders (large)
+Shoulders Shape/Detail: athletic shoulders (medium), toned shoulders, defined shoulders, sculpted delts, godly delts, massive deltoids
+Arms Size/Volume: small biceps, large biceps, slender biceps, toned biceps, muscular biceps, defined biceps, small triceps, large triceps, slender triceps, toned triceps, muscular triceps, defined triceps, small forearms, large forearms, slender forearms, toned forearms, muscular forearms, thick forearms, defined forearms, strong forearms
+Arms Shape/Detail: soft biceps, baby biceps, godly biceps, rounded biceps, soft triceps, baby triceps, godly triceps, rounded triceps, delicate forearms
+Face/Head Structure: oval face, square jawline, chiseled features, defined mandible, strong chin, rugged face, adam's apple
+3. Secondary Characteristics
+Description: Add skin tone, texture, hair style, and universal micro-features.
+Subcategories:Skin & Complexion:
+Skin Tone/Undertone: porcelain skin, fair skin, ivory skin, light skin, medium skin, olive skin, tan skin, golden skin, brown skin, deep skin tone, ebony skin, warm undertone, cool undertone, neutral undertone, rosy undertone
+Shade & Affect: sun-kissed, pale skin, ruddy complexion, ashen skin, bronzed shade, sallow shade, flushed skin, tanned shade, vibrant shade, subtle shade
+Texture: smooth skin, soft skin, velvety skin, silky skin, creamy skin, supple skin, firm skin, oily skin, dry skin, rough skin, bumpy skin, textured skin, glossy skin, matte skin, hydrated skin
+Surface Details: freckled, veined, vascular, blemished, scarred, stretch marks, dimples (body), moles, birthmarks, pores, fine lines, wrinkles, youthful skin, aged texture, clear skin, glowing skin
+Hair & Facial Hair:
+Length: pixie cut, buzz cut, crew cut, short hair, cropped hair, shaved head, bob, shoulder-length hair, medium-length hair, lob cut, collarbone length, shaggy cut, long hair, extra long hair, waist length hair, hip length hair, cascading hair, mermaid length
+Texture: curly hair, straight hair, wavy hair, kinky hair, coiled hair, afro texture, fine texture, thick texture, coarse texture, silky hair, frizzy hair
+Women's Styles: layered hair, bangs, ponytail, braid, updo, messy bun, fishtail braid, French braid, Dutch braid, top knot, beehive, victory rolls, finger waves, pin curls, chignon, halo braid
+Men's Styles: slicked-back, undercut, comb-over, tousled hair, spiked hair, faded sides, military cut, pompadour, quiff, man bun, side part, caesar cut, mullet, high top fade
+Facial Hair: clean-shaven, stubble, goatee, full beard, mustache, soul patch, sideburns, defined beard line, bushy beard, trimmed mustache, light peach fuzz, subtle sideburns, upper lip hair (fine), chin hair (fine), hairless face
+Universal Micro-Features:
+Head/Face: high cheekbones, defined cheekbones, subtle cheekbones, full cheeks, hollow cheeks, rosy cheeks, sunken cheeks, chubby cheeks, soft cheeks, angular cheeks, prominent brow ridge, thick eyebrows, thin eyebrows, arched eyebrows, straight eyebrows, frowning brow, relaxed brow, furrowed brow, brown eyes, blue eyes, green eyes, gray eyes, hazel eyes, amber eyes, black eyes, violet eyes, almond-shaped eyes, round eyes, hooded eyes, monolid eyes, deep-set eyes, long lashes, short lashes, thick lashes, thin lashes, full eyelids, heavy eyelids, defined crease
+Limbs/Extremities: small hands, petite hands, delicate hands, narrow palms, fine-boned hands, dainty hands, large hands, wide palms, muscular hands (large), strong hands, slender hands, bony knuckles, athletic hands, soft hands, callused hands, jointed hands, long palms, short palms, masculine hands, feminine hands, slender wrists, delicate wrists, bony wrists, thin wrists, thick wrists, strong wrists, muscular wrists, wide wrists, small feet, petite feet, delicate feet, large feet, wide feet, long toes, short toes, slender toes, plump toes, well-aligned toes, slender ankles, thick ankles, strong ankles, muscular ankles
+4. Styling & Context:
+Description: Apply makeup, select jewelry/fashion, define the scene, and refine technical parameters.
+Subcategories:Makeup & Eyelash Details:
+Full Look Styles: Glamorous Full Face, Natural Minimal Makeup, Bridal/Wedding Makeup, Red Carpet Makeup, Editorial Makeup, Drag Queen Makeup, Costume/Themed Makeup, Festival Makeup, Stage Makeup, Soft Romantic Makeup, Bold Statement Makeup, Smokey Eye Focus, Matte Focus, Dewy Glow Focus, High Fashion Editorial, Avant-Garde Makeup, Fantasy Makeup, Anime-Inspired Makeup, Gothic Makeup, Y2K Makeup, Classic Hollywood Glam
+Lash Styles/Types: Natural Lash, Everyday Lash, Subtle Enhancement, One-to-One Lash, Hybrid Set, Russian Volume, Mega Volume, Siren Volume, Cat Eye Lash, Dolly Lash, Kim K Lash, Open Eye Lash, Doll Eye Lash, Wispy Lash, Flutter Lash, Mega Wispy, C Curl, D Curl, L Curl, Short Lash (6-9mm), Long Lash (13-15mm), Extra Long Lash (16mm+), Colored Lashes, Glitter Lashes, Ombre Lashes, Metallic Tips, Holographic Tips, Neon Tips, Rainbow Lashes, Feathered Flutter Curl
+Eyelash Tools/Kits: Black Lash Glue, Clear Lash Glue, Sensitive Eye Glue, Latex-Free Lash Adhesive, Fast Drying Glue, Strong Hold Lash Glue, Mega Volume Lash Glue, Hydrogel Eye Pads, Silicone Under-Eye Pads, Lash Mapping Tape, Tweezers (Curved Tip), Lash Brushes (Spoolies), Lash Magnifying Lamp, Adhesive Ring Holder, Complete Lash Kit, Professional Artist Lash Kit
+Full Face Details:
+Foundation & Finish: Full-Coverage Foundation, Medium Coverage Foundation, Liquid Foundation, Cream Foundation, Powder Foundation, Matte Finish, Dewy Finish, Satin Finish, Natural Finish, Airbrush Finish, HD Foundation, Pore-Smoothing Finish, Blurred Finish, Layered Foundation, Multi-Layered Base, Tinted Moisturizer, Color-Correcting Base, Light Reflecting Foundation
+Brows & Sculpting: Full Drawn-In Eyebrows, Ombre Fade Eyebrows, Feathered Hair Stroke Eyebrows, Microbladed Eyebrows, Bold Thick Brows, Arched Brows, Laminated Brow Look, Highlighted Brow Arch, Concealer Defined Brows, Light Contour, Medium Contour, Heavy Contour, Sculpted Cheek Contour, Nose Contour, Jawline Contour, Forehead Contour, Bronzed Glow, Golden Bronzer, Warm-Tone Bronzer, Cool-Tone Bronzer, Matte Bronzer, Shimmer Bronzer, Subtle Highlight, Intense Highlight, Metallic Highlight, Golden Highlight, Champagne Highlight, Icy Highlight, Cheekbone Highlight, Nose Tip Highlight, Cupid’s Bow Highlight
+Eye & Lip Detailing:
+Eyeshadow & Liner: Neutral Eyeshadow, Smokey Eye, Soft Smokey Eye, Dramatic Smokey Eye, Cut Crease, Halo Eye, Gradient Eyeshadow, Ombre Eyeshadow, Bold Colored Eyeshadow, Glitter Eyeshadow, Graphic Liner, Winged Eyeliner, Cat Eye Eyeliner, Floating Crease, Inner Corner Highlight, Under-Eye Pop Shadow, Multi-Layered Eyeshadow, Airbrush Eyeshadow, Neon Eyeliner, Holographic Liner, Two-Tone Liner, Rhinestone Eye Accent
+Blush & Lips: Powder Blush, Cream Blush, Gel Blush, Matte Blush, Shimmer Blush, Nude Lips, Soft Pink Lips, Red Lips, True Red Lips, Blue-Red Lips, Wine Lips, Burgundy Lips, Plum Lips, Metallic Red Lips, Holographic Lips, Gradient Lips, Ombre Lips, Reverse Ombre Lips, Dual-Tone Lips, Matte Finish Lips, Glossy Lips, Lip Stain Look, Highlighted Cupid’s Bow, Lip Contour, Layered Lip Colors, Artistic Fantasy Cheek
+Jewelry & Accessories:
+Neck & Ear: chokers, collars, layered chains, minimalist delicate chains, heavy statement chains, translucent resin necklaces, lockets (heart-shaped), gemstone cluster necklaces, pearl strand necklaces, studs (metallic), studs (gemstone), pearl studs, diamond studs, dangling earrings, chandelier earrings, tassel earrings, ear cuffs (single), ear cuffs (double), minimalist ear cuffs, tribal ear cuffs
+Rings & Bodywear: engagement rings, wedding bands, promise rings, fashion rings, statement rings, stackable rings, midi rings, signet rings, bangles (thin), bangles (thick), layered bangles, cuff bracelets (wide), cuff bracelets (narrow), charm bracelets, chain anklets (delicate), chain anklets (chunky), charm anklets, navel rings, nose rings, septum rings, eyebrow rings, dermal anchors, temporary tattoos (metallic), body jewels, face gems
+Headwear/Hair Acc.: Classic Headband, Padded Headband, Oversized Headband, Velvet Headband, Rhinestone Headband, Snap Hair Clip, Alligator Hair Clip, Pearl Hair Clip, Floral Hair Clip, Bobby Pin (Decorative), Crystal Hairpin, Hair Comb, Velvet Scrunchie, Satin Scrunchie, Floral crowns, tiaras (regal), fascinators, beaded hair chains, hair vines
+Scene & Technical Modifiers:
+Scene & Environment: urban cityscape, forest clearing, space nebula, underwater coral reef, photography studio, baroque interior, desert canyon, beach sunset, rainy street, mountain vista, Medieval Castle Interior, Fantasy Tavern, Alchemy Lab, Wizard Tower, Magical Forest, Futuristic City, Cyberpunk Street, Neon Alleyway, Space Station Interior, Post-Apocalyptic Wasteland, Dystopian Alley, Steampunk Workshop
+Camera & Light: bird-eye view, low-angle, high-angle, close-up, medium shot, wide shot, dutch angle, full body shot, cinematic lighting, natural light, neon glow, backlit silhouette, rim lighting, softbox lighting, harsh shadow, ambient light, spotlight, studio lighting, low light, volumetric light
+Technical Modifiers: (keyword:1.5), (keyword:0.8), (subject AND object), ::separator::, blend::mode, quality:2, 'style_weight:0.5', version:4, ugly, deformed, malformed, low quality, bad anatomy, blurry, cropped, duplicate, extra limbs, missing limbs, poorly drawn face, disfigured, mutated, out of frame, low resolution, watermark, text
