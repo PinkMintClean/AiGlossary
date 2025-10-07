@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate AI Prompt Glossary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        .keyword-item {
+            transition: all 0.2s ease;
+        }
+        .keyword-item:hover {
+            transform: translateY(-1px);
+        }
+        .selected {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+        .ratio-display {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+        .smart-reminder {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .collapsible-content {
+            display: none;
+        }
+        .collapsible-content.open {
+            display: block;
+        }
+        .scroll-indicator {
+            animation: pulse 2s infinite;
+        }
+        .search-highlight {
+            background-color: #fbbf24;
+            color: #000;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+        
+        /* Body Types Section */
+        .body-types-section {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+            border: 2px solid #6366f1;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Hands Section */
+        .hands-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            border: 2px solid #64748b;
+            box-shadow: 0 0 25px rgba(100, 116, 139, 0.2);
+        }
+        
+        .hands-subsection {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 1px solid #475569;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Manicured Nails - Climactic Glamour */
+        .manicured-nails-section {
+            background: linear-gradient(135deg, #be185d 0%, #ec4899 25%, #f97316 50%, #eab308 75%, #be185d 100%);
+            border: 3px solid #f59e0b;
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.5), inset 0 0 20px rgba(236, 72, 153, 0.3);
+            animation: glamourPulse 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .manicured-nails-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            animation: shimmer 4s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes glamourPulse {
+            0%, 100% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.5), inset 0 0 20px rgba(236, 72, 153, 0.3); }
+            50% { box-shadow: 0 0 60px rgba(245, 158, 11, 0.8), inset 0 0 30px rgba(236, 72, 153, 0.5); }
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .nail-art-button {
+            background: linear-gradient(135deg, #f59e0b, #ec4899, #8b5cf6);
+            border: 2px solid #fbbf24;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            transform: perspective(1000px) rotateX(5deg);
+            transition: all 0.3s ease;
+        }
+        
+        .nail-art-button:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6);
+        }
+        
+        /* Feet Section */
+        .feet-section {
+            background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%);
+            border: 2px solid #0ea5e9;
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);
+        }
+        
+        .feet-subsection {
+            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+            border: 1px solid #0ea5e9;
+            backdrop-filter: blur(8px);
+        }
+        
+        /* Makeup Section */
+        .makeup-section {
+            background: linear-gradient(135deg, #7c2d12 0%, #dc2626 25%, #f97316 50%, #fbbf24 75%, #7c2d12 100%);
+            border: 3px solid #f59e0b;
+            box-shadow: 0 0 50px rgba(245, 158, 11, 0.4), inset 0 0 25px rgba(220, 38, 38, 0.2);
+            position: relative;
+        }
+        
+        .makeup-section::after {
+            content: '💄✨';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            opacity: 0.7;
+        }
+        
+        /* Jewelry Section - Ultra Luxury */
+        .jewelry-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #1a1a2e 100%);
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.6), inset 0 0 30px rgba(83, 52, 131, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .jewelry-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(192, 192, 192, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .jewelry-button {
+            background: linear-gradient(135deg, #ffd700, #ffed4e, #c0c0c0, #ffd700);
+            border: 2px solid #ffd700;
+            color: #1a1a2e;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.3);
+            animation: sparkle 2s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .jewelry-button::before {
+            content: '✨';
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            font-size: 10px;
+            opacity: 0.8;
+        }
+        
+        .jewelry-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.7), inset 0 1px 3px rgba(255, 255, 255, 0.5);
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.3); }
+            50% { box-shadow: 0 4px 20px rgba(255, 215, 0, 0.8), inset 0 1px 5px rgba(255, 255, 255, 0.5); }
+        }
+        
+        /* Clothing Section - Fresh Linen */
+        .clothing-section {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 25%, #bae6fd 50%, #7dd3fc 75%, #f0f9ff 100%);
+            border: 2px solid #0ea5e9;
+            box-shadow: 0 0 40px rgba(14, 165, 233, 0.3), inset 0 0 20px rgba(240, 249, 255, 0.8);
+            position: relative;
+        }
+        
+        .clothing-section::after {
+            content: '🧺✨';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            opacity: 0.6;
+        }
+        
+        .clothing-button {
+            background: linear-gradient(135deg, #ffffff, #f0f9ff, #e0f2fe);
+            border: 1px solid #0ea5e9;
+            color: #0c4a6e;
+            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .clothing-button:hover {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe, #bae6fd);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen text-white">
+    <div class="container mx-auto px-4 py-6">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-2">
+                Ultimate AI Prompt Glossary
+            </h1>
+            <p class="text-gray-300">Character Customization Pipeline</p>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="bg-black/30 backdrop-blur-sm rounded-xl p-6 mb-6 border border-white/10">
+            <h2 class="text-xl font-semibold mb-4 text-purple-300">Prompt Generation & Control</h2>
+            
+            <!-- Prompt Output -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-2">Generated Prompt:</label>
+                <textarea id="prompt-output" class="w-full h-32 bg-gray-800 border border-gray-600 rounded-lg p-3 text-green-400 font-mono text-sm resize-none" readonly placeholder="Your generated prompt will appear here..."></textarea>
+                <div class="flex justify-between items-center mt-2">
+                    <span id="character-counter" class="text-sm text-gray-400">Characters: 0</span>
+                    <div class="flex gap-2">
+                        <button id="copy-prompt" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-sm font-medium transition-colors">
+                            Copy Prompt
+                        </button>
+                        <button id="clear-selection" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors">
+                            Clear All
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toggle and Randomize -->
+            <div class="flex gap-4 mb-4">
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" id="ratio-toggle" class="rounded">
+                    <span class="text-sm">Ratio Syntax ((keyword:1.5))</span>
+                </label>
+                <button id="randomize-button" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-sm font-medium transition-colors">
+                    🎲 Randomize Selection
+                </button>
+            </div>
+        </div>
+
+        <!-- Enhanced Search -->
+        <div class="bg-black/30 backdrop-blur-sm rounded-xl p-6 mb-6 border border-white/10">
+            <h3 class="text-lg font-semibold mb-4 text-cyan-300">Enhanced Smart Search</h3>
+            <input type="text" id="keyword-search" placeholder="Search keywords, explicit terms, or safe alternatives..." class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400">
+            <div id="search-results" class="mt-3 hidden bg-gray-800 rounded-lg p-3 max-h-40 overflow-y-auto">
+                <div id="search-suggestions"></div>
+            </div>
+        </div>
+
+        <!-- Smart Surgical Procedures (Minimal & Sophisticated) -->
+        <div class="bg-gradient-to-br from-purple-900/40 via-pink-900/30 to-indigo-900/40 backdrop-blur-sm rounded-xl p-6 mb-6 border border-purple-400/30 shadow-2xl">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-purple-400 bg-clip-text text-transparent">
+                    ✨ Smart Surgical Procedures
+                </h3>
+                <div class="text-xs text-purple-300/70 font-mono">AI-Enhanced Selection</div>
+            </div>
+            <div id="surgical-procedures-container" class="space-y-4">
+                <!-- Surgical procedures will be populated here -->
+            </div>
+        </div>
+
+        <!-- Body Type & Ratio Controls -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <!-- Body Type Selector -->
+            <div class="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <h3 class="text-lg font-semibold mb-4 text-blue-300">Body Type Selector</h3>
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="text-center">
+                        <button class="somatotype-btn w-full px-3 py-3 bg-gray-700 hover:bg-blue-600 rounded-lg text-sm font-medium transition-colors mb-2" data-type="ectomorph">
+                            Ectomorph
+                        </button>
+                        <p class="text-xs text-gray-400">Lean, slender build</p>
+                    </div>
+                    <div class="text-center">
+                        <button class="somatotype-btn w-full px-3 py-3 bg-gray-700 hover:bg-blue-600 rounded-lg text-sm font-medium transition-colors mb-2" data-type="mesomorph">
+                            Mesomorph
+                        </button>
+                        <p class="text-xs text-gray-400">Athletic, balanced build</p>
+                    </div>
+                    <div class="text-center">
+                        <button class="somatotype-btn w-full px-3 py-3 bg-gray-700 hover:bg-blue-600 rounded-lg text-sm font-medium transition-colors mb-2" data-type="endomorph">
+                            Endomorph
+                        </button>
+                        <p class="text-xs text-gray-400">Fuller, curvier build</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Ratio Selector -->
+            <div class="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <h3 class="text-lg font-semibold mb-4 text-green-300">Global Ratio Selector</h3>
+                <div class="grid grid-cols-5 gap-2">
+                    <button class="ratio-btn px-3 py-2 bg-gray-700 hover:bg-green-600 rounded text-sm font-medium transition-colors" data-ratio="0.5">0.5x</button>
+                    <button class="ratio-btn px-3 py-2 bg-gray-700 hover:bg-green-600 rounded text-sm font-medium transition-colors" data-ratio="0.8">0.8x</button>
+                    <button class="ratio-btn px-3 py-2 bg-green-600 rounded text-sm font-medium" data-ratio="1.0">1.0x</button>
+                    <button class="ratio-btn px-3 py-2 bg-gray-700 hover:bg-green-600 rounded text-sm font-medium transition-colors" data-ratio="1.5">1.5x</button>
+                    <button class="ratio-btn px-3 py-2 bg-gray-700 hover:bg-green-600 rounded text-sm font-medium transition-colors" data-ratio="2.0">2.0x</button>
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="text-sm text-gray-400">Current Ratio: </span>
+                    <span id="current-ratio-display" class="ratio-display text-green-400">1.0x</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Glossary Display -->
+        <div class="bg-black/30 backdrop-blur-sm rounded-xl border border-white/10">
+            <div class="p-6 border-b border-white/10">
+                <h3 class="text-lg font-semibold text-orange-300">Comprehensive Character Glossary</h3>
+                <p class="text-xs text-gray-400 mt-1">📜 Scroll within sections to see complete data</p>
+            </div>
+            <div id="glossary-container" class="p-6 space-y-4">
+                <!-- Glossary content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Data Structure with Explicit-to-Safe Mapping
+        const EXPLICIT_TO_SAFE_MAPPING = {
+            'breast': ['bust', 'chest', 'torso curves', 'upper body curves'],
+            'boobs': ['bust', 'chest', 'torso curves', 'upper body curves'],
+            'tits': ['bust', 'chest', 'torso curves', 'upper body curves'],
+            'ass': ['glutes', 'posterior', 'rear curves', 'lower curves'],
+            'butt': ['glutes', 'posterior', 'rear curves', 'lower curves'],
+            'booty': ['glutes', 'posterior', 'rear curves', 'lower curves'],
+            'pussy': ['intimate area', 'lower region', 'pelvic area'],
+            'dick': ['masculine anatomy', 'male form', 'masculine silhouette'],
+            'cock': ['masculine anatomy', 'male form', 'masculine silhouette'],
+            'penis': ['masculine anatomy', 'male form', 'masculine silhouette'],
+            'vagina': ['feminine anatomy', 'female form', 'feminine silhouette'],
+            'nipples': ['chest details', 'torso features', 'upper body details'],
+            'crotch': ['pelvic region', 'lower torso', 'hip area'],
+            'groin': ['pelvic region', 'lower torso', 'hip area']
+        };
+
+        const COMPREHENSIVE_GLOSSARY_DATA = [
+            {
+                id: 'surgical-procedures',
+                name: 'Smart Surgical Procedures',
+                order: 50,
+                alwaysOpen: true,
+                subcategories: [
+                    {
+                        id: 'breast-procedures',
+                        name: 'Breast Enhancement Procedures',
+                        procedures: {
+                            'Breast Augmentation': {
+                                safeTerms: ['enhanced bust', 'augmented silhouette', 'fuller chest', 'surgical enhancement', 'implant appearance', 'enhanced curves'],
+                                descriptors: ['round shape', 'teardrop contour', 'natural drape', 'perky positioning', 'symmetrical enhancement', 'proportional sizing', 'smooth texture', 'defined cleavage', 'lifted appearance', 'youthful projection']
+                            },
+                            'Breast Lift': {
+                                safeTerms: ['lifted bust', 'repositioned chest', 'elevated contour', 'youthful positioning', 'perky silhouette', 'restored shape'],
+                                descriptors: ['upward projection', 'centered positioning', 'reduced sagging', 'tightened skin', 'improved symmetry', 'natural slope', 'defined underline', 'youthful contour', 'enhanced profile', 'restored volume']
+                            },
+                            'Brazilian Butt Lift (BBL)': {
+                                safeTerms: ['enhanced curves', 'sculpted silhouette', 'hourglass figure', 'contoured hips', 'lifted glutes', 'curved profile'],
+                                descriptors: ['dramatic curves', 'rounded contour', 'lifted appearance', 'enhanced projection', 'smooth transition', 'athletic build', 'defined waist', 'fuller hips', 'balanced proportions', 'sculpted silhouette']
+                            },
+                            'Rhinoplasty': {
+                                safeTerms: ['refined nose', 'sculpted profile', 'balanced features', 'harmonious proportions', 'elegant nose', 'defined bridge'],
+                                descriptors: ['straight bridge', 'refined tip', 'balanced proportions', 'elegant profile', 'harmonious features', 'defined nostrils', 'smooth contour', 'proportional sizing', 'natural appearance', 'refined shape']
+                            },
+                            'Lip Fillers': {
+                                safeTerms: ['enhanced lips', 'fuller mouth', 'defined cupids bow', 'plump lips', 'balanced proportions', 'natural fullness'],
+                                descriptors: ['full appearance', 'defined shape', 'smooth texture', 'balanced proportions', 'natural fullness', 'enhanced volume', 'soft curves', 'youthful plumpness', 'defined borders', 'symmetrical shape']
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'base-anatomy-female',
+                name: 'Female Base Anatomy',
+                order: 100,
+                subcategories: [
+                    {
+                        id: 'female-facial-features',
+                        name: 'Female Facial Features',
+                        groups: [
+                            {
+                                group: 'Eyes',
+                                sizes: {
+                                    petite: ['narrow eyes', 'petite eyes', 'subtle eyes', 'delicate eyes'],
+                                    balanced: ['proportional eyes', 'balanced eyes', 'standard eyes', 'natural eyes'],
+                                    prominent: ['wide eyes', 'prominent eyes', 'expressive eyes', 'dramatic eyes']
+                                }
+                            },
+                            {
+                                group: 'Nose',
+                                sizes: {
+                                    petite: ['button nose', 'petite nose', 'delicate nose', 'refined nose'],
+                                    balanced: ['proportional nose', 'balanced nose', 'classic nose', 'natural nose'],
+                                    prominent: ['prominent nose', 'strong nose', 'defined nose', 'bold nose']
+                                }
+                            },
+                            {
+                                group: 'Lips',
+                                sizes: {
+                                    petite: ['thin lips', 'subtle lips', 'delicate lips', 'refined lips'],
+                                    balanced: ['balanced lips', 'natural lips', 'proportional lips', 'classic lips'],
+                                    prominent: ['full lips', 'plump lips', 'voluptuous lips', 'dramatic lips']
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        id: 'female-torso-anatomy',
+                        name: 'Female Torso Anatomy',
+                        groups: [
+                            {
+                                group: 'Bust',
+                                sizes: {
+                                    petite: ['petite bust', 'small chest', 'delicate curves', 'subtle bust', 'athletic chest'],
+                                    balanced: ['proportional bust', 'balanced chest', 'natural curves', 'classic bust', 'moderate chest'],
+                                    prominent: ['full bust', 'voluptuous chest', 'dramatic curves', 'prominent bust', 'generous chest']
+                                }
+                            },
+                            {
+                                group: 'Waist',
+                                sizes: {
+                                    petite: ['tiny waist', 'cinched waist', 'narrow waist', 'delicate waist', 'petite midsection'],
+                                    balanced: ['proportional waist', 'balanced waist', 'natural waist', 'classic waist', 'moderate midsection'],
+                                    prominent: ['thick waist', 'wide waist', 'full waist', 'broad midsection', 'substantial waist']
+                                }
+                            },
+                            {
+                                group: 'Hips',
+                                sizes: {
+                                    petite: ['narrow hips', 'slim hips', 'petite hips', 'delicate hips', 'subtle curves'],
+                                    balanced: ['proportional hips', 'balanced hips', 'natural hips', 'classic curves', 'moderate hips'],
+                                    prominent: ['wide hips', 'full hips', 'dramatic hips', 'prominent curves', 'generous hips']
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        id: 'female-lower-anatomy',
+                        name: 'Female Lower Body',
+                        groups: [
+                            {
+                                group: 'Glutes',
+                                sizes: {
+                                    petite: ['flat glutes', 'subtle curves', 'petite glutes', 'athletic glutes', 'toned glutes'],
+                                    balanced: ['proportional glutes', 'balanced curves', 'natural glutes', 'classic shape', 'moderate curves'],
+                                    prominent: ['full glutes', 'prominent curves', 'dramatic glutes', 'voluptuous curves', 'enhanced glutes']
+                                }
+                            },
+                            {
+                                group: 'Thighs',
+                                sizes: {
+                                    petite: ['slim thighs', 'lean thighs', 'petite thighs', 'delicate thighs', 'narrow thighs'],
+                                    balanced: ['proportional thighs', 'balanced thighs', 'natural thighs', 'classic thighs', 'moderate thighs'],
+                                    prominent: ['thick thighs', 'full thighs', 'muscular thighs', 'substantial thighs', 'powerful thighs']
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'base-anatomy-male',
+                name: 'Male Base Anatomy',
+                order: 200,
+                subcategories: [
+                    {
+                        id: 'male-facial-features',
+                        name: 'Male Facial Features',
+                        groups: [
+                            {
+                                group: 'Eyes',
+                                sizes: {
+                                    petite: ['narrow eyes', 'focused eyes', 'intense eyes', 'sharp eyes'],
+                                    balanced: ['balanced eyes', 'proportional eyes', 'natural eyes', 'classic eyes'],
+                                    prominent: ['wide eyes', 'expressive eyes', 'prominent eyes', 'bold eyes']
+                                }
+                            },
+                            {
+                                group: 'Jaw',
+                                sizes: {
+                                    petite: ['refined jawline', 'subtle chin', 'gentle jaw', 'soft contour'],
+                                    balanced: ['balanced jawline', 'proportional chin', 'natural jaw', 'classic contour'],
+                                    prominent: ['strong jawline', 'chiseled chin', 'powerful jaw', 'masculine contour']
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        id: 'male-torso-anatomy',
+                        name: 'Male Torso Anatomy',
+                        groups: [
+                            {
+                                group: 'Chest',
+                                sizes: {
+                                    petite: ['narrow chest', 'flat chest', 'lean pectorals', 'subtle chest'],
+                                    balanced: ['proportional chest', 'balanced pectorals', 'natural chest', 'classic chest'],
+                                    prominent: ['broad chest', 'muscular pectorals', 'defined chest', 'barrel chest']
+                                }
+                            },
+                            {
+                                group: 'Arms',
+                                sizes: {
+                                    petite: ['lean arms', 'slim biceps', 'delicate arms', 'narrow arms'],
+                                    balanced: ['proportional arms', 'balanced biceps', 'natural arms', 'classic arms'],
+                                    prominent: ['muscular arms', 'thick biceps', 'powerful arms', 'massive arms']
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'body-types-comprehensive',
+                name: 'Comprehensive Body Types',
+                order: 250,
+                subcategories: [
+                    {
+                        id: 'female-body-shapes',
+                        name: 'Female Body Shapes',
+                        keywords: ['hourglass figure', 'pear shape', 'apple shape', 'rectangle shape', 'inverted triangle', 'athletic build', 'curvy figure', 'petite frame', 'plus size', 'voluptuous', 'slender build', 'muscular physique', 'lean physique', 'soft curves', 'dramatic curves', 'subtle curves', 'balanced proportions', 'elongated silhouette', 'compact frame', 'statuesque figure']
+                    },
+                    {
+                        id: 'male-body-types',
+                        name: 'Male Body Types',
+                        keywords: ['athletic build', 'muscular physique', 'lean build', 'stocky build', 'tall frame', 'broad shoulders', 'narrow waist', 'barrel chest', 'v-shaped torso', 'rectangular build', 'slim build', 'bulky frame', 'toned physique', 'defined muscles', 'compact build', 'lanky frame', 'powerful build', 'swimmer build', 'runner build', 'bodybuilder physique']
+                    },
+                    {
+                        id: 'height-descriptors',
+                        name: 'Height Descriptors',
+                        keywords: ['petite stature', 'short height', 'average height', 'tall stature', 'very tall', 'towering height', 'compact size', 'statuesque', 'diminutive', 'imposing height', 'willowy height', 'commanding presence', 'delicate stature', 'robust frame', 'elongated figure']
+                    },
+                    {
+                        id: 'weight-descriptors',
+                        name: 'Weight Descriptors',
+                        keywords: ['slender', 'thin', 'lean', 'athletic', 'toned', 'fit', 'average weight', 'curvy', 'full figured', 'voluptuous', 'plus size', 'heavy set', 'stocky', 'robust', 'solid build', 'willowy', 'petite', 'substantial', 'muscular', 'defined']
+                    }
+                ]
+            },
+            {
+                id: 'skin-features',
+                name: 'Skin Features',
+                order: 300,
+                subcategories: [
+                    {
+                        id: 'skin-tone',
+                        name: 'Skin Tone',
+                        keywords: ['porcelain skin', 'ivory skin', 'fair skin', 'light skin', 'medium skin', 'olive skin', 'tan skin', 'bronze skin', 'dark skin', 'ebony skin', 'golden skin', 'peachy skin', 'rosy skin']
+                    },
+                    {
+                        id: 'complexion',
+                        name: 'Complexion',
+                        keywords: ['clear complexion', 'glowing complexion', 'matte complexion', 'dewy complexion', 'luminous skin', 'radiant skin', 'dull skin', 'ashen skin', 'pale complexion', 'sallow complexion', 'ruddy complexion']
+                    },
+                    {
+                        id: 'skin-texture',
+                        name: 'Skin Texture',
+                        keywords: ['smooth skin', 'rough skin', 'textured skin', 'bumpy skin', 'soft skin', 'firm skin', 'tight skin', 'loose skin', 'elastic skin', 'weathered skin']
+                    },
+                    {
+                        id: 'skin-condition',
+                        name: 'Skin Condition',
+                        keywords: ['youthful skin', 'aged skin', 'wrinkled skin', 'lined skin', 'creased skin', 'stretched skin', 'scarred skin', 'blemished skin', 'acne-prone skin', 'clear skin', 'freckled skin', 'mottled skin']
+                    }
+                ]
+            },
+            {
+                id: 'hair-features',
+                name: 'Hair Features',
+                order: 400,
+                subcategories: [
+                    {
+                        id: 'hair-length',
+                        name: 'Hair Length',
+                        keywords: ['buzz cut', 'crew cut', 'pixie cut', 'bob cut', 'lob cut', 'shoulder length', 'medium length', 'long hair', 'very long hair', 'mermaid length', 'waist length', 'hip length', 'floor length']
+                    },
+                    {
+                        id: 'mens-hairstyles',
+                        name: "Men's Hairstyles",
+                        keywords: ['buzz cut', 'crew cut', 'fade cut', 'undercut', 'pompadour', 'quiff', 'slicked back', 'mohawk', 'man bun', 'top knot', 'side part', 'comb over', 'caesar cut', 'military cut', 'textured crop']
+                    },
+                    {
+                        id: 'womens-hairstyles',
+                        name: "Women's Hairstyles",
+                        keywords: ['pixie cut', 'bob cut', 'lob cut', 'layered hair', 'blunt cut', 'asymmetrical cut', 'beach waves', 'loose curls', 'tight curls', 'straight hair', 'updo', 'ponytail', 'braid', 'french braid', 'fishtail braid', 'bun', 'chignon', 'half up half down']
+                    },
+                    {
+                        id: 'hair-texture',
+                        name: 'Hair Texture',
+                        keywords: ['straight hair', 'wavy hair', 'curly hair', 'kinky hair', 'coily hair', 'fine hair', 'thick hair', 'coarse hair', 'silky hair', 'frizzy hair', 'smooth hair', 'damaged hair', 'healthy hair', 'shiny hair', 'dull hair']
+                    },
+                    {
+                        id: 'hair-color',
+                        name: 'Hair Color',
+                        keywords: ['blonde hair', 'brunette hair', 'black hair', 'red hair', 'auburn hair', 'gray hair', 'white hair', 'silver hair', 'platinum blonde', 'dirty blonde', 'strawberry blonde', 'ash blonde', 'honey blonde', 'caramel hair', 'chocolate hair', 'jet black', 'blue-black', 'highlighted hair', 'ombre hair', 'balayage hair', 'rainbow hair', 'pastel hair', 'neon hair'],
+                        colorMapping: {
+                            'blonde hair': 'from-yellow-200 via-yellow-300 to-yellow-400',
+                            'platinum blonde': 'from-gray-100 via-yellow-100 to-gray-200',
+                            'dirty blonde': 'from-yellow-600 via-yellow-500 to-yellow-600',
+                            'strawberry blonde': 'from-pink-300 via-yellow-300 to-pink-400',
+                            'ash blonde': 'from-gray-300 via-yellow-200 to-gray-400',
+                            'honey blonde': 'from-amber-300 via-yellow-400 to-amber-400',
+                            'brunette hair': 'from-amber-800 via-amber-700 to-amber-800',
+                            'caramel hair': 'from-amber-600 via-amber-500 to-amber-600',
+                            'chocolate hair': 'from-amber-900 via-amber-800 to-amber-900',
+                            'black hair': 'from-gray-900 via-black to-gray-900',
+                            'jet black': 'from-black via-gray-900 to-black',
+                            'blue-black': 'from-blue-900 via-black to-blue-900',
+                            'red hair': 'from-red-600 via-red-500 to-red-600',
+                            'auburn hair': 'from-red-800 via-red-700 to-red-800',
+                            'gray hair': 'from-gray-400 via-gray-300 to-gray-400',
+                            'white hair': 'from-gray-100 via-white to-gray-100',
+                            'silver hair': 'from-gray-300 via-gray-200 to-gray-300'
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'hands-feet',
+                name: 'Hands & Feet Details',
+                order: 500,
+                subcategories: [
+                    {
+                        id: 'hand-sizes',
+                        name: 'Hand Sizes',
+                        groups: [
+                            {
+                                group: 'Hand Size Categories',
+                                sizes: {
+                                    petite: ['petite hands', 'delicate hands', 'small hands', 'dainty hands'],
+                                    balanced: ['medium hands', 'proportional hands', 'average hands', 'balanced hands'],
+                                    prominent: ['large hands', 'substantial hands', 'prominent hands', 'powerful hands']
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        id: 'hand-descriptors',
+                        name: 'Hand Descriptors',
+                        keywords: ['veiny hands', 'smooth hands', 'calloused hands', 'soft hands', 'rough hands', 'muscular hands', 'bony hands', 'fleshy hands', 'elegant hands', 'strong hands', 'graceful hands', 'weathered hands']
+                    },
+                    {
+                        id: 'palm-sizes',
+                        name: 'Palm Features by Size',
+                        groups: [
+                            {
+                                group: 'Palm Sizes',
+                                sizes: {
+                                    petite: ['narrow palm', 'small palm', 'delicate palm', 'compact palm'],
+                                    balanced: ['medium palm', 'proportional palm', 'standard palm', 'balanced palm'],
+                                    prominent: ['wide palm', 'large palm', 'broad palm', 'expansive palm']
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        id: 'palm-descriptors',
+                        name: 'Palm Descriptors',
+                        keywords: ['lined palm', 'creased palm', 'smooth palm', 'rough palm', 'soft palm', 'thick palm', 'thin palm', 'calloused palm', 'weathered palm', 'youthful palm']
+                    },
+                    {
+                        id: 'finger-features',
+                        name: 'Finger Features',
+                        keywords: ['long fingers', 'short fingers', 'thick fingers', 'thin fingers', 'tapered fingers', 'stubby fingers', 'elegant fingers', 'strong fingers', 'delicate fingers', 'bony fingers', 'fleshy fingers', 'slender fingers']
+                    },
+                    {
+                        id: 'knuckle-features',
+                        name: 'Knuckle Features',
+                        keywords: ['prominent knuckles', 'subtle knuckles', 'large knuckles', 'small knuckles', 'bony knuckles', 'smooth knuckles', 'defined knuckles', 'soft knuckles']
+                    },
+                    {
+                        id: 'manicured-nails',
+                        name: 'Manicured Nails',
+                        subcategories: [
+                            {
+                                id: 'manicure-styles',
+                                name: 'Manicure Styles',
+                                keywords: ['french manicure', 'reverse french', 'ombre nails', 'gradient nails', 'marble nails', 'chrome nails', 'holographic nails', 'matte nails', 'glossy nails', 'nude manicure', 'classic red', 'dark gothic']
+                            },
+                            {
+                                id: 'french-tip-colors',
+                                name: 'French Tip Colors',
+                                keywords: ['white tips', 'black tips', 'gold tips', 'silver tips', 'colored tips', 'glitter tips', 'rainbow tips', 'metallic tips', 'neon tips', 'pastel tips']
+                            },
+                            {
+                                id: 'nail-art-styles',
+                                name: 'Nail Art Styles',
+                                keywords: ['rhinestone nails', 'crystal nails', 'gem nails', 'stud nails', 'chain nails', 'charm nails', 'bandana print', 'animal print', 'floral nails', 'geometric nails', 'abstract art', 'tribal patterns']
+                            },
+                            {
+                                id: 'nail-finishes',
+                                name: 'Nail Finishes',
+                                keywords: ['gel finish', 'acrylic finish', 'shellac finish', 'dip powder', 'regular polish', 'matte topcoat', 'glossy topcoat', 'textured finish', 'velvet finish', 'magnetic finish']
+                            },
+                            {
+                                id: 'nail-shapes',
+                                name: 'Nail Shapes',
+                                keywords: ['stiletto nails', 'coffin nails', 'ballerina nails', 'square nails', 'round nails', 'oval nails', 'almond nails', 'squoval nails', 'edge nails', 'lipstick nails', 'mountain peak', 'arrowhead nails']
+                            }
+                        ]
+                    },
+                    {
+                        id: 'natural-nails',
+                        name: 'Natural Nails',
+                        subcategories: [
+                            {
+                                id: 'natural-nail-conditions',
+                                name: 'Natural Nail Conditions',
+                                keywords: ['healthy nails', 'strong nails', 'brittle nails', 'weak nails', 'ridged nails', 'smooth nails', 'yellowed nails', 'clear nails', 'stained nails', 'bitten nails']
+                            },
+                            {
+                                id: 'natural-nail-lengths',
+                                name: 'Natural Nail Lengths',
+                                keywords: ['very short nails', 'short nails', 'medium nails', 'long nails', 'extra long nails', 'trimmed nails', 'grown out nails', 'filed nails', 'buffed nails']
+                            }
+                        ]
+                    },
+                    {
+                        id: 'feet-sizes',
+                        name: 'Feet Sizes',
+                        groups: [
+                            {
+                                group: 'Feet Size Categories',
+                                sizes: {
+                                    petite: ['petite feet', 'small feet', 'delicate feet', 'dainty feet'],
+                                    balanced: ['medium feet', 'proportional feet', 'average feet', 'standard feet'],
+                                    prominent: ['large feet', 'substantial feet', 'prominent feet', 'wide feet']
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        id: 'ankle-features',
+                        name: 'Ankle Features',
+                        keywords: ['delicate ankles', 'prominent ankles', 'thick ankles', 'thin ankles', 'bony ankles', 'soft ankles', 'defined ankles', 'subtle ankles']
+                    },
+                    {
+                        id: 'toe-features',
+                        name: 'Toe Features',
+                        keywords: ['long toes', 'short toes', 'straight toes', 'curved toes', 'thick toes', 'thin toes', 'delicate toes', 'strong toes']
+                    },
+                    {
+                        id: 'toe-conditions',
+                        name: 'Toe Conditions & Shapes',
+                        keywords: ['morton toe', 'greek toe', 'egyptian toe', 'square toe', 'roman toe', 'overlapping toes', 'hammer toes', 'claw toes', 'straight toes', 'curved toes', 'bunions', 'calluses']
+                    }
+                ]
+            },
+            {
+                id: 'makeup-comprehensive',
+                name: 'Comprehensive Makeup',
+                order: 600,
+                subcategories: [
+                    {
+                        id: 'foundation-base',
+                        name: 'Foundation & Base',
+                        keywords: ['flawless foundation', 'natural finish', 'matte finish', 'dewy finish', 'satin finish', 'full coverage', 'medium coverage', 'light coverage', 'sheer coverage', 'airbrushed look', 'perfect match', 'glowing base', 'powdered finish']
+                    },
+                    {
+                        id: 'concealer',
+                        name: 'Concealer',
+                        keywords: ['under eye concealer', 'spot concealer', 'color corrector', 'brightening concealer', 'full coverage concealer', 'natural concealer', 'creamy concealer', 'liquid concealer', 'stick concealer']
+                    },
+                    {
+                        id: 'bronzer-contouring',
+                        name: 'Bronzer & Contouring',
+                        keywords: ['bronzed skin', 'sun-kissed glow', 'contoured face', 'sculpted cheekbones', 'defined jawline', 'nose contouring', 'forehead contouring', 'subtle bronzing', 'dramatic contouring', 'natural bronzing']
+                    },
+                    {
+                        id: 'highlighter',
+                        name: 'Highlighter',
+                        keywords: ['glowing highlight', 'subtle glow', 'dramatic highlight', 'inner corner highlight', 'cheekbone highlight', 'nose bridge highlight', 'cupids bow highlight', 'dewy highlight', 'metallic highlight', 'pearl highlight']
+                    },
+                    {
+                        id: 'blush',
+                        name: 'Blush',
+                        keywords: ['rosy cheeks', 'natural flush', 'dramatic blush', 'cream blush', 'powder blush', 'liquid blush', 'coral blush', 'pink blush', 'peach blush', 'berry blush']
+                    },
+                    {
+                        id: 'eyeshadow',
+                        name: 'Eyeshadow',
+                        keywords: ['smoky eyes', 'natural eyeshadow', 'dramatic eyes', 'cut crease', 'halo eye', 'gradient eyeshadow', 'monochromatic eyes', 'colorful eyeshadow', 'neutral eyeshadow', 'glittery eyeshadow', 'matte eyeshadow', 'shimmer eyeshadow', 'metallic eyeshadow']
+                    },
+                    {
+                        id: 'eyeliner',
+                        name: 'Eyeliner',
+                        keywords: ['winged eyeliner', 'tight-lined eyes', 'graphic eyeliner', 'smudged eyeliner', 'thick eyeliner', 'thin eyeliner', 'colored eyeliner', 'cat eye', 'double winged liner', 'lower lash line']
+                    },
+                    {
+                        id: 'mascara-lashes',
+                        name: 'Mascara & Lashes',
+                        keywords: ['mega volume lashes', 'natural lashes', 'false eyelashes', 'individual lashes', 'bottom lashes', 'separated lashes', 'curled lashes', 'straight lashes', 'dramatic lashes', 'wispy lashes', 'thick lashes', 'long lashes']
+                    },
+                    {
+                        id: 'eyebrows',
+                        name: 'Eyebrow Finishes',
+                        keywords: ['natural brows', 'defined brows', 'bold brows', 'feathered brows', 'laminated brows', 'microbladed brows', 'powder brows', 'gel brows', 'pencil brows', 'pomade brows', 'tinted brows', 'bleached brows', 'ombre brows']
+                    },
+                    {
+                        id: 'lips',
+                        name: 'Lip Makeup',
+                        keywords: ['red lips', 'pink lips', 'nude lips', 'berry lips', 'coral lips', 'orange lips', 'purple lips', 'glossy lips', 'matte lips', 'satin lips', 'metallic lips', 'ombre lips', 'lined lips', 'overlined lips', 'natural lips', 'bold lips']
+                    }
+                ]
+            },
+            {
+                id: 'jewelry-comprehensive',
+                name: 'Comprehensive Jewelry',
+                order: 700,
+                subcategories: [
+                    {
+                        id: 'necklaces',
+                        name: 'Necklaces',
+                        keywords: ['statement necklace', 'delicate necklace', 'choker', 'pendant necklace', 'chain necklace', 'pearl necklace', 'diamond necklace', 'layered necklaces', 'collar necklace', 'bib necklace', 'lariat necklace', 'tennis necklace']
+                    },
+                    {
+                        id: 'earrings',
+                        name: 'Earrings',
+                        keywords: ['statement earrings', 'stud earrings', 'hoop earrings', 'drop earrings', 'chandelier earrings', 'dangle earrings', 'huggie earrings', 'ear cuffs', 'climber earrings', 'threader earrings', 'tassel earrings']
+                    },
+                    {
+                        id: 'bracelets',
+                        name: 'Bracelets',
+                        keywords: ['tennis bracelet', 'charm bracelet', 'bangle bracelet', 'cuff bracelet', 'chain bracelet', 'beaded bracelet', 'leather bracelet', 'watch bracelet', 'stacked bracelets', 'friendship bracelet']
+                    },
+                    {
+                        id: 'rings',
+                        name: 'Rings',
+                        keywords: ['statement ring', 'cocktail ring', 'band ring', 'stacked rings', 'midi rings', 'knuckle rings', 'signet ring', 'class ring', 'promise ring', 'engagement ring', 'wedding ring', 'eternity ring']
+                    },
+                    {
+                        id: 'body-jewelry',
+                        name: 'Body Jewelry',
+                        keywords: ['belly ring', 'nose ring', 'septum ring', 'lip ring', 'eyebrow ring', 'tongue ring', 'nipple ring', 'dermal anchor', 'surface piercing', 'industrial piercing']
+                    },
+                    {
+                        id: 'hair-jewelry',
+                        name: 'Hair Jewelry',
+                        keywords: ['hair clips', 'hair pins', 'hair bands', 'hair chains', 'hair combs', 'hair flowers', 'hair ribbons', 'hair scarves', 'headbands', 'tiaras', 'hair crowns']
+                    },
+                    {
+                        id: 'ankle-jewelry',
+                        name: 'Ankle Jewelry',
+                        keywords: ['ankle bracelet', 'anklet', 'chain anklet', 'beaded anklet', 'charm anklet', 'toe ring', 'foot chain', 'barefoot sandals']
+                    }
+                ]
+            },
+            {
+                id: 'accessories-items',
+                name: 'Accessories & Items',
+                order: 800,
+                subcategories: [
+                    {
+                        id: 'handheld-tech',
+                        name: 'Handheld Technology',
+                        keywords: ['smartphone', 'tablet', 'laptop', 'smartwatch', 'fitness tracker', 'wireless earbuds', 'headphones', 'gaming device', 'e-reader', 'portable charger', 'power bank', 'charging cable']
+                    },
+                    {
+                        id: 'bags-purses',
+                        name: 'Bags & Purses',
+                        keywords: ['handbag', 'purse', 'clutch', 'tote bag', 'crossbody bag', 'shoulder bag', 'backpack', 'messenger bag', 'fanny pack', 'belt bag', 'evening bag', 'travel bag', 'gym bag', 'laptop bag']
+                    },
+                    {
+                        id: 'eyewear',
+                        name: 'Eyewear',
+                        keywords: ['sunglasses', 'prescription glasses', 'reading glasses', 'safety glasses', 'blue light glasses', 'aviator sunglasses', 'cat eye glasses', 'round glasses', 'square glasses', 'oversized glasses']
+                    },
+                    {
+                        id: 'personal-items',
+                        name: 'Personal Items',
+                        keywords: ['wallet', 'keys', 'keychain', 'pen', 'notebook', 'book', 'magazine', 'water bottle', 'coffee cup', 'umbrella', 'scarf', 'hat', 'cap', 'gloves', 'belt']
+                    },
+                    {
+                        id: 'beauty-tools',
+                        name: 'Beauty Tools',
+                        keywords: ['makeup brush', 'compact mirror', 'lipstick', 'lip gloss', 'perfume bottle', 'hair brush', 'hair tie', 'bobby pins', 'nail file', 'tweezers', 'eyelash curler']
+                    }
+                ]
+            },
+            {
+                id: 'clothing-womens',
+                name: "Women's Clothing",
+                order: 900,
+                subcategories: [
+                    {
+                        id: 'womens-tops',
+                        name: "Women's Tops",
+                        keywords: ['blouse', 'shirt', 't-shirt', 'tank top', 'camisole', 'crop top', 'tube top', 'halter top', 'off-shoulder top', 'cold shoulder top', 'wrap top', 'peplum top', 'bodysuit', 'corset', 'bustier', 'bralette', 'sports bra', 'sweater', 'cardigan', 'hoodie', 'sweatshirt', 'blazer', 'jacket', 'vest', 'kimono', 'poncho']
+                    },
+                    {
+                        id: 'womens-bottoms',
+                        name: "Women's Bottoms",
+                        keywords: ['jeans', 'skinny jeans', 'straight jeans', 'bootcut jeans', 'flare jeans', 'wide leg jeans', 'high waisted jeans', 'low rise jeans', 'mom jeans', 'boyfriend jeans', 'distressed jeans', 'leggings', 'yoga pants', 'joggers', 'sweatpants', 'trousers', 'dress pants', 'palazzo pants', 'wide leg pants', 'cropped pants', 'capri pants', 'shorts', 'denim shorts', 'high waisted shorts', 'bermuda shorts', 'hot pants', 'skirt', 'mini skirt', 'midi skirt', 'maxi skirt', 'pencil skirt', 'a-line skirt', 'pleated skirt', 'wrap skirt', 'denim skirt']
+                    },
+                    {
+                        id: 'womens-dresses',
+                        name: "Women's Dresses",
+                        keywords: ['little black dress', 'cocktail dress', 'evening gown', 'ball gown', 'maxi dress', 'midi dress', 'mini dress', 'shift dress', 'sheath dress', 'wrap dress', 'fit and flare dress', 'a-line dress', 'bodycon dress', 'slip dress', 'shirt dress', 'sweater dress', 'sundress', 'casual dress', 'formal dress', 'party dress', 'wedding dress', 'bridesmaid dress', 'prom dress', 'graduation dress']
+                    },
+                    {
+                        id: 'womens-outerwear',
+                        name: "Women's Outerwear",
+                        keywords: ['coat', 'trench coat', 'wool coat', 'pea coat', 'duster coat', 'blazer', 'suit jacket', 'leather jacket', 'denim jacket', 'bomber jacket', 'varsity jacket', 'windbreaker', 'raincoat', 'parka', 'puffer jacket', 'down jacket', 'fur coat', 'faux fur coat', 'cape', 'cloak', 'shawl', 'wrap', 'cardigan', 'kimono jacket']
+                    },
+                    {
+                        id: 'womens-shoes',
+                        name: "Women's Shoes",
+                        keywords: ['high heels', 'stilettos', 'pumps', 'wedges', 'platform shoes', 'block heels', 'kitten heels', 'flats', 'ballet flats', 'loafers', 'oxfords', 'brogues', 'sneakers', 'athletic shoes', 'running shoes', 'tennis shoes', 'canvas shoes', 'slip-on shoes', 'boots', 'ankle boots', 'knee high boots', 'thigh high boots', 'combat boots', 'cowboy boots', 'rain boots', 'snow boots', 'sandals', 'flip flops', 'slides', 'mules', 'clogs', 'espadrilles']
+                    }
+                ]
+            },
+            {
+                id: 'clothing-mens',
+                name: "Men's Clothing",
+                order: 1000,
+                subcategories: [
+                    {
+                        id: 'mens-tops',
+                        name: "Men's Tops",
+                        keywords: ['dress shirt', 'button down shirt', 'polo shirt', 't-shirt', 'henley shirt', 'tank top', 'muscle shirt', 'long sleeve shirt', 'flannel shirt', 'denim shirt', 'sweater', 'pullover', 'cardigan', 'hoodie', 'sweatshirt', 'blazer', 'sport coat', 'suit jacket', 'vest', 'waistcoat', 'turtleneck', 'crew neck', 'v-neck']
+                    },
+                    {
+                        id: 'mens-bottoms',
+                        name: "Men's Bottoms",
+                        keywords: ['jeans', 'skinny jeans', 'straight jeans', 'bootcut jeans', 'relaxed fit jeans', 'slim fit jeans', 'raw denim', 'distressed jeans', 'dress pants', 'chinos', 'khakis', 'trousers', 'slacks', 'cargo pants', 'joggers', 'sweatpants', 'track pants', 'shorts', 'chino shorts', 'cargo shorts', 'denim shorts', 'athletic shorts', 'swim shorts', 'board shorts']
+                    },
+                    {
+                        id: 'mens-suits',
+                        name: "Men's Suits & Formal",
+                        keywords: ['business suit', 'formal suit', 'tuxedo', 'dinner jacket', 'morning coat', 'tailcoat', 'three piece suit', 'two piece suit', 'slim fit suit', 'regular fit suit', 'classic fit suit', 'pinstripe suit', 'solid suit', 'patterned suit', 'wedding suit', 'black tie', 'white tie']
+                    },
+                    {
+                        id: 'mens-outerwear',
+                        name: "Men's Outerwear",
+                        keywords: ['overcoat', 'trench coat', 'wool coat', 'pea coat', 'duster coat', 'blazer', 'sport coat', 'leather jacket', 'bomber jacket', 'varsity jacket', 'denim jacket', 'windbreaker', 'raincoat', 'parka', 'puffer jacket', 'down jacket', 'fleece jacket', 'softshell jacket', 'hardshell jacket']
+                    },
+                    {
+                        id: 'mens-shoes',
+                        name: "Men's Shoes",
+                        keywords: ['dress shoes', 'oxfords', 'brogues', 'loafers', 'monk strap shoes', 'derby shoes', 'boat shoes', 'driving shoes', 'sneakers', 'athletic shoes', 'running shoes', 'basketball shoes', 'tennis shoes', 'casual shoes', 'canvas shoes', 'slip-on shoes', 'boots', 'dress boots', 'chelsea boots', 'chukka boots', 'work boots', 'hiking boots', 'combat boots', 'cowboy boots', 'rain boots', 'snow boots', 'sandals', 'flip flops', 'slides']
+                    }
+                ]
+            }
+        ];
+
+        // Application State
+        let selectedKeywords = new Set();
+        let selectedSomatotype = null;
+        let currentRatio = 1.0;
+        let ratioSyntaxEnabled = false;
+
+        // Initialize Application
+        function initializeApp() {
+            renderSurgicalProcedures();
+            renderGlossary();
+            setupEventListeners();
+            updatePromptOutput();
+        }
+
+        // Enhanced Search Function
+        function findExplicitToSafeMapping(searchTerm) {
+            const results = [];
+            const lowerTerm = searchTerm.toLowerCase();
+            
+            // Check explicit mapping
+            for (const [explicit, safeTerms] of Object.entries(EXPLICIT_TO_SAFE_MAPPING)) {
+                if (explicit.includes(lowerTerm) || lowerTerm.includes(explicit)) {
+                    results.push({
+                        type: 'explicit-mapping',
+                        explicit: explicit,
+                        safeTerms: safeTerms,
+                        relevance: 100
+                    });
+                }
+            }
+            
+            // Check surgical procedures
+            COMPREHENSIVE_GLOSSARY_DATA.forEach(category => {
+                if (category.id === 'surgical-procedures') {
+                    category.subcategories.forEach(subcategory => {
+                        Object.entries(subcategory.procedures).forEach(([procName, procData]) => {
+                            const allTerms = [...procData.safeTerms, ...procData.descriptors];
+                            allTerms.forEach(term => {
+                                if (term.toLowerCase().includes(lowerTerm)) {
+                                    results.push({
+                                        type: 'surgical-safe',
+                                        procedure: procName,
+                                        term: term,
+                                        category: 'safeTerms',
+                                        relevance: 90
+                                    });
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+            
+            return results;
+        }
+
+        // Render Surgical Procedures (Minimal & Sophisticated)
+        function renderSurgicalProcedures() {
+            const container = document.getElementById('surgical-procedures-container');
+            const surgicalCategory = COMPREHENSIVE_GLOSSARY_DATA.find(cat => cat.id === 'surgical-procedures');
+            
+            // Create main procedures list
+            const proceduresListDiv = document.createElement('div');
+            proceduresListDiv.className = 'mb-6';
+            
+            const allProcedures = [];
+            surgicalCategory.subcategories.forEach(subcategory => {
+                Object.entries(subcategory.procedures).forEach(([procedureName, procedureData]) => {
+                    allProcedures.push({ name: procedureName, data: procedureData });
+                });
+            });
+            
+            proceduresListDiv.innerHTML = `
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 mb-6">
+                    ${allProcedures.map(proc => `
+                        <button class="procedure-btn px-3 py-2 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 hover:from-purple-500 hover:via-pink-500 hover:to-purple-600 rounded-lg text-xs font-medium transition-all transform hover:scale-105 shadow-lg border border-purple-400/30" 
+                                data-procedure="${proc.name}">
+                            ✨ ${proc.name}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Create descriptors display area
+            const descriptorsDiv = document.createElement('div');
+            descriptorsDiv.id = 'procedure-descriptors';
+            descriptorsDiv.className = 'hidden bg-gradient-to-br from-purple-900/20 via-pink-900/20 to-indigo-900/20 rounded-lg p-4 border border-purple-400/20';
+            
+            container.appendChild(proceduresListDiv);
+            container.appendChild(descriptorsDiv);
+            
+            // Add procedure selection listeners
+            container.querySelectorAll('.procedure-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const procedureName = btn.dataset.procedure;
+                    const procedureData = allProcedures.find(p => p.name === procedureName).data;
+                    
+                    // Remove active state from all buttons
+                    container.querySelectorAll('.procedure-btn').forEach(b => {
+                        b.classList.remove('ring-2', 'ring-pink-400');
+                    });
+                    
+                    // Add active state to clicked button
+                    btn.classList.add('ring-2', 'ring-pink-400');
+                    
+                    // Show descriptors
+                    showProcedureDescriptors(procedureName, procedureData);
+                });
+            });
+        }
+        
+        function showProcedureDescriptors(procedureName, procedureData) {
+            const descriptorsContainer = document.getElementById('procedure-descriptors');
+            
+            descriptorsContainer.innerHTML = `
+                <h5 class="text-lg font-semibold bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent mb-4">
+                    ${procedureName} - AI-Safe Terms & Descriptors
+                </h5>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h6 class="text-green-300 font-medium mb-2 text-xs flex items-center">
+                            🛡️ Safe Terms
+                        </h6>
+                        <div class="flex flex-wrap gap-1">
+                            ${procedureData.safeTerms.map(term => `
+                                <button class="keyword-item px-1.5 py-0.5 bg-green-700 hover:bg-green-600 rounded text-xs transition-all ${selectedKeywords.has(term) ? 'selected ring-1 ring-green-400' : ''}" 
+                                        data-keyword="${term}">
+                                    ${term}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div>
+                        <h6 class="text-blue-300 font-medium mb-2 text-xs flex items-center">
+                            🎨 Descriptors
+                        </h6>
+                        <div class="flex flex-wrap gap-1">
+                            ${procedureData.descriptors.map(desc => `
+                                <button class="keyword-item px-1.5 py-0.5 bg-blue-700 hover:bg-blue-600 rounded text-xs transition-all ${selectedKeywords.has(desc) ? 'selected ring-1 ring-blue-400' : ''}" 
+                                        data-keyword="${desc}">
+                                    ${desc}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            descriptorsContainer.classList.remove('hidden');
+            
+            // Add keyword click listeners
+            descriptorsContainer.querySelectorAll('.keyword-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const keyword = btn.dataset.keyword;
+                    toggleKeyword(keyword, btn);
+                });
+            });
+        }
+
+        // Render Main Glossary
+        function renderGlossary(searchTerm = '', mappedResults = []) {
+            const container = document.getElementById('glossary-container');
+            container.innerHTML = '';
+
+            // Show search results if available
+            if (mappedResults.length > 0) {
+                const searchResultsDiv = document.createElement('div');
+                searchResultsDiv.className = 'mb-6 p-4 bg-yellow-900/30 rounded-lg border border-yellow-500/30';
+                searchResultsDiv.innerHTML = `
+                    <h4 class="text-yellow-300 font-semibold mb-3">Search Results for "${searchTerm}"</h4>
+                    <div class="space-y-2">
+                        ${mappedResults.map(result => {
+                            if (result.type === 'explicit-mapping') {
+                                return `
+                                    <div class="bg-black/20 p-3 rounded">
+                                        <p class="text-red-300 text-sm">Instead of "${result.explicit}", try these safe terms:</p>
+                                        <div class="flex flex-wrap gap-1 mt-2">
+                                            ${result.safeTerms.map(term => `
+                                                <button class="keyword-item px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs transition-all ${selectedKeywords.has(term) ? 'selected' : ''}" 
+                                                        data-keyword="${term}">
+                                                    ${term}
+                                                </button>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                            return '';
+                        }).join('')}
+                    </div>
+                `;
+                container.appendChild(searchResultsDiv);
+            }
+
+            COMPREHENSIVE_GLOSSARY_DATA.filter(cat => cat.id !== 'surgical-procedures').forEach(category => {
+                const categoryDiv = document.createElement('div');
+                
+                // Apply special styling based on category
+                let categoryClass = 'border border-white/20 rounded-lg overflow-hidden mb-4';
+                if (category.id === 'body-types-comprehensive') {
+                    categoryClass = 'body-types-section rounded-lg overflow-hidden mb-4';
+                } else if (category.id === 'hands-feet') {
+                    categoryClass = 'hands-section rounded-lg overflow-hidden mb-4';
+                } else if (category.id === 'makeup-comprehensive') {
+                    categoryClass = 'makeup-section rounded-lg overflow-hidden mb-4';
+                } else if (category.id === 'jewelry-comprehensive') {
+                    categoryClass = 'jewelry-section rounded-lg overflow-hidden mb-4';
+                } else if (category.id === 'clothing-womens' || category.id === 'clothing-mens') {
+                    categoryClass = 'clothing-section rounded-lg overflow-hidden mb-4';
+                }
+                
+                categoryDiv.className = categoryClass;
+                
+                const categoryHeader = document.createElement('div');
+                categoryHeader.className = 'bg-white/10 p-4 cursor-pointer hover:bg-white/20 transition-colors';
+                categoryHeader.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-semibold text-lg">${category.name}</h4>
+                        <div class="text-right">
+                            <span class="text-sm text-gray-400 block">Click to expand</span>
+                            <span class="text-xs text-yellow-400 scroll-indicator">📜 Scroll within to see all data</span>
+                        </div>
+                    </div>
+                `;
+                
+                const categoryContent = document.createElement('div');
+                categoryContent.className = 'collapsible-content p-4 space-y-4';
+                
+                category.subcategories.forEach(subcategory => {
+                    const subcategoryDiv = document.createElement('div');
+                    subcategoryDiv.className = 'mb-6';
+                    
+                    if (subcategory.groups) {
+                        // Anatomy structure with size-friendly colors
+                        subcategoryDiv.innerHTML = `
+                            <h5 class="font-medium text-purple-300 mb-3 text-lg">${subcategory.name}</h5>
+                        `;
+                        
+                        subcategory.groups.forEach(group => {
+                            const groupDiv = document.createElement('div');
+                            
+                            // Special styling for hands section groups
+                            if (category.id === 'hands-feet') {
+                                groupDiv.className = 'mb-4 hands-subsection rounded-lg p-3';
+                            } else {
+                                groupDiv.className = 'mb-4 bg-black/20 rounded-lg p-3 border border-purple-500/20';
+                            }
+                            
+                            groupDiv.innerHTML = `
+                                <h6 class="font-medium text-cyan-300 mb-2">${group.group}</h6>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                    <div>
+                                        <h7 class="text-blue-300 text-sm font-medium mb-1 block">Petite</h7>
+                                        <div class="flex flex-wrap gap-1">
+                                            ${group.sizes.petite.map(keyword => `
+                                                <button class="keyword-item px-1.5 py-0.5 bg-blue-700 hover:bg-blue-600 rounded text-xs transition-all ${selectedKeywords.has(keyword) ? 'selected ring-1 ring-blue-400' : ''}" 
+                                                        data-keyword="${keyword}">
+                                                    ${keyword}
+                                                </button>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h7 class="text-green-300 text-sm font-medium mb-1 block">Balanced</h7>
+                                        <div class="flex flex-wrap gap-1">
+                                            ${group.sizes.balanced.map(keyword => `
+                                                <button class="keyword-item px-1.5 py-0.5 bg-green-700 hover:bg-green-600 rounded text-xs transition-all ${selectedKeywords.has(keyword) ? 'selected ring-1 ring-green-400' : ''}" 
+                                                        data-keyword="${keyword}">
+                                                    ${keyword}
+                                                </button>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h7 class="text-purple-300 text-sm font-medium mb-1 block">Prominent</h7>
+                                        <div class="flex flex-wrap gap-1">
+                                            ${group.sizes.prominent.map(keyword => `
+                                                <button class="keyword-item px-1.5 py-0.5 bg-purple-700 hover:bg-purple-600 rounded text-xs transition-all ${selectedKeywords.has(keyword) ? 'selected ring-1 ring-purple-400' : ''}" 
+                                                        data-keyword="${keyword}">
+                                                    ${keyword}
+                                                </button>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            subcategoryDiv.appendChild(groupDiv);
+                        });
+                    } else if (subcategory.subcategories) {
+                        // Nested subcategories (like manicured nails)
+                        if (subcategory.id === 'manicured-nails') {
+                            subcategoryDiv.className = 'mb-6 manicured-nails-section rounded-lg p-4';
+                            subcategoryDiv.innerHTML = `
+                                <h5 class="font-bold text-yellow-200 mb-4 text-xl text-center relative z-10">💅 ${subcategory.name} - The Ultimate Glamour Experience ✨</h5>
+                            `;
+                        } else if (subcategory.id === 'natural-nails') {
+                            subcategoryDiv.className = 'mb-6 feet-section rounded-lg p-4';
+                            subcategoryDiv.innerHTML = `
+                                <h5 class="font-medium text-cyan-200 mb-3 text-lg">${subcategory.name}</h5>
+                            `;
+                        } else {
+                            subcategoryDiv.innerHTML = `
+                                <h5 class="font-medium text-purple-300 mb-3 text-lg">${subcategory.name}</h5>
+                            `;
+                        }
+                        
+                        subcategory.subcategories.forEach(nestedSub => {
+                            const nestedDiv = document.createElement('div');
+                            
+                            // Special styling for manicured nails
+                            if (subcategory.id === 'manicured-nails') {
+                                nestedDiv.className = 'mb-4 bg-black/30 rounded-lg p-4 border border-yellow-400/40 relative z-10';
+                            } else if (category.id === 'hands-feet') {
+                                nestedDiv.className = 'mb-4 feet-subsection rounded-lg p-3';
+                            } else {
+                                nestedDiv.className = 'mb-4 bg-black/10 rounded-lg p-3 border border-pink-500/20';
+                            }
+                            
+                            const filteredKeywords = nestedSub.keywords.filter(keyword => 
+                                !searchTerm || keyword.toLowerCase().includes(searchTerm.toLowerCase())
+                            );
+                            
+                            if (filteredKeywords.length > 0) {
+                                let buttonClass = 'keyword-item px-1.5 py-0.5 bg-gradient-to-r from-rose-300 via-pink-200 to-rose-200 hover:from-rose-400 hover:via-pink-300 hover:to-rose-300 text-gray-800 hover:text-gray-900 rounded text-xs transition-all';
+                                let titleColor = 'text-pink-300';
+                                
+                                // Special styling for manicured nails
+                                if (subcategory.id === 'manicured-nails') {
+                                    buttonClass = 'keyword-item nail-art-button px-2 py-1 rounded text-xs font-bold transition-all relative z-10';
+                                    titleColor = 'text-yellow-200 font-bold';
+                                } else if (category.id === 'hands-feet') {
+                                    titleColor = 'text-cyan-300';
+                                }
+                                
+                                nestedDiv.innerHTML = `
+                                    <h6 class="font-medium ${titleColor} mb-2 text-sm">${nestedSub.name}</h6>
+                                    <div class="flex flex-wrap gap-1">
+                                        ${filteredKeywords.map(keyword => `
+                                            <button class="${buttonClass} ${selectedKeywords.has(keyword) ? 'selected ring-1 ring-rose-400' : ''}" 
+                                                    data-keyword="${keyword}">
+                                                ${searchTerm ? keyword.replace(new RegExp(searchTerm, 'gi'), `<span class="search-highlight">$&</span>`) : keyword}
+                                            </button>
+                                        `).join('')}
+                                    </div>
+                                `;
+                                subcategoryDiv.appendChild(nestedDiv);
+                            }
+                        });
+                    } else {
+                        // Regular keyword structure
+                        const filteredKeywords = subcategory.keywords.filter(keyword => 
+                            !searchTerm || keyword.toLowerCase().includes(searchTerm.toLowerCase())
+                        );
+                        
+                        if (filteredKeywords.length > 0) {
+                            let buttonClass = 'keyword-item px-1.5 py-0.5 bg-gradient-to-r from-gray-600 via-gray-500 to-gray-600 hover:from-blue-600 hover:via-blue-500 hover:to-blue-600 rounded text-xs transition-all';
+                            let titleColor = 'text-purple-300';
+                            let containerClass = '';
+                            
+                            // Special styling based on category and subcategory
+                            if (category.id === 'jewelry-comprehensive') {
+                                buttonClass = 'keyword-item jewelry-button px-2 py-1 rounded text-xs transition-all';
+                                titleColor = 'text-yellow-200 font-bold';
+                            } else if (category.id === 'clothing-womens' || category.id === 'clothing-mens') {
+                                buttonClass = 'keyword-item clothing-button px-1.5 py-0.5 rounded text-xs transition-all';
+                                titleColor = 'text-sky-700 font-semibold';
+                            } else if (category.id === 'hands-feet') {
+                                titleColor = 'text-cyan-300';
+                                containerClass = 'hands-subsection rounded-lg p-3 mb-3';
+                            }
+                            
+                            // Special styling for hair color
+                            if (subcategory.id === 'hair-color') {
+                                subcategoryDiv.innerHTML = `
+                                    <div class="${containerClass}">
+                                        <h5 class="font-medium ${titleColor} mb-2">${subcategory.name}</h5>
+                                        <div class="flex flex-wrap gap-1">
+                                            ${filteredKeywords.map(keyword => {
+                                                const colorClass = subcategory.colorMapping[keyword] || 'from-gray-600 via-gray-500 to-gray-600';
+                                                return `
+                                                    <button class="keyword-item px-1.5 py-0.5 bg-gradient-to-r ${colorClass} rounded text-xs font-medium transition-all ${selectedKeywords.has(keyword) ? 'selected ring-2 ring-white' : ''}" 
+                                                            data-keyword="${keyword}" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">
+                                                        ${searchTerm ? keyword.replace(new RegExp(searchTerm, 'gi'), `<span class="search-highlight">$&</span>`) : keyword}
+                                                    </button>
+                                                `;
+                                            }).join('')}
+                                        </div>
+                                    </div>
+                                `;
+                            } else {
+                                subcategoryDiv.innerHTML = `
+                                    <div class="${containerClass}">
+                                        <h5 class="font-medium ${titleColor} mb-2">${subcategory.name}</h5>
+                                        <div class="flex flex-wrap gap-1">
+                                            ${filteredKeywords.map(keyword => `
+                                                <button class="${buttonClass} ${selectedKeywords.has(keyword) ? 'selected ring-1 ring-blue-300' : ''}" 
+                                                        data-keyword="${keyword}">
+                                                    ${searchTerm ? keyword.replace(new RegExp(searchTerm, 'gi'), `<span class="search-highlight">$&</span>`) : keyword}
+                                                </button>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                        }
+                    }
+                    
+                    if (subcategoryDiv.children.length > 0) {
+                        categoryContent.appendChild(subcategoryDiv);
+                    }
+                });
+                
+                // Start with categories expanded
+                categoryContent.classList.add('open');
+                
+                categoryHeader.addEventListener('click', () => {
+                    categoryContent.classList.toggle('open');
+                });
+                
+                categoryDiv.appendChild(categoryHeader);
+                categoryDiv.appendChild(categoryContent);
+                container.appendChild(categoryDiv);
+            });
+
+            // Add keyword click listeners
+            document.querySelectorAll('.keyword-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const keyword = btn.dataset.keyword;
+                    toggleKeyword(keyword, btn);
+                });
+            });
+        }
+
+        // Toggle Keyword Selection
+        function toggleKeyword(keyword, buttonElement) {
+            if (selectedKeywords.has(keyword)) {
+                selectedKeywords.delete(keyword);
+                buttonElement.classList.remove('selected');
+            } else {
+                selectedKeywords.add(keyword);
+                buttonElement.classList.add('selected');
+            }
+            updatePromptOutput();
+        }
+
+        // Update Prompt Output
+        function updatePromptOutput() {
+            const output = document.getElementById('prompt-output');
+            const counter = document.getElementById('character-counter');
+            
+            let prompt = '';
+            
+            // Add somatotype
+            if (selectedSomatotype) {
+                prompt += selectedSomatotype;
+            }
+            
+            // Add keywords with ratios
+            const keywordArray = Array.from(selectedKeywords);
+            keywordArray.forEach(keyword => {
+                if (prompt) prompt += ', ';
+                
+                if (ratioSyntaxEnabled && currentRatio !== 1.0) {
+                    prompt += `(${keyword}:${currentRatio})`;
+                } else {
+                    prompt += keyword;
+                }
+            });
+            
+            output.value = prompt;
+            counter.textContent = `Characters: ${prompt.length}`;
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Enhanced Search
+            document.getElementById('keyword-search').addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const mappedResults = findExplicitToSafeMapping(searchTerm);
+                renderGlossary(searchTerm, mappedResults);
+                
+                const searchResults = document.getElementById('search-results');
+                if (searchTerm.length > 0 && mappedResults.length > 0) {
+                    searchResults.classList.remove('hidden');
+                } else {
+                    searchResults.classList.add('hidden');
+                }
+            });
+
+            // Copy Prompt
+            document.getElementById('copy-prompt').addEventListener('click', () => {
+                const output = document.getElementById('prompt-output');
+                output.select();
+                navigator.clipboard.writeText(output.value).then(() => {
+                    const btn = document.getElementById('copy-prompt');
+                    const originalText = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    btn.classList.add('bg-green-800');
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.classList.remove('bg-green-800');
+                    }, 1000);
+                });
+            });
+
+            // Clear Selection
+            document.getElementById('clear-selection').addEventListener('click', () => {
+                selectedKeywords.clear();
+                selectedSomatotype = null;
+                currentRatio = 1.0;
+                
+                document.querySelectorAll('.keyword-item').forEach(btn => {
+                    btn.classList.remove('selected', 'ring-2', 'ring-green-400', 'ring-blue-400', 'ring-pink-400');
+                });
+                document.querySelectorAll('.somatotype-btn').forEach(btn => {
+                    btn.classList.remove('bg-blue-600');
+                    btn.classList.add('bg-gray-700');
+                });
+                document.querySelectorAll('.ratio-btn').forEach(btn => {
+                    btn.classList.remove('bg-green-600');
+                    btn.classList.add('bg-gray-700');
+                });
+                document.querySelector('[data-ratio="1.0"]').classList.add('bg-green-600');
+                document.querySelector('[data-ratio="1.0"]').classList.remove('bg-gray-700');
+                document.getElementById('current-ratio-display').textContent = '1.0x';
+                
+                // Clear surgical procedure selection
+                document.querySelectorAll('.procedure-btn').forEach(btn => {
+                    btn.classList.remove('ring-2', 'ring-pink-400');
+                });
+                document.getElementById('procedure-descriptors').classList.add('hidden');
+                
+                updatePromptOutput();
+            });
+
+            // Ratio Toggle
+            document.getElementById('ratio-toggle').addEventListener('change', (e) => {
+                ratioSyntaxEnabled = e.target.checked;
+                updatePromptOutput();
+            });
+
+            // Ratio buttons
+            document.querySelectorAll('.ratio-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const ratio = parseFloat(btn.dataset.ratio);
+                    currentRatio = ratio;
+                    
+                    document.querySelectorAll('.ratio-btn').forEach(b => {
+                        b.classList.remove('bg-green-600');
+                        b.classList.add('bg-gray-700');
+                    });
+                    
+                    btn.classList.add('bg-green-600');
+                    btn.classList.remove('bg-gray-700');
+                    
+                    document.getElementById('current-ratio-display').textContent = `${ratio}x`;
+                    updatePromptOutput();
+                });
+            });
+
+            // Somatotype buttons
+            document.querySelectorAll('.somatotype-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const type = btn.dataset.type;
+                    selectedSomatotype = type;
+                    
+                    document.querySelectorAll('.somatotype-btn').forEach(b => {
+                        b.classList.remove('bg-blue-600');
+                        b.classList.add('bg-gray-700');
+                    });
+                    
+                    btn.classList.add('bg-blue-600');
+                    btn.classList.remove('bg-gray-700');
+                    
+                    updatePromptOutput();
+                });
+            });
+
+            // Randomize
+            document.getElementById('randomize-button').addEventListener('click', () => {
+                selectedKeywords.clear();
+                
+                // Random somatotype
+                const somatotypes = ['ectomorph', 'mesomorph', 'endomorph'];
+                const randomSomatotype = somatotypes[Math.floor(Math.random() * somatotypes.length)];
+                selectedSomatotype = randomSomatotype;
+                
+                // Random keywords from different categories
+                COMPREHENSIVE_GLOSSARY_DATA.forEach(category => {
+                    if (category.id !== 'surgical-procedures') {
+                        category.subcategories.forEach(subcategory => {
+                            if (subcategory.keywords && Math.random() > 0.7) {
+                                const randomKeyword = subcategory.keywords[Math.floor(Math.random() * subcategory.keywords.length)];
+                                selectedKeywords.add(randomKeyword);
+                            }
+                        });
+                    }
+                });
+                
+                renderGlossary();
+                updatePromptOutput();
+                
+                // Update UI to reflect randomized selections
+                document.querySelectorAll('.somatotype-btn').forEach(btn => {
+                    if (btn.dataset.type === selectedSomatotype) {
+                        btn.classList.add('bg-blue-600');
+                        btn.classList.remove('bg-gray-700');
+                    } else {
+                        btn.classList.remove('bg-blue-600');
+                        btn.classList.add('bg-gray-700');
+                    }
+                });
+            });
+        }
+
+        // Initialize the application
+        initializeApp();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ad122c602646d7',t:'MTc1OTgzNjY3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
