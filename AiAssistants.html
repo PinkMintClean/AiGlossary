@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Human Micro Features Master Glossary</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2d1b69 0%, #11998e 25%, #38ef7d 50%, #ee0979 75%, #ff6a00 100%);
+            background-attachment: fixed;
+            min-height: 100%;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        /* Cosmic Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            z-index: -1;
+            animation: cosmicFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes cosmicFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-right: 350px;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 30px rgba(0, 245, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+            animation: neonPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* How to Use Section */
+        .how-to-use {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .how-to-use h2 {
+            color: #00f5ff;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+
+        .how-to-use ol {
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+
+        .how-to-use li {
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            color: #fff;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 8px 25px rgba(0, 245, 255, 0.4);
+            border-color: #00f5ff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00f5ff;
+            font-size: 18px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            box-shadow: 
+                0 5px 15px rgba(0, 245, 255, 0.3),
+                0 0 20px rgba(0, 245, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 25px rgba(0, 245, 255, 0.4),
+                0 0 30px rgba(0, 245, 255, 0.3);
+        }
+
+        /* Random Prompt Box */
+        .random-prompt-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .random-prompt-box.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .prompt-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border-left: 4px solid #ff00ff;
+        }
+
+        /* Floating Sidebar */
+        .floating-sidebar {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            width: 320px;
+            height: calc(100vh - 40px);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 30px rgba(0, 245, 255, 0.1);
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(255, 0, 255, 0.2));
+            border-bottom: 1px solid rgba(0, 245, 255, 0.3);
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #00f5ff;
+            margin: 0;
+            text-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+        }
+
+        .sidebar-content {
+            height: calc(100% - 80px);
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .sidebar-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            border-radius: 3px;
+        }
+
+        /* Index Categories */
+        .index-category {
+            margin-bottom: 5px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .category-header:hover {
+            background: rgba(0, 245, 255, 0.1);
+            border-left-color: #00f5ff;
+        }
+
+        .category-icon {
+            font-size: 1.2rem;
+            margin-right: 10px;
+            filter: drop-shadow(0 0 5px rgba(0, 245, 255, 0.5));
+        }
+
+        .category-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            flex: 1;
+        }
+
+        .expand-icon {
+            font-size: 0.8rem;
+            color: #00f5ff;
+            transition: transform 0.3s ease;
+        }
+
+        .index-category.expanded .expand-icon {
+            transform: rotate(90deg);
+        }
+
+        .subcategory-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .index-category.expanded .subcategory-list {
+            max-height: 500px;
+        }
+
+        .subcategory-item {
+            padding: 8px 20px 8px 50px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+        }
+
+        .subcategory-item:hover {
+            background: rgba(255, 0, 255, 0.1);
+            color: #ff00ff;
+            border-left-color: #ff00ff;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00f5ff, #ff00ff, #00ff88);
+            animation: neonFlow 3s linear infinite;
+        }
+
+        @keyframes neonFlow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+        }
+
+        .subcategory {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border-left: 4px solid #00f5ff;
+            position: relative;
+        }
+
+        .subcategory-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #00f5ff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+        }
+
+        .subcategory-icon {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .feature-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+        }
+
+        .feature-name {
+            font-weight: 700;
+            color: #ff00ff;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+        }
+
+        .size-options {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .size-tag {
+            background: linear-gradient(135deg, #00f5ff, #00ff88);
+            color: #000;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 3px 10px rgba(0, 245, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .size-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 245, 255, 0.4);
+        }
+
+        .adjectives {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .adjective-tag {
+            background: rgba(255, 0, 255, 0.2);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .adjective-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.3s;
+        }
+
+        .adjective-tag:hover::before {
+            left: 100%;
+        }
+
+        .adjective-tag:hover {
+            background: rgba(255, 0, 255, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        .adjective-tag.copied {
+            background: rgba(0, 255, 136, 0.4);
+            border-color: #00ff88;
+            animation: copyPulse 0.6s ease;
+        }
+
+        @keyframes copyPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Ratio Sliders */
+        .ratio-slider {
+            background: rgba(0, 245, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 12px 0;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+        }
+
+        .ratio-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #00f5ff;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+        }
+
+        .ratio-options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .ratio-tag {
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 245, 255, 0.3);
+        }
+
+        .ratio-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 245, 255, 0.4);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 245, 255, 0.3);
+            z-index: 1001;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 245, 255, 0.4);
+        }
+
+        /* Foundation Badge */
+        .foundation-badge {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 10px;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+            animation: foundationPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes foundationPulse {
+            0%, 100% { box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3); }
+            50% { box-shadow: 0 4px 15px rgba(255, 107, 107, 0.5); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .floating-sidebar {
+                width: 280px;
+            }
+            .main-content {
+                margin-right: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .floating-sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-right: 0;
+                padding: 15px;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .controls {
+                flex-direction: column;
+            }
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none;
+        }
+
+        /* Highlight for search */
+        .highlight {
+            background: rgba(255, 255, 0, 0.3);
+            color: #fff;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Sidebar -->
+    <div class="floating-sidebar">
+        <div class="sidebar-header">
+            <h3 class="sidebar-title">🎭 Master Index</h3>
+        </div>
+        <div class="sidebar-content">
+            <div class="index-category">
+                <div class="category-header" onclick="toggleIndexCategory(this)">
+                    <span class="category-icon">🧍</span>
+                    <span class="category-title">Male Anatomy Base</span>
+                    <span class="foundation-badge">FOUNDATION</span>
+                    <span class="expand-icon">▶</span>
+                </div>
+                <div class="subcategory-list">
+                    <div class="subcategory-item" onclick="scrollToSection('male-facial')">👤 Facial Anatomy</div>
+                    <div class="subcategory-item" onclick="scrollToSection('male-upper')">💪 Upper Body</div>
+                    <div class="subcategory-item" onclick="scrollToSection('male-lower')">🦵 Lower Body</div>
+                    <div class="subcategory-item" onclick="scrollToSection('male-skin')">🎨 Skin Features</div>
+                    <div class="subcategory-item" onclick="scrollToSection('male-ratios')">📏 Body Ratios</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="category-header" onclick="toggleIndexCategory(this)">
+                    <span class="category-icon">👩</span>
+                    <span class="category-title">Female Anatomy Base</span>
+                    <span class="foundation-badge">FOUNDATION</span>
+                    <span class="expand-icon">▶</span>
+                </div>
+                <div class="subcategory-list">
+                    <div class="subcategory-item" onclick="scrollToSection('female-facial')">👤 Facial Anatomy</div>
+                    <div class="subcategory-item" onclick="scrollToSection('female-upper')">👗 Upper Body</div>
+                    <div class="subcategory-item" onclick="scrollToSection('female-lower')">👠 Lower Body</div>
+                    <div class="subcategory-item" onclick="scrollToSection('female-skin')">🎨 Skin Features</div>
+                    <div class="subcategory-item" onclick="scrollToSection('female-ratios')">📏 Body Ratios</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="category-header" onclick="toggleIndexCategory(this)">
+                    <span class="category-icon">💇</span>
+                    <span class="category-title">Hair Universe</span>
+                    <span class="expand-icon">▶</span>
+                </div>
+                <div class="subcategory-list">
+                    <div class="subcategory-item" onclick="scrollToSection('male-hair-classic')">✂️ Male Classic Cuts</div>
+                    <div class="subcategory-item" onclick="scrollToSection('male-hair-modern')">🎩 Male Modern Styles</div>
+                    <div class="subcategory-item" onclick="scrollToSection('male-hair-long')">🧔 Male Long Hair</div>
+                    <div class="subcategory-item" onclick="scrollToSection('female-hair-short')">✂️ Female Short Cuts</div>
+                    <div class="subcategory-item" onclick="scrollToSection('female-hair-long')">🌊 Female Long Hair</div>
+                    <div class="subcategory-item" onclick="scrollToSection('female-hair-protective')">👑 Protective Styles</div>
+                    <div class="subcategory-item" onclick="scrollToSection('female-hair-updo')">👸 Updo Styles</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="category-header" onclick="toggleIndexCategory(this)">
+                    <span class="category-icon">👁️</span>
+                    <span class="category-title">Eye Makeup Universe</span>
+                    <span class="expand-icon">▶</span>
+                </div>
+                <div class="subcategory-list">
+                    <div class="subcategory-item" onclick="scrollToSection('eyeshadow-artistry')">🎨 Eyeshadow Artistry</div>
+                    <div class="subcategory-item" onclick="scrollToSection('eyeliner-techniques')">✏️ Eyeliner Techniques</div>
+                    <div class="subcategory-item" onclick="scrollToSection('eyelash-extensions')">👁️‍🗨️ Eyelash Extensions</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="category-header" onclick="toggleIndexCategory(this)">
+                    <span class="category-icon">💄</span>
+                    <span class="category-title">Lip Makeup Universe</span>
+                    <span class="expand-icon">▶</span>
+                </div>
+                <div class="subcategory-list">
+                    <div class="subcategory-item" onclick="scrollToSection('lipstick-finishes')">💋 Lipstick Finishes</div>
+                    <div class="subcategory-item" onclick="scrollToSection('lip-liner-cultural')">✏️ Cultural Lip Techniques</div>
+                    <div class="subcategory-item" onclick="scrollToSection('lip-gloss-variations')">✨ Lip Gloss Variations</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="category-header" onclick="toggleIndexCategory(this)">
+                    <span class="category-icon">💅</span>
+                    <span class="category-title">Nail Universe</span>
+                    <span class="expand-icon">▶</span>
+                </div>
+                <div class="subcategory-list">
+                    <div class="subcategory-item" onclick="scrollToSection('nail-shapes')">💎 Nail Shapes</div>
+                    <div class="subcategory-item" onclick="scrollToSection('nail-art')">🎨 Nail Art Designs</div>
+                    <div class="subcategory-item" onclick="scrollToSection('nail-finishes')">✨ Nail Finishes</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="category-header" onclick="toggleIndexCategory(this)">
+                    <span class="category-icon">💍</span>
+                    <span class="category-title">Jewelry Universe</span>
+                    <span class="expand-icon">▶</span>
+                </div>
+                <div class="subcategory-list">
+                    <div class="subcategory-item" onclick="scrollToSection('earrings-collection')">👂 Earrings Collection</div>
+                    <div class="subcategory-item" onclick="scrollToSection('necklaces-collection')">📿 Necklaces Collection</div>
+                    <div class="subcategory-item" onclick="scrollToSection('rings-collection')">💎 Rings Collection</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="category-header" onclick="toggleIndexCategory(this)">
+                    <span class="category-icon">👜</span>
+                    <span class="category-title">Accessories Universe</span>
+                    <span class="expand-icon">▶</span>
+                </div>
+                <div class="subcategory-list">
+                    <div class="subcategory-item" onclick="scrollToSection('bags-collection')">👛 Bags Collection</div>
+                    <div class="subcategory-item" onclick="scrollToSection('eyewear-collection')">🕶️ Eyewear Collection</div>
+                    <div class="subcategory-item" onclick="scrollToSection('hair-accessories')">🎀 Hair Accessories</div>
+                    <div class="subcategory-item" onclick="scrollToSection('scarves-belts')">🧣 Scarves & Belts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h1>🎭 Complete Human Micro Features Master Glossary</h1>
+                <p>The Ultimate Character Generation System - From Anatomical Foundation to Complete Styling</p>
+            </div>
+
+            <!-- How to Use Section -->
+            <div class="how-to-use">
+                <h2>🔧 How to Use</h2>
+                <ol>
+                    <li><strong>Start with Complete Anatomy Base</strong> - Select foundational physical features, skin, proportions</li>
+                    <li><strong>Layer Styling Elements</strong> - Add aesthetic choices and cultural techniques</li>
+                    <li><strong>Build Complete Characters</strong> - Combine elements for detailed descriptions</li>
+                    <li><strong>Reference Specific Terms</strong> - Use precise vocabulary for professional applications</li>
+                </ol>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search features, styles, or techniques..." id="searchInput">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="action-btn" onclick="generateRandomPrompt()">🎲 Generate Random Prompt</button>
+                <button class="action-btn" onclick="toggleRatios()">📏 Include Ratios</button>
+                <button class="action-btn" onclick="copyAllVisible()">📋 Copy All Visible</button>
+                <button class="action-btn" onclick="resetFilters()">🔄 Reset Filters</button>
+            </div>
+
+            <!-- Random Prompt Box -->
+            <div class="random-prompt-box" id="randomPromptBox">
+                <div class="prompt-text" id="promptText"></div>
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="copyPrompt()">📋 Copy Prompt</button>
+                    <button class="action-btn" onclick="generateRandomPrompt()">🎲 Generate New</button>
+                </div>
+            </div>
+
+            <!-- MALE ANATOMY BASE FOUNDATION -->
+            <div class="content-section" id="male-anatomy">
+                <h2 class="section-title">🧍 Male Anatomy Base Foundation</h2>
+                
+                <div class="subcategory" id="male-facial">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">👤</span>
+                        Facial Anatomy (S/M/L + descriptors)
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Eyes</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">deep-set</span>
+                            <span class="adjective-tag">hooded</span>
+                            <span class="adjective-tag">almond</span>
+                            <span class="adjective-tag">round</span>
+                            <span class="adjective-tag">piercing</span>
+                            <span class="adjective-tag">intense</span>
+                            <span class="adjective-tag">gentle</span>
+                            <span class="adjective-tag">bright</span>
+                            <span class="adjective-tag">expressive</span>
+                            <span class="adjective-tag">mysterious</span>
+                            <span class="adjective-tag">steely</span>
+                            <span class="adjective-tag">warm</span>
+                            <span class="adjective-tag">calculating</span>
+                            <span class="adjective-tag">kind</span>
+                            <span class="adjective-tag">hawk-like</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Nose</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">straight</span>
+                            <span class="adjective-tag">aquiline</span>
+                            <span class="adjective-tag">button</span>
+                            <span class="adjective-tag">wide</span>
+                            <span class="adjective-tag">narrow</span>
+                            <span class="adjective-tag">roman</span>
+                            <span class="adjective-tag">upturned</span>
+                            <span class="adjective-tag">refined</span>
+                            <span class="adjective-tag">strong</span>
+                            <span class="adjective-tag">noble</span>
+                            <span class="adjective-tag">crooked</span>
+                            <span class="adjective-tag">prominent</span>
+                            <span class="adjective-tag">delicate</span>
+                            <span class="adjective-tag">masculine</span>
+                            <span class="adjective-tag">weathered</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Lips</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">thin</span>
+                            <span class="adjective-tag">full</span>
+                            <span class="adjective-tag">curved</span>
+                            <span class="adjective-tag">straight</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">natural</span>
+                            <span class="adjective-tag">expressive</span>
+                            <span class="adjective-tag">sensual</span>
+                            <span class="adjective-tag">firm</span>
+                            <span class="adjective-tag">soft</span>
+                            <span class="adjective-tag">stern</span>
+                            <span class="adjective-tag">smirking</span>
+                            <span class="adjective-tag">pursed</span>
+                            <span class="adjective-tag">generous</span>
+                            <span class="adjective-tag">tight</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Jaw</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">square</span>
+                            <span class="adjective-tag">angular</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">strong</span>
+                            <span class="adjective-tag">soft</span>
+                            <span class="adjective-tag">chiseled</span>
+                            <span class="adjective-tag">prominent</span>
+                            <span class="adjective-tag">masculine</span>
+                            <span class="adjective-tag">rugged</span>
+                            <span class="adjective-tag">sharp</span>
+                            <span class="adjective-tag">clenched</span>
+                            <span class="adjective-tag">relaxed</span>
+                            <span class="adjective-tag">stubbled</span>
+                            <span class="adjective-tag">clean-shaven</span>
+                            <span class="adjective-tag">weathered</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="male-upper">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">💪</span>
+                        Upper Body Parts (S/M/L + descriptors)
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Shoulders</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">broad</span>
+                            <span class="adjective-tag">muscular</span>
+                            <span class="adjective-tag">sloped</span>
+                            <span class="adjective-tag">square</span>
+                            <span class="adjective-tag">powerful</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">strong</span>
+                            <span class="adjective-tag">imposing</span>
+                            <span class="adjective-tag">commanding</span>
+                            <span class="adjective-tag">rounded</span>
+                            <span class="adjective-tag">narrow</span>
+                            <span class="adjective-tag">hunched</span>
+                            <span class="adjective-tag">straight</span>
+                            <span class="adjective-tag">massive</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Chest</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">muscular</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">broad</span>
+                            <span class="adjective-tag">barrel</span>
+                            <span class="adjective-tag">lean</span>
+                            <span class="adjective-tag">sculpted</span>
+                            <span class="adjective-tag">powerful</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">impressive</span>
+                            <span class="adjective-tag">solid</span>
+                            <span class="adjective-tag">hairy</span>
+                            <span class="adjective-tag">smooth</span>
+                            <span class="adjective-tag">scarred</span>
+                            <span class="adjective-tag">tattooed</span>
+                            <span class="adjective-tag">sunken</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Arms</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">muscular</span>
+                            <span class="adjective-tag">lean</span>
+                            <span class="adjective-tag">toned</span>
+                            <span class="adjective-tag">bulky</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">veiny</span>
+                            <span class="adjective-tag">strong</span>
+                            <span class="adjective-tag">wiry</span>
+                            <span class="adjective-tag">thick</span>
+                            <span class="adjective-tag">long</span>
+                            <span class="adjective-tag">short</span>
+                            <span class="adjective-tag">hairy</span>
+                            <span class="adjective-tag">smooth</span>
+                            <span class="adjective-tag">scarred</span>
+                            <span class="adjective-tag">tattooed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="male-lower">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🦵</span>
+                        Lower Body Parts (S/M/L + descriptors)
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Glutes</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">firm</span>
+                            <span class="adjective-tag">muscular</span>
+                            <span class="adjective-tag">round</span>
+                            <span class="adjective-tag">flat</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">powerful</span>
+                            <span class="adjective-tag">toned</span>
+                            <span class="adjective-tag">strong</span>
+                            <span class="adjective-tag">sculpted</span>
+                            <span class="adjective-tag">tight</span>
+                            <span class="adjective-tag">compact</span>
+                            <span class="adjective-tag">prominent</span>
+                            <span class="adjective-tag">well-developed</span>
+                            <span class="adjective-tag">proportioned</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Legs</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">muscular</span>
+                            <span class="adjective-tag">lean</span>
+                            <span class="adjective-tag">thick</span>
+                            <span class="adjective-tag">long</span>
+                            <span class="adjective-tag">short</span>
+                            <span class="adjective-tag">powerful</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">strong</span>
+                            <span class="adjective-tag">sturdy</span>
+                            <span class="adjective-tag">hairy</span>
+                            <span class="adjective-tag">smooth</span>
+                            <span class="adjective-tag">bowed</span>
+                            <span class="adjective-tag">straight</span>
+                            <span class="adjective-tag">tree-trunk</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="male-skin">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🎨</span>
+                        Skin Features & Characteristics
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Skin Tone</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">fair</span>
+                            <span class="adjective-tag">medium</span>
+                            <span class="adjective-tag">deep</span>
+                            <span class="adjective-tag">olive</span>
+                            <span class="adjective-tag">golden</span>
+                            <span class="adjective-tag">warm undertones</span>
+                            <span class="adjective-tag">cool undertones</span>
+                            <span class="adjective-tag">neutral</span>
+                            <span class="adjective-tag">radiant</span>
+                            <span class="adjective-tag">luminous</span>
+                            <span class="adjective-tag">pale</span>
+                            <span class="adjective-tag">tan</span>
+                            <span class="adjective-tag">bronze</span>
+                            <span class="adjective-tag">weathered</span>
+                            <span class="adjective-tag">sun-kissed</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Tattoos</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">small tattoos</span>
+                            <span class="adjective-tag">medium tattoos</span>
+                            <span class="adjective-tag">large tattoos</span>
+                            <span class="adjective-tag">sleeve</span>
+                            <span class="adjective-tag">traditional</span>
+                            <span class="adjective-tag">realistic</span>
+                            <span class="adjective-tag">geometric</span>
+                            <span class="adjective-tag">tribal</span>
+                            <span class="adjective-tag">colorful</span>
+                            <span class="adjective-tag">black and gray</span>
+                            <span class="adjective-tag">full back</span>
+                            <span class="adjective-tag">chest piece</span>
+                            <span class="adjective-tag">neck tattoo</span>
+                            <span class="adjective-tag">hand tattoos</span>
+                            <span class="adjective-tag">face tattoos</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Scars & Marks</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">battle scars</span>
+                            <span class="adjective-tag">surgical scars</span>
+                            <span class="adjective-tag">burn marks</span>
+                            <span class="adjective-tag">birthmarks</span>
+                            <span class="adjective-tag">freckles</span>
+                            <span class="adjective-tag">moles</span>
+                            <span class="adjective-tag">acne scars</span>
+                            <span class="adjective-tag">stretch marks</span>
+                            <span class="adjective-tag">age spots</span>
+                            <span class="adjective-tag">keloid scars</span>
+                            <span class="adjective-tag">faded scars</span>
+                            <span class="adjective-tag">fresh scars</span>
+                            <span class="adjective-tag">jagged scars</span>
+                            <span class="adjective-tag">clean scars</span>
+                            <span class="adjective-tag">distinctive marks</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="male-ratios">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">📏</span>
+                        Body Measurements & Custom Ratios
+                    </div>
+                    
+                    <div class="ratio-slider">
+                        <div class="ratio-title">Waist-to-Hip Ratio</div>
+                        <div class="ratio-options">
+                            <span class="ratio-tag">0.8</span>
+                            <span class="ratio-tag">0.9</span>
+                            <span class="ratio-tag">1.0</span>
+                            <span class="ratio-tag">1.1</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ratio-slider">
+                        <div class="ratio-title">Shoulder-to-Waist Ratio</div>
+                        <div class="ratio-options">
+                            <span class="ratio-tag">narrow</span>
+                            <span class="ratio-tag">proportioned</span>
+                            <span class="ratio-tag">broad</span>
+                            <span class="ratio-tag">athletic</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Build Types</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">ectomorph</span>
+                            <span class="adjective-tag">mesomorph</span>
+                            <span class="adjective-tag">endomorph</span>
+                            <span class="adjective-tag">lean</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">muscular</span>
+                            <span class="adjective-tag">stocky</span>
+                            <span class="adjective-tag">average</span>
+                            <span class="adjective-tag">powerful</span>
+                            <span class="adjective-tag">imposing</span>
+                            <span class="adjective-tag">lanky</span>
+                            <span class="adjective-tag">compact</span>
+                            <span class="adjective-tag">burly</span>
+                            <span class="adjective-tag">wiry</span>
+                            <span class="adjective-tag">hulking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FEMALE ANATOMY BASE -->
+            <div class="content-section" id="female-anatomy">
+                <h2 class="section-title">👩 Female Anatomy Base Foundation</h2>
+                
+                <div class="subcategory" id="female-facial">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">👤</span>
+                        Facial Anatomy (S/M/L + descriptors)
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Eyes</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">doe-eyed</span>
+                            <span class="adjective-tag">cat-like</span>
+                            <span class="adjective-tag">almond</span>
+                            <span class="adjective-tag">round</span>
+                            <span class="adjective-tag">expressive</span>
+                            <span class="adjective-tag">bright</span>
+                            <span class="adjective-tag">sultry</span>
+                            <span class="adjective-tag">sparkling</span>
+                            <span class="adjective-tag">mesmerizing</span>
+                            <span class="adjective-tag">enchanting</span>
+                            <span class="adjective-tag">bedroom eyes</span>
+                            <span class="adjective-tag">innocent</span>
+                            <span class="adjective-tag">seductive</span>
+                            <span class="adjective-tag">piercing</span>
+                            <span class="adjective-tag">dreamy</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Lips</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">pouty</span>
+                            <span class="adjective-tag">full</span>
+                            <span class="adjective-tag">heart-shaped</span>
+                            <span class="adjective-tag">bow-shaped</span>
+                            <span class="adjective-tag">natural</span>
+                            <span class="adjective-tag">glossy</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">sensual</span>
+                            <span class="adjective-tag">kissable</span>
+                            <span class="adjective-tag">luscious</span>
+                            <span class="adjective-tag">bee-stung</span>
+                            <span class="adjective-tag">rosebud</span>
+                            <span class="adjective-tag">cupid's bow</span>
+                            <span class="adjective-tag">plump</span>
+                            <span class="adjective-tag">delicate</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Cheekbones</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">sculpted</span>
+                            <span class="adjective-tag">high</span>
+                            <span class="adjective-tag">prominent</span>
+                            <span class="adjective-tag">soft</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">model-like</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">striking</span>
+                            <span class="adjective-tag">refined</span>
+                            <span class="adjective-tag">graceful</span>
+                            <span class="adjective-tag">razor-sharp</span>
+                            <span class="adjective-tag">aristocratic</span>
+                            <span class="adjective-tag">angular</span>
+                            <span class="adjective-tag">delicate</span>
+                            <span class="adjective-tag">regal</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Nose</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">button</span>
+                            <span class="adjective-tag">straight</span>
+                            <span class="adjective-tag">aquiline</span>
+                            <span class="adjective-tag">upturned</span>
+                            <span class="adjective-tag">delicate</span>
+                            <span class="adjective-tag">refined</span>
+                            <span class="adjective-tag">petite</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">narrow</span>
+                            <span class="adjective-tag">wide</span>
+                            <span class="adjective-tag">pixie-like</span>
+                            <span class="adjective-tag">roman</span>
+                            <span class="adjective-tag">ski-slope</span>
+                            <span class="adjective-tag">noble</span>
+                            <span class="adjective-tag">cute</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="female-upper">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">👗</span>
+                        Upper Body Parts (S/M/L + descriptors)
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Bust</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">perky</span>
+                            <span class="adjective-tag">full</span>
+                            <span class="adjective-tag">natural</span>
+                            <span class="adjective-tag">enhanced</span>
+                            <span class="adjective-tag">proportioned</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">graceful</span>
+                            <span class="adjective-tag">feminine</span>
+                            <span class="adjective-tag">beautiful</span>
+                            <span class="adjective-tag">alluring</span>
+                            <span class="adjective-tag">voluptuous</span>
+                            <span class="adjective-tag">modest</span>
+                            <span class="adjective-tag">ample</span>
+                            <span class="adjective-tag">petite</span>
+                            <span class="adjective-tag">shapely</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Shoulders</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">delicate</span>
+                            <span class="adjective-tag">broad</span>
+                            <span class="adjective-tag">sloped</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">graceful</span>
+                            <span class="adjective-tag">refined</span>
+                            <span class="adjective-tag">feminine</span>
+                            <span class="adjective-tag">smooth</span>
+                            <span class="adjective-tag">sculpted</span>
+                            <span class="adjective-tag">narrow</span>
+                            <span class="adjective-tag">square</span>
+                            <span class="adjective-tag">rounded</span>
+                            <span class="adjective-tag">strong</span>
+                            <span class="adjective-tag">petite</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Arms</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">slender</span>
+                            <span class="adjective-tag">toned</span>
+                            <span class="adjective-tag">graceful</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">delicate</span>
+                            <span class="adjective-tag">strong</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">smooth</span>
+                            <span class="adjective-tag">long</span>
+                            <span class="adjective-tag">short</span>
+                            <span class="adjective-tag">muscular</span>
+                            <span class="adjective-tag">lean</span>
+                            <span class="adjective-tag">soft</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">willowy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="female-lower">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">👠</span>
+                        Lower Body Parts (S/M/L + descriptors)
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Hips</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">curvy</span>
+                            <span class="adjective-tag">hourglass</span>
+                            <span class="adjective-tag">wide</span>
+                            <span class="adjective-tag">narrow</span>
+                            <span class="adjective-tag">proportioned</span>
+                            <span class="adjective-tag">feminine</span>
+                            <span class="adjective-tag">shapely</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">graceful</span>
+                            <span class="adjective-tag">goddess-like</span>
+                            <span class="adjective-tag">voluptuous</span>
+                            <span class="adjective-tag">boyish</span>
+                            <span class="adjective-tag">full</span>
+                            <span class="adjective-tag">rounded</span>
+                            <span class="adjective-tag">dramatic</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Legs</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">long</span>
+                            <span class="adjective-tag">short</span>
+                            <span class="adjective-tag">shapely</span>
+                            <span class="adjective-tag">toned</span>
+                            <span class="adjective-tag">curvy</span>
+                            <span class="adjective-tag">model-like</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">graceful</span>
+                            <span class="adjective-tag">statuesque</span>
+                            <span class="adjective-tag">stunning</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">slender</span>
+                            <span class="adjective-tag">thick</span>
+                            <span class="adjective-tag">muscular</span>
+                            <span class="adjective-tag">dancer-like</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Glutes</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">perky</span>
+                            <span class="adjective-tag">round</span>
+                            <span class="adjective-tag">firm</span>
+                            <span class="adjective-tag">shapely</span>
+                            <span class="adjective-tag">toned</span>
+                            <span class="adjective-tag">full</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">sculpted</span>
+                            <span class="adjective-tag">bubble</span>
+                            <span class="adjective-tag">heart-shaped</span>
+                            <span class="adjective-tag">peachy</span>
+                            <span class="adjective-tag">lifted</span>
+                            <span class="adjective-tag">curved</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">proportioned</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="female-skin">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🎨</span>
+                        Skin Features & Characteristics
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Skin Tone</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">fair</span>
+                            <span class="adjective-tag">medium</span>
+                            <span class="adjective-tag">deep</span>
+                            <span class="adjective-tag">olive</span>
+                            <span class="adjective-tag">golden</span>
+                            <span class="adjective-tag">warm undertones</span>
+                            <span class="adjective-tag">cool undertones</span>
+                            <span class="adjective-tag">neutral</span>
+                            <span class="adjective-tag">radiant</span>
+                            <span class="adjective-tag">luminous</span>
+                            <span class="adjective-tag">porcelain</span>
+                            <span class="adjective-tag">caramel</span>
+                            <span class="adjective-tag">honey</span>
+                            <span class="adjective-tag">bronze</span>
+                            <span class="adjective-tag">ebony</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Skin Texture</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">smooth</span>
+                            <span class="adjective-tag">silky</span>
+                            <span class="adjective-tag">soft</span>
+                            <span class="adjective-tag">glowing</span>
+                            <span class="adjective-tag">dewy</span>
+                            <span class="adjective-tag">matte</span>
+                            <span class="adjective-tag">flawless</span>
+                            <span class="adjective-tag">velvety</span>
+                            <span class="adjective-tag">luminous</span>
+                            <span class="adjective-tag">radiant</span>
+                            <span class="adjective-tag">poreless</span>
+                            <span class="adjective-tag">baby-soft</span>
+                            <span class="adjective-tag">sun-kissed</span>
+                            <span class="adjective-tag">healthy</span>
+                            <span class="adjective-tag">youthful</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Beauty Marks</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">beauty mark</span>
+                            <span class="adjective-tag">freckles</span>
+                            <span class="adjective-tag">dimples</span>
+                            <span class="adjective-tag">birthmarks</span>
+                            <span class="adjective-tag">moles</span>
+                            <span class="adjective-tag">sun spots</span>
+                            <span class="adjective-tag">age spots</span>
+                            <span class="adjective-tag">cute freckles</span>
+                            <span class="adjective-tag">scattered freckles</span>
+                            <span class="adjective-tag">constellation freckles</span>
+                            <span class="adjective-tag">cheek dimples</span>
+                            <span class="adjective-tag">chin dimple</span>
+                            <span class="adjective-tag">distinctive marks</span>
+                            <span class="adjective-tag">natural beauty</span>
+                            <span class="adjective-tag">charming imperfections</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="female-ratios">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">📏</span>
+                        Body Measurements & Custom Ratios
+                    </div>
+                    
+                    <div class="ratio-slider">
+                        <div class="ratio-title">Waist-to-Hip Ratio</div>
+                        <div class="ratio-options">
+                            <span class="ratio-tag">0.6</span>
+                            <span class="ratio-tag">0.7</span>
+                            <span class="ratio-tag">0.8</span>
+                            <span class="ratio-tag">0.9</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ratio-slider">
+                        <div class="ratio-title">Bust-to-Waist Ratio</div>
+                        <div class="ratio-options">
+                            <span class="ratio-tag">proportioned</span>
+                            <span class="ratio-tag">enhanced</span>
+                            <span class="ratio-tag">natural</span>
+                            <span class="ratio-tag">dramatic</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Build Types</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">petite</span>
+                            <span class="adjective-tag">average</span>
+                            <span class="adjective-tag">tall</span>
+                            <span class="adjective-tag">slender</span>
+                            <span class="adjective-tag">curvy</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">statuesque</span>
+                            <span class="adjective-tag">delicate</span>
+                            <span class="adjective-tag">goddess</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">hourglass</span>
+                            <span class="adjective-tag">pear-shaped</span>
+                            <span class="adjective-tag">apple-shaped</span>
+                            <span class="adjective-tag">rectangle</span>
+                            <span class="adjective-tag">inverted triangle</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HAIR UNIVERSE -->
+            <div class="content-section" id="hair-universe">
+                <h2 class="section-title">💇 Hair Universe</h2>
+                
+                <div class="subcategory" id="male-hair-classic">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">✂️</span>
+                        Male Classic Cuts
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Crew Cut</div>
+                        <div class="size-options">
+                            <span class="size-tag">Ultra Short</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Long</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">textured</span>
+                            <span class="adjective-tag">smooth</span>
+                            <span class="adjective-tag">faded</span>
+                            <span class="adjective-tag">military</span>
+                            <span class="adjective-tag">clean</span>
+                            <span class="adjective-tag">sharp</span>
+                            <span class="adjective-tag">professional</span>
+                            <span class="adjective-tag">classic</span>
+                            <span class="adjective-tag">masculine</span>
+                            <span class="adjective-tag">timeless</span>
+                            <span class="adjective-tag">neat</span>
+                            <span class="adjective-tag">structured</span>
+                            <span class="adjective-tag">conservative</span>
+                            <span class="adjective-tag">polished</span>
+                            <span class="adjective-tag">disciplined</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Buzz Cut</div>
+                        <div class="size-options">
+                            <span class="size-tag">#1</span>
+                            <span class="size-tag">#2</span>
+                            <span class="size-tag">#3</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">skin fade</span>
+                            <span class="adjective-tag">temple fade</span>
+                            <span class="adjective-tag">sharp edge</span>
+                            <span class="adjective-tag">military</span>
+                            <span class="adjective-tag">minimal</span>
+                            <span class="adjective-tag">clean</span>
+                            <span class="adjective-tag">low-maintenance</span>
+                            <span class="adjective-tag">bold</span>
+                            <span class="adjective-tag">confident</span>
+                            <span class="adjective-tag">rugged</span>
+                            <span class="adjective-tag">no-nonsense</span>
+                            <span class="adjective-tag">utilitarian</span>
+                            <span class="adjective-tag">tough</span>
+                            <span class="adjective-tag">practical</span>
+                            <span class="adjective-tag">severe</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Side Part</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">deep side part</span>
+                            <span class="adjective-tag">subtle side part</span>
+                            <span class="adjective-tag">razor part</span>
+                            <span class="adjective-tag">classic</span>
+                            <span class="adjective-tag">gentleman</span>
+                            <span class="adjective-tag">sophisticated</span>
+                            <span class="adjective-tag">traditional</span>
+                            <span class="adjective-tag">refined</span>
+                            <span class="adjective-tag">dapper</span>
+                            <span class="adjective-tag">distinguished</span>
+                            <span class="adjective-tag">formal</span>
+                            <span class="adjective-tag">business</span>
+                            <span class="adjective-tag">executive</span>
+                            <span class="adjective-tag">vintage</span>
+                            <span class="adjective-tag">debonair</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="male-hair-modern">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🎩</span>
+                        Male Modern Styles
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Pompadour</div>
+                        <div class="size-options">
+                            <span class="size-tag">High</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Low</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">slick</span>
+                            <span class="adjective-tag">textured</span>
+                            <span class="adjective-tag">structured</span>
+                            <span class="adjective-tag">vintage</span>
+                            <span class="adjective-tag">rockabilly</span>
+                            <span class="adjective-tag">sophisticated</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">bold</span>
+                            <span class="adjective-tag">stylish</span>
+                            <span class="adjective-tag">commanding</span>
+                            <span class="adjective-tag">voluminous</span>
+                            <span class="adjective-tag">swept-back</span>
+                            <span class="adjective-tag">elevated</span>
+                            <span class="adjective-tag">statement</span>
+                            <span class="adjective-tag">retro</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Undercut</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">disconnected</span>
+                            <span class="adjective-tag">blended</span>
+                            <span class="adjective-tag">sharp</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">subtle</span>
+                            <span class="adjective-tag">edgy</span>
+                            <span class="adjective-tag">modern</span>
+                            <span class="adjective-tag">trendy</span>
+                            <span class="adjective-tag">bold</span>
+                            <span class="adjective-tag">artistic</span>
+                            <span class="adjective-tag">hipster</span>
+                            <span class="adjective-tag">contemporary</span>
+                            <span class="adjective-tag">fashion-forward</span>
+                            <span class="adjective-tag">rebellious</span>
+                            <span class="adjective-tag">alternative</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Fade Cuts</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">high fade</span>
+                            <span class="adjective-tag">mid fade</span>
+                            <span class="adjective-tag">low fade</span>
+                            <span class="adjective-tag">skin fade</span>
+                            <span class="adjective-tag">burst fade</span>
+                            <span class="adjective-tag">drop fade</span>
+                            <span class="adjective-tag">taper fade</span>
+                            <span class="adjective-tag">bald fade</span>
+                            <span class="adjective-tag">shadow fade</span>
+                            <span class="adjective-tag">temple fade</span>
+                            <span class="adjective-tag">precise</span>
+                            <span class="adjective-tag">clean</span>
+                            <span class="adjective-tag">sharp</span>
+                            <span class="adjective-tag">gradual</span>
+                            <span class="adjective-tag">seamless</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="male-hair-long">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🧔</span>
+                        Male Long Hair & Beard Integration
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Man Bun</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">top knot</span>
+                            <span class="adjective-tag">low bun</span>
+                            <span class="adjective-tag">messy bun</span>
+                            <span class="adjective-tag">sleek</span>
+                            <span class="adjective-tag">textured</span>
+                            <span class="adjective-tag">casual</span>
+                            <span class="adjective-tag">hipster</span>
+                            <span class="adjective-tag">artistic</span>
+                            <span class="adjective-tag">bohemian</span>
+                            <span class="adjective-tag">trendy</span>
+                            <span class="adjective-tag">samurai</span>
+                            <span class="adjective-tag">viking</span>
+                            <span class="adjective-tag">lumberjack</span>
+                            <span class="adjective-tag">free-spirited</span>
+                            <span class="adjective-tag">unconventional</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Long Flowing Hair</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">shoulder-length</span>
+                            <span class="adjective-tag">mid-back</span>
+                            <span class="adjective-tag">waist-length</span>
+                            <span class="adjective-tag">straight</span>
+                            <span class="adjective-tag">wavy</span>
+                            <span class="adjective-tag">curly</span>
+                            <span class="adjective-tag">layered</span>
+                            <span class="adjective-tag">wild</span>
+                            <span class="adjective-tag">tamed</span>
+                            <span class="adjective-tag">flowing</span>
+                            <span class="adjective-tag">mane-like</span>
+                            <span class="adjective-tag">rock-star</span>
+                            <span class="adjective-tag">romantic</span>
+                            <span class="adjective-tag">windswept</span>
+                            <span class="adjective-tag">untamed</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Beard Combinations</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">full beard</span>
+                            <span class="adjective-tag">goatee</span>
+                            <span class="adjective-tag">mustache</span>
+                            <span class="adjective-tag">soul patch</span>
+                            <span class="adjective-tag">van dyke</span>
+                            <span class="adjective-tag">stubble</span>
+                            <span class="adjective-tag">groomed</span>
+                            <span class="adjective-tag">wild</span>
+                            <span class="adjective-tag">trimmed</span>
+                            <span class="adjective-tag">shaped</span>
+                            <span class="adjective-tag">rugged</span>
+                            <span class="adjective-tag">distinguished</span>
+                            <span class="adjective-tag">lumberjack</span>
+                            <span class="adjective-tag">hipster</span>
+                            <span class="adjective-tag">viking</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="female-hair-short">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">✂️</span>
+                        Female Short Cuts
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Pixie Cut</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">ultra short</span>
+                            <span class="adjective-tag">long pixie</span>
+                            <span class="adjective-tag">grown-out</span>
+                            <span class="adjective-tag">textured</span>
+                            <span class="adjective-tag">sleek</span>
+                            <span class="adjective-tag">choppy</span>
+                            <span class="adjective-tag">edgy</span>
+                            <span class="adjective-tag">feminine</span>
+                            <span class="adjective-tag">chic</span>
+                            <span class="adjective-tag">bold</span>
+                            <span class="adjective-tag">gamine</span>
+                            <span class="adjective-tag">elfin</span>
+                            <span class="adjective-tag">boyish</span>
+                            <span class="adjective-tag">sophisticated</span>
+                            <span class="adjective-tag">daring</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Bob Cut</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">chin bob</span>
+                            <span class="adjective-tag">shoulder bob</span>
+                            <span class="adjective-tag">A-line</span>
+                            <span class="adjective-tag">blunt</span>
+                            <span class="adjective-tag">layered</span>
+                            <span class="adjective-tag">angled</span>
+                            <span class="adjective-tag">classic</span>
+                            <span class="adjective-tag">modern</span>
+                            <span class="adjective-tag">sophisticated</span>
+                            <span class="adjective-tag">timeless</span>
+                            <span class="adjective-tag">asymmetrical</span>
+                            <span class="adjective-tag">inverted</span>
+                            <span class="adjective-tag">graduated</span>
+                            <span class="adjective-tag">textured</span>
+                            <span class="adjective-tag">sleek</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Lob (Long Bob)</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">shoulder-grazing</span>
+                            <span class="adjective-tag">collarbone</span>
+                            <span class="adjective-tag">wavy lob</span>
+                            <span class="adjective-tag">straight lob</span>
+                            <span class="adjective-tag">textured lob</span>
+                            <span class="adjective-tag">blunt lob</span>
+                            <span class="adjective-tag">layered lob</span>
+                            <span class="adjective-tag">beachy</span>
+                            <span class="adjective-tag">tousled</span>
+                            <span class="adjective-tag">polished</span>
+                            <span class="adjective-tag">effortless</span>
+                            <span class="adjective-tag">versatile</span>
+                            <span class="adjective-tag">chic</span>
+                            <span class="adjective-tag">modern</span>
+                            <span class="adjective-tag">trendy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="female-hair-long">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🌊</span>
+                        Female Long Hair & Layers
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Waist Length</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">straight</span>
+                            <span class="adjective-tag">wavy</span>
+                            <span class="adjective-tag">layered</span>
+                            <span class="adjective-tag">flowing</span>
+                            <span class="adjective-tag">voluminous</span>
+                            <span class="adjective-tag">sleek</span>
+                            <span class="adjective-tag">mermaid</span>
+                            <span class="adjective-tag">goddess</span>
+                            <span class="adjective-tag">luxurious</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">cascading</span>
+                            <span class="adjective-tag">silky</span>
+                            <span class="adjective-tag">lustrous</span>
+                            <span class="adjective-tag">rapunzel</span>
+                            <span class="adjective-tag">ethereal</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Face Framing Layers</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">subtle</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">soft</span>
+                            <span class="adjective-tag">blended</span>
+                            <span class="adjective-tag">choppy</span>
+                            <span class="adjective-tag">feathered</span>
+                            <span class="adjective-tag">flattering</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">romantic</span>
+                            <span class="adjective-tag">feminine</span>
+                            <span class="adjective-tag">wispy</span>
+                            <span class="adjective-tag">curtain</span>
+                            <span class="adjective-tag">side-swept</span>
+                            <span class="adjective-tag">graduated</span>
+                            <span class="adjective-tag">textured</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Hair Texture</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">pin-straight</span>
+                            <span class="adjective-tag">beach waves</span>
+                            <span class="adjective-tag">loose curls</span>
+                            <span class="adjective-tag">tight curls</span>
+                            <span class="adjective-tag">spiral curls</span>
+                            <span class="adjective-tag">ringlets</span>
+                            <span class="adjective-tag">coily</span>
+                            <span class="adjective-tag">kinky</span>
+                            <span class="adjective-tag">crimped</span>
+                            <span class="adjective-tag">tousled</span>
+                            <span class="adjective-tag">voluminous</span>
+                            <span class="adjective-tag">fine</span>
+                            <span class="adjective-tag">thick</span>
+                            <span class="adjective-tag">coarse</span>
+                            <span class="adjective-tag">silky</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="female-hair-protective">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">👑</span>
+                        Protective Styles & Cultural Techniques
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Box Braids</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">protective</span>
+                            <span class="adjective-tag">styled</span>
+                            <span class="adjective-tag">decorated</span>
+                            <span class="adjective-tag">cultural</span>
+                            <span class="adjective-tag">beautiful</span>
+                            <span class="adjective-tag">artistic</span>
+                            <span class="adjective-tag">regal</span>
+                            <span class="adjective-tag">goddess</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">stunning</span>
+                            <span class="adjective-tag">intricate</span>
+                            <span class="adjective-tag">geometric</span>
+                            <span class="adjective-tag">traditional</span>
+                            <span class="adjective-tag">modern</span>
+                            <span class="adjective-tag">versatile</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Goddess Braids</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">chunky</span>
+                            <span class="adjective-tag">feed-in</span>
+                            <span class="adjective-tag">cornrow</span>
+                            <span class="adjective-tag">sculptural</span>
+                            <span class="adjective-tag">protective</span>
+                            <span class="adjective-tag">artistic</span>
+                            <span class="adjective-tag">regal</span>
+                            <span class="adjective-tag">majestic</span>
+                            <span class="adjective-tag">powerful</span>
+                            <span class="adjective-tag">divine</span>
+                            <span class="adjective-tag">crown-like</span>
+                            <span class="adjective-tag">statement</span>
+                            <span class="adjective-tag">bold</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">royal</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Locs & Dreadlocks</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">starter locs</span>
+                            <span class="adjective-tag">mature locs</span>
+                            <span class="adjective-tag">freeform locs</span>
+                            <span class="adjective-tag">sisterlocks</span>
+                            <span class="adjective-tag">microlocs</span>
+                            <span class="adjective-tag">traditional locs</span>
+                            <span class="adjective-tag">spiritual</span>
+                            <span class="adjective-tag">natural</span>
+                            <span class="adjective-tag">organic</span>
+                            <span class="adjective-tag">cultural</span>
+                            <span class="adjective-tag">authentic</span>
+                            <span class="adjective-tag">bohemian</span>
+                            <span class="adjective-tag">artistic</span>
+                            <span class="adjective-tag">unique</span>
+                            <span class="adjective-tag">individual</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Edge Styling & Baby Hairs</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">swooped edges</span>
+                            <span class="adjective-tag">laid edges</span>
+                            <span class="adjective-tag">curly edges</span>
+                            <span class="adjective-tag">artistic</span>
+                            <span class="adjective-tag">cultural</span>
+                            <span class="adjective-tag">sleek</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">natural</span>
+                            <span class="adjective-tag">beautiful</span>
+                            <span class="adjective-tag">skillful</span>
+                            <span class="adjective-tag">intricate</span>
+                            <span class="adjective-tag">detailed</span>
+                            <span class="adjective-tag">precise</span>
+                            <span class="adjective-tag">creative</span>
+                            <span class="adjective-tag">expressive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="female-hair-updo">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">👸</span>
+                        Updo Styles & Half Up Half Down
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Elegant Buns</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">high bun</span>
+                            <span class="adjective-tag">low bun</span>
+                            <span class="adjective-tag">messy bun</span>
+                            <span class="adjective-tag">sleek</span>
+                            <span class="adjective-tag">textured</span>
+                            <span class="adjective-tag">braided</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">casual</span>
+                            <span class="adjective-tag">sophisticated</span>
+                            <span class="adjective-tag">romantic</span>
+                            <span class="adjective-tag">chignon</span>
+                            <span class="adjective-tag">french twist</span>
+                            <span class="adjective-tag">ballerina bun</span>
+                            <span class="adjective-tag">top knot</span>
+                            <span class="adjective-tag">space buns</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Half Up Half Down</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">high half</span>
+                            <span class="adjective-tag">twisted half</span>
+                            <span class="adjective-tag">braided half</span>
+                            <span class="adjective-tag">casual</span>
+                            <span class="adjective-tag">formal</span>
+                            <span class="adjective-tag">textured</span>
+                            <span class="adjective-tag">romantic</span>
+                            <span class="adjective-tag">bohemian</span>
+                            <span class="adjective-tag">versatile</span>
+                            <span class="adjective-tag">feminine</span>
+                            <span class="adjective-tag">princess</span>
+                            <span class="adjective-tag">waterfall</span>
+                            <span class="adjective-tag">crown braid</span>
+                            <span class="adjective-tag">fishtail</span>
+                            <span class="adjective-tag">dutch braid</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Ponytails</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">high ponytail</span>
+                            <span class="adjective-tag">low ponytail</span>
+                            <span class="adjective-tag">side ponytail</span>
+                            <span class="adjective-tag">sleek ponytail</span>
+                            <span class="adjective-tag">messy ponytail</span>
+                            <span class="adjective-tag">braided ponytail</span>
+                            <span class="adjective-tag">bubble ponytail</span>
+                            <span class="adjective-tag">wrapped ponytail</span>
+                            <span class="adjective-tag">voluminous</span>
+                            <span class="adjective-tag">textured</span>
+                            <span class="adjective-tag">polished</span>
+                            <span class="adjective-tag">casual</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">playful</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EYE MAKEUP UNIVERSE -->
+            <div class="content-section" id="eye-makeup">
+                <h2 class="section-title">👁️ Eye Makeup Universe</h2>
+                
+                <div class="subcategory" id="eyeshadow-artistry">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🎨</span>
+                        Eyeshadow Artistry
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Smoky Eyes</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">classic smoky</span>
+                            <span class="adjective-tag">colored smoky</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">blended</span>
+                            <span class="adjective-tag">intense</span>
+                            <span class="adjective-tag">sultry</span>
+                            <span class="adjective-tag">mysterious</span>
+                            <span class="adjective-tag">seductive</span>
+                            <span class="adjective-tag">glamorous</span>
+                            <span class="adjective-tag">evening</span>
+                            <span class="adjective-tag">smoldering</span>
+                            <span class="adjective-tag">bronze smoky</span>
+                            <span class="adjective-tag">purple smoky</span>
+                            <span class="adjective-tag">blue smoky</span>
+                            <span class="adjective-tag">green smoky</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Cut Crease</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">sharp cut</span>
+                            <span class="adjective-tag">soft cut</span>
+                            <span class="adjective-tag">halo</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">precise</span>
+                            <span class="adjective-tag">artistic</span>
+                            <span class="adjective-tag">editorial</span>
+                            <span class="adjective-tag">professional</span>
+                            <span class="adjective-tag">bold</span>
+                            <span class="adjective-tag">striking</span>
+                            <span class="adjective-tag">geometric</span>
+                            <span class="adjective-tag">floating cut</span>
+                            <span class="adjective-tag">double cut</span>
+                            <span class="adjective-tag">gradient cut</span>
+                            <span class="adjective-tag">glitter cut</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Natural Looks</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">no-makeup makeup</span>
+                            <span class="adjective-tag">everyday</span>
+                            <span class="adjective-tag">fresh</span>
+                            <span class="adjective-tag">dewy</span>
+                            <span class="adjective-tag">subtle</span>
+                            <span class="adjective-tag">effortless</span>
+                            <span class="adjective-tag">minimalist</span>
+                            <span class="adjective-tag">clean</span>
+                            <span class="adjective-tag">polished</span>
+                            <span class="adjective-tag">professional</span>
+                            <span class="adjective-tag">soft glam</span>
+                            <span class="adjective-tag">romantic</span>
+                            <span class="adjective-tag">feminine</span>
+                            <span class="adjective-tag">understated</span>
+                            <span class="adjective-tag">classic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="eyeliner-techniques">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">✏️</span>
+                        Eyeliner Techniques
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Winged Eyeliner</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">cat eye</span>
+                            <span class="adjective-tag">sharp wing</span>
+                            <span class="adjective-tag">soft wing</span>
+                            <span class="adjective-tag">classic</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">flirty</span>
+                            <span class="adjective-tag">vintage</span>
+                            <span class="adjective-tag">precise</span>
+                            <span class="adjective-tag">bold</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">double wing</span>
+                            <span class="adjective-tag">floating wing</span>
+                            <span class="adjective-tag">graphic wing</span>
+                            <span class="adjective-tag">colored wing</span>
+                            <span class="adjective-tag">glitter wing</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Tightlining</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">upper waterline</span>
+                            <span class="adjective-tag">lower waterline</span>
+                            <span class="adjective-tag">invisible liner</span>
+                            <span class="adjective-tag">natural</span>
+                            <span class="adjective-tag">subtle</span>
+                            <span class="adjective-tag">defining</span>
+                            <span class="adjective-tag">enhancing</span>
+                            <span class="adjective-tag">professional</span>
+                            <span class="adjective-tag">everyday</span>
+                            <span class="adjective-tag">clean</span>
+                            <span class="adjective-tag">precise</span>
+                            <span class="adjective-tag">detailed</span>
+                            <span class="adjective-tag">skillful</span>
+                            <span class="adjective-tag">expert</span>
+                            <span class="adjective-tag">flawless</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Graphic Liner</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">geometric</span>
+                            <span class="adjective-tag">artistic</span>
+                            <span class="adjective-tag">editorial</span>
+                            <span class="adjective-tag">avant-garde</span>
+                            <span class="adjective-tag">creative</span>
+                            <span class="adjective-tag">bold</span>
+                            <span class="adjective-tag">statement</span>
+                            <span class="adjective-tag">modern</span>
+                            <span class="adjective-tag">futuristic</span>
+                            <span class="adjective-tag">experimental</span>
+                            <span class="adjective-tag">abstract</span>
+                            <span class="adjective-tag">architectural</span>
+                            <span class="adjective-tag">innovative</span>
+                            <span class="adjective-tag">trendsetting</span>
+                            <span class="adjective-tag">fashion-forward</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="eyelash-extensions">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">👁️‍🗨️</span>
+                        Eyelash Extensions Station
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Curl Types</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">J curl</span>
+                            <span class="adjective-tag">B curl</span>
+                            <span class="adjective-tag">C curl</span>
+                            <span class="adjective-tag">D curl</span>
+                            <span class="adjective-tag">L curl</span>
+                            <span class="adjective-tag">natural curve</span>
+                            <span class="adjective-tag">dramatic curve</span>
+                            <span class="adjective-tag">lifting</span>
+                            <span class="adjective-tag">flattering</span>
+                            <span class="adjective-tag">eye-opening</span>
+                            <span class="adjective-tag">CC curl</span>
+                            <span class="adjective-tag">DD curl</span>
+                            <span class="adjective-tag">M curl</span>
+                            <span class="adjective-tag">U curl</span>
+                            <span class="adjective-tag">LC curl</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Volume Styles</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">classic extensions</span>
+                            <span class="adjective-tag">volume extensions</span>
+                            <span class="adjective-tag">mega volume</span>
+                            <span class="adjective-tag">natural</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">lush</span>
+                            <span class="adjective-tag">thick</span>
+                            <span class="adjective-tag">glamorous</span>
+                            <span class="adjective-tag">show-stopping</span>
+                            <span class="adjective-tag">red-carpet</span>
+                            <span class="adjective-tag">hybrid</span>
+                            <span class="adjective-tag">wispy</span>
+                            <span class="adjective-tag">fluffy</span>
+                            <span class="adjective-tag">textured</span>
+                            <span class="adjective-tag">layered</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Length Options</div>
+                        <div class="size-options">
+                            <span class="size-tag">8mm</span>
+                            <span class="size-tag">10mm</span>
+                            <span class="size-tag">12mm</span>
+                            <span class="size-tag">14mm</span>
+                            <span class="size-tag">16mm</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">natural length</span>
+                            <span class="adjective-tag">medium length</span>
+                            <span class="adjective-tag">long length</span>
+                <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98b66454271169fb',t:'MTc1OTkzNDQxMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
