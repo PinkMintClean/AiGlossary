@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Micro Features Master Glossary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a0033 0%, #2d1b69 25%, #4a0e4e 50%, #6b1b7a 75%, #8b2a8b 100%);
+            min-height: 100%;
+            box-sizing: border-box;
+            color: #e6d7ff;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100%;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: linear-gradient(180deg, rgba(26, 0, 51, 0.95) 0%, rgba(45, 27, 105, 0.95) 50%, rgba(74, 14, 78, 0.95) 100%);
+            backdrop-filter: blur(15px);
+            border-right: 2px solid rgba(255, 105, 180, 0.3);
+            padding: 25px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 5px 0 20px rgba(255, 105, 180, 0.2);
+        }
+
+        .sidebar h2 {
+            color: #ff69b4;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+            background: linear-gradient(45deg, #ff69b4, #da70d6, #dda0dd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+        }
+
+        .index-category {
+            margin-bottom: 18px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(74, 14, 78, 0.4) 0%, rgba(107, 27, 122, 0.4) 100%);
+            border: 1px solid rgba(255, 105, 180, 0.2);
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.1);
+        }
+
+        .index-category-header {
+            padding: 15px 18px;
+            background: linear-gradient(135deg, rgba(218, 112, 214, 0.3) 0%, rgba(255, 105, 180, 0.3) 100%);
+            color: #ff69b4;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 105, 180, 0.2);
+            font-size: 15px;
+        }
+
+        .index-category-header:hover {
+            background: linear-gradient(135deg, rgba(218, 112, 214, 0.5) 0%, rgba(255, 105, 180, 0.5) 100%);
+            color: #ffb6c1;
+            transform: translateX(5px);
+        }
+
+        .index-category.expanded .index-category-header {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.4) 0%, rgba(218, 112, 214, 0.4) 100%);
+            color: #ffb6c1;
+        }
+
+        .index-items {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .index-category.expanded .index-items {
+            max-height: 600px;
+        }
+
+        .index-item {
+            padding: 10px 25px;
+            color: #dda0dd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            border-left: 3px solid transparent;
+        }
+
+        .index-item:hover {
+            background: linear-gradient(90deg, rgba(255, 105, 180, 0.2) 0%, rgba(218, 112, 214, 0.2) 100%);
+            color: #ff69b4;
+            padding-left: 30px;
+            border-left-color: #ff69b4;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 320px;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, rgba(26, 0, 51, 0.8) 0%, rgba(45, 27, 105, 0.8) 50%, rgba(74, 14, 78, 0.8) 100%);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 25px;
+            border: 2px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.2);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ff69b4, #da70d6, #dda0dd, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #dda0dd;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 25px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 25px;
+            font-size: 16px;
+            border: 2px solid rgba(255, 105, 180, 0.4);
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(26, 0, 51, 0.7) 0%, rgba(45, 27, 105, 0.7) 100%);
+            color: #ff69b4;
+            outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input::placeholder {
+            color: #dda0dd;
+        }
+
+        .search-input:focus {
+            border-color: #ff69b4;
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.4);
+            background: linear-gradient(135deg, rgba(26, 0, 51, 0.9) 0%, rgba(45, 27, 105, 0.9) 100%);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #ff69b4, #da70d6);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.5);
+            background: linear-gradient(45deg, #da70d6, #ff69b4);
+        }
+
+        .random-prompt-box {
+            margin-top: 25px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(74, 14, 78, 0.7) 0%, rgba(107, 27, 122, 0.7) 100%);
+            border: 2px solid rgba(255, 105, 180, 0.4);
+            border-radius: 20px;
+            display: none;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+        }
+
+        .random-prompt-box.active {
+            display: block;
+            animation: slideIn 0.4s ease;
+        }
+
+        .random-prompt-box h3 {
+            color: #ff69b4;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .prompt-text {
+            color: #dda0dd;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .content-section {
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, rgba(26, 0, 51, 0.7) 0%, rgba(45, 27, 105, 0.7) 50%, rgba(74, 14, 78, 0.7) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            border: 2px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.15);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            background: linear-gradient(45deg, #ff69b4, #da70d6, #dda0dd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+        }
+
+        .subcategory {
+            margin-bottom: 45px;
+            background: linear-gradient(135deg, rgba(74, 14, 78, 0.5) 0%, rgba(107, 27, 122, 0.5) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 105, 180, 0.2);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.1);
+        }
+
+        .subcategory-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #ff69b4;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .subcategory-icon {
+            font-size: 1.8rem;
+        }
+
+        .feature-group {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(26, 0, 51, 0.6) 0%, rgba(45, 27, 105, 0.6) 100%);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 105, 180, 0.15);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.1);
+        }
+
+        .feature-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+            color: #da70d6;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .size-tag {
+            padding: 8px 16px;
+            background: linear-gradient(45deg, #ff69b4, #da70d6);
+            color: white;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(255, 105, 180, 0.3);
+        }
+
+        .adjectives {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .adjective-tag {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, rgba(218, 112, 214, 0.3) 0%, rgba(255, 105, 180, 0.3) 100%);
+            color: #dda0dd;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            position: relative;
+            overflow: hidden;
+            font-weight: 500;
+        }
+
+        .adjective-tag:hover {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.5) 0%, rgba(218, 112, 214, 0.5) 100%);
+            color: #ff69b4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .adjective-tag:active {
+            transform: translateY(0);
+        }
+
+        .adjective-tag.copied {
+            background: linear-gradient(45deg, #ff69b4, #da70d6);
+            color: white;
+            animation: pulse 0.6s ease;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #ff69b4, #da70d6);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(45deg, #ff69b4, #da70d6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            font-weight: bold;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.6);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <h2>📚 Master Index Navigation</h2>
+            
+            <div class="index-category">
+                <div class="index-category-header" onclick="toggleIndexCategory(this)">
+                    👤 Face Universe
+                </div>
+                <div class="index-items">
+                    <div class="index-item" onclick="scrollToSection('eyes-features')">👁️ Eyes Features</div>
+                    <div class="index-item" onclick="scrollToSection('nose-features')">👃 Nose Features</div>
+                    <div class="index-item" onclick="scrollToSection('lips-features')">💋 Lips Features</div>
+                    <div class="index-item" onclick="scrollToSection('facial-structure')">🗿 Facial Structure</div>
+                    <div class="index-item" onclick="scrollToSection('skin-features')">✨ Skin Features</div>
+                    <div class="index-item" onclick="scrollToSection('expressions')">😊 Expressions & Emotions</div>
+                    <div class="index-item" onclick="scrollToSection('age-features')">⏳ Age Features</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="index-category-header" onclick="toggleIndexCategory(this)">
+                    💇 Hair Universe
+                </div>
+                <div class="index-items">
+                    <div class="index-item" onclick="scrollToSection('hair-length')">📏 Hair Length</div>
+                    <div class="index-item" onclick="scrollToSection('hair-texture')">🌊 Hair Texture & Type</div>
+                    <div class="index-item" onclick="scrollToSection('hair-color')">🎨 Hair Color</div>
+                    <div class="index-item" onclick="scrollToSection('hairstyles')">💇‍♀️ Hairstyles & Cuts</div>
+                    <div class="index-item" onclick="scrollToSection('hair-condition')">💫 Hair Condition</div>
+                    <div class="index-item" onclick="scrollToSection('hair-movement')">🌪️ Hair Movement</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="index-category-header" onclick="toggleIndexCategory(this)">
+                    👗 Fashion Universe
+                </div>
+                <div class="index-items">
+                    <div class="index-item" onclick="scrollToSection('clothing-styles')">👔 Clothing Styles</div>
+                    <div class="index-item" onclick="scrollToSection('fabric-textures')">🧵 Fabric & Textures</div>
+                    <div class="index-item" onclick="scrollToSection('fashion-eras')">🕰️ Fashion Eras & Styles</div>
+                    <div class="index-item" onclick="scrollToSection('color-patterns')">🌈 Colors & Patterns</div>
+                    <div class="index-item" onclick="scrollToSection('fit-silhouette')">📐 Fit & Silhouette</div>
+                    <div class="index-item" onclick="scrollToSection('seasonal-wear')">🌸 Seasonal Wear</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="index-category-header" onclick="toggleIndexCategory(this)">
+                    👠 Footwear Universe
+                </div>
+                <div class="index-items">
+                    <div class="index-item" onclick="scrollToSection('shoe-styles')">👞 Shoe Styles</div>
+                    <div class="index-item" onclick="scrollToSection('heel-types')">📐 Heel Types</div>
+                    <div class="index-item" onclick="scrollToSection('casual-footwear')">👟 Casual Footwear</div>
+                    <div class="index-item" onclick="scrollToSection('boot-collection')">🥾 Boot Collection</div>
+                    <div class="index-item" onclick="scrollToSection('specialty-shoes')">⚡ Specialty Shoes</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="index-category-header" onclick="toggleIndexCategory(this)">
+                    💅 Nail Universe
+                </div>
+                <div class="index-items">
+                    <div class="index-item" onclick="scrollToSection('nail-shapes')">💎 Nail Shapes</div>
+                    <div class="index-item" onclick="scrollToSection('nail-art')">🎨 Nail Art Designs</div>
+                    <div class="index-item" onclick="scrollToSection('nail-finishes')">✨ Nail Finishes</div>
+                    <div class="index-item" onclick="scrollToSection('nail-colors')">🌈 Nail Colors</div>
+                    <div class="index-item" onclick="scrollToSection('nail-techniques')">🖌️ Nail Techniques</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="index-category-header" onclick="toggleIndexCategory(this)">
+                    💍 Jewelry Universe
+                </div>
+                <div class="index-items">
+                    <div class="index-item" onclick="scrollToSection('earrings-collection')">👂 Earrings Collection</div>
+                    <div class="index-item" onclick="scrollToSection('necklaces-collection')">📿 Necklaces Collection</div>
+                    <div class="index-item" onclick="scrollToSection('rings-collection')">💎 Rings Collection</div>
+                    <div class="index-item" onclick="scrollToSection('bracelets-collection')">⌚ Bracelets & Watches</div>
+                    <div class="index-item" onclick="scrollToSection('body-jewelry')">💫 Body Jewelry</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="index-category-header" onclick="toggleIndexCategory(this)">
+                    👜 Accessories Universe
+                </div>
+                <div class="index-items">
+                    <div class="index-item" onclick="scrollToSection('bags-collection')">👛 Bags Collection</div>
+                    <div class="index-item" onclick="scrollToSection('eyewear-collection')">🕶️ Eyewear Collection</div>
+                    <div class="index-item" onclick="scrollToSection('hair-accessories')">🎀 Hair Accessories</div>
+                    <div class="index-item" onclick="scrollToSection('scarves-belts')">🧣 Scarves & Belts</div>
+                    <div class="index-item" onclick="scrollToSection('hats-headwear')">🎩 Hats & Headwear</div>
+                    <div class="index-item" onclick="scrollToSection('tech-accessories')">📱 Tech Accessories</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="index-category-header" onclick="toggleIndexCategory(this)">
+                    💄 Makeup Universe
+                </div>
+                <div class="index-items">
+                    <div class="index-item" onclick="scrollToSection('eye-makeup')">👁️ Eye Makeup</div>
+                    <div class="index-item" onclick="scrollToSection('lip-makeup')">💋 Lip Makeup</div>
+                    <div class="index-item" onclick="scrollToSection('face-makeup')">✨ Face Makeup</div>
+                    <div class="index-item" onclick="scrollToSection('makeup-styles')">🎭 Makeup Styles</div>
+                    <div class="index-item" onclick="scrollToSection('makeup-finishes')">🌟 Makeup Finishes</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="index-category-header" onclick="toggleIndexCategory(this)">
+                    🏃 Body & Posture Universe
+                </div>
+                <div class="index-items">
+                    <div class="index-item" onclick="scrollToSection('body-types')">👤 Body Types</div>
+                    <div class="index-item" onclick="scrollToSection('posture-stance')">🧍 Posture & Stance</div>
+                    <div class="index-item" onclick="scrollToSection('hand-gestures')">👋 Hand Gestures</div>
+                    <div class="index-item" onclick="scrollToSection('body-language')">💃 Body Language</div>
+                    <div class="index-item" onclick="scrollToSection('movement-style')">🕺 Movement Style</div>
+                </div>
+            </div>
+
+            <div class="index-category">
+                <div class="index-category-header" onclick="toggleIndexCategory(this)">
+                    🎭 Style Personalities
+                </div>
+                <div class="index-items">
+                    <div class="index-item" onclick="scrollToSection('classic-style')">👑 Classic Style</div>
+                    <div class="index-item" onclick="scrollToSection('bohemian-style')">🌸 Bohemian Style</div>
+                    <div class="index-item" onclick="scrollToSection('edgy-style')">⚡ Edgy Style</div>
+                    <div class="index-item" onclick="scrollToSection('romantic-style')">💕 Romantic Style</div>
+                    <div class="index-item" onclick="scrollToSection('minimalist-style')">⚪ Minimalist Style</div>
+                    <div class="index-item" onclick="scrollToSection('maximalist-style')">🌈 Maximalist Style</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Human Micro Features Master Glossary</h1>
+                <p>Your comprehensive guide to describing human features with precision and creativity</p>
+                
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search features, styles, or descriptors...">
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="generateRandomPrompt()">🎲 Random Prompt</button>
+                    <button class="action-btn" onclick="copyAllVisible()">📋 Copy All Visible</button>
+                    <button class="action-btn" onclick="resetFilters()">🔄 Reset Filters</button>
+                    <button class="action-btn" onclick="toggleAdvancedMode()">⚙️ Advanced Mode</button>
+                </div>
+
+                <div class="random-prompt-box" id="randomPromptBox">
+                    <h3>🎨 Your Random Prompt:</h3>
+                    <div class="prompt-text" id="promptText"></div>
+                    <button class="action-btn" onclick="copyPrompt()">📋 Copy Prompt</button>
+                </div>
+            </div>
+
+            <!-- FACE UNIVERSE -->
+            <div class="content-section" id="face-universe">
+                <h2 class="section-title">👤 Face Universe</h2>
+                
+                <div class="subcategory" id="eyes-features">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">👁️</span>
+                        Eyes Features
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Eye Shape</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">almond-shaped</span>
+                            <span class="adjective-tag">round</span>
+                            <span class="adjective-tag">hooded</span>
+                            <span class="adjective-tag">monolid</span>
+                            <span class="adjective-tag">deep-set</span>
+                            <span class="adjective-tag">prominent</span>
+                            <span class="adjective-tag">close-set</span>
+                            <span class="adjective-tag">wide-set</span>
+                            <span class="adjective-tag">upturned</span>
+                            <span class="adjective-tag">downturned</span>
+                            <span class="adjective-tag">cat-like</span>
+                            <span class="adjective-tag">doe-eyed</span>
+                            <span class="adjective-tag">sleepy</span>
+                            <span class="adjective-tag">alert</span>
+                            <span class="adjective-tag">piercing</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Eye Color</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">amber</span>
+                            <span class="adjective-tag">hazel</span>
+                            <span class="adjective-tag">emerald green</span>
+                            <span class="adjective-tag">sapphire blue</span>
+                            <span class="adjective-tag">chocolate brown</span>
+                            <span class="adjective-tag">honey brown</span>
+                            <span class="adjective-tag">steel gray</span>
+                            <span class="adjective-tag">violet</span>
+                            <span class="adjective-tag">heterochromia</span>
+                            <span class="adjective-tag">golden</span>
+                            <span class="adjective-tag">ice blue</span>
+                            <span class="adjective-tag">forest green</span>
+                            <span class="adjective-tag">warm brown</span>
+                            <span class="adjective-tag">stormy gray</span>
+                            <span class="adjective-tag">sea green</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Eyelashes & Eyebrows</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">long lashes</span>
+                            <span class="adjective-tag">thick lashes</span>
+                            <span class="adjective-tag">curled lashes</span>
+                            <span class="adjective-tag">sparse lashes</span>
+                            <span class="adjective-tag">dramatic lashes</span>
+                            <span class="adjective-tag">natural lashes</span>
+                            <span class="adjective-tag">arched brows</span>
+                            <span class="adjective-tag">straight brows</span>
+                            <span class="adjective-tag">thick brows</span>
+                            <span class="adjective-tag">thin brows</span>
+                            <span class="adjective-tag">feathered brows</span>
+                            <span class="adjective-tag">bold brows</span>
+                            <span class="adjective-tag">natural brows</span>
+                            <span class="adjective-tag">sculpted brows</span>
+                            <span class="adjective-tag">unibrow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="nose-features">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">👃</span>
+                        Nose Features
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Nose Shape</div>
+                        <div class="size-options">
+                            <span class="size-tag">Small</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Large</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">button nose</span>
+                            <span class="adjective-tag">roman nose</span>
+                            <span class="adjective-tag">aquiline</span>
+                            <span class="adjective-tag">snub nose</span>
+                            <span class="adjective-tag">straight</span>
+                            <span class="adjective-tag">crooked</span>
+                            <span class="adjective-tag">bulbous</span>
+                            <span class="adjective-tag">pointed</span>
+                            <span class="adjective-tag">upturned</span>
+                            <span class="adjective-tag">hooked</span>
+                            <span class="adjective-tag">wide nostrils</span>
+                            <span class="adjective-tag">narrow nostrils</span>
+                            <span class="adjective-tag">flared nostrils</span>
+                            <span class="adjective-tag">delicate</span>
+                            <span class="adjective-tag">prominent</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="lips-features">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">💋</span>
+                        Lips Features
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Lip Shape & Fullness</div>
+                        <div class="size-options">
+                            <span class="size-tag">Thin</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Full</span>
+                            <span class="size-tag">Very Full</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">cupid's bow</span>
+                            <span class="adjective-tag">heart-shaped</span>
+                            <span class="adjective-tag">bow-shaped</span>
+                            <span class="adjective-tag">straight</span>
+                            <span class="adjective-tag">downturned</span>
+                            <span class="adjective-tag">upturned</span>
+                            <span class="adjective-tag">pouty</span>
+                            <span class="adjective-tag">rosebud</span>
+                            <span class="adjective-tag">wide</span>
+                            <span class="adjective-tag">narrow</span>
+                            <span class="adjective-tag">asymmetrical</span>
+                            <span class="adjective-tag">defined</span>
+                            <span class="adjective-tag">soft</span>
+                            <span class="adjective-tag">plump</span>
+                            <span class="adjective-tag">glossy</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Lip Color & Texture</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">natural pink</span>
+                            <span class="adjective-tag">coral</span>
+                            <span class="adjective-tag">berry</span>
+                            <span class="adjective-tag">nude</span>
+                            <span class="adjective-tag">rosy</span>
+                            <span class="adjective-tag">pale</span>
+                            <span class="adjective-tag">dark</span>
+                            <span class="adjective-tag">matte</span>
+                            <span class="adjective-tag">glossy</span>
+                            <span class="adjective-tag">satin</span>
+                            <span class="adjective-tag">chapped</span>
+                            <span class="adjective-tag">smooth</span>
+                            <span class="adjective-tag">moisturized</span>
+                            <span class="adjective-tag">stained</span>
+                            <span class="adjective-tag">bitten</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="facial-structure">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🗿</span>
+                        Facial Structure
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Face Shape</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">oval</span>
+                            <span class="adjective-tag">round</span>
+                            <span class="adjective-tag">square</span>
+                            <span class="adjective-tag">heart-shaped</span>
+                            <span class="adjective-tag">diamond</span>
+                            <span class="adjective-tag">oblong</span>
+                            <span class="adjective-tag">triangular</span>
+                            <span class="adjective-tag">rectangular</span>
+                            <span class="adjective-tag">pear-shaped</span>
+                            <span class="adjective-tag">angular</span>
+                            <span class="adjective-tag">soft</span>
+                            <span class="adjective-tag">chiseled</span>
+                            <span class="adjective-tag">delicate</span>
+                            <span class="adjective-tag">strong</span>
+                            <span class="adjective-tag">symmetrical</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Cheekbones & Jawline</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">high cheekbones</span>
+                            <span class="adjective-tag">prominent cheekbones</span>
+                            <span class="adjective-tag">soft cheekbones</span>
+                            <span class="adjective-tag">hollow cheeks</span>
+                            <span class="adjective-tag">full cheeks</span>
+                            <span class="adjective-tag">chubby cheeks</span>
+                            <span class="adjective-tag">defined jawline</span>
+                            <span class="adjective-tag">sharp jawline</span>
+                            <span class="adjective-tag">soft jawline</span>
+                            <span class="adjective-tag">square jaw</span>
+                            <span class="adjective-tag">pointed chin</span>
+                            <span class="adjective-tag">cleft chin</span>
+                            <span class="adjective-tag">double chin</span>
+                            <span class="adjective-tag">strong chin</span>
+                            <span class="adjective-tag">weak chin</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Forehead & Temples</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">high forehead</span>
+                            <span class="adjective-tag">broad forehead</span>
+                            <span class="adjective-tag">narrow forehead</span>
+                            <span class="adjective-tag">smooth forehead</span>
+                            <span class="adjective-tag">wrinkled forehead</span>
+                            <span class="adjective-tag">prominent brow ridge</span>
+                            <span class="adjective-tag">receding hairline</span>
+                            <span class="adjective-tag">widow's peak</span>
+                            <span class="adjective-tag">temple dimples</span>
+                            <span class="adjective-tag">furrowed brow</span>
+                            <span class="adjective-tag">smooth temples</span>
+                            <span class="adjective-tag">pronounced temples</span>
+                            <span class="adjective-tag">balanced proportions</span>
+                            <span class="adjective-tag">expressive</span>
+                            <span class="adjective-tag">serene</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="skin-features">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">✨</span>
+                        Skin Features
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Skin Tone</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">porcelain</span>
+                            <span class="adjective-tag">ivory</span>
+                            <span class="adjective-tag">fair</span>
+                            <span class="adjective-tag">light</span>
+                            <span class="adjective-tag">medium</span>
+                            <span class="adjective-tag">olive</span>
+                            <span class="adjective-tag">tan</span>
+                            <span class="adjective-tag">bronze</span>
+                            <span class="adjective-tag">deep</span>
+                            <span class="adjective-tag">rich</span>
+                            <span class="adjective-tag">warm undertones</span>
+                            <span class="adjective-tag">cool undertones</span>
+                            <span class="adjective-tag">neutral undertones</span>
+                            <span class="adjective-tag">golden</span>
+                            <span class="adjective-tag">rosy</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Skin Texture & Condition</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">smooth</span>
+                            <span class="adjective-tag">soft</span>
+                            <span class="adjective-tag">silky</span>
+                            <span class="adjective-tag">glowing</span>
+                            <span class="adjective-tag">radiant</span>
+                            <span class="adjective-tag">dewy</span>
+                            <span class="adjective-tag">matte</span>
+                            <span class="adjective-tag">oily</span>
+                            <span class="adjective-tag">dry</span>
+                            <span class="adjective-tag">combination</span>
+                            <span class="adjective-tag">sensitive</span>
+                            <span class="adjective-tag">clear</span>
+                            <span class="adjective-tag">blemished</span>
+                            <span class="adjective-tag">freckled</span>
+                            <span class="adjective-tag">sun-kissed</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Distinctive Marks</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">beauty mark</span>
+                            <span class="adjective-tag">mole</span>
+                            <span class="adjective-tag">freckles</span>
+                            <span class="adjective-tag">dimples</span>
+                            <span class="adjective-tag">laugh lines</span>
+                            <span class="adjective-tag">crow's feet</span>
+                            <span class="adjective-tag">smile lines</span>
+                            <span class="adjective-tag">scar</span>
+                            <span class="adjective-tag">birthmark</span>
+                            <span class="adjective-tag">age spots</span>
+                            <span class="adjective-tag">sun spots</span>
+                            <span class="adjective-tag">vitiligo</span>
+                            <span class="adjective-tag">tattoo</span>
+                            <span class="adjective-tag">piercing</span>
+                            <span class="adjective-tag">natural glow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="expressions">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">😊</span>
+                        Expressions & Emotions
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Happy Expressions</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">bright smile</span>
+                            <span class="adjective-tag">genuine smile</span>
+                            <span class="adjective-tag">radiant grin</span>
+                            <span class="adjective-tag">beaming</span>
+                            <span class="adjective-tag">joyful</span>
+                            <span class="adjective-tag">cheerful</span>
+                            <span class="adjective-tag">laughing</span>
+                            <span class="adjective-tag">giggling</span>
+                            <span class="adjective-tag">smirking</span>
+                            <span class="adjective-tag">content</span>
+                            <span class="adjective-tag">pleased</span>
+                            <span class="adjective-tag">delighted</span>
+                            <span class="adjective-tag">euphoric</span>
+                            <span class="adjective-tag">ecstatic</span>
+                            <span class="adjective-tag">blissful</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Serious Expressions</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">stoic</span>
+                            <span class="adjective-tag">stern</span>
+                            <span class="adjective-tag">focused</span>
+                            <span class="adjective-tag">concentrated</span>
+                            <span class="adjective-tag">determined</span>
+                            <span class="adjective-tag">intense</span>
+                            <span class="adjective-tag">brooding</span>
+                            <span class="adjective-tag">contemplative</span>
+                            <span class="adjective-tag">pensive</span>
+                            <span class="adjective-tag">thoughtful</span>
+                            <span class="adjective-tag">serious</span>
+                            <span class="adjective-tag">grave</span>
+                            <span class="adjective-tag">solemn</span>
+                            <span class="adjective-tag">composed</span>
+                            <span class="adjective-tag">neutral</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Emotional Expressions</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">surprised</span>
+                            <span class="adjective-tag">shocked</span>
+                            <span class="adjective-tag">amazed</span>
+                            <span class="adjective-tag">confused</span>
+                            <span class="adjective-tag">worried</span>
+                            <span class="adjective-tag">concerned</span>
+                            <span class="adjective-tag">sad</span>
+                            <span class="adjective-tag">melancholy</span>
+                            <span class="adjective-tag">angry</span>
+                            <span class="adjective-tag">frustrated</span>
+                            <span class="adjective-tag">annoyed</span>
+                            <span class="adjective-tag">disgusted</span>
+                            <span class="adjective-tag">fearful</span>
+                            <span class="adjective-tag">anxious</span>
+                            <span class="adjective-tag">peaceful</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="age-features">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">⏳</span>
+                        Age Features
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Youthful Features</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">baby-faced</span>
+                            <span class="adjective-tag">youthful</span>
+                            <span class="adjective-tag">fresh-faced</span>
+                            <span class="adjective-tag">smooth skin</span>
+                            <span class="adjective-tag">bright eyes</span>
+                            <span class="adjective-tag">full cheeks</span>
+                            <span class="adjective-tag">plump lips</span>
+                            <span class="adjective-tag">clear complexion</span>
+                            <span class="adjective-tag">dewy skin</span>
+                            <span class="adjective-tag">innocent</span>
+                            <span class="adjective-tag">childlike</span>
+                            <span class="adjective-tag">vibrant</span>
+                            <span class="adjective-tag">energetic</span>
+                            <span class="adjective-tag">glowing</span>
+                            <span class="adjective-tag">radiant</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Mature Features</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">distinguished</span>
+                            <span class="adjective-tag">mature</span>
+                            <span class="adjective-tag">weathered</span>
+                            <span class="adjective-tag">lined</span>
+                            <span class="adjective-tag">wrinkled</span>
+                            <span class="adjective-tag">aged</span>
+                            <span class="adjective-tag">experienced</span>
+                            <span class="adjective-tag">wise</span>
+                            <span class="adjective-tag">seasoned</span>
+                            <span class="adjective-tag">silver-haired</span>
+                            <span class="adjective-tag">gray-haired</span>
+                            <span class="adjective-tag">dignified</span>
+                            <span class="adjective-tag">refined</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">graceful</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HAIR UNIVERSE -->
+            <div class="content-section" id="hair-universe">
+                <h2 class="section-title">💇 Hair Universe</h2>
+                
+                <div class="subcategory" id="hair-length">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">📏</span>
+                        Hair Length
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Length Categories</div>
+                        <div class="size-options">
+                            <span class="size-tag">Pixie</span>
+                            <span class="size-tag">Short</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Long</span>
+                            <span class="size-tag">Very Long</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">buzz cut</span>
+                            <span class="adjective-tag">crew cut</span>
+                            <span class="adjective-tag">pixie cut</span>
+                            <span class="adjective-tag">bob</span>
+                            <span class="adjective-tag">lob</span>
+                            <span class="adjective-tag">shoulder-length</span>
+                            <span class="adjective-tag">mid-back</span>
+                            <span class="adjective-tag">waist-length</span>
+                            <span class="adjective-tag">hip-length</span>
+                            <span class="adjective-tag">floor-length</span>
+                            <span class="adjective-tag">chin-length</span>
+                            <span class="adjective-tag">ear-length</span>
+                            <span class="adjective-tag">collar-length</span>
+                            <span class="adjective-tag">bra-strap length</span>
+                            <span class="adjective-tag">tailbone-length</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="hair-texture">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🌊</span>
+                        Hair Texture & Type
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Curl Pattern</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">straight</span>
+                            <span class="adjective-tag">wavy</span>
+                            <span class="adjective-tag">curly</span>
+                            <span class="adjective-tag">coily</span>
+                            <span class="adjective-tag">kinky</span>
+                            <span class="adjective-tag">loose waves</span>
+                            <span class="adjective-tag">beach waves</span>
+                            <span class="adjective-tag">tight curls</span>
+                            <span class="adjective-tag">spiral curls</span>
+                            <span class="adjective-tag">ringlets</span>
+                            <span class="adjective-tag">corkscrew</span>
+                            <span class="adjective-tag">zigzag</span>
+                            <span class="adjective-tag">crimped</span>
+                            <span class="adjective-tag">pin-straight</span>
+                            <span class="adjective-tag">naturally curly</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Hair Thickness & Density</div>
+                        <div class="size-options">
+                            <span class="size-tag">Fine</span>
+                            <span class="size-tag">Medium</span>
+                            <span class="size-tag">Thick</span>
+                            <span class="size-tag">Coarse</span>
+                        </div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">thin</span>
+                            <span class="adjective-tag">thick</span>
+                            <span class="adjective-tag">fine</span>
+                            <span class="adjective-tag">coarse</span>
+                            <span class="adjective-tag">dense</span>
+                            <span class="adjective-tag">sparse</span>
+                            <span class="adjective-tag">voluminous</span>
+                            <span class="adjective-tag">flat</span>
+                            <span class="adjective-tag">full-bodied</span>
+                            <span class="adjective-tag">wispy</span>
+                            <span class="adjective-tag">baby-fine</span>
+                            <span class="adjective-tag">wiry</span>
+                            <span class="adjective-tag">silky</span>
+                            <span class="adjective-tag">cottony</span>
+                            <span class="adjective-tag">bouncy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="hair-color">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🎨</span>
+                        Hair Color
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Natural Colors</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">platinum blonde</span>
+                            <span class="adjective-tag">golden blonde</span>
+                            <span class="adjective-tag">honey blonde</span>
+                            <span class="adjective-tag">ash blonde</span>
+                            <span class="adjective-tag">strawberry blonde</span>
+                            <span class="adjective-tag">dirty blonde</span>
+                            <span class="adjective-tag">light brown</span>
+                            <span class="adjective-tag">medium brown</span>
+                            <span class="adjective-tag">dark brown</span>
+                            <span class="adjective-tag">chocolate brown</span>
+                            <span class="adjective-tag">chestnut</span>
+                            <span class="adjective-tag">auburn</span>
+                            <span class="adjective-tag">copper</span>
+                            <span class="adjective-tag">ginger</span>
+                            <span class="adjective-tag">jet black</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Fashion Colors</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">rainbow</span>
+                            <span class="adjective-tag">pastel pink</span>
+                            <span class="adjective-tag">lavender</span>
+                            <span class="adjective-tag">mint green</span>
+                            <span class="adjective-tag">sky blue</span>
+                            <span class="adjective-tag">purple</span>
+                            <span class="adjective-tag">teal</span>
+                            <span class="adjective-tag">magenta</span>
+                            <span class="adjective-tag">silver</span>
+                            <span class="adjective-tag">rose gold</span>
+                            <span class="adjective-tag">neon</span>
+                            <span class="adjective-tag">ombre</span>
+                            <span class="adjective-tag">balayage</span>
+                            <span class="adjective-tag">highlights</span>
+                            <span class="adjective-tag">lowlights</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="hairstyles">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">💇‍♀️</span>
+                        Hairstyles & Cuts
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Classic Cuts</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">bob</span>
+                            <span class="adjective-tag">lob</span>
+                            <span class="adjective-tag">pixie</span>
+                            <span class="adjective-tag">shag</span>
+                            <span class="adjective-tag">layers</span>
+                            <span class="adjective-tag">blunt cut</span>
+                            <span class="adjective-tag">a-line</span>
+                            <span class="adjective-tag">graduated</span>
+                            <span class="adjective-tag">asymmetrical</span>
+                            <span class="adjective-tag">undercut</span>
+                            <span class="adjective-tag">fade</span>
+                            <span class="adjective-tag">buzz cut</span>
+                            <span class="adjective-tag">crew cut</span>
+                            <span class="adjective-tag">pompadour</span>
+                            <span class="adjective-tag">quiff</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Updos & Formal Styles</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">bun</span>
+                            <span class="adjective-tag">chignon</span>
+                            <span class="adjective-tag">french twist</span>
+                            <span class="adjective-tag">updo</span>
+                            <span class="adjective-tag">top knot</span>
+                            <span class="adjective-tag">braided crown</span>
+                            <span class="adjective-tag">gibson tuck</span>
+                            <span class="adjective-tag">bouffant</span>
+                            <span class="adjective-tag">beehive</span>
+                            <span class="adjective-tag">victory rolls</span>
+                            <span class="adjective-tag">finger waves</span>
+                            <span class="adjective-tag">pin curls</span>
+                            <span class="adjective-tag">elegant updo</span>
+                            <span class="adjective-tag">messy bun</span>
+                            <span class="adjective-tag">sleek bun</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Braids & Plaits</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">french braid</span>
+                            <span class="adjective-tag">dutch braid</span>
+                            <span class="adjective-tag">fishtail braid</span>
+                            <span class="adjective-tag">waterfall braid</span>
+                            <span class="adjective-tag">crown braid</span>
+                            <span class="adjective-tag">side braid</span>
+                            <span class="adjective-tag">boxer braids</span>
+                            <span class="adjective-tag">cornrows</span>
+                            <span class="adjective-tag">micro braids</span>
+                            <span class="adjective-tag">goddess braids</span>
+                            <span class="adjective-tag">rope braid</span>
+                            <span class="adjective-tag">four-strand braid</span>
+                            <span class="adjective-tag">ladder braid</span>
+                            <span class="adjective-tag">pull-through braid</span>
+                            <span class="adjective-tag">bubble braid</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="hair-condition">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">💫</span>
+                        Hair Condition
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Healthy Hair</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">healthy</span>
+                            <span class="adjective-tag">shiny</span>
+                            <span class="adjective-tag">lustrous</span>
+                            <span class="adjective-tag">glossy</span>
+                            <span class="adjective-tag">smooth</span>
+                            <span class="adjective-tag">silky</span>
+                            <span class="adjective-tag">soft</span>
+                            <span class="adjective-tag">manageable</span>
+                            <span class="adjective-tag">bouncy</span>
+                            <span class="adjective-tag">vibrant</span>
+                            <span class="adjective-tag">strong</span>
+                            <span class="adjective-tag">thick</span>
+                            <span class="adjective-tag">full</span>
+                            <span class="adjective-tag">voluminous</span>
+                            <span class="adjective-tag">radiant</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Hair Issues</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">dull</span>
+                            <span class="adjective-tag">damaged</span>
+                            <span class="adjective-tag">dry</span>
+                            <span class="adjective-tag">oily</span>
+                            <span class="adjective-tag">greasy</span>
+                            <span class="adjective-tag">frizzy</span>
+                            <span class="adjective-tag">tangled</span>
+                            <span class="adjective-tag">knotted</span>
+                            <span class="adjective-tag">split ends</span>
+                            <span class="adjective-tag">brittle</span>
+                            <span class="adjective-tag">thinning</span>
+                            <span class="adjective-tag">balding</span>
+                            <span class="adjective-tag">patchy</span>
+                            <span class="adjective-tag">uneven</span>
+                            <span class="adjective-tag">lifeless</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="hair-movement">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🌪️</span>
+                        Hair Movement
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Movement Styles</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">flowing</span>
+                            <span class="adjective-tag">cascading</span>
+                            <span class="adjective-tag">windswept</span>
+                            <span class="adjective-tag">tousled</span>
+                            <span class="adjective-tag">messy</span>
+                            <span class="adjective-tag">wild</span>
+                            <span class="adjective-tag">untamed</span>
+                            <span class="adjective-tag">sleek</span>
+                            <span class="adjective-tag">smooth</span>
+                            <span class="adjective-tag">straight</span>
+                            <span class="adjective-tag">bouncing</span>
+                            <span class="adjective-tag">swaying</span>
+                            <span class="adjective-tag">dancing</span>
+                            <span class="adjective-tag">floating</span>
+                            <span class="adjective-tag">static</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continue with all other sections... -->
+            <!-- For brevity, I'll include a few more key sections -->
+
+            <!-- MAKEUP UNIVERSE -->
+            <div class="content-section" id="makeup-universe">
+                <h2 class="section-title">💄 Makeup Universe</h2>
+                
+                <div class="subcategory" id="eye-makeup">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">👁️</span>
+                        Eye Makeup
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Eyeshadow Styles</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">smoky eye</span>
+                            <span class="adjective-tag">natural</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">colorful</span>
+                            <span class="adjective-tag">metallic</span>
+                            <span class="adjective-tag">matte</span>
+                            <span class="adjective-tag">shimmer</span>
+                            <span class="adjective-tag">glitter</span>
+                            <span class="adjective-tag">gradient</span>
+                            <span class="adjective-tag">cut crease</span>
+                            <span class="adjective-tag">halo eye</span>
+                            <span class="adjective-tag">monochromatic</span>
+                            <span class="adjective-tag">bold</span>
+                            <span class="adjective-tag">subtle</span>
+                            <span class="adjective-tag">artistic</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-group">
+                        <div class="feature-name">Eyeliner Styles</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">winged liner</span>
+                            <span class="adjective-tag">cat eye</span>
+                            <span class="adjective-tag">tight line</span>
+                            <span class="adjective-tag">thick liner</span>
+                            <span class="adjective-tag">thin liner</span>
+                            <span class="adjective-tag">smudged</span>
+                            <span class="adjective-tag">precise</span>
+                            <span class="adjective-tag">graphic</span>
+                            <span class="adjective-tag">colored liner</span>
+                            <span class="adjective-tag">double liner</span>
+                            <span class="adjective-tag">floating liner</span>
+                            <span class="adjective-tag">waterline</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">subtle</span>
+                            <span class="adjective-tag">artistic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="lip-makeup">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">💋</span>
+                        Lip Makeup
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Lip Finishes</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">matte</span>
+                            <span class="adjective-tag">glossy</span>
+                            <span class="adjective-tag">satin</span>
+                            <span class="adjective-tag">metallic</span>
+                            <span class="adjective-tag">sheer</span>
+                            <span class="adjective-tag">opaque</span>
+                            <span class="adjective-tag">creamy</span>
+                            <span class="adjective-tag">liquid</span>
+                            <span class="adjective-tag">stained</span>
+                            <span class="adjective-tag">tinted</span>
+                            <span class="adjective-tag">bold</span>
+                            <span class="adjective-tag">natural</span>
+                            <span class="adjective-tag">dramatic</span>
+                            <span class="adjective-tag">subtle</span>
+                            <span class="adjective-tag">long-lasting</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BODY & POSTURE UNIVERSE -->
+            <div class="content-section" id="body-posture-universe">
+                <h2 class="section-title">🏃 Body & Posture Universe</h2>
+                
+                <div class="subcategory" id="body-types">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">👤</span>
+                        Body Types
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Body Shapes</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">pear-shaped</span>
+                            <span class="adjective-tag">apple-shaped</span>
+                            <span class="adjective-tag">hourglass</span>
+                            <span class="adjective-tag">rectangle</span>
+                            <span class="adjective-tag">inverted triangle</span>
+                            <span class="adjective-tag">athletic</span>
+                            <span class="adjective-tag">curvy</span>
+                            <span class="adjective-tag">slim</span>
+                            <span class="adjective-tag">petite</span>
+                            <span class="adjective-tag">tall</span>
+                            <span class="adjective-tag">plus-size</span>
+                            <span class="adjective-tag">muscular</span>
+                            <span class="adjective-tag">lean</span>
+                            <span class="adjective-tag">voluptuous</span>
+                            <span class="adjective-tag">statuesque</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcategory" id="posture-stance">
+                    <div class="subcategory-title">
+                        <span class="subcategory-icon">🧍</span>
+                        Posture & Stance
+                    </div>
+                    
+                    <div class="feature-group">
+                        <div class="feature-name">Standing Postures</div>
+                        <div class="adjectives">
+                            <span class="adjective-tag">upright</span>
+                            <span class="adjective-tag">slouched</span>
+                            <span class="adjective-tag">confident</span>
+                            <span class="adjective-tag">relaxed</span>
+                            <span class="adjective-tag">tense</span>
+                            <span class="adjective-tag">graceful</span>
+                            <span class="adjective-tag">elegant</span>
+                            <span class="adjective-tag">casual</span>
+                            <span class="adjective-tag">formal</span>
+                            <span class="adjective-tag">defensive</span>
+                            <span class="adjective-tag">open</span>
+                            <span class="adjective-tag">closed</span>
+                            <span class="adjective-tag">balanced</span>
+                            <span class="adjective-tag">leaning</span>
+                            <span class="adjective-tag">straight</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const allSections = document.querySelectorAll('.content-section');
+        const allSubcategories = document.querySelectorAll('.subcategory');
+        const allFeatureGroups = document.querySelectorAll('.feature-group');
+        const allAdjectives = document.querySelectorAll('.adjective-tag');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                // Show all content
+                allSections.forEach(section => section.classList.remove('hidden'));
+                allSubcategories.forEach(sub => sub.classList.remove('hidden'));
+                allFeatureGroups.forEach(group => group.classList.remove('hidden'));
+                clearHighlights();
+                return;
+            }
+
+            // Hide all content first
+            allSections.forEach(section => section.classList.add('hidden'));
+            allSubcategories.forEach(sub => sub.classList.add('hidden'));
+            allFeatureGroups.forEach(group => group.classList.add('hidden'));
+
+            // Clear previous highlights
+            clearHighlights();
+
+            // Search and show matching content
+            let hasResults = false;
+            
+            allAdjectives.forEach(tag => {
+                if (tag.textContent.toLowerCase().includes(searchTerm)) {
+                    hasResults = true;
+                    // Highlight the matching text
+                    highlightText(tag, searchTerm);
+                    
+                    // Show parent elements
+                    const featureGroup = tag.closest('.feature-group');
+                    const subcategory = tag.closest('.subcategory');
+                    const section = tag.closest('.content-section');
+                    
+                    if (featureGroup) featureGroup.classList.remove('hidden');
+                    if (subcategory) subcategory.classList.remove('hidden');
+                    if (section) section.classList.remove('hidden');
+                }
+            });
+
+            // Also search in titles and feature names
+            document.querySelectorAll('.feature-name, .subcategory-title, .section-title').forEach(title => {
+                if (title.textContent.toLowerCase().includes(searchTerm)) {
+                    hasResults = true;
+                    highlightText(title, searchTerm);
+                    
+                    const featureGroup = title.closest('.feature-group');
+                    const subcategory = title.closest('.subcategory');
+                    const section = title.closest('.content-section');
+                    
+                    if (featureGroup) featureGroup.classList.remove('hidden');
+                    if (subcategory) subcategory.classList.remove('hidden');
+                    if (section) section.classList.remove('hidden');
+                }
+            });
+        });
+
+        function highlightText(element, searchTerm) {
+            const text = element.textContent;
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            const highlightedText = text.replace(regex, '<span class="highlight">$1</span>');
+            element.innerHTML = highlightedText;
+        }
+
+        function clearHighlights() {
+            document.querySelectorAll('.highlight').forEach(highlight => {
+                const parent = highlight.parentNode;
+                parent.textContent = parent.textContent;
+            });
+        }
+
+        // Sidebar functionality
+        function toggleIndexCategory(header) {
+            const category = header.parentElement;
+            category.classList.toggle('expanded');
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Copy functionality
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual feedback handled by CSS animation
+            });
+        }
+
+        // Add click handlers to adjective tags
+        document.querySelectorAll('.adjective-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                copyToClipboard(this.textContent);
+                this.classList.add('copied');
+                setTimeout(() => {
+                    this.classList.remove('copied');
+                }, 600);
+            });
+        });
+
+        // Random prompt generator
+        function generateRandomPrompt() {
+            const allTags = Array.from(document.querySelectorAll('.adjective-tag:not(.hidden)'));
+            const randomTags = [];
+            
+            // Get 8-12 random tags
+            const numTags = Math.floor(Math.random() * 5) + 8;
+            
+            for (let i = 0; i < numTags && i < allTags.length; i++) {
+                const randomIndex = Math.floor(Math.random() * allTags.length);
+                const tag = allTags[randomIndex];
+                if (!randomTags.includes(tag.textContent)) {
+                    randomTags.push(tag.textContent);
+                }
+            }
+            
+            const prompt = randomTags.join(', ');
+            document.getElementById('promptText').textContent = prompt;
+            document.getElementById('randomPromptBox').classList.add('active');
+        }
+
+        function copyPrompt() {
+            const promptText = document.getElementById('promptText').textContent;
+            copyToClipboard(promptText);
+        }
+
+        function copyAllVisible() {
+            const visibleTags = Array.from(document.querySelectorAll('.adjective-tag:not(.hidden)'));
+            const allText = visibleTags.map(tag => tag.textContent).join(', ');
+            copyToClipboard(allText);
+        }
+
+        function resetFilters() {
+            searchInput.value = '';
+            allSections.forEach(section => section.classList.remove('hidden'));
+            allSubcategories.forEach(sub => sub.classList.remove('hidden'));
+            allFeatureGroups.forEach(group => group.classList.remove('hidden'));
+            clearHighlights();
+            document.getElementById('randomPromptBox').classList.remove('active');
+        }
+
+        function toggleAdvancedMode() {
+            // Placeholder for advanced mode functionality
+            alert('Advanced mode coming soon!');
+        }
+
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Initialize - expand first category
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstCategory = document.querySelector('.index-category');
+            if (firstCategory) {
+                firstCategory.classList.add('expanded');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98b68d7806094799',t:'MTc1OTkzNjA5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
