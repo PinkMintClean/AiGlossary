@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate AI Character Creation Universe</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 3rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.2); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.4); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
+            50% { transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .floating-index {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+            max-height: 70vh;
+            overflow-y: auto;
+            width: 200px;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%) translateY(-50%); }
+            to { transform: translateX(0) translateY(-50%); }
+        }
+
+        .floating-index h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .index-item {
+            padding: 5px 10px;
+            margin: 2px 0;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .index-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .prompt-generator {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: popIn 1s ease-out;
+        }
+
+        .prompt-generator h2 {
+            color: #333;
+            margin: 0 0 20px 0;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .prompt-display {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            min-height: 100px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .prompt-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .control-btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: bounce 2s infinite;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: pulse 0.5s ease;
+        }
+
+        .sample-prompts {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: popIn 1.2s ease-out;
+        }
+
+        .sample-prompts h3 {
+            color: #333;
+            margin: 0 0 15px 0;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .sample-dropdown {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .sample-dropdown:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102,126,234,0.3);
+        }
+
+        .sample-display {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            font-style: italic;
+            color: #555;
+        }
+
+        .surgery-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: popIn 1.4s ease-out;
+        }
+
+        .surgery-section h3 {
+            color: #333;
+            margin: 0 0 20px 0;
+            font-size: 1.8rem;
+            text-align: center;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .surgery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .surgery-item {
+            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            color: #333;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: popIn 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .surgery-item:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            animation: pulse 0.6s ease;
+        }
+
+        .surgery-descriptors {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            display: none;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .surgery-descriptors.active {
+            display: block;
+        }
+
+        .descriptor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .descriptor-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: popIn 0.3s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .descriptor-tag:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: bounce 0.5s ease;
+        }
+
+        .add-to-prompt-btn {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-prompt-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .category-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: popIn 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .category-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .subcategory {
+            margin-bottom: 25px;
+        }
+
+        .subcategory-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: linear-gradient(45deg, #ffeaa7, #fab1a0);
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+        }
+
+        .feature-item {
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            animation: popIn 0.4s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: pulse 0.4s ease;
+        }
+
+        .feature-item.selected {
+            background: linear-gradient(45deg, #00b894, #00cec9);
+            animation: bounce 0.6s ease;
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .collapsible-content.active {
+            max-height: 2000px;
+        }
+
+        .ratio-controls {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .ratio-slider {
+            width: 100%;
+            margin: 10px 0;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+        }
+
+        .ratio-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            cursor: pointer;
+        }
+
+        .selected-features {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .selected-features h3 {
+            color: #333;
+            margin: 0 0 15px 0;
+            text-align: center;
+        }
+
+        .selected-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .selected-tag {
+            background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            animation: popIn 0.3s ease-out;
+        }
+
+        .remove-tag {
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0 5px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .remove-tag:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .floating-index {
+                display: none;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 8px;
+            }
+            
+            .surgery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Floating Index -->
+        <div class="floating-index" id="floatingIndex">
+            <h3>🎯 Quick Navigation</h3>
+            <div class="index-item" onclick="scrollToSection('prompt-generator')">Smart Generator</div>
+            <div class="index-item" onclick="scrollToSection('sample-prompts')">Sample Prompts</div>
+            <div class="index-item" onclick="scrollToSection('surgery-section')">Smart Surgery</div>
+            <div class="index-item" onclick="scrollToSection('anatomy')">Anatomy</div>
+            <div class="index-item" onclick="scrollToSection('micro-features')">Micro Features</div>
+            <div class="index-item" onclick="scrollToSection('makeup')">Makeup</div>
+            <div class="index-item" onclick="scrollToSection('clothing')">Clothing</div>
+            <div class="index-item" onclick="scrollToSection('hairstyles')">Hairstyles</div>
+            <div class="index-item" onclick="scrollToSection('poses')">Poses</div>
+            <div class="index-item" onclick="scrollToSection('environments')">Environments</div>
+            <div class="index-item" onclick="scrollToSection('lighting')">Lighting</div>
+            <div class="index-item" onclick="scrollToSection('materials')">Materials</div>
+            <div class="index-item" onclick="scrollToSection('props')">Props</div>
+            <div class="index-item" onclick="scrollToSection('artistic')">Artistic Styles</div>
+            <div class="index-item" onclick="scrollToSection('narrative')">Narrative</div>
+            <div class="index-item" onclick="scrollToSection('cultural')">Cultural</div>
+            <div class="index-item" onclick="scrollToSection('colors')">Colors</div>
+            <div class="index-item" onclick="scrollToSection('technical')">Technical</div>
+            <div class="index-item" onclick="scrollToSection('ai-optimization')">AI Optimization</div>
+            <div class="index-item" onclick="scrollToSection('non-human')">Non-Human</div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>🎨 Ultimate AI Character Creation Universe 🚀</h1>
+        </div>
+
+        <!-- Selected Features Display -->
+        <div class="selected-features">
+            <h3>✨ Your Selected Features</h3>
+            <div class="selected-list" id="selectedList"></div>
+            <button class="control-btn" onclick="clearAllSelections()">Clear All</button>
+        </div>
+
+        <!-- Smart Prompt Generator -->
+        <div class="prompt-generator" id="prompt-generator">
+            <h2>🧠 Smart Prompt Generator</h2>
+            <div class="prompt-display" id="promptDisplay">
+                Your intelligent AI prompt will appear here as you select features...
+            </div>
+            <div class="prompt-controls">
+                <button class="control-btn" onclick="generateRandomPrompt()">🎲 Random Character</button>
+                <button class="control-btn" onclick="optimizePrompt()">⚡ Optimize</button>
+                <button class="control-btn" onclick="copyPrompt()">📋 Copy</button>
+                <button class="control-btn" onclick="savePrompt()">💾 Save</button>
+            </div>
+        </div>
+
+        <!-- Sample Prompts -->
+        <div class="sample-prompts" id="sample-prompts">
+            <h3>📝 Sample Prompts</h3>
+            <select class="sample-dropdown" id="sampleDropdown" onchange="showSamplePrompt()">
+                <option value="">Choose a sample style...</option>
+                <option value="detailed">Ultra Detailed Realistic</option>
+                <option value="short">Quick & Simple</option>
+                <option value="cartoonish">Cartoon/Anime Style</option>
+                <option value="cinematic">Cinematic Portrait</option>
+                <option value="artistic">Artistic/Painterly</option>
+            </select>
+            <div class="sample-display" id="sampleDisplay">
+                Select a sample style to see example prompts...
+            </div>
+        </div>
+
+        <!-- Smart Surgery Section -->
+        <div class="surgery-section" id="surgery-section">
+            <h3>🏥 Smart Surgery Enhancement</h3>
+            <div class="surgery-grid">
+                <div class="surgery-item" onclick="toggleSurgeryDescriptors('rhinoplasty')">Rhinoplasty</div>
+                <div class="surgery-item" onclick="toggleSurgeryDescriptors('blepharoplasty')">Blepharoplasty</div>
+                <div class="surgery-item" onclick="toggleSurgeryDescriptors('facelift')">Facelift</div>
+                <div class="surgery-item" onclick="toggleSurgeryDescriptors('liposuction')">Liposuction</div>
+                <div class="surgery-item" onclick="toggleSurgeryDescriptors('breast-augmentation')">Breast Enhancement</div>
+                <div class="surgery-item" onclick="toggleSurgeryDescriptors('tummy-tuck')">Tummy Tuck</div>
+                <div class="surgery-item" onclick="toggleSurgeryDescriptors('bbl')">Brazilian Butt Lift</div>
+                <div class="surgery-item" onclick="toggleSurgeryDescriptors('lip-enhancement')">Lip Enhancement</div>
+            </div>
+
+            <!-- Surgery Descriptors -->
+            <div class="surgery-descriptors" id="rhinoplasty-descriptors">
+                <h4>Rhinoplasty Safe Descriptors</h4>
+                <div class="descriptor-grid">
+                    <div class="descriptor-tag" onclick="addToPrompt('refined nose')">Refined</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('sculpted nose')">Sculpted</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('elegant nose')">Elegant</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('proportioned nose')">Proportioned</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('delicate nose')">Delicate</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('harmonious nose')">Harmonious</div>
+                </div>
+                <button class="add-to-prompt-btn" onclick="addSurgeryToPrompt('rhinoplasty')">Add to Prompt</button>
+            </div>
+
+            <div class="surgery-descriptors" id="blepharoplasty-descriptors">
+                <h4>Blepharoplasty Safe Descriptors</h4>
+                <div class="descriptor-grid">
+                    <div class="descriptor-tag" onclick="addToPrompt('youthful eyes')">Youthful Eyes</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('bright eyes')">Bright Eyes</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('alert eyes')">Alert Eyes</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('refreshed eyes')">Refreshed Eyes</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('defined eyelids')">Defined Eyelids</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('smooth eyelids')">Smooth Eyelids</div>
+                </div>
+                <button class="add-to-prompt-btn" onclick="addSurgeryToPrompt('blepharoplasty')">Add to Prompt</button>
+            </div>
+
+            <div class="surgery-descriptors" id="facelift-descriptors">
+                <h4>Facelift Safe Descriptors</h4>
+                <div class="descriptor-grid">
+                    <div class="descriptor-tag" onclick="addToPrompt('lifted features')">Lifted Features</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('toned jawline')">Toned Jawline</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('smooth skin')">Smooth Skin</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('youthful appearance')">Youthful</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('defined cheekbones')">Defined Cheeks</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('firm skin')">Firm Skin</div>
+                </div>
+                <button class="add-to-prompt-btn" onclick="addSurgeryToPrompt('facelift')">Add to Prompt</button>
+            </div>
+
+            <div class="surgery-descriptors" id="liposuction-descriptors">
+                <h4>Liposuction Safe Descriptors</h4>
+                <div class="descriptor-grid">
+                    <div class="descriptor-tag" onclick="addToPrompt('sculpted body')">Sculpted Body</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('contoured figure')">Contoured</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('defined waist')">Defined Waist</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('smooth curves')">Smooth Curves</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('proportioned body')">Proportioned</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('refined silhouette')">Refined</div>
+                </div>
+                <button class="add-to-prompt-btn" onclick="addSurgeryToPrompt('liposuction')">Add to Prompt</button>
+            </div>
+
+            <div class="surgery-descriptors" id="breast-augmentation-descriptors">
+                <h4>Breast Enhancement Safe Descriptors</h4>
+                <div class="descriptor-grid">
+                    <div class="descriptor-tag" onclick="addToPrompt('enhanced bust')">Enhanced</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('proportioned chest')">Proportioned</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('balanced figure')">Balanced</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('confident posture')">Confident</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('elegant silhouette')">Elegant</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('harmonious proportions')">Harmonious</div>
+                </div>
+                <button class="add-to-prompt-btn" onclick="addSurgeryToPrompt('breast-augmentation')">Add to Prompt</button>
+            </div>
+
+            <div class="surgery-descriptors" id="tummy-tuck-descriptors">
+                <h4>Tummy Tuck Safe Descriptors</h4>
+                <div class="descriptor-grid">
+                    <div class="descriptor-tag" onclick="addToPrompt('flat stomach')">Flat Stomach</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('toned abdomen')">Toned Abdomen</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('smooth midsection')">Smooth</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('defined core')">Defined Core</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('sculpted waist')">Sculpted Waist</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('contoured torso')">Contoured</div>
+                </div>
+                <button class="add-to-prompt-btn" onclick="addSurgeryToPrompt('tummy-tuck')">Add to Prompt</button>
+            </div>
+
+            <div class="surgery-descriptors" id="bbl-descriptors">
+                <h4>Brazilian Butt Lift Safe Descriptors</h4>
+                <div class="descriptor-grid">
+                    <div class="descriptor-tag" onclick="addToPrompt('enhanced curves')">Enhanced Curves</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('lifted silhouette')">Lifted</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('proportioned hips')">Proportioned</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('sculpted figure')">Sculpted</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('balanced proportions')">Balanced</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('confident posture')">Confident</div>
+                </div>
+                <button class="add-to-prompt-btn" onclick="addSurgeryToPrompt('bbl')">Add to Prompt</button>
+            </div>
+
+            <div class="surgery-descriptors" id="lip-enhancement-descriptors">
+                <h4>Lip Enhancement Safe Descriptors</h4>
+                <div class="descriptor-grid">
+                    <div class="descriptor-tag" onclick="addToPrompt('fuller lips')">Fuller Lips</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('defined lips')">Defined</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('plump lips')">Plump</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('enhanced smile')">Enhanced Smile</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('balanced lips')">Balanced</div>
+                    <div class="descriptor-tag" onclick="addToPrompt('smooth lips')">Smooth</div>
+                </div>
+                <button class="add-to-prompt-btn" onclick="addSurgeryToPrompt('lip-enhancement')">Add to Prompt</button>
+            </div>
+        </div>
+
+        <!-- Anatomy Section -->
+        <div class="category-section" id="anatomy">
+            <div class="category-header" onclick="toggleCategory('anatomy')">
+                <h2 class="category-title">👤 Complete Anatomy</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Face Structure -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Face Structure</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('oval face')">Oval</div>
+                        <div class="feature-item" onclick="selectFeature('round face')">Round</div>
+                        <div class="feature-item" onclick="selectFeature('square face')">Square</div>
+                        <div class="feature-item" onclick="selectFeature('heart face')">Heart</div>
+                        <div class="feature-item" onclick="selectFeature('diamond face')">Diamond</div>
+                        <div class="feature-item" onclick="selectFeature('oblong face')">Oblong</div>
+                        <div class="feature-item" onclick="selectFeature('triangular face')">Triangular</div>
+                        <div class="feature-item" onclick="selectFeature('rectangular face')">Rectangular</div>
+                    </div>
+                </div>
+
+                <!-- Jawline -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Jawline</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('sharp jawline')">Sharp</div>
+                        <div class="feature-item" onclick="selectFeature('soft jawline')">Soft</div>
+                        <div class="feature-item" onclick="selectFeature('defined jawline')">Defined</div>
+                        <div class="feature-item" onclick="selectFeature('angular jawline')">Angular</div>
+                        <div class="feature-item" onclick="selectFeature('rounded jawline')">Rounded</div>
+                        <div class="feature-item" onclick="selectFeature('strong jawline')">Strong</div>
+                        <div class="feature-item" onclick="selectFeature('delicate jawline')">Delicate</div>
+                        <div class="feature-item" onclick="selectFeature('chiseled jawline')">Chiseled</div>
+                    </div>
+                </div>
+
+                <!-- Cheekbones -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Cheekbones</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('high cheekbones')">High</div>
+                        <div class="feature-item" onclick="selectFeature('prominent cheekbones')">Prominent</div>
+                        <div class="feature-item" onclick="selectFeature('defined cheekbones')">Defined</div>
+                        <div class="feature-item" onclick="selectFeature('sculpted cheekbones')">Sculpted</div>
+                        <div class="feature-item" onclick="selectFeature('soft cheekbones')">Soft</div>
+                        <div class="feature-item" onclick="selectFeature('angular cheekbones')">Angular</div>
+                        <div class="feature-item" onclick="selectFeature('rounded cheekbones')">Rounded</div>
+                        <div class="feature-item" onclick="selectFeature('subtle cheekbones')">Subtle</div>
+                    </div>
+                </div>
+
+                <!-- Body Ratios with Sliders -->
+                <div class="ratio-controls">
+                    <h4>Custom Body Ratios</h4>
+                    <label>Bust Size: <span id="bustValue">50</span>%</label>
+                    <input type="range" class="ratio-slider" min="0" max="100" value="50" id="bustSlider" oninput="updateRatio('bust', this.value)">
+                    
+                    <label>Waist Size: <span id="waistValue">50</span>%</label>
+                    <input type="range" class="ratio-slider" min="0" max="100" value="50" id="waistSlider" oninput="updateRatio('waist', this.value)">
+                    
+                    <label>Hip Size: <span id="hipValue">50</span>%</label>
+                    <input type="range" class="ratio-slider" min="0" max="100" value="50" id="hipSlider" oninput="updateRatio('hip', this.value)">
+                    
+                    <label>Height: <span id="heightValue">50</span>%</label>
+                    <input type="range" class="ratio-slider" min="0" max="100" value="50" id="heightSlider" oninput="updateRatio('height', this.value)">
+                </div>
+            </div>
+        </div>
+
+        <!-- Micro Features Section -->
+        <div class="category-section" id="micro-features">
+            <div class="category-header" onclick="toggleCategory('micro-features')">
+                <h2 class="category-title">🔍 Micro Features</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Eyes -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Eyes</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('almond eyes')">Almond</div>
+                        <div class="feature-item" onclick="selectFeature('round eyes')">Round</div>
+                        <div class="feature-item" onclick="selectFeature('hooded eyes')">Hooded</div>
+                        <div class="feature-item" onclick="selectFeature('upturned eyes')">Upturned</div>
+                        <div class="feature-item" onclick="selectFeature('downturned eyes')">Downturned</div>
+                        <div class="feature-item" onclick="selectFeature('monolid eyes')">Monolid</div>
+                        <div class="feature-item" onclick="selectFeature('deep-set eyes')">Deep-set</div>
+                        <div class="feature-item" onclick="selectFeature('prominent eyes')">Prominent</div>
+                        <div class="feature-item" onclick="selectFeature('close-set eyes')">Close-set</div>
+                        <div class="feature-item" onclick="selectFeature('wide-set eyes')">Wide-set</div>
+                        <div class="feature-item" onclick="selectFeature('cat eyes')">Cat Eyes</div>
+                        <div class="feature-item" onclick="selectFeature('doe eyes')">Doe Eyes</div>
+                    </div>
+                </div>
+
+                <!-- Eye Colors -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Eye Colors</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('blue eyes')">Blue</div>
+                        <div class="feature-item" onclick="selectFeature('green eyes')">Green</div>
+                        <div class="feature-item" onclick="selectFeature('brown eyes')">Brown</div>
+                        <div class="feature-item" onclick="selectFeature('hazel eyes')">Hazel</div>
+                        <div class="feature-item" onclick="selectFeature('amber eyes')">Amber</div>
+                        <div class="feature-item" onclick="selectFeature('gray eyes')">Gray</div>
+                        <div class="feature-item" onclick="selectFeature('violet eyes')">Violet</div>
+                        <div class="feature-item" onclick="selectFeature('heterochromia')">Heterochromia</div>
+                        <div class="feature-item" onclick="selectFeature('light blue eyes')">Light Blue</div>
+                        <div class="feature-item" onclick="selectFeature('dark brown eyes')">Dark Brown</div>
+                        <div class="feature-item" onclick="selectFeature('emerald eyes')">Emerald</div>
+                        <div class="feature-item" onclick="selectFeature('honey eyes')">Honey</div>
+                    </div>
+                </div>
+
+                <!-- Eyebrows -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Eyebrows</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('thick eyebrows')">Thick</div>
+                        <div class="feature-item" onclick="selectFeature('thin eyebrows')">Thin</div>
+                        <div class="feature-item" onclick="selectFeature('arched eyebrows')">Arched</div>
+                        <div class="feature-item" onclick="selectFeature('straight eyebrows')">Straight</div>
+                        <div class="feature-item" onclick="selectFeature('bushy eyebrows')">Bushy</div>
+                        <div class="feature-item" onclick="selectFeature('defined eyebrows')">Defined</div>
+                        <div class="feature-item" onclick="selectFeature('natural eyebrows')">Natural</div>
+                        <div class="feature-item" onclick="selectFeature('groomed eyebrows')">Groomed</div>
+                        <div class="feature-item" onclick="selectFeature('feathered eyebrows')">Feathered</div>
+                        <div class="feature-item" onclick="selectFeature('bold eyebrows')">Bold</div>
+                        <div class="feature-item" onclick="selectFeature('soft eyebrows')">Soft</div>
+                        <div class="feature-item" onclick="selectFeature('angular eyebrows')">Angular</div>
+                    </div>
+                </div>
+
+                <!-- Nose -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Nose</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('straight nose')">Straight</div>
+                        <div class="feature-item" onclick="selectFeature('button nose')">Button</div>
+                        <div class="feature-item" onclick="selectFeature('aquiline nose')">Aquiline</div>
+                        <div class="feature-item" onclick="selectFeature('roman nose')">Roman</div>
+                        <div class="feature-item" onclick="selectFeature('snub nose')">Snub</div>
+                        <div class="feature-item" onclick="selectFeature('hooked nose')">Hooked</div>
+                        <div class="feature-item" onclick="selectFeature('bulbous nose')">Bulbous</div>
+                        <div class="feature-item" onclick="selectFeature('narrow nose')">Narrow</div>
+                        <div class="feature-item" onclick="selectFeature('wide nose')">Wide</div>
+                        <div class="feature-item" onclick="selectFeature('pointed nose')">Pointed</div>
+                        <div class="feature-item" onclick="selectFeature('rounded nose')">Rounded</div>
+                        <div class="feature-item" onclick="selectFeature('refined nose')">Refined</div>
+                    </div>
+                </div>
+
+                <!-- Lips -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Lips</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('full lips')">Full</div>
+                        <div class="feature-item" onclick="selectFeature('thin lips')">Thin</div>
+                        <div class="feature-item" onclick="selectFeature('pouty lips')">Pouty</div>
+                        <div class="feature-item" onclick="selectFeature('bow lips')">Bow</div>
+                        <div class="feature-item" onclick="selectFeature('heart lips')">Heart</div>
+                        <div class="feature-item" onclick="selectFeature('wide lips')">Wide</div>
+                        <div class="feature-item" onclick="selectFeature('narrow lips')">Narrow</div>
+                        <div class="feature-item" onclick="selectFeature('defined lips')">Defined</div>
+                        <div class="feature-item" onclick="selectFeature('soft lips')">Soft</div>
+                        <div class="feature-item" onclick="selectFeature('plump lips')">Plump</div>
+                        <div class="feature-item" onclick="selectFeature('glossy lips')">Glossy</div>
+                        <div class="feature-item" onclick="selectFeature('matte lips')">Matte</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Makeup Section -->
+        <div class="category-section" id="makeup">
+            <div class="category-header" onclick="toggleCategory('makeup')">
+                <h2 class="category-title">💄 Makeup Universe</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Foundation -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Foundation</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('liquid foundation')">Liquid</div>
+                        <div class="feature-item" onclick="selectFeature('powder foundation')">Powder</div>
+                        <div class="feature-item" onclick="selectFeature('cream foundation')">Cream</div>
+                        <div class="feature-item" onclick="selectFeature('stick foundation')">Stick</div>
+                        <div class="feature-item" onclick="selectFeature('airbrush foundation')">Airbrush</div>
+                        <div class="feature-item" onclick="selectFeature('tinted moisturizer')">Tinted Moisturizer</div>
+                        <div class="feature-item" onclick="selectFeature('bb cream')">BB Cream</div>
+                        <div class="feature-item" onclick="selectFeature('cc cream')">CC Cream</div>
+                        <div class="feature-item" onclick="selectFeature('full coverage foundation')">Full Coverage</div>
+                        <div class="feature-item" onclick="selectFeature('light coverage foundation')">Light Coverage</div>
+                        <div class="feature-item" onclick="selectFeature('medium coverage foundation')">Medium Coverage</div>
+                        <div class="feature-item" onclick="selectFeature('buildable foundation')">Buildable</div>
+                        <div class="feature-item" onclick="selectFeature('dewy foundation')">Dewy</div>
+                        <div class="feature-item" onclick="selectFeature('matte foundation')">Matte</div>
+                        <div class="feature-item" onclick="selectFeature('satin foundation')">Satin</div>
+                        <div class="feature-item" onclick="selectFeature('natural foundation')">Natural</div>
+                    </div>
+                </div>
+
+                <!-- Eyeshadow -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Eyeshadow</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('matte eyeshadow')">Matte</div>
+                        <div class="feature-item" onclick="selectFeature('shimmer eyeshadow')">Shimmer</div>
+                        <div class="feature-item" onclick="selectFeature('metallic eyeshadow')">Metallic</div>
+                        <div class="feature-item" onclick="selectFeature('glitter eyeshadow')">Glitter</div>
+                        <div class="feature-item" onclick="selectFeature('cream eyeshadow')">Cream</div>
+                        <div class="feature-item" onclick="selectFeature('powder eyeshadow')">Powder</div>
+                        <div class="feature-item" onclick="selectFeature('liquid eyeshadow')">Liquid</div>
+                        <div class="feature-item" onclick="selectFeature('pressed eyeshadow')">Pressed</div>
+                        <div class="feature-item" onclick="selectFeature('loose eyeshadow')">Loose</div>
+                        <div class="feature-item" onclick="selectFeature('smoky eyeshadow')">Smoky</div>
+                        <div class="feature-item" onclick="selectFeature('neutral eyeshadow')">Neutral</div>
+                        <div class="feature-item" onclick="selectFeature('bold eyeshadow')">Bold</div>
+                        <div class="feature-item" onclick="selectFeature('gradient eyeshadow')">Gradient</div>
+                        <div class="feature-item" onclick="selectFeature('cut crease eyeshadow')">Cut Crease</div>
+                        <div class="feature-item" onclick="selectFeature('halo eyeshadow')">Halo</div>
+                        <div class="feature-item" onclick="selectFeature('winged eyeshadow')">Winged</div>
+                    </div>
+                </div>
+
+                <!-- Eyeliner -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Eyeliner</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('winged eyeliner')">Winged</div>
+                        <div class="feature-item" onclick="selectFeature('cat eye eyeliner')">Cat Eye</div>
+                        <div class="feature-item" onclick="selectFeature('tight line eyeliner')">Tight Line</div>
+                        <div class="feature-item" onclick="selectFeature('smudged eyeliner')">Smudged</div>
+                        <div class="feature-item" onclick="selectFeature('graphic eyeliner')">Graphic</div>
+                        <div class="feature-item" onclick="selectFeature('double wing eyeliner')">Double Wing</div>
+                        <div class="feature-item" onclick="selectFeature('colored eyeliner')">Colored</div>
+                        <div class="feature-item" onclick="selectFeature('glitter eyeliner')">Glitter</div>
+                        <div class="feature-item" onclick="selectFeature('pencil eyeliner')">Pencil</div>
+                        <div class="feature-item" onclick="selectFeature('gel eyeliner')">Gel</div>
+                        <div class="feature-item" onclick="selectFeature('liquid eyeliner')">Liquid</div>
+                        <div class="feature-item" onclick="selectFeature('felt tip eyeliner')">Felt Tip</div>
+                        <div class="feature-item" onclick="selectFeature('kohl eyeliner')">Kohl</div>
+                        <div class="feature-item" onclick="selectFeature('waterproof eyeliner')">Waterproof</div>
+                        <div class="feature-item" onclick="selectFeature('dramatic eyeliner')">Dramatic</div>
+                        <div class="feature-item" onclick="selectFeature('subtle eyeliner')">Subtle</div>
+                    </div>
+                </div>
+
+                <!-- Lipstick -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Lipstick</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('matte lipstick')">Matte</div>
+                        <div class="feature-item" onclick="selectFeature('glossy lipstick')">Glossy</div>
+                        <div class="feature-item" onclick="selectFeature('satin lipstick')">Satin</div>
+                        <div class="feature-item" onclick="selectFeature('cream lipstick')">Cream</div>
+                        <div class="feature-item" onclick="selectFeature('sheer lipstick')">Sheer</div>
+                        <div class="feature-item" onclick="selectFeature('metallic lipstick')">Metallic</div>
+                        <div class="feature-item" onclick="selectFeature('liquid lipstick')">Liquid</div>
+                        <div class="feature-item" onclick="selectFeature('red lipstick')">Red</div>
+                        <div class="feature-item" onclick="selectFeature('pink lipstick')">Pink</div>
+                        <div class="feature-item" onclick="selectFeature('nude lipstick')">Nude</div>
+                        <div class="feature-item" onclick="selectFeature('berry lipstick')">Berry</div>
+                        <div class="feature-item" onclick="selectFeature('coral lipstick')">Coral</div>
+                        <div class="feature-item" onclick="selectFeature('plum lipstick')">Plum</div>
+                        <div class="feature-item" onclick="selectFeature('orange lipstick')">Orange</div>
+                        <div class="feature-item" onclick="selectFeature('bold lipstick')">Bold</div>
+                        <div class="feature-item" onclick="selectFeature('ombre lips')">Ombre</div>
+                    </div>
+                </div>
+
+                <!-- Blush -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Blush</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('powder blush')">Powder</div>
+                        <div class="feature-item" onclick="selectFeature('cream blush')">Cream</div>
+                        <div class="feature-item" onclick="selectFeature('liquid blush')">Liquid</div>
+                        <div class="feature-item" onclick="selectFeature('gel blush')">Gel</div>
+                        <div class="feature-item" onclick="selectFeature('stick blush')">Stick</div>
+                        <div class="feature-item" onclick="selectFeature('pink blush')">Pink</div>
+                        <div class="feature-item" onclick="selectFeature('peach blush')">Peach</div>
+                        <div class="feature-item" onclick="selectFeature('coral blush')">Coral</div>
+                        <div class="feature-item" onclick="selectFeature('rose blush')">Rose</div>
+                        <div class="feature-item" onclick="selectFeature('berry blush')">Berry</div>
+                        <div class="feature-item" onclick="selectFeature('natural blush')">Natural</div>
+                        <div class="feature-item" onclick="selectFeature('subtle blush')">Subtle</div>
+                        <div class="feature-item" onclick="selectFeature('dramatic blush')">Dramatic</div>
+                        <div class="feature-item" onclick="selectFeature('dewy blush')">Dewy</div>
+                        <div class="feature-item" onclick="selectFeature('matte blush')">Matte</div>
+                        <div class="feature-item" onclick="selectFeature('shimmer blush')">Shimmer</div>
+                    </div>
+                </div>
+
+                <!-- Highlighter -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Highlighter</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('powder highlighter')">Powder</div>
+                        <div class="feature-item" onclick="selectFeature('cream highlighter')">Cream</div>
+                        <div class="feature-item" onclick="selectFeature('liquid highlighter')">Liquid</div>
+                        <div class="feature-item" onclick="selectFeature('stick highlighter')">Stick</div>
+                        <div class="feature-item" onclick="selectFeature('pressed highlighter')">Pressed</div>
+                        <div class="feature-item" onclick="selectFeature('loose highlighter')">Loose</div>
+                        <div class="feature-item" onclick="selectFeature('golden highlighter')">Golden</div>
+                        <div class="feature-item" onclick="selectFeature('champagne highlighter')">Champagne</div>
+                        <div class="feature-item" onclick="selectFeature('rose gold highlighter')">Rose Gold</div>
+                        <div class="feature-item" onclick="selectFeature('silver highlighter')">Silver</div>
+                        <div class="feature-item" onclick="selectFeature('pearl highlighter')">Pearl</div>
+                        <div class="feature-item" onclick="selectFeature('holographic highlighter')">Holographic</div>
+                        <div class="feature-item" onclick="selectFeature('subtle highlighter')">Subtle</div>
+                        <div class="feature-item" onclick="selectFeature('intense highlighter')">Intense</div>
+                        <div class="feature-item" onclick="selectFeature('natural highlighter')">Natural</div>
+                        <div class="feature-item" onclick="selectFeature('dramatic highlighter')">Dramatic</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clothing & Fashion Section -->
+        <div class="category-section" id="clothing">
+            <div class="category-header" onclick="toggleCategory('clothing')">
+                <h2 class="category-title">👗 Fashion Universe</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Tops -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Tops</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('fitted t-shirt')">Fitted T-shirt</div>
+                        <div class="feature-item" onclick="selectFeature('oversized t-shirt')">Oversized T-shirt</div>
+                        <div class="feature-item" onclick="selectFeature('cropped t-shirt')">Cropped T-shirt</div>
+                        <div class="feature-item" onclick="selectFeature('long sleeve shirt')">Long Sleeve</div>
+                        <div class="feature-item" onclick="selectFeature('tank top')">Tank Top</div>
+                        <div class="feature-item" onclick="selectFeature('v-neck shirt')">V-neck</div>
+                        <div class="feature-item" onclick="selectFeature('crew neck shirt')">Crew Neck</div>
+                        <div class="feature-item" onclick="selectFeature('scoop neck shirt')">Scoop Neck</div>
+                        <div class="feature-item" onclick="selectFeature('silk blouse')">Silk Blouse</div>
+                        <div class="feature-item" onclick="selectFeature('cotton blouse')">Cotton Blouse</div>
+                        <div class="feature-item" onclick="selectFeature('chiffon blouse')">Chiffon Blouse</div>
+                        <div class="feature-item" onclick="selectFeature('button-up blouse')">Button-up</div>
+                        <div class="feature-item" onclick="selectFeature('wrap blouse')">Wrap Blouse</div>
+                        <div class="feature-item" onclick="selectFeature('peasant blouse')">Peasant</div>
+                        <div class="feature-item" onclick="selectFeature('peplum blouse')">Peplum</div>
+                        <div class="feature-item" onclick="selectFeature('off-shoulder top')">Off-shoulder</div>
+                    </div>
+                </div>
+
+                <!-- Dresses -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Dresses</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('sundress')">Sundress</div>
+                        <div class="feature-item" onclick="selectFeature('shift dress')">Shift</div>
+                        <div class="feature-item" onclick="selectFeature('wrap dress')">Wrap</div>
+                        <div class="feature-item" onclick="selectFeature('maxi dress')">Maxi</div>
+                        <div class="feature-item" onclick="selectFeature('midi dress')">Midi</div>
+                        <div class="feature-item" onclick="selectFeature('mini dress')">Mini</div>
+                        <div class="feature-item" onclick="selectFeature('cocktail dress')">Cocktail</div>
+                        <div class="feature-item" onclick="selectFeature('evening dress')">Evening</div>
+                        <div class="feature-item" onclick="selectFeature('ball gown')">Ball Gown</div>
+                        <div class="feature-item" onclick="selectFeature('mermaid dress')">Mermaid</div>
+                        <div class="feature-item" onclick="selectFeature('a-line dress')">A-line</div>
+                        <div class="feature-item" onclick="selectFeature('sheath dress')">Sheath</div>
+                        <div class="feature-item" onclick="selectFeature('bodycon dress')">Bodycon</div>
+                        <div class="feature-item" onclick="selectFeature('fit and flare dress')">Fit & Flare</div>
+                        <div class="feature-item" onclick="selectFeature('slip dress')">Slip</div>
+                        <div class="feature-item" onclick="selectFeature('shirt dress')">Shirt</div>
+                    </div>
+                </div>
+
+                <!-- Bottoms -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Bottoms</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('skinny jeans')">Skinny Jeans</div>
+                        <div class="feature-item" onclick="selectFeature('straight jeans')">Straight Jeans</div>
+                        <div class="feature-item" onclick="selectFeature('wide-leg jeans')">Wide-leg Jeans</div>
+                        <div class="feature-item" onclick="selectFeature('bootcut jeans')">Bootcut Jeans</div>
+                        <div class="feature-item" onclick="selectFeature('flare jeans')">Flare Jeans</div>
+                        <div class="feature-item" onclick="selectFeature('high-waist jeans')">High-waist Jeans</div>
+                        <div class="feature-item" onclick="selectFeature('low-rise jeans')">Low-rise Jeans</div>
+                        <div class="feature-item" onclick="selectFeature('cropped jeans')">Cropped Jeans</div>
+                        <div class="feature-item" onclick="selectFeature('mini skirt')">Mini Skirt</div>
+                        <div class="feature-item" onclick="selectFeature('midi skirt')">Midi Skirt</div>
+                        <div class="feature-item" onclick="selectFeature('maxi skirt')">Maxi Skirt</div>
+                        <div class="feature-item" onclick="selectFeature('a-line skirt')">A-line Skirt</div>
+                        <div class="feature-item" onclick="selectFeature('pencil skirt')">Pencil Skirt</div>
+                        <div class="feature-item" onclick="selectFeature('pleated skirt')">Pleated Skirt</div>
+                        <div class="feature-item" onclick="selectFeature('wrap skirt')">Wrap Skirt</div>
+                        <div class="feature-item" onclick="selectFeature('circle skirt')">Circle Skirt</div>
+                    </div>
+                </div>
+
+                <!-- Outerwear -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Outerwear</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('blazer')">Blazer</div>
+                        <div class="feature-item" onclick="selectFeature('denim jacket')">Denim Jacket</div>
+                        <div class="feature-item" onclick="selectFeature('leather jacket')">Leather Jacket</div>
+                        <div class="feature-item" onclick="selectFeature('bomber jacket')">Bomber</div>
+                        <div class="feature-item" onclick="selectFeature('trench coat')">Trench Coat</div>
+                        <div class="feature-item" onclick="selectFeature('puffer jacket')">Puffer</div>
+                        <div class="feature-item" onclick="selectFeature('windbreaker')">Windbreaker</div>
+                        <div class="feature-item" onclick="selectFeature('cardigan')">Cardigan</div>
+                        <div class="feature-item" onclick="selectFeature('kimono')">Kimono</div>
+                        <div class="feature-item" onclick="selectFeature('cape')">Cape</div>
+                        <div class="feature-item" onclick="selectFeature('poncho')">Poncho</div>
+                        <div class="feature-item" onclick="selectFeature('vest')">Vest</div>
+                        <div class="feature-item" onclick="selectFeature('shawl')">Shawl</div>
+                        <div class="feature-item" onclick="selectFeature('wrap')">Wrap</div>
+                        <div class="feature-item" onclick="selectFeature('bolero')">Bolero</div>
+                        <div class="feature-item" onclick="selectFeature('cropped jacket')">Cropped Jacket</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hairstyles Section -->
+        <div class="category-section" id="hairstyles">
+            <div class="category-header" onclick="toggleCategory('hairstyles')">
+                <h2 class="category-title">💇‍♀️ Hairstyle Universe</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Women's Cuts -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Women's Cuts</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('classic bob')">Classic Bob</div>
+                        <div class="feature-item" onclick="selectFeature('inverted bob')">Inverted Bob</div>
+                        <div class="feature-item" onclick="selectFeature('asymmetrical bob')">Asymmetrical Bob</div>
+                        <div class="feature-item" onclick="selectFeature('stacked bob')">Stacked Bob</div>
+                        <div class="feature-item" onclick="selectFeature('textured bob')">Textured Bob</div>
+                        <div class="feature-item" onclick="selectFeature('lob')">Lob</div>
+                        <div class="feature-item" onclick="selectFeature('classic pixie')">Classic Pixie</div>
+                        <div class="feature-item" onclick="selectFeature('long pixie')">Long Pixie</div>
+                        <div class="feature-item" onclick="selectFeature('undercut pixie')">Undercut Pixie</div>
+                        <div class="feature-item" onclick="selectFeature('textured pixie')">Textured Pixie</div>
+                        <div class="feature-item" onclick="selectFeature('choppy pixie')">Choppy Pixie</div>
+                        <div class="feature-item" onclick="selectFeature('long layers')">Long Layers</div>
+                        <div class="feature-item" onclick="selectFeature('face-framing layers')">Face-framing</div>
+                        <div class="feature-item" onclick="selectFeature('choppy layers')">Choppy Layers</div>
+                        <div class="feature-item" onclick="selectFeature('feathered layers')">Feathered</div>
+                        <div class="feature-item" onclick="selectFeature('razor-cut layers')">Razor-cut</div>
+                    </div>
+                </div>
+
+                <!-- Hair Textures -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Hair Textures</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('pin-straight hair')">Pin-straight</div>
+                        <div class="feature-item" onclick="selectFeature('slightly straight hair')">Slightly Straight</div>
+                        <div class="feature-item" onclick="selectFeature('sleek hair')">Sleek</div>
+                        <div class="feature-item" onclick="selectFeature('loose waves')">Loose Waves</div>
+                        <div class="feature-item" onclick="selectFeature('beachy waves')">Beachy Waves</div>
+                        <div class="feature-item" onclick="selectFeature('defined waves')">Defined Waves</div>
+                        <div class="feature-item" onclick="selectFeature('tousled waves')">Tousled Waves</div>
+                        <div class="feature-item" onclick="selectFeature('loose curls')">Loose Curls</div>
+                        <div class="feature-item" onclick="selectFeature('tight curls')">Tight Curls</div>
+                        <div class="feature-item" onclick="selectFeature('spiral curls')">Spiral Curls</div>
+                        <div class="feature-item" onclick="selectFeature('ringlets')">Ringlets</div>
+                        <div class="feature-item" onclick="selectFeature('loose coils')">Loose Coils</div>
+                        <div class="feature-item" onclick="selectFeature('tight coils')">Tight Coils</div>
+                        <div class="feature-item" onclick="selectFeature('kinky hair')">Kinky</div>
+                        <div class="feature-item" onclick="selectFeature('afro-textured hair')">Afro-textured</div>
+                        <div class="feature-item" onclick="selectFeature('natural texture')">Natural</div>
+                    </div>
+                </div>
+
+                <!-- Hair Colors -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Hair Colors</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('platinum blonde')">Platinum Blonde</div>
+                        <div class="feature-item" onclick="selectFeature('ash blonde')">Ash Blonde</div>
+                        <div class="feature-item" onclick="selectFeature('honey blonde')">Honey Blonde</div>
+                        <div class="feature-item" onclick="selectFeature('strawberry blonde')">Strawberry Blonde</div>
+                        <div class="feature-item" onclick="selectFeature('dirty blonde')">Dirty Blonde</div>
+                        <div class="feature-item" onclick="selectFeature('light brown hair')">Light Brown</div>
+                        <div class="feature-item" onclick="selectFeature('medium brown hair')">Medium Brown</div>
+                        <div class="feature-item" onclick="selectFeature('dark brown hair')">Dark Brown</div>
+                        <div class="feature-item" onclick="selectFeature('chocolate brown hair')">Chocolate Brown</div>
+                        <div class="feature-item" onclick="selectFeature('auburn hair')">Auburn</div>
+                        <div class="feature-item" onclick="selectFeature('copper hair')">Copper</div>
+                        <div class="feature-item" onclick="selectFeature('ginger hair')">Ginger</div>
+                        <div class="feature-item" onclick="selectFeature('jet black hair')">Jet Black</div>
+                        <div class="feature-item" onclick="selectFeature('raven black hair')">Raven Black</div>
+                        <div class="feature-item" onclick="selectFeature('silver hair')">Silver</div>
+                        <div class="feature-item" onclick="selectFeature('gray hair')">Gray</div>
+                    </div>
+                </div>
+
+                <!-- Hair Styles -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Hair Styles</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('high ponytail')">High Ponytail</div>
+                        <div class="feature-item" onclick="selectFeature('low ponytail')">Low Ponytail</div>
+                        <div class="feature-item" onclick="selectFeature('side ponytail')">Side Ponytail</div>
+                        <div class="feature-item" onclick="selectFeature('messy bun')">Messy Bun</div>
+                        <div class="feature-item" onclick="selectFeature('sleek bun')">Sleek Bun</div>
+                        <div class="feature-item" onclick="selectFeature('top knot')">Top Knot</div>
+                        <div class="feature-item" onclick="selectFeature('french braid')">French Braid</div>
+                        <div class="feature-item" onclick="selectFeature('dutch braid')">Dutch Braid</div>
+                        <div class="feature-item" onclick="selectFeature('fishtail braid')">Fishtail Braid</div>
+                        <div class="feature-item" onclick="selectFeature('crown braid')">Crown Braid</div>
+                        <div class="feature-item" onclick="selectFeature('half-up half-down')">Half-up Half-down</div>
+                        <div class="feature-item" onclick="selectFeature('space buns')">Space Buns</div>
+                        <div class="feature-item" onclick="selectFeature('victory rolls')">Victory Rolls</div>
+                        <div class="feature-item" onclick="selectFeature('finger waves')">Finger Waves</div>
+                        <div class="feature-item" onclick="selectFeature('pin curls')">Pin Curls</div>
+                        <div class="feature-item" onclick="selectFeature('loose hair')">Loose Hair</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Poses & Positioning Section -->
+        <div class="category-section" id="poses">
+            <div class="category-header" onclick="toggleCategory('poses')">
+                <h2 class="category-title">🕺 Poses & Positioning</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Body Poses -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Body Poses</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('standing pose')">Standing</div>
+                        <div class="feature-item" onclick="selectFeature('sitting pose')">Sitting</div>
+                        <div class="feature-item" onclick="selectFeature('leaning pose')">Leaning</div>
+                        <div class="feature-item" onclick="selectFeature('walking pose')">Walking</div>
+                        <div class="feature-item" onclick="selectFeature('running pose')">Running</div>
+                        <div class="feature-item" onclick="selectFeature('dancing pose')">Dancing</div>
+                        <div class="feature-item" onclick="selectFeature('jumping pose')">Jumping</div>
+                        <div class="feature-item" onclick="selectFeature('lying down pose')">Lying Down</div>
+                        <div class="feature-item" onclick="selectFeature('kneeling pose')">Kneeling</div>
+                        <div class="feature-item" onclick="selectFeature('crouching pose')">Crouching</div>
+                        <div class="feature-item" onclick="selectFeature('stretching pose')">Stretching</div>
+                        <div class="feature-item" onclick="selectFeature('yoga pose')">Yoga</div>
+                        <div class="feature-item" onclick="selectFeature('action pose')">Action</div>
+                        <div class="feature-item" onclick="selectFeature('relaxed pose')">Relaxed</div>
+                        <div class="feature-item" onclick="selectFeature('dynamic pose')">Dynamic</div>
+                        <div class="feature-item" onclick="selectFeature('elegant pose')">Elegant</div>
+                    </div>
+                </div>
+
+                <!-- Hand Positions -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Hand Positions</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('hands on hips')">On Hips</div>
+                        <div class="feature-item" onclick="selectFeature('crossed arms')">Crossed Arms</div>
+                        <div class="feature-item" onclick="selectFeature('hands behind back')">Behind Back</div>
+                        <div class="feature-item" onclick="selectFeature('hands in pockets')">In Pockets</div>
+                        <div class="feature-item" onclick="selectFeature('touching face')">Touching Face</div>
+                        <div class="feature-item" onclick="selectFeature('hands in hair')">In Hair</div>
+                        <div class="feature-item" onclick="selectFeature('gesturing hands')">Gesturing</div>
+                        <div class="feature-item" onclick="selectFeature('pointing gesture')">Pointing</div>
+                        <div class="feature-item" onclick="selectFeature('peace sign')">Peace Sign</div>
+                        <div class="feature-item" onclick="selectFeature('thumbs up')">Thumbs Up</div>
+                        <div class="feature-item" onclick="selectFeature('waving hand')">Waving</div>
+                        <div class="feature-item" onclick="selectFeature('clasped hands')">Clasped</div>
+                        <div class="feature-item" onclick="selectFeature('open palms')">Open Palms</div>
+                        <div class="feature-item" onclick="selectFeature('fists')">Fists</div>
+                        <div class="feature-item" onclick="selectFeature('relaxed hands')">Relaxed</div>
+                        <div class="feature-item" onclick="selectFeature('expressive hands')">Expressive</div>
+                    </div>
+                </div>
+
+                <!-- Head Positions -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Head Positions</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('head tilted')">Tilted</div>
+                        <div class="feature-item" onclick="selectFeature('head straight')">Straight</div>
+                        <div class="feature-item" onclick="selectFeature('looking up')">Looking Up</div>
+                        <div class="feature-item" onclick="selectFeature('looking down')">Looking Down</div>
+                        <div class="feature-item" onclick="selectFeature('looking away')">Looking Away</div>
+                        <div class="feature-item" onclick="selectFeature('looking over shoulder')">Over Shoulder</div>
+                        <div class="feature-item" onclick="selectFeature('profile view')">Profile</div>
+                        <div class="feature-item" onclick="selectFeature('three-quarter view')">Three-quarter</div>
+                        <div class="feature-item" onclick="selectFeature('front view')">Front View</div>
+                        <div class="feature-item" onclick="selectFeature('side view')">Side View</div>
+                        <div class="feature-item" onclick="selectFeature('chin up')">Chin Up</div>
+                        <div class="feature-item" onclick="selectFeature('chin down')">Chin Down</div>
+                        <div class="feature-item" onclick="selectFeature('head back')">Head Back</div>
+                        <div class="feature-item" onclick="selectFeature('head forward')">Head Forward</div>
+                        <div class="feature-item" onclick="selectFeature('confident posture')">Confident</div>
+                        <div class="feature-item" onclick="selectFeature('shy posture')">Shy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Environments & Backgrounds Section -->
+        <div class="category-section" id="environments">
+            <div class="category-header" onclick="toggleCategory('environments')">
+                <h2 class="category-title">🌍 Environments & Backgrounds</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Indoor Settings -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Indoor Settings</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('bedroom setting')">Bedroom</div>
+                        <div class="feature-item" onclick="selectFeature('living room setting')">Living Room</div>
+                        <div class="feature-item" onclick="selectFeature('kitchen setting')">Kitchen</div>
+                        <div class="feature-item" onclick="selectFeature('bathroom setting')">Bathroom</div>
+                        <div class="feature-item" onclick="selectFeature('office setting')">Office</div>
+                        <div class="feature-item" onclick="selectFeature('studio setting')">Studio</div>
+                        <div class="feature-item" onclick="selectFeature('gym setting')">Gym</div>
+                        <div class="feature-item" onclick="selectFeature('library setting')">Library</div>
+                        <div class="feature-item" onclick="selectFeature('cafe setting')">Cafe</div>
+                        <div class="feature-item" onclick="selectFeature('restaurant setting')">Restaurant</div>
+                        <div class="feature-item" onclick="selectFeature('hotel room setting')">Hotel Room</div>
+                        <div class="feature-item" onclick="selectFeature('dressing room setting')">Dressing Room</div>
+                        <div class="feature-item" onclick="selectFeature('closet setting')">Closet</div>
+                        <div class="feature-item" onclick="selectFeature('hallway setting')">Hallway</div>
+                        <div class="feature-item" onclick="selectFeature('staircase setting')">Staircase</div>
+                        <div class="feature-item" onclick="selectFeature('balcony setting')">Balcony</div>
+                    </div>
+                </div>
+
+                <!-- Outdoor Settings -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Outdoor Settings</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('beach setting')">Beach</div>
+                        <div class="feature-item" onclick="selectFeature('city street setting')">City Street</div>
+                        <div class="feature-item" onclick="selectFeature('park setting')">Park</div>
+                        <div class="feature-item" onclick="selectFeature('forest setting')">Forest</div>
+                        <div class="feature-item" onclick="selectFeature('mountain setting')">Mountain</div>
+                        <div class="feature-item" onclick="selectFeature('desert setting')">Desert</div>
+                        <div class="feature-item" onclick="selectFeature('garden setting')">Garden</div>
+                        <div class="feature-item" onclick="selectFeature('rooftop setting')">Rooftop</div>
+                        <div class="feature-item" onclick="selectFeature('bridge setting')">Bridge</div>
+                        <div class="feature-item" onclick="selectFeature('pier setting')">Pier</div>
+                        <div class="feature-item" onclick="selectFeature('field setting')">Field</div>
+                        <div class="feature-item" onclick="selectFeature('meadow setting')">Meadow</div>
+                        <div class="feature-item" onclick="selectFeature('lake setting')">Lake</div>
+                        <div class="feature-item" onclick="selectFeature('river setting')">River</div>
+                        <div class="feature-item" onclick="selectFeature('waterfall setting')">Waterfall</div>
+                        <div class="feature-item" onclick="selectFeature('cliff setting')">Cliff</div>
+                    </div>
+                </div>
+
+                <!-- Urban Environments -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Urban Environments</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('downtown setting')">Downtown</div>
+                        <div class="feature-item" onclick="selectFeature('alley setting')">Alley</div>
+                        <div class="feature-item" onclick="selectFeature('subway setting')">Subway</div>
+                        <div class="feature-item" onclick="selectFeature('parking garage setting')">Parking Garage</div>
+                        <div class="feature-item" onclick="selectFeature('shopping mall setting')">Shopping Mall</div>
+                        <div class="feature-item" onclick="selectFeature('airport setting')">Airport</div>
+                        <div class="feature-item" onclick="selectFeature('train station setting')">Train Station</div>
+                        <div class="feature-item" onclick="selectFeature('bus stop setting')">Bus Stop</div>
+                        <div class="feature-item" onclick="selectFeature('crosswalk setting')">Crosswalk</div>
+                        <div class="feature-item" onclick="selectFeature('plaza setting')">Plaza</div>
+                        <div class="feature-item" onclick="selectFeature('courtyard setting')">Courtyard</div>
+                        <div class="feature-item" onclick="selectFeature('fire escape setting')">Fire Escape</div>
+                        <div class="feature-item" onclick="selectFeature('construction site setting')">Construction Site</div>
+                        <div class="feature-item" onclick="selectFeature('warehouse setting')">Warehouse</div>
+                        <div class="feature-item" onclick="selectFeature('factory setting')">Factory</div>
+                        <div class="feature-item" onclick="selectFeature('loft setting')">Loft</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lighting & Atmospherics Section -->
+        <div class="category-section" id="lighting">
+            <div class="category-header" onclick="toggleCategory('lighting')">
+                <h2 class="category-title">💡 Lighting & Atmospherics</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Natural Light -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Natural Light</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('morning light')">Morning</div>
+                        <div class="feature-item" onclick="selectFeature('noon light')">Noon</div>
+                        <div class="feature-item" onclick="selectFeature('golden hour light')">Golden Hour</div>
+                        <div class="feature-item" onclick="selectFeature('twilight light')">Twilight</div>
+                        <div class="feature-item" onclick="selectFeature('night light')">Night</div>
+                        <div class="feature-item" onclick="selectFeature('overcast light')">Overcast</div>
+                        <div class="feature-item" onclick="selectFeature('bright sunlight')">Bright Sunlight</div>
+                        <div class="feature-item" onclick="selectFeature('soft sunlight')">Soft Sunlight</div>
+                        <div class="feature-item" onclick="selectFeature('dappled light')">Dappled</div>
+                        <div class="feature-item" onclick="selectFeature('backlighting')">Backlighting</div>
+                        <div class="feature-item" onclick="selectFeature('side lighting')">Side Lighting</div>
+                        <div class="feature-item" onclick="selectFeature('window light')">Window Light</div>
+                        <div class="feature-item" onclick="selectFeature('skylight')">Skylight</div>
+                        <div class="feature-item" onclick="selectFeature('moonlight')">Moonlight</div>
+                        <div class="feature-item" onclick="selectFeature('starlight')">Starlight</div>
+                        <div class="feature-item" onclick="selectFeature('sunset light')">Sunset</div>
+                    </div>
+                </div>
+
+                <!-- Artificial Light -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Artificial Light</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('fluorescent light')">Fluorescent</div>
+                        <div class="feature-item" onclick="selectFeature('neon light')">Neon</div>
+                        <div class="feature-item" onclick="selectFeature('candlelight')">Candlelight</div>
+                        <div class="feature-item" onclick="selectFeature('led panels')">LED Panels</div>
+                        <div class="feature-item" onclick="selectFeature('club lighting')">Club Lighting</div>
+                        <div class="feature-item" onclick="selectFeature('stage lighting')">Stage Lighting</div>
+                        <div class="feature-item" onclick="selectFeature('studio lighting')">Studio Lighting</div>
+                        <div class="feature-item" onclick="selectFeature('ring light')">Ring Light</div>
+                        <div class="feature-item" onclick="selectFeature('softbox lighting')">Softbox</div>
+                        <div class="feature-item" onclick="selectFeature('spotlight')">Spotlight</div>
+                        <div class="feature-item" onclick="selectFeature('street light')">Street Light</div>
+                        <div class="feature-item" onclick="selectFeature('car headlights')">Car Headlights</div>
+                        <div class="feature-item" onclick="selectFeature('firelight')">Firelight</div>
+                        <div class="feature-item" onclick="selectFeature('lamp light')">Lamp Light</div>
+                        <div class="feature-item" onclick="selectFeature('colored lighting')">Colored Lighting</div>
+                        <div class="feature-item" onclick="selectFeature('strobe light')">Strobe Light</div>
+                    </div>
+                </div>
+
+                <!-- Atmospheric Effects -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Atmospheric Effects</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('fog atmosphere')">Fog</div>
+                        <div class="feature-item" onclick="selectFeature('haze atmosphere')">Haze</div>
+                        <div class="feature-item" onclick="selectFeature('smoke atmosphere')">Smoke</div>
+                        <div class="feature-item" onclick="selectFeature('dust atmosphere')">Dust</div>
+                        <div class="feature-item" onclick="selectFeature('light shafts')">Light Shafts</div>
+                        <div class="feature-item" onclick="selectFeature('god rays')">God Rays</div>
+                        <div class="feature-item" onclick="selectFeature('lens flare')">Lens Flare</div>
+                        <div class="feature-item" onclick="selectFeature('bokeh effect')">Bokeh</div>
+                        <div class="feature-item" onclick="selectFeature('rain atmosphere')">Rain</div>
+                        <div class="feature-item" onclick="selectFeature('snow atmosphere')">Snow</div>
+                        <div class="feature-item" onclick="selectFeature('mist atmosphere')">Mist</div>
+                        <div class="feature-item" onclick="selectFeature('steam atmosphere')">Steam</div>
+                        <div class="feature-item" onclick="selectFeature('sparkles atmosphere')">Sparkles</div>
+                        <div class="feature-item" onclick="selectFeature('glitter atmosphere')">Glitter</div>
+                        <div class="feature-item" onclick="selectFeature('particles atmosphere')">Particles</div>
+                        <div class="feature-item" onclick="selectFeature('dreamy atmosphere')">Dreamy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Materials & Textures Section -->
+        <div class="category-section" id="materials">
+            <div class="category-header" onclick="toggleCategory('materials')">
+                <h2 class="category-title">🎨 Materials & Textures</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Skin Finishes -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Skin Finishes</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('matte skin')">Matte</div>
+                        <div class="feature-item" onclick="selectFeature('dewy skin')">Dewy</div>
+                        <div class="feature-item" onclick="selectFeature('oily skin')">Oily</div>
+                        <div class="feature-item" onclick="selectFeature('powdery skin')">Powdery</div>
+                        <div class="feature-item" onclick="selectFeature('translucent skin')">Translucent</div>
+                        <div class="feature-item" onclick="selectFeature('glowing skin')">Glowing</div>
+                        <div class="feature-item" onclick="selectFeature('radiant skin')">Radiant</div>
+                        <div class="feature-item" onclick="selectFeature('luminous skin')">Luminous</div>
+                        <div class="feature-item" onclick="selectFeature('porcelain skin')">Porcelain</div>
+                        <div class="feature-item" onclick="selectFeature('silky skin')">Silky</div>
+                        <div class="feature-item" onclick="selectFeature('smooth skin')">Smooth</div>
+                        <div class="feature-item" onclick="selectFeature('textured skin')">Textured</div>
+                        <div class="feature-item" onclick="selectFeature('flawless skin')">Flawless</div>
+                        <div class="feature-item" onclick="selectFeature('natural skin')">Natural</div>
+                        <div class="feature-item" onclick="selectFeature('healthy skin')">Healthy</div>
+                        <div class="feature-item" onclick="selectFeature('sun-kissed skin')">Sun-kissed</div>
+                    </div>
+                </div>
+
+                <!-- Fabric Types -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Fabric Types</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('silk fabric')">Silk</div>
+                        <div class="feature-item" onclick="selectFeature('leather fabric')">Leather</div>
+                        <div class="feature-item" onclick="selectFeature('denim fabric')">Denim</div>
+                        <div class="feature-item" onclick="selectFeature('lace fabric')">Lace</div>
+                        <div class="feature-item" onclick="selectFeature('latex fabric')">Latex</div>
+                        <div class="feature-item" onclick="selectFeature('fur fabric')">Fur</div>
+                        <div class="feature-item" onclick="selectFeature('mesh fabric')">Mesh</div>
+                        <div class="feature-item" onclick="selectFeature('cotton fabric')">Cotton</div>
+                        <div class="feature-item" onclick="selectFeature('linen fabric')">Linen</div>
+                        <div class="feature-item" onclick="selectFeature('wool fabric')">Wool</div>
+                        <div class="feature-item" onclick="selectFeature('cashmere fabric')">Cashmere</div>
+                        <div class="feature-item" onclick="selectFeature('velvet fabric')">Velvet</div>
+                        <div class="feature-item" onclick="selectFeature('satin fabric')">Satin</div>
+                        <div class="feature-item" onclick="selectFeature('chiffon fabric')">Chiffon</div>
+                        <div class="feature-item" onclick="selectFeature('tulle fabric')">Tulle</div>
+                        <div class="feature-item" onclick="selectFeature('sequin fabric')">Sequin</div>
+                    </div>
+                </div>
+
+                <!-- Surface Details -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Surface Details</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('metallic surface')">Metallic</div>
+                        <div class="feature-item" onclick="selectFeature('rough surface')">Rough</div>
+                        <div class="feature-item" onclick="selectFeature('glossy surface')">Glossy</div>
+                        <div class="feature-item" onclick="selectFeature('reflective surface')">Reflective</div>
+                        <div class="feature-item" onclick="selectFeature('velvet surface')">Velvet</div>
+                        <div class="feature-item" onclick="selectFeature('chrome surface')">Chrome</div>
+                        <div class="feature-item" onclick="selectFeature('brushed metal')">Brushed Metal</div>
+                        <div class="feature-item" onclick="selectFeature('polished surface')">Polished</div>
+                        <div class="feature-item" onclick="selectFeature('textured surface')">Textured</div>
+                        <div class="feature-item" onclick="selectFeature('embossed surface')">Embossed</div>
+                        <div class="feature-item" onclick="selectFeature('carved surface')">Carved</div>
+                        <div class="feature-item" onclick="selectFeature('etched surface')">Etched</div>
+                        <div class="feature-item" onclick="selectFeature('woven surface')">Woven</div>
+                        <div class="feature-item" onclick="selectFeature('knitted surface')">Knitted</div>
+                        <div class="feature-item" onclick="selectFeature('quilted surface')">Quilted</div>
+                        <div class="feature-item" onclick="selectFeature('pleated surface')">Pleated</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Props & Accessories Section -->
+        <div class="category-section" id="props">
+            <div class="category-header" onclick="toggleCategory('props')">
+                <h2 class="category-title">🎭 Props & Accessories</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Handheld Props -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Handheld Props</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('smartphone prop')">Smartphone</div>
+                        <div class="feature-item" onclick="selectFeature('book prop')">Book</div>
+                        <div class="feature-item" onclick="selectFeature('coffee cup prop')">Coffee Cup</div>
+                        <div class="feature-item" onclick="selectFeature('wine glass prop')">Wine Glass</div>
+                        <div class="feature-item" onclick="selectFeature('camera prop')">Camera</div>
+                        <div class="feature-item" onclick="selectFeature('mirror prop')">Mirror</div>
+                        <div class="feature-item" onclick="selectFeature('makeup brush prop')">Makeup Brush</div>
+                        <div class="feature-item" onclick="selectFeature('lipstick prop')">Lipstick</div>
+                        <div class="feature-item" onclick="selectFeature('perfume bottle prop')">Perfume</div>
+                        <div class="feature-item" onclick="selectFeature('flower prop')">Flower</div>
+                        <div class="feature-item" onclick="selectFeature('rose prop')">Rose</div>
+                        <div class="feature-item" onclick="selectFeature('bouquet prop')">Bouquet</div>
+                        <div class="feature-item" onclick="selectFeature('umbrella prop')">Umbrella</div>
+                        <div class="feature-item" onclick="selectFeature('fan prop')">Fan</div>
+                        <div class="feature-item" onclick="selectFeature('scarf prop')">Scarf</div>
+                        <div class="feature-item" onclick="selectFeature('hat prop')">Hat</div>
+                    </div>
+                </div>
+
+                <!-- Jewelry -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Jewelry</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('diamond necklace')">Diamond Necklace</div>
+                        <div class="feature-item" onclick="selectFeature('pearl necklace')">Pearl Necklace</div>
+                        <div class="feature-item" onclick="selectFeature('gold chain')">Gold Chain</div>
+                        <div class="feature-item" onclick="selectFeature('silver chain')">Silver Chain</div>
+                        <div class="feature-item" onclick="selectFeature('choker necklace')">Choker</div>
+                        <div class="feature-item" onclick="selectFeature('pendant necklace')">Pendant</div>
+                        <div class="feature-item" onclick="selectFeature('stud earrings')">Stud Earrings</div>
+                        <div class="feature-item" onclick="selectFeature('hoop earrings')">Hoop Earrings</div>
+                        <div class="feature-item" onclick="selectFeature('drop earrings')">Drop Earrings</div>
+                        <div class="feature-item" onclick="selectFeature('chandelier earrings')">Chandelier</div>
+                        <div class="feature-item" onclick="selectFeature('diamond ring')">Diamond Ring</div>
+                        <div class="feature-item" onclick="selectFeature('wedding ring')">Wedding Ring</div>
+                        <div class="feature-item" onclick="selectFeature('cocktail ring')">Cocktail Ring</div>
+                        <div class="feature-item" onclick="selectFeature('tennis bracelet')">Tennis Bracelet</div>
+                        <div class="feature-item" onclick="selectFeature('charm bracelet')">Charm Bracelet</div>
+                        <div class="feature-item" onclick="selectFeature('watch')">Watch</div>
+                    </div>
+                </div>
+
+                <!-- Tech Props -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Tech Props</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('laptop prop')">Laptop</div>
+                        <div class="feature-item" onclick="selectFeature('tablet prop')">Tablet</div>
+                        <div class="feature-item" onclick="selectFeature('headphones prop')">Headphones</div>
+                        <div class="feature-item" onclick="selectFeature('earbuds prop')">Earbuds</div>
+                        <div class="feature-item" onclick="selectFeature('vr headset prop')">VR Headset</div>
+                        <div class="feature-item" onclick="selectFeature('drone prop')">Drone</div>
+                        <div class="feature-item" onclick="selectFeature('gaming controller prop')">Gaming Controller</div>
+                        <div class="feature-item" onclick="selectFeature('microphone prop')">Microphone</div>
+                        <div class="feature-item" onclick="selectFeature('speaker prop')">Speaker</div>
+                        <div class="feature-item" onclick="selectFeature('keyboard prop')">Keyboard</div>
+                        <div class="feature-item" onclick="selectFeature('mouse prop')">Mouse</div>
+                        <div class="feature-item" onclick="selectFeature('smartwatch prop')">Smartwatch</div>
+                        <div class="feature-item" onclick="selectFeature('fitness tracker prop')">Fitness Tracker</div>
+                        <div class="feature-item" onclick="selectFeature('power bank prop')">Power Bank</div>
+                        <div class="feature-item" onclick="selectFeature('cable prop')">Cable</div>
+                        <div class="feature-item" onclick="selectFeature('charger prop')">Charger</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Artistic Styles Section -->
+        <div class="category-section" id="artistic">
+            <div class="category-header" onclick="toggleCategory('artistic')">
+                <h2 class="category-title">🎨 Artistic Styles</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Art Mediums -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Art Mediums</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('digital painting')">Digital Painting</div>
+                        <div class="feature-item" onclick="selectFeature('watercolor style')">Watercolor</div>
+                        <div class="feature-item" onclick="selectFeature('oil painting style')">Oil Painting</div>
+                        <div class="feature-item" onclick="selectFeature('acrylic painting')">Acrylic</div>
+                        <div class="feature-item" onclick="selectFeature('charcoal drawing')">Charcoal</div>
+                        <div class="feature-item" onclick="selectFeature('pencil sketch')">Pencil Sketch</div>
+                        <div class="feature-item" onclick="selectFeature('ink drawing')">Ink Drawing</div>
+                        <div class="feature-item" onclick="selectFeature('pastel art')">Pastel</div>
+                        <div class="feature-item" onclick="selectFeature('pixel art style')">Pixel Art</div>
+                        <div class="feature-item" onclick="selectFeature('vector art')">Vector Art</div>
+                        <div class="feature-item" onclick="selectFeature('collage style')">Collage</div>
+                        <div class="feature-item" onclick="selectFeature('mixed media')">Mixed Media</div>
+                        <div class="feature-item" onclick="selectFeature('gouache painting')">Gouache</div>
+                        <div class="feature-item" onclick="selectFeature('tempera painting')">Tempera</div>
+                        <div class="feature-item" onclick="selectFeature('fresco style')">Fresco</div>
+                        <div class="feature-item" onclick="selectFeature('airbrush art')">Airbrush</div>
+                    </div>
+                </div>
+
+                <!-- Visual Styles -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Visual Styles</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('cinematic realism')">Cinematic Realism</div>
+                        <div class="feature-item" onclick="selectFeature('hyperrealism style')">Hyperrealism</div>
+                        <div class="feature-item" onclick="selectFeature('anime style')">Anime</div>
+                        <div class="feature-item" onclick="selectFeature('manga style')">Manga</div>
+                        <div class="feature-item" onclick="selectFeature('cartoon style')">Cartoon</div>
+                        <div class="feature-item" onclick="selectFeature('line art style')">Line Art</div>
+                        <div class="feature-item" onclick="selectFeature('surrealism style')">Surrealism</div>
+                        <div class="feature-item" onclick="selectFeature('abstract style')">Abstract</div>
+                        <div class="feature-item" onclick="selectFeature('impressionist style')">Impressionist</div>
+                        <div class="feature-item" onclick="selectFeature('expressionist style')">Expressionist</div>
+                        <div class="feature-item" onclick="selectFeature('cubist style')">Cubist</div>
+                        <div class="feature-item" onclick="selectFeature('pop art style')">Pop Art</div>
+                        <div class="feature-item" onclick="selectFeature('art nouveau style')">Art Nouveau</div>
+                        <div class="feature-item" onclick="selectFeature('art deco style')">Art Deco</div>
+                        <div class="feature-item" onclick="selectFeature('minimalist style')">Minimalist</div>
+                        <div class="feature-item" onclick="selectFeature('maximalist style')">Maximalist</div>
+                    </div>
+                </div>
+
+                <!-- Aesthetic Styles -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Aesthetic Styles</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('vaporwave aesthetic')">Vaporwave</div>
+                        <div class="feature-item" onclick="selectFeature('synthwave aesthetic')">Synthwave</div>
+                        <div class="feature-item" onclick="selectFeature('cyberpunk aesthetic')">Cyberpunk</div>
+                        <div class="feature-item" onclick="selectFeature('steampunk aesthetic')">Steampunk</div>
+                        <div class="feature-item" onclick="selectFeature('gothic aesthetic')">Gothic</div>
+                        <div class="feature-item" onclick="selectFeature('baroque aesthetic')">Baroque</div>
+                        <div class="feature-item" onclick="selectFeature('rococo aesthetic')">Rococo</div>
+                        <div class="feature-item" onclick="selectFeature('victorian aesthetic')">Victorian</div>
+                        <div class="feature-item" onclick="selectFeature('art deco aesthetic')">Art Deco</div>
+                        <div class="feature-item" onclick="selectFeature('mid-century modern')">Mid-century Modern</div>
+                        <div class="feature-item" onclick="selectFeature('brutalist aesthetic')">Brutalist</div>
+                        <div class="feature-item" onclick="selectFeature('bauhaus aesthetic')">Bauhaus</div>
+                        <div class="feature-item" onclick="selectFeature('memphis aesthetic')">Memphis</div>
+                        <div class="feature-item" onclick="selectFeature('y2k aesthetic')">Y2K</div>
+                        <div class="feature-item" onclick="selectFeature('cottagecore aesthetic')">Cottagecore</div>
+                        <div class="feature-item" onclick="selectFeature('dark academia aesthetic')">Dark Academia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Narrative & Context Section -->
+        <div class="category-section" id="narrative">
+            <div class="category-header" onclick="toggleCategory('narrative')">
+                <h2 class="category-title">📖 Narrative & Context</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content active">
+                <!-- Scene Context -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Scene Context</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('romantic scene')">Romance</div>
+                        <div class="feature-item" onclick="selectFeature('mysterious scene')">Mystery</div>
+                        <div class="feature-item" onclick="selectFeature('dramatic scene')">Drama</div>
+                        <div class="feature-item" onclick="selectFeature('action scene')">Action</div>
+                        <div class="feature-item" onclick="selectFeature('peaceful scene')">Peace</div>
+                        <div class="feature-item" onclick="selectFeature('confrontation scene')">Confrontation</div>
+                        <div class="feature-item" onclick="selectFeature('celebration scene')">Celebration</div>
+                        <div class="feature-item" onclick="selectFeature('solitude scene')">Solitude</div>
+                        <div class="feature-item" onclick="selectFeature('adventure scene')">Adventure</div>
+                        <div class="feature-item" onclick="selectFeature('fantasy scene')">Fantasy</div>
+                        <div class="feature-item" onclick="selectFeature('sci-fi scene')">Sci-fi</div>
+                        <div class="feature-item" onclick="selectFeature('horror scene')">Horror</div>
+                        <div class="feature-item" onclick="selectFeature('comedy scene')">Comedy</div>
+                        <div class="feature-item" onclick="selectFeature('thriller scene')">Thriller</div>
+                        <div class="feature-item" onclick="selectFeature('historical scene')">Historical</div>
+                        <div class="feature-item" onclick="selectFeature('futuristic scene')">Futuristic</div>
+                    </div>
+                </div>
+
+                <!-- Emotional Tone -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Emotional Tone</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('melancholic mood')">Melancholic</div>
+                        <div class="feature-item" onclick="selectFeature('euphoric mood')">Euphoric</div>
+                        <div class="feature-item" onclick="selectFeature('serene mood')">Serene</div>
+                        <div class="feature-item" onclick="selectFeature('chaotic mood')">Chaotic</div>
+                        <div class="feature-item" onclick="selectFeature('dramatic mood')">Dramatic</div>
+                        <div class="feature-item" onclick="selectFeature('nostalgic mood')">Nostalgic</div>
+                        <div class="feature-item" onclick="selectFeature('hopeful mood')">Hopeful</div>
+                        <div class="feature-item" onclick="selectFeature('mysterious mood')">Mysterious</div>
+                        <div class="feature-item" onclick="selectFeature('energetic mood')">Energetic</div>
+                        <div class="feature-item" onclick="selectFeature('calm mood')">Calm</div>
+                        <div class="feature-item" onclick="selectFeature('intense mood')">Intense</div>
+                        <div class="feature-item" onclick="selectFeature('playful mood')">Playful</div>
+                        <div class="feature-item" onclick="selectFeature('serious mood')">Serious</div>
+                        <div class="feature-item" onclick="selectFeature('whimsical mood')">Whimsical</div>
+                        <div class="feature-item" onclick="selectFeature('brooding mood')">Brooding</div>
+                        <div class="feature-item" onclick="selectFeature('uplifting mood')">Uplifting</div>
+                    </div>
+                </div>
+
+                <!-- Character Archetypes -->
+                <div class="subcategory">
+                    <div class="subcategory-title">Character Archetypes</div>
+                    <div class="feature-grid">
+                        <div class="feature-item" onclick="selectFeature('hero archetype')">Hero</div>
+                        <div class="feature-item" onclick="selectFeature('villain archetype')">Villain</div>
+                        <div class="feature-item" onclick="selectFeature('mentor archetype')">Mentor</div>
+                        <div class="feature-item" onclick="selectFeature('rebel archetype')">Rebel</div>
+                        <div class="feature-item" onclick="selectFeature('innocent archetype')">Innocent</div>
+                        <div class="feature-item" onclick="selectFeature('explorer archetype')">Explorer</div>
+                        <div class="feature-item" onclick="selectFeature('creator archetype')">Creator</div>
+                        <div class="feature-item" onclick="selectFeature('ruler archetype')">Ruler</div>
+                        <div class="feature-item" onclick="selectFeature('magician archetype')">Magician</div>
+                        <div class="feature-item" onclick="selectFeature('lover archetype')">Lover</div>
+                        <div class="feature-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98bde4cad5002e60',t:'MTc2MDAxMzA3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
